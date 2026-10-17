@@ -1,12 +1,12 @@
 ---
 name: audio_plan
-description: "Plan 3 of 8: playing the story's three audio layers (voice, background, decision) through pygame's mixer, finding each MP3 by its story name, seeking, pausing and volume. Status: planned, questions open."
+description: "Plan 3 of 8: playing the story's three audio layers (voice, background, decision) through pygame's mixer, finding each MP3 by its story name, seeking, pausing, the decision loop, background crossfades and three volumes. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built.
+**Status: planned, ready to build.** Every question is answered; nothing is built.
 
 Plan 3 of 8 ([[story_export_plan]] lists the order). It stands on [[foundation_plan]] and serves [[story_engine_plan]].
 
@@ -41,6 +41,13 @@ The 10 files in `other/misc/` no state names (`00000Push`, `1930Radio A` to `D`,
   - a state with a voice but no background fades the background out
   - a state that plays nothing at all, such as one that only sets story flags, leaves the background running
 
+- **Three volumes, each from 0 to 100% in steps of 10** (the dev, 2026-10-17: "Home/end should be for master volume, and then page up/down for ambience volume", then "Shift page up/down. For master, do shift home/end"):
+  - **Shift with Home and End:** the master volume, everything together. The voice follows it, so it stays the loudest thing the player controls.
+  - **Page Up and Page Down:** the ambience, the `back_*` backgrounds.
+  - **Shift with Page Up and Page Down:** the decision loop, the `decision_*` sounds.
+  - Each press says the new level, such as "Ambience 60 percent", and the game remembers all three ([[saves_plan]]).
+  - Plain Home and End stay free, so in menus they jump to the first and last row.
+
 ## Open questions
 
-- The volume keys: one overall volume, or separate ones for voice, background and decision.
+None. Ready to build once the dev says so.

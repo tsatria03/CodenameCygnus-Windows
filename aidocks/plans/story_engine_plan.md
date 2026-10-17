@@ -31,7 +31,7 @@ Agreed on 2026-10-17 (the dev: "I like all of it"). They follow the original's g
 - **V** turns speech recognition on or off, like the original's voice button ([[project_speech_recognition]]).
 - **Escape** opens the pause menu: Resume, Restart episode and Return to menu.
 - **F1** opens the key bindings screen.
-- **Page Up and Page Down** set the volume; the details are in [[audio_plan]].
+- **Shift with Home and End** set the master volume, **Page Up and Page Down** the ambience, and **Shift with Page Up and Page Down** the decision loop ([[audio_plan]]).
 
 **In debug mode only** ([[foundation_plan]]): skip the current recording whether heard or not, jump to any state by name, and hear the trait scores and story flags. Their keys are still to be chosen.
 
