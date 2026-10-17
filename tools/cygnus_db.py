@@ -84,6 +84,47 @@ def _clean_states(story):
     return story
 
 
+def read_everything():
+    """Return the story, the missions and the resources from a temporary copy of the database.
+
+    The result is a dictionary:
+    - "versions": the missions, resources and states version numbers
+    - "story": {"general", "states", "transitions"}, as in the bundled states_descriptor.json
+    - "episodes": a list in mission_descriptor.json's own key names, sorted by episode_id,
+      each with its "mission_id" and its "resource_names"
+    - "missions": [{"mission_id", "description"}], sorted by mission_id
+    - "company_credits": [{"title", "credit"}], the credits that belong to no episode
+    - "resources": [{"version", "name", "files", "episode_id"}], sorted by name
+    """
+    story, episodes, versions = read_all()
+    folder = tempfile.mkdtemp(prefix="cygnus_db_")
+    try:
+        db = _connect(folder)
+        try:
+            missions = [{"mission_id": mid, "description": (text or "").strip()} for mid, text in db.execute(
+                "select ZMISSIONID, ZMISSIONDESCRIPTION from ZCCMISSION order by ZMISSIONID")]
+            company = [{"title": text or "", "credit": person or ""} for person, text in db.execute(
+                "select ZCREDITPERSON, ZCREDITTEXT from ZCCCREDIT where ZEPISODE is null order by ZORDER")]
+            resources = []
+            for pk, name, version, eid in db.execute(
+                    "select c.Z_PK, c.ZNAME, c.ZVERSION, e.ZEPISODEID from ZCCRESOURCECOLLECTION c"
+                    " left join ZCCEPISODE e on c.ZEPISODE = e.Z_PK order by c.ZNAME").fetchall():
+                files = sorted(f for (f,) in db.execute(
+                    "select ZRESOURCENAME from ZCCRESOURCE where ZRESOURCECOLLECTION = ?", (pk,)))
+                # Each collection's own version; the database left them all empty, and the bundled
+                # file gives every collection version 1.
+                resources.append({"version": version if version is not None else 1,
+                                  "name": name, "files": files, "episode_id": eid or ""})
+        finally:
+            db.close()
+    finally:
+        shutil.rmtree(folder, ignore_errors=True)
+    for e in episodes:
+        e["resource_names"] = [r["name"] for r in resources if r["episode_id"] == e["episode_id"]]
+    return {"versions": versions, "story": story, "episodes": episodes, "missions": missions,
+            "company_credits": company, "resources": resources}
+
+
 def read_all():
     """Return (story, episodes, version numbers) from a temporary copy of the database.
 
