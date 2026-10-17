@@ -38,7 +38,7 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
 - **The main menu has six rows** (the dev, 2026-10-17: "I like it"), the original's side menu without its online parts:
   1. **Continue,** only while an episode is in progress, naming it, such as "Continue Art Show". Enter picks up where the player left off ([[saves_plan]]). It comes first, so one Enter after starting gets back into the story.
   2. **Episodes:** Mission 1's episodes in order, each read with its number, title and state, such as "Episode 2, Art Show, locked". An open episode offers Start, or Restart once finished, and "Preview next", the teaser of the following episode. A locked one says "You need to complete the previous episode before starting this one", as the original did. Escape goes back.
-  3. **Agent profile:** the original's Profile screen, the agent's name, the dominant trait, furthest episode, episodes completed, game progress and the four trait scales, plus the achievements, each earned or not with its description ([[story_engine_plan]]).
+  3. **Agent profile:** the original's Profile screen without its agent name, so the dominant trait, furthest episode, episodes completed, game progress and the four trait scales, plus the achievements, each earned or not with its description ([[story_engine_plan]]).
   4. **Settings:** speech recognition on or off, the three volumes, the Debug mode row when running from source ([[foundation_plan]]), and the key bindings screen, F1 from anywhere.
   5. **Credits:** Reactive Studios' company credits, as on the original's Info screen, and a line for the port. Each episode's own credits play at the end of that episode, as in the original.
   6. **Quit** closes the game, as Escape on the main menu does.
@@ -48,10 +48,11 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   2. The first time only, the headphones notice: "Headphones recommended. The acoustic experience of Codename Cygnus is best with the use of a high quality headset." Enter continues, and the game remembers it has been shown, as the original's `kHeadphonesKey` did ([[saves_plan]]).
   3. Then the main menu.
 
+- **No agent name** (the dev, 2026-10-17: "What's the point of customizing the name? I recommend keeping it as agent"). The original's name belonged to the player's online account, checked by its server ("Please try again with different name"), and the story never uses it: the recordings always say "Agent". So the profile has no name row, and the player is simply "Agent".
+
 ## Open questions
 
 - The episode list's exact rows and wording.
-- The agent name: whether players set one, and what it is for.
 - How the trait scales and the dominant trait are spoken.
 - The end-of-episode screen and the preview.
 - The pause menu's rows.
