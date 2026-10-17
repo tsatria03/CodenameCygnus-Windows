@@ -1,12 +1,12 @@
 ---
 name: story_export_plan
-description: "Plan 1 of 8: a tool that decodes the newest story (v53), mission (v18) and resource (v11) data from the original's database once, and writes plain JSON for the game to read, after checking it. Status: planned, ready to build."
+description: "Plan 1 of 8: a tool that decodes the newest story (v53), mission (v18) and resource (v11) data from the original's database once, and writes plain JSON for the game to read, after checking it. Status: built, not yet confirmed."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, ready to build.** Every question is answered; nothing is built.
+**Status: built, not yet confirmed by the dev.** Built 2026-10-17 as `tools/export_story.py` (the dev: "I'm ready for the first one"), with `tools/cygnus_db.py` reading the resources too. Its first run passed every check on the dev's machine: 968 states (the van escape state split in two), 1089 transitions, all 8 episodes reaching their ends, and all 812 recordings found in the dev's new layout, the two cut states noted. It wrote `missions.json` (24 KB), `resources.json` (30 KB) and `states.json` (868 KB), and the database was unchanged. Each check was also shown to catch its fault, on broken copies in memory: the van state without the fix, a link to no state, a missing recording, an episode cut off from its end, and an unreadable condition. `python tools/export_story.py --check` checks without writing.
 
 This is the first of eight plans, written before any porting starts (the dev, 2026-10-17: "Let's write some plans first, and I'll answer any questions you may have before we start the actual porting process"). The order:
 1. story export (this plan)

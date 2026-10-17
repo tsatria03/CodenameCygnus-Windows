@@ -94,8 +94,13 @@ included. The port will never write to it.
   - `resource_descriptor.json`: which recordings each episode needs.
   - `states_descriptor.json`: the story itself, in its older version 1.
 - `game/CodenameCygnus.sqlite`, with its `-wal` and `-shm` files, is the app's database.
-  It holds the newer version 53 of the story, which the port will be built from. The port
-  will never read progress or saves from it: every player starts from scratch.
+  It holds the newer version 53 of the story, version 18 of the missions and version 11 of
+  the resources. The port will never read progress or saves from it: every player starts
+  from scratch.
+- `game/data/text/` also holds what the port reads: `missions.json`, `resources.json` and
+  `states.json`, that final data exported as plain JSON by `tools/export_story.py`, which
+  checks it first. The export fixes one bug in the original: in Signum Cygni's van escape,
+  either ending could follow either choice.
 - `game/data/audio/missions/m1/` holds Mission 1's recordings:
   - `episodes/e1/` to `e8/`: the 756 recordings of the episodes themselves, one folder per
     episode and part.
