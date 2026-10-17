@@ -11,7 +11,7 @@ The port is written entirely in Python:
 - `prismatoid` (Prism) for speech through any screen reader or a Windows voice
 - NVDA's own controller client, `vendor/nvda/nvdaControllerClient64.dll`, through ctypes
 
-Don't propose moving parts to another language or engine. The original app's speech recognition is not ported; choices are made from the keyboard.
+Don't propose moving parts to another language or engine. Choices are made from the keyboard, and also by voice when speech recognition is on ([[project_speech_recognition]]).
 
 **Why:** The repo was set up this way by the dev: `requirements.txt` holds `pygame>=2.6.1` and `prismatoid~=0.18.2`, and the package folder is `codenamecygnus/`.
 

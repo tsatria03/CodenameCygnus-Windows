@@ -10,6 +10,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
+- Add speech recognition for choices, with a setting to turn it on or off, when the port is built ([[project_speech_recognition]]). Needs a plan first.
 - Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Needs a plan first.
 
 ## Finished
