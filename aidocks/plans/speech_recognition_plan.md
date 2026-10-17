@@ -17,10 +17,10 @@ Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and 
 - **It listens only for the current choices' words.** Each manual transition's `text` is a word or short phrase such as CHARISMATIC, TWO CARDS or HER DRINK, 98 distinct in all, and usually two or three at a time. Hidden choices (`render: false`) can be spoken too, as in the original.
 - **A recognised word makes the same choice its key would,** said back by the screen reader first, such as "Charismatic."
 - **Nothing is ever recorded or kept,** and nothing leaves the computer.
+- **The recogniser is PocketSphinx** (the dev, 2026-10-17: "I don't want open dictation, so I think the first one will do"), the `pocketsphinx` package from pip, with the English model it ships. It is the same family as the original's OpenEars, works offline and adds no large download. Each time a choice waits, it is limited to that choice's words, never open dictation. If testing finds it too unreliable, only the recogniser would change (Vosk being the fallback), not the rest of the game. The package joins `requirements.txt` when this is built.
 
 ## Open questions
 
-- The recogniser.
 - How the microphone is opened.
 - The setting's default.
 - What is spoken when listening starts and stops, and when no microphone is found.
