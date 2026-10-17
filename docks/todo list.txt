@@ -1,5 +1,6 @@
 ##Unfinished.
 
+Make the van escape in Signum Cygni end the way your choice leads, GRAB IT or HANG ON, instead of either ending at random as in the original.
 Add speech recognition, so you can speak your choices as in the original, with a setting to turn it on or off.
 
 ##Finished.

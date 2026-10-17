@@ -44,8 +44,17 @@ Agreed on 2026-10-17 (the dev: "I completely agree with that"):
 - **Debug mode's own skip never counts a recording as heard**, so testing a branch does not mark story the dev never listened to.
 - **S skips across every heard recording in a row to the next choice** (the dev, 2026-10-17: "I like the skip across option"), following the automatic transitions as play would. If it reaches a recording not heard yet, it stops there and plays it from the start. Every state passed on the way still does what it does, setting traits and story flags and taking its conditions, so skipping never changes how the story turns out.
 
+## Several automatic exits, and the van escape bug
+
+- **How the original chose:** `-[CCStateMachine performAutoTransition]` (0x100049c00) walks every transition from the current state and takes the first automatic one it finds, skipping the rest. It walks an `NSHashTable` (`CCStateMachine`'s `transitions` property), whose order depends on where objects sit in memory, so with two automatic exits the one taken was effectively arbitrary.
+- **Only one state has two:** `3_AAB008transition_m1e7`, in Signum Cygni's van escape. Two choices lead into it:
+  - from `3_AAB007matthewsEscapePrompt_m1e7`, where Agent Rhodes shouts "Grab her gun, Agent! Now. GRAB IT!"
+  - from `3_AAB007alexEscapePrompt_m1e7`, where Rhodes says the only way back to Alex is to make it look like you are dead, answered with HANG ON
+- Its two exits are the two endings: `4_AABA002alexAthleticRefuseMatthewsEND_m1e7`, a struggle for the gun and an escape out the back, and `4_AABB003alexAthleticRefuseAlexEND_m1e7`, where Rhodes says goodbye and jumps. So in the original, a player could say HANG ON and hear the struggle for the gun.
+- **The port fixes it** (the dev, 2026-10-17: "This bug needs to be fixed"): GRAB IT leads to the Matthews ending and HANG ON to the Alex ending, as the scenes and the writers' state names say. The fix is made in the data by [[story_export_plan]], so the engine needs no special case.
+- **The engine's rule stays the original's:** the first automatic exit wins. In the exported data the transitions keep the file's order, so "first" is always the same one.
+
 ## Open questions
 
-- Which of the two automatic transitions `3_AAB008transition_m1e7` takes.
 - How the script is used: whether the scene headings and the `#a,b#` pacing marks matter to a screen reader player.
 - The debug keys.

@@ -44,9 +44,12 @@ The game reads the original's final data, not the older files bundled with the a
   - every choice, transition and condition points to a state that exists
   - every recording the story names has its MP3 on disk, found the way the game will find it: by file name under `game/data/audio/`, `.mp3` in place of `.m4a`, and a story `m1eN_teaser` as `other/teasers/m1eN.mp3`
 - **It reports in short plain lines** a screen reader reads cleanly: one line per check, then each problem on its own line naming the state or file.
-- **Known quirks are reported as notes, not failures:**
-  - two states nothing leads to, `026gentlemenFlavor_m1e8` and `46BopenItResponse_m1e8`, cut from the original
-  - one state with two automatic transitions, `3_AAB008transition_m1e7`; which one the game takes is for [[story_engine_plan]]
+- **Known quirks are reported as notes, not failures:** two states nothing leads to, `026gentlemenFlavor_m1e8` and `46BopenItResponse_m1e8`, cut from the original.
+- **The export fixes the van escape bug** in Signum Cygni ([[story_engine_plan]] has the detail; the dev, 2026-10-17: "This bug needs to be fixed"). `3_AAB008transition_m1e7` is split in two, one copy for each way in, each with a single automatic exit:
+  - the GRAB IT choice from `3_AAB007matthewsEscapePrompt_m1e7` leads to a copy that goes on to `4_AABA002alexAthleticRefuseMatthewsEND_m1e7`
+  - the HANG ON choice from `3_AAB007alexEscapePrompt_m1e7` leads to a copy that goes on to `4_AABB003alexAthleticRefuseAlexEND_m1e7`
+  - both copies keep the state's media and its variable (`npc_state.rhodes` set to 4)
+  - the check then fails if any state still has more than one automatic exit
 - **It runs on the dev's own machine.** The mission recordings and previews are gitignored, so the recording check needs them on disk.
 
 ## Open questions
