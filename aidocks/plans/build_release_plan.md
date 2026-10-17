@@ -39,7 +39,19 @@ The dev's idea (2026-10-17): "I was thinking of creating a file called m1.dat in
 
 - **A run from source reads the loose recordings** in `game/data/audio/missions/` when they are there, and the pack otherwise (the dev, 2026-10-17: "I like the loose folder for playing it from the source"). So testing needs no rebuilt pack after each change, and works before the first pack exists. A built game never has loose recordings, so players always use the pack.
 
+- **Both kinds of build, chosen each time** (the dev, 2026-10-17: "You should be able to choose. I want to test both options"). `compiler.py` keeps the reference material's choices, Windows only, plus a test for the single exe; run with no options it shows them as a numbered menu, each choice exactly one command line:
+  1. **Folder build:** `CodenameCygnus.exe`, a folder of Python and library files beside it, and the `game` folder.
+  2. **Folder build and test** (`--test`): the folder build, then started silently for a few seconds to check it works.
+  3. **Single exe** (`--embed`): Python, the libraries and the game's data all inside `CodenameCygnus.exe`.
+  4. **Single exe and test** (`--embed --test`).
+  5. **Clean build** (`--clean`): PyInstaller's cache emptied first, for when a build behaves oddly.
+  6. **Console build** (`--console`): keeps a console window, to see why a build will not start.
+  7. **One-file build** (`--onefile`): Python and the libraries inside the exe, the `game` folder still beside it. Kept though the game's data is small now (the dev: "No, keep it just encase I want it").
+  8. **Build without the game's data** (`--no-game`).
+  9. **Dry run** (`--dry-run`): what a build would do, building nothing.
+  - Every kind carries `docks`, `VERSION` and the license beside the exe. None ever carries `m1.dat`.
+
 ## Open questions
 
-- A folder build, a single executable, or both.
+- The releaser's menu.
 - What the zip is called.
