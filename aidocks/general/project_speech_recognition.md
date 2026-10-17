@@ -25,6 +25,7 @@ metadata:
   - how the microphone is opened
   - the setting's default, and where it is saved
   - what is spoken when listening starts and stops, and when no microphone is found
+  - **how long it waits for the player to speak before it times out** (the dev, 2026-10-17: "we need to discuss how long it should wait for the user to speak before timing out")
 - The vocabulary is small and known in advance: each state's choice words, 98 distinct ones in v53, such as CHARISMATIC, HOSTILE and YES. A recogniser limited to those words suits it. Hidden choices (`render: false`) can still be spoken.
 - Game audio must not be heard as speech. The original assumed headphones; desktop speakers can leak the story into the microphone.
 - Never name the reference project in this repo's files ([[feedback_no_other_games]]).
