@@ -75,22 +75,23 @@ The original reported achievements to Apple's Game Center. 23 states earn one, 1
 - **The agent profile lists them,** which are earned and how many of the 16 ([[menus_plan]]).
 - **They are saved with the progress and kept for good** ([[saves_plan]]).
 - **The port writes their names**, since the originals are lost. The 16, approved by the dev on 2026-10-17 ("I like all of the names"), each after the original's own ID (the part after `net.reactivestudios.codenamecygnus.`) and the states that earn it:
-  1. **Card Shark:** win the card game in the Prologue. `event.m1e1_cardsWin`, at `achievement_cardsWin`.
-  2. **Martini:** drink the martini in Art Show. `event.m1e2_drink_1`, at `achievement_drinkMartini`.
-  3. **Neptune's Lover:** seduce Neptune's lover in Neptune's Lair. `event.m1e3_sex_1`, at `achievement_seduceNeptunesLover`.
-  4. **Trust Matthews:** choose to trust Director Matthews in Consulate. `event.m1e4_chooseTrust_0`, at `achievement_trustMatthews`.
-  5. **Lazarus' Card:** keep Lazarus' card in Lazarus Awakens. `inventory.m1e5_lazarusCard_1`, at `achievement_lazarusCard`.
-  6. **Unhappy Childhood:** choose an unhappy childhood for your agent. `trait.happyChildhood_0`, at `achievement_unhappyChildhood`.
-  7. **Ladies' Agent:** romance a woman in Mission 1. `romance.m1_maleInterest_0`, at `achievement_romanceWomenMission1`.
-  8. **Gentlemen's Agent:** romance a man in Mission 1. `romance.m1_maleInterest_1`, at `achievement_romanceMenMission1`.
-  9. **Alexander's Loyalist:** stay loyal to Alexander. `trait.cygnusLoyalty_1`, at `achievement_alexanderLoyalist`.
-  10. **Matthews' Loyalist:** stay loyal to Director Matthews. `trait.cygnusLoyalty_0`, at `achievement_matthewsLoyalist`.
-  11. **Rhodes' Ally:** win Agent Rhodes over in Signum Cygni. `npc_favor.succeedRhodes`, at five states, `achievement_succeedRhodesAAA`, `AAB`, `AB`, `BBA` and `BBB`.
-  12. **Rhodes' Rival:** lose Agent Rhodes in Signum Cygni. `npc_favor.failRhodes`, at four states, `achievement_failRhodesAB`, `BAA`, `BAB` and `BB`.
-  13. **Mission Complete:** finish Signum Cygni, the end of Mission 1. `completion.1.7.1`, at `achievement_completeSignumCygni`.
-  14. **The Prize:** reach the prize ending of Holiday Party. `prize`, at `achievement_thePrize`.
-  15. **Sneeze:** reach the sneeze ending of Holiday Party. `sneeze`, at `achievement_sneeze`.
-  16. **Stalemate:** reach the stalemate ending of Holiday Party. `stalemate`, at `achievement_stalemate`.
+  1. **Card Shark:** raise the bet in the Prologue's card game, IMPULSIVE, so Krasnoff folds. `event.m1e1_cardsWin`, at `achievement_cardsWin`.
+  2. **Martini:** order the Martini at the hotel bar in Art Show, the FOCUSED choice. `event.m1e2_drink_1`, at `achievement_drinkMartini`.
+  3. **Neptune's Lover:** go off with Serena or Seth, Neptune's lover, when they invite you in Neptune's Lair. `event.m1e3_sex_1`, at `achievement_seduceNeptunesLover`.
+  4. **Trust Matthews:** speak Director Matthews' password, BE, into the bomb in Consulate, rather than MAELSTROM. `event.m1e4_chooseTrust_0`, at `achievement_trustMatthews`.
+  5. **Lazarus' Card:** cut the green wire in Lazarus' test in Lazarus Awakens, and he gives you his card. `inventory.m1e5_lazarusCard_1`, at `achievement_lazarusCard`.
+  6. **Unhappy Childhood:** tell Neptune your childhood was not happy, in Neptune's Gift. `trait.happyChildhood_0`, at `achievement_unhappyChildhood`.
+  7. **Ladies' Agent:** tell Director Matthews, in Art Show, that you work your charm on ladies. `romance.m1_maleInterest_0`, at `achievement_romanceWomenMission1`.
+  8. **Gentlemen's Agent:** tell Director Matthews, in Art Show, that you work your charm on gentlemen. `romance.m1_maleInterest_1`, at `achievement_romanceMenMission1`.
+  9. **Alexander's Loyalist:** finish Signum Cygni having sided with Alexander more than with Director Matthews. Decided at the end by `trait.cygnusLoyalty`, which the episode's choices raise and lower. `trait.cygnusLoyalty_1`, at `achievement_alexanderLoyalist`.
+  10. **Matthews' Loyalist:** finish Signum Cygni having sided with Director Matthews more than with Alexander, the same score above 0. `trait.cygnusLoyalty_0`, at `achievement_matthewsLoyalist`.
+  11. **Rhodes' Ally:** win Agent Rhodes over to your side in Signum Cygni. `npc_favor.succeedRhodes`, at five states, `achievement_succeedRhodesAAA`, `AAB`, `AB`, `BBA` and `BBB`.
+  12. **Rhodes' Rival:** turn Agent Rhodes against you in Signum Cygni, so that you end up fighting him. `npc_favor.failRhodes`, at four states, `achievement_failRhodesAB`, `BAA`, `BAB` and `BB`.
+  13. **Mission Complete:** finish Signum Cygni, the last episode of Mission 1. `completion.1.7.1`, at `achievement_completeSignumCygni`.
+  14. **The Prize:** find the prize ending of Holiday Party. `prize`, at `achievement_thePrize`.
+  15. **Sneeze:** find the sneeze ending of Holiday Party. `sneeze`, at `achievement_sneeze`.
+  16. **Stalemate:** find the stalemate ending of Holiday Party. `stalemate`, at `achievement_stalemate`.
+- **The descriptions were made specific on 2026-10-17** (the dev: "Please change it to make it more clearer. Do that for the other achievements as well"), each checked against `analysis/script/`.
 
 ## Open questions
 
