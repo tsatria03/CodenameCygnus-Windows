@@ -30,6 +30,7 @@ The 10 files no state names are the eight interface sounds of under a second in 
 - **pygame's mixer plays everything, as MP3** ([[project_python_only]]). Nothing else opens the audio device.
 - **The voice streams through `pygame.mixer.music`,** the only pygame player that can start partway through a file. That is what Left and Right (5 seconds back or forward), R (replay) and S (skip to the choices) need ([[story_engine_plan]]).
 - **The background and decision sounds are loaded whole as `pygame.mixer.Sound`**, each on its own channel. They are short, and they can loop without a gap.
+- **In a built game, the mission recordings come from the encrypted pack `m1.dat`** in the save folder, read one recording at a time into memory ([[build_release_plan]]). `pygame.mixer.music.load` and `pygame.mixer.Sound` both take a file-like object, so the voice still streams and seeks, and the background and decision sounds still loop.
 - **A file is found by its story name:** the name with `.mp3` in place of `.m4a`, looked up by file name anywhere under `game/data/audio/`. A story `m1eN_teaser` is `missions/m1/teasers/m1eN.mp3` ([[project_python_only]]).
 - **Space and Escape pause every layer together**, and resume them together.
 - **The decision sound loops until the player chooses** (the dev, 2026-10-17, from playing the original: "It deffenatly looped. The user was able to tap/speak there choice."). It stops when a choice is made or a timed choice runs out.

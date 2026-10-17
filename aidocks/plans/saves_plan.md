@@ -33,6 +33,7 @@ The four traits also run through the whole mission. Holiday Party uses none of t
   - `config/settings.json`: speech recognition, the three volumes, debug mode, and whether the headphones notice has been shown.
   - `config/keys.json`: the key bindings.
   - `logs/`: `log.txt`, `log.old.txt` and `crash.txt`.
+  - `missions/m1.dat`: Mission 1's recordings, downloaded by the game ([[build_release_plan]]). Starting over never deletes it.
 - **An episode starts with the variables the one before it ended with,** so every choice reaches the episodes that check it. The Prologue and Holiday Party start from nothing.
 - **Continue goes back to the start of the recording the player left in,** with the variables as they were when that state began ([[menus_plan]]).
 

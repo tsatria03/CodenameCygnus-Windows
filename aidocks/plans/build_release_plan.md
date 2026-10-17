@@ -1,6 +1,6 @@
 ---
 name: build_release_plan
-description: "Plan 8 of 8: compiler.py builds CodenameCygnus.exe with PyInstaller and releaser.py versions, zips and publishes a release from the dev's own machine; Windows only, no GitHub Actions workflow. Status: planned, questions open."
+description: "Plan 8 of 8: compiler.py builds CodenameCygnus.exe with PyInstaller and releaser.py versions, zips and publishes a release from the dev's own machine; Windows only, no GitHub Actions workflow; the recordings ship separately as an encrypted m1.dat the game downloads. Status: planned, questions open."
 metadata:
   node_type: memory
   type: project
@@ -21,8 +21,24 @@ Plan 8 of 8 ([[story_export_plan]] lists the order). It is the developer task "A
 - **The changelog's release rules** (5 to 100 entries, never more than 100) are in [[feedback_changelog]].
 - **Claude never builds or releases**; the dev runs both ([[feedback_dont_run_or_build]]).
 
+## The mission pack, m1.dat
+
+The dev's idea (2026-10-17): "I was thinking of creating a file called m1.dat inside the following directory. C:\Users\tonys\AppData\Roaming\CodenameCygnus\missions. That way, the game's zip file won't be massive." It works as the original's own downloads did, the app small and each episode's recordings fetched on first use.
+
+- **A game release carries no recordings.** Mission 1's recordings, everything under the gitignored `game/data/audio/missions/m1/`, go into one pack, `m1.dat`, about 470 MB.
+- **The pack lives on a release of its own,** tagged `mission-1` and named "Mission 1 recordings", uploaded once and never marked Latest (the dev, 2026-10-17: "Yes. I highly dout the recordings will ever change so."). Its address never changes, so every version of the game downloads from `https://github.com/tsatria03/CodenameCygnus-Windows/releases/download/mission-1/m1.dat`. Game releases carry only the small game zip.
+- **The game downloads it into `%APPDATA%\CodenameCygnus\missions\m1.dat`** ([[saves_plan]]), with Python's own `urllib`:
+  - When an episode is opened and the pack is missing, the game offers "Download Mission 1, about 470 megabytes", like the original's DOWNLOAD button ([[menus_plan]]).
+  - The screen reader says the progress every 10 percent, and Escape cancels.
+  - It downloads to `m1.dat.part` and renames it only once complete, so a cut connection never leaves a broken pack.
+  - It checks the finished file against its SHA-256 fingerprint, built into the game, and fetches it again if damaged.
+  - Game updates never touch it, since it is in the save folder, not the game folder.
+- **The pack is encrypted with AES, through the `cryptography` package,** with a key built into the game. Each recording is encrypted on its own, so the game decrypts only the one it needs, in memory, and hands it to pygame, never unpacking anything to disk. This keeps out casual copying, not a determined person, since the key ships with the game. `cryptography` joins `requirements.txt` when this is built.
+- **The pack holds an index** of every recording's name, place and size, so a recording is found by its story name as before ([[audio_plan]]).
+- **A tool in `tools/` builds `m1.dat`** from `game/data/audio/missions/m1/` on the dev's machine and prints its SHA-256 for the game. The dev uploads it to the `mission-1` release.
+
 ## Open questions
 
-- Whether a release carries the recordings, which are not in the repository.
+- Whether a run from source reads the loose recordings in `game/data/audio/missions/`, or always the pack.
 - A folder build, a single executable, or both.
 - What the zip is called.
