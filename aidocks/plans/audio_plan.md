@@ -1,6 +1,6 @@
 ---
 name: audio_plan
-description: "Plan 3 of 8: playing the story's three audio layers (voice, background, decision) through pygame's mixer, finding each MP3 by its story name, seeking, pausing, the decision loop, background crossfades and three volumes. Status: planned, ready to build."
+description: "Plan 3 of 8: playing the story's three audio layers (voice, background, decision) through pygame's mixer, finding each MP3 by its story name, seeking, pausing, the decision loop, the original's hard background cuts and three volumes. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
@@ -21,7 +21,7 @@ How they combine:
 - 454 states have voice and background; 223 have voice, background and decision; 178 have background only; 67 have voice only; 24 have nothing.
 - The decision sound comes with the choices: 235 of the 241 states with a decision sound end in a choice, and only 4 choice states have none.
 - **The background carries on from state to state.** In 1002 of the transitions, the next state lists the same background file. It must keep playing without restarting.
-- A few states list two or three background files at once.
+- A few states list two or three background files at once. In the original each one replaced the last, so the last listed is the one heard.
 
 The 10 files in `other/misc/` no state names (`00000Push`, `1930Radio A` to `D`, `Buy`, `PushButton D`, `Sound A`, and two m1e6 backgrounds) are short interface sounds of under a second, plus the two unused backgrounds. Whether the menus use the interface sounds is for [[menus_plan]].
 
@@ -35,11 +35,13 @@ The 10 files in `other/misc/` no state names (`00000Push`, `1930Radio A` to `D`,
 - **The decision sound loops until the player chooses** (the dev, 2026-10-17, from playing the original: "It deffenatly looped. The user was able to tap/speak there choice."). It stops when a choice is made or a timed choice runs out.
 - **The decision sound starts once the question's recording has finished, and the background keeps playing under it** (the dev, 2026-10-17: "It played after the recording asked you the question, then the backround ambience would play along with the decision loop sound. Same with holiday party."). So while a choice waits, two layers play: the background and the decision loop. Holiday Party's timed choices work the same way.
 
-- **Background changes crossfade over about a second.** The dev did not remember whether the original cut off or faded (2026-10-17: "I don't remember if it fully stopped it"), so this is the port's own choice, made so that a scene change sounds deliberate rather than abrupt:
-  - a state with the same background lets it carry on untouched
-  - a state with a different background fades the old one out as the new one fades in
-  - a state with a voice but no background fades the background out
-  - a state that plays nothing at all, such as one that only sets story flags, leaves the background running
+- **The background follows the original exactly, with a hard cut** (the dev, 2026-10-17: "I want the original's hard cut"). Read from the arm64 code of `game/Cygnus` with capstone on 2026-10-17, which is not encrypted (`cryptid` 0):
+  - **The same background carries on untouched.** `-[CCSoundManager playBackgroundMedium:]` (0x10002501c) compares the new file's URL with the playing one's (`isEqualToString:`) and returns if they match.
+  - **A different background cuts over.** It calls `stopBackgroundPlayer` (0x100024ba8), which only calls `stop` on the player, then starts the new file. There is no fade: the binary never sets a player's volume.
+  - **Every background loops forever** (`setNumberOfLoops:` with -1).
+  - **A state with no background stops it,** whether it has a voice or nothing at all. `-[CCSoundManager startPlaying]` (0x100024d64) calls `stopBackgroundPlayer` when none of the state's media was a background. None of the 24 states with no audio sits between two states with the same background, so this never interrupts a scene.
+  - **The media types** are sorted in the block at 0x100024ed8 by `mediumType`: 2 is the voice, played at once; 1 is the decision sound, kept for later; 0 is the background.
+  - The earlier choice of a one-second crossfade, made before the code was read, is dropped.
 
 - **Three volumes, each from 0 to 100% in steps of 10** (the dev, 2026-10-17: "Home/end should be for master volume, and then page up/down for ambience volume", then "Shift page up/down. For master, do shift home/end"):
   - **Shift with Home and End:** the master volume, everything together. The voice follows it, so it stays the loudest thing the player controls.
