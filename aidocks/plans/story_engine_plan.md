@@ -1,12 +1,12 @@
 ---
 name: story_engine_plan
-description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode. Status: planned, questions open; the keys are agreed."
+description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built. The keys were agreed first, while [[foundation_plan]] was being written.
+**Status: planned, ready to build.** Every question is answered; nothing is built. The keys were agreed first, while [[foundation_plan]] was being written.
 
 Plan 4 of 8 ([[story_export_plan]] lists the order).
 
@@ -74,8 +74,24 @@ The original reported achievements to Apple's Game Center. 23 states earn one, 1
 - **When one is earned,** the game says "Achievement earned" and its name at the next quiet moment: when a choice comes up or at the end of the episode, never over the story ([[foundation_plan]]'s speech rules).
 - **The agent profile lists them,** which are earned and how many of the 16 ([[menus_plan]]).
 - **They are saved with the progress and kept for good** ([[saves_plan]]).
-- **The port writes their names**, since the originals are lost, and the dev approves them.
+- **The port writes their names**, since the originals are lost. The 16, approved by the dev on 2026-10-17 ("I like all of the names"), each after the original's own ID (the part after `net.reactivestudios.codenamecygnus.`) and the states that earn it:
+  1. **Card Shark:** win the card game in the Prologue. `event.m1e1_cardsWin`, at `achievement_cardsWin`.
+  2. **Martini:** drink the martini in Art Show. `event.m1e2_drink_1`, at `achievement_drinkMartini`.
+  3. **Neptune's Lover:** seduce Neptune's lover in Neptune's Lair. `event.m1e3_sex_1`, at `achievement_seduceNeptunesLover`.
+  4. **Trust Matthews:** choose to trust Director Matthews in Consulate. `event.m1e4_chooseTrust_0`, at `achievement_trustMatthews`.
+  5. **Lazarus' Card:** keep Lazarus' card in Lazarus Awakens. `inventory.m1e5_lazarusCard_1`, at `achievement_lazarusCard`.
+  6. **Unhappy Childhood:** choose an unhappy childhood for your agent. `trait.happyChildhood_0`, at `achievement_unhappyChildhood`.
+  7. **Ladies' Agent:** romance a woman in Mission 1. `romance.m1_maleInterest_0`, at `achievement_romanceWomenMission1`.
+  8. **Gentlemen's Agent:** romance a man in Mission 1. `romance.m1_maleInterest_1`, at `achievement_romanceMenMission1`.
+  9. **Alexander's Loyalist:** stay loyal to Alexander. `trait.cygnusLoyalty_1`, at `achievement_alexanderLoyalist`.
+  10. **Matthews' Loyalist:** stay loyal to Director Matthews. `trait.cygnusLoyalty_0`, at `achievement_matthewsLoyalist`.
+  11. **Rhodes' Ally:** win Agent Rhodes over in Signum Cygni. `npc_favor.succeedRhodes`, at five states, `achievement_succeedRhodesAAA`, `AAB`, `AB`, `BBA` and `BBB`.
+  12. **Rhodes' Rival:** lose Agent Rhodes in Signum Cygni. `npc_favor.failRhodes`, at four states, `achievement_failRhodesAB`, `BAA`, `BAB` and `BB`.
+  13. **Mission Complete:** finish Signum Cygni, the end of Mission 1. `completion.1.7.1`, at `achievement_completeSignumCygni`.
+  14. **The Prize:** reach the prize ending of Holiday Party. `prize`, at `achievement_thePrize`.
+  15. **Sneeze:** reach the sneeze ending of Holiday Party. `sneeze`, at `achievement_sneeze`.
+  16. **Stalemate:** reach the stalemate ending of Holiday Party. `stalemate`, at `achievement_stalemate`.
 
 ## Open questions
 
-- The names of the 16 achievements.
+None. Ready to build once the dev says so.
