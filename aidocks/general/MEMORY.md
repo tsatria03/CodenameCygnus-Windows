@@ -14,6 +14,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Story export plan](../plans/story_export_plan.md): plan 1 of 8. A standard-library tool decodes the DB's story v53, missions v18 and resources v11 once into missions.json, resources.json and states.json in game/data/text/, reading a copy of the DB and checking the result first; planned, ready to build.
 
 - [Foundation plan](../plans/foundation_plan.md): plan 2 of 8. The name Codename Cygnus (CodenameCygnus.py, CodenameCygnus.exe, %APPDATA%\CodenameCygnus), the package layout, speech, timers, settings files, logs and the screen loop adapted from user/, a debug mode with a Settings row, window text, five command-line options and the interruption rules; planned, ready to build.
+- [Audio plan](../plans/audio_plan.md): plan 3 of 8. Voice streamed through pygame.mixer.music (seekable), background and decision sounds as Sound objects; the background carries on between states; files found by story name; planned, questions open.
 - [Story engine plan](../plans/story_engine_plan.md): plan 4 of 8. Playing the story graph; the episode keys are agreed (arrows, Enter and 1 to 9 for choices, Space, R, Left/Right, S to skip a part heard before, H, V, Escape); planned, questions open.
 
 ## Completed projects (aidocks/plans/, marked finished)
