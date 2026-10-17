@@ -29,12 +29,11 @@ Plan 2 of 8 ([[story_export_plan]] lists the order). Everything else stands on t
   - **Logs:** every run writes `logs/log.txt` in the save folder and keeps the run before as `log.old.txt`. An error that stops the game writes `logs/crash.txt` and is spoken aloud, so a blind player knows why the game closed.
   - **Screen loop:** a stack of screens. A screen can open another on top, close itself, or replace the menu. Switching away from the window pauses the story.
   - **F1 key bindings screen:** every action rebindable, spoken in full, with F1 and Escape fixed so there is always a way out.
-- **A debug mode, for source runs only** (the dev, 2026-10-17: "Yes, a debug mode would be super good"). It is turned on with `--debug` and never exists in a built game. Its keys are for testing a branching story by ear: skip the current recording, jump to any state by name, and hear the current trait scores and story flags. The exact keys are settled in [[story_engine_plan]].
+- **A debug mode, for source runs only** (the dev, 2026-10-17: "Yes, a debug mode would be super good"). It is turned on with `--debug` and never exists in a built game. Its keys are for testing a branching story by ear: skip the current recording, jump to any state by name, and hear the current trait scores and story flags. The exact keys are settled in [[story_engine_plan]]. **It is also a Debug mode row in Settings** (the dev, 2026-10-17: "yes"), shown only when running from source, remembered between runs, and switching debug mode on or off at once without a restart.
 - **Tests stay silent and off the real save** ([[feedback_dont_run_or_build]]): environment variables point the save at a throwaway folder and turn speech off, and every test imports the module that sets them.
 
 ## Open questions
 
-- Whether the debug mode is also a Settings row, as in the reference material.
 - Whether the window draws text for a sighted helper.
 - The command-line options.
 - The speech interruption rules: what cuts off what.
