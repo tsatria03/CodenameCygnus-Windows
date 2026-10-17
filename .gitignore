@@ -4,11 +4,8 @@ user/
 #private scratchpad
 New File*.txt
 
-#downloaded episodes
+#mission recordings: voices, previews and ambiences
 game/data/audio/missions/
-
-#voiced episode previews
-game/data/audio/other/teasers/
 
 # What PyInstaller leaves behind
 build/
