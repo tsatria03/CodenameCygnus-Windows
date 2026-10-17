@@ -7,6 +7,9 @@ New File*.txt
 #mission recordings: voices, previews and ambiences
 game/data/audio/missions/
 
+#test results, written by tests/suite.py
+tests/results/
+
 # What PyInstaller leaves behind
 build/
 dist/
