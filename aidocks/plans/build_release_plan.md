@@ -37,8 +37,9 @@ The dev's idea (2026-10-17): "I was thinking of creating a file called m1.dat in
 - **The pack holds an index** of every recording's name, place and size, so a recording is found by its story name as before ([[audio_plan]]).
 - **A tool in `tools/` builds `m1.dat`** from `game/data/audio/missions/m1/` on the dev's machine and prints its SHA-256 for the game. The dev uploads it to the `mission-1` release.
 
+- **A run from source reads the loose recordings** in `game/data/audio/missions/` when they are there, and the pack otherwise (the dev, 2026-10-17: "I like the loose folder for playing it from the source"). So testing needs no rebuilt pack after each change, and works before the first pack exists. A built game never has loose recordings, so players always use the pack.
+
 ## Open questions
 
-- Whether a run from source reads the loose recordings in `game/data/audio/missions/`, or always the pack.
 - A folder build, a single executable, or both.
 - What the zip is called.
