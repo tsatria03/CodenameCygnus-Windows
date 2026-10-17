@@ -42,7 +42,7 @@ The game reads the original's final data, not the older files bundled with the a
 - **The tool checks its own result and writes nothing if a check fails** (the dev, 2026-10-17: "yes, please make it check"). It checks that:
   - every episode can be played from its start state to its end state
   - every choice, transition and condition points to a state that exists
-  - every recording the story names has its MP3 on disk, found the way the game will find it: by file name under `game/data/audio/`, `.mp3` in place of `.m4a`, and a story `m1eN_teaser` as `other/teasers/m1eN.mp3`
+  - every recording the story names has its MP3 on disk, found the way the game will find it: by file name under `game/data/audio/`, `.mp3` in place of `.m4a`, and a story `m1eN_teaser` as `missions/m1/teasers/m1eN.mp3`
 - **It reports in short plain lines** a screen reader reads cleanly: one line per check, then each problem on its own line naming the state or file.
 - **Known quirks are reported as notes, not failures:** two states nothing leads to, `026gentlemenFlavor_m1e8` and `46BopenItResponse_m1e8`, cut from the original.
 - **The export fixes the van escape bug** in Signum Cygni ([[story_engine_plan]] has the detail; the dev, 2026-10-17: "This bug needs to be fixed"). `3_AAB008transition_m1e7` is split in two, one copy for each way in, each with a single automatic exit:

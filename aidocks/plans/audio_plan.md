@@ -23,14 +23,14 @@ How they combine:
 - **The background carries on from state to state.** In 1002 of the transitions, the next state lists the same background file. It must keep playing without restarting.
 - A few states list two or three background files at once. In the original each one replaced the last, so the last listed is the one heard.
 
-The 10 files in `other/misc/` no state names (`00000Push`, `1930Radio A` to `D`, `Buy`, `PushButton D`, `Sound A`, and two m1e6 backgrounds) are short interface sounds of under a second, plus the two unused backgrounds. Whether the menus use the interface sounds is for [[menus_plan]].
+The 10 files no state names are the eight interface sounds of under a second in `others/menu/` (`00000Push`, `1930Radio A` to `D`, `Buy`, `PushButton D`, `Sound A`), which [[menus_plan]] uses, and two unused m1e6 backgrounds in `missions/m1/sources/`.
 
 ## Decided
 
 - **pygame's mixer plays everything, as MP3** ([[project_python_only]]). Nothing else opens the audio device.
 - **The voice streams through `pygame.mixer.music`,** the only pygame player that can start partway through a file. That is what Left and Right (5 seconds back or forward), R (replay) and S (skip to the choices) need ([[story_engine_plan]]).
 - **The background and decision sounds are loaded whole as `pygame.mixer.Sound`**, each on its own channel. They are short, and they can loop without a gap.
-- **A file is found by its story name:** the name with `.mp3` in place of `.m4a`, looked up by file name anywhere under `game/data/audio/`. A story `m1eN_teaser` is `other/teasers/m1eN.mp3` ([[project_python_only]]).
+- **A file is found by its story name:** the name with `.mp3` in place of `.m4a`, looked up by file name anywhere under `game/data/audio/`. A story `m1eN_teaser` is `missions/m1/teasers/m1eN.mp3` ([[project_python_only]]).
 - **Space and Escape pause every layer together**, and resume them together.
 - **The decision sound loops until the player chooses** (the dev, 2026-10-17, from playing the original: "It deffenatly looped. The user was able to tap/speak there choice."). It stops when a choice is made or a timed choice runs out.
 - **The decision sound starts once the question's recording has finished, and the background keeps playing under it** (the dev, 2026-10-17: "It played after the recording asked you the question, then the backround ambience would play along with the decision loop sound. Same with holiday party."). So while a choice waits, two layers play: the background and the decision loop. Holiday Party's timed choices work the same way.

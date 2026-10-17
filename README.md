@@ -96,15 +96,15 @@ included. The port will never write to it.
 - `game/CodenameCygnus.sqlite`, with its `-wal` and `-shm` files, is the app's database.
   It holds the newer version 53 of the story, which the port will be built from. The port
   will never read progress or saves from it: every player starts from scratch.
-- `game/data/audio/other/misc/` holds 60 shared recordings: the background sounds, the
-  decision sounds and the interface sounds.
-- `game/data/audio/other/teasers/` holds the six voiced episode previews, `m1e2.mp3` to
-  `m1e7.mp3`.
-- `game/data/audio/missions/` holds the 756 recordings of the episodes themselves, one
-  folder per episode and part.
-- **The previews and the episode recordings are not in the repository**, being the
-  original's voice acting, over 400 MB of it. They belong in those folders on your own
-  machine.
+- `game/data/audio/missions/m1/` holds Mission 1's recordings:
+  - `episodes/e1/` to `e8/`: the 756 recordings of the episodes themselves, one folder per
+    episode and part.
+  - `sources/`: the 52 background ambiences and decision sounds.
+  - `teasers/`: the six episode previews, `m1e2.mp3` to `m1e7.mp3`.
+- `game/data/audio/others/menu/` holds the eight interface sounds the menus play.
+- **Everything under `missions/` is left out of the repository**, being the original's
+  voice acting, over 400 MB of it; even some of the ambiences carry voices. It belongs in
+  those folders on your own machine. Only the interface sounds are in the repository.
 - Every recording is MP3, converted from the original's AAC `.m4a` files so pygame can play
   them. The story data still names them `.m4a`; the port will find each one by the same name
   with `.mp3` in its place.
