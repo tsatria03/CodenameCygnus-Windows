@@ -32,9 +32,10 @@ The 10 files in `other/misc/` no state names (`00000Push`, `1930Radio A` to `D`,
 - **The background and decision sounds are loaded whole as `pygame.mixer.Sound`**, each on its own channel. They are short, and they can loop without a gap.
 - **A file is found by its story name:** the name with `.mp3` in place of `.m4a`, looked up by file name anywhere under `game/data/audio/`. A story `m1eN_teaser` is `other/teasers/m1eN.mp3` ([[project_python_only]]).
 - **Space and Escape pause every layer together**, and resume them together.
+- **The decision sound loops until the player chooses** (the dev, 2026-10-17, from playing the original: "It deffenatly looped. The user was able to tap/speak there choice."). It stops when a choice is made or a timed choice runs out.
 
 ## Open questions
 
-- When choices came up, did the decision sound loop until you chose, or play once and stop?
+- Whether the decision sound starts with the question's recording or once it has finished.
 - What happens to the background when the next state lists none, or a different one: stop, fade or cut over.
 - The volume keys: one overall volume, or separate ones for voice, background and decision.
