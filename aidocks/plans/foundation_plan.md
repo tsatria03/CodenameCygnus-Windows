@@ -31,9 +31,14 @@ Plan 2 of 8 ([[story_export_plan]] lists the order). Everything else stands on t
   - **F1 key bindings screen:** every action rebindable, spoken in full, with F1 and Escape fixed so there is always a way out.
 - **A debug mode, for source runs only** (the dev, 2026-10-17: "Yes, a debug mode would be super good"). It is turned on with `--debug` and never exists in a built game. Its keys are for testing a branching story by ear: skip the current recording, jump to any state by name, and hear the current trait scores and story flags. The exact keys are settled in [[story_engine_plan]]. **It is also a Debug mode row in Settings** (the dev, 2026-10-17: "yes"), shown only when running from source, remembered between runs, and switching debug mode on or off at once without a restart.
 - **The window shows plain text for a sighted helper** (the dev, 2026-10-17: "yes"): the current menu's rows, or during an episode the scene heading, the line being spoken and the choices, as the original showed its script on screen. It is secondary: the speech and the audio are the real interface, and nothing is only in the window.
+- **Five command-line options** (the dev, 2026-10-17: "agreed"):
+  - `--debug` turns on debug mode.
+  - `--episode ID`, such as `--episode 1.3.1`, starts that episode straight away, past the menus.
+  - `--state NAME` starts at any story state, in debug mode only, to check one branch.
+  - `-v` writes a more detailed log.
+  - `--exit-after SECONDS` quits by itself after that many seconds, so the build test can start a built game silently and check it runs.
 - **Tests stay silent and off the real save** ([[feedback_dont_run_or_build]]): environment variables point the save at a throwaway folder and turn speech off, and every test imports the module that sets them.
 
 ## Open questions
 
-- The command-line options.
 - The speech interruption rules: what cuts off what.
