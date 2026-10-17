@@ -12,7 +12,7 @@ metadata:
 
 **Bring up pushing only from 10 unpushed commits** (the dev, 2026-10-17: "if it reaches grater than or equal to 10, you can count them", then "only push if it reaches grater than 10, like the commit count rule"). Below 10, commit quietly: no count and no question about pushing. At 10 or more, say how many are waiting and ask whether to push.
 
-**Hold while the dev says so.** Since 2026-10-17 pushes wait until all eight plans are written (the dev: "Let's wait for the push untill all plans are written"). While a hold stands, do not ask about pushing even past 10 commits; when it ends, report the count and ask. Remove this paragraph when the hold is over. The dev can still ask for a push during the hold: on 2026-10-17 they asked for the force-push of the rewritten history at once ("Please do a force push if you can"), and it went out; the hold carries on for later commits.
+**Hold while the dev says so.** When the dev holds pushes, do not ask about pushing even past 10 commits; when the hold ends, report the count and ask. The dev can still ask for a push during a hold. The first hold lasted from 2026-10-17 until all eight plans were written the same day.
 
 **Make multiple commits when possible** (the dev, 2026-10-17: "Make multiple commits when possible"). When the dev asks to commit a batch of work, split it into one commit per logical change rather than one large commit.
 
