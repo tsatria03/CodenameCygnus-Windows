@@ -20,8 +20,8 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told; ask before running the game or anything that speaks or plays sound; tests must be silent and off the real save.
 - [Record plans first](feedback_record_plans_first.md): an agreed plan gets its own aidocks/plans/ note before any code, committed on its own first; marked finished only once the dev says it works.
 - [Completed projects](feedback_completed_projects.md): every plan stays in aidocks/plans/, planned or complete; a finished one moves only its index line.
-- [Changelog](feedback_changelog.md): every player-facing change adds a plain sentence at the top of `unrelease:` in docks/changelog.txt, newest first; LF, no markdown; 5 to 100 entries a release.
-- [Todo list format](feedback_todo_list_format.md): ##Unfinished. then ##Finished., one plain sentence per line, new items at the top, players only; LF, no markdown.
+- [Changelog](feedback_changelog.md): every player-facing change adds a plain sentence at the top of `unrelease:` in docks/changelog.txt, newest first; no markdown; 5 to 100 entries a release.
+- [Todo list format](feedback_todo_list_format.md): ##Unfinished. then ##Finished., one plain sentence per line, new items at the top, players only; no markdown. Line endings do not matter.
 - [No release records](feedback_no_release_records.md): never record individual releases in aidocks or README.md.
 - [Questions are checks](feedback_questions_are_checks.md): a question from the dev gets an answer in chat, not edits.
 - [No question pickers](feedback_no_question_pickers.md): ask questions as plain text, never through the picker tool.

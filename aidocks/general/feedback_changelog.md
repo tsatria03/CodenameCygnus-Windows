@@ -1,6 +1,6 @@
 ---
 name: feedback_changelog
-description: "Whenever a change players will notice lands, add a plain sentence at the top of the unrelease: block in docks/changelog.txt, in the same commit; entries read newest first. LF, no BOM, one sentence per line, no markdown."
+description: "Whenever a change players will notice lands, add a plain sentence at the top of the unrelease: block in docks/changelog.txt, in the same commit; entries read newest first. One sentence per line, no markdown, no BOM; LF or CRLF are both fine."
 metadata:
   node_type: memory
   type: feedback
@@ -15,7 +15,7 @@ metadata:
   - A heading is one word ending in a colon, on a line of its own: `unrelease:`, or a version like `26.10.17-1:`.
   - Every other line is an entry: one plain sentence or two, with no bullets, numbers or markdown.
   - A blank line separates one heading's block from the next.
-- **LF, no BOM.** Match the endings the file has when you edit it, and check afterwards.
+- **Line endings do not matter** (the dev, 2026-10-17: "I don't mind if everything is CRLF"). Git may store LF and check out CRLF; either is fine. Write it without a BOM.
 - **New lines go at the top of the `unrelease:` block**, so the block reads newest first. A reworded line goes back to the top too. If there is no `unrelease:` heading, add it at the very top.
 - **Only what a player notices:** fixes, enhancements, removed features. Leave out notes, docs, tests, refactors and build internals, and anything only developers see.
 - **Wording:** write for a player, say what is now true, and avoid contractions.
