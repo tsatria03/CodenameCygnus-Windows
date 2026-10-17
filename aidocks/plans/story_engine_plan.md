@@ -35,9 +35,16 @@ Agreed on 2026-10-17 (the dev: "I like all of it"). They follow the original's g
 
 **In debug mode only** ([[foundation_plan]]): skip the current recording whether heard or not, jump to any state by name, and hear the trait scores and story flags. Their keys are still to be chosen.
 
+## What "heard before" means for S
+
+Agreed on 2026-10-17 (the dev: "I completely agree with that"):
+- **A recording counts as heard once it has reached its end** in any playthrough, whether by playing or by skipping forward with Right. Starting it is not enough. The player who skips to the end with Right has already chosen not to need it.
+- **It is remembered for good,** in the save, across every replay and restart of an episode ([[saves_plan]]). Replaying to try other choices is how the game is played, and every episode's opening is the same each time, so forgetting would make S useless exactly when it helps most.
+- **On a recording not heard yet, S says "Not heard yet" and does nothing**, so a stray press never skips new story, which a listener cannot glance back at.
+- **Debug mode's own skip never counts a recording as heard**, so testing a branch does not mark story the dev never listened to.
+
 ## Open questions
 
-- What counts as "heard before" for S, how long that is remembered, and what S says on a part not heard yet. Remembering it across runs belongs in [[saves_plan]].
 - Whether S passes over several automatic states in a row to the next choice, or only the current recording.
 - Which of the two automatic transitions `3_AAB008transition_m1e7` takes.
 - How the script is used: whether the scene headings and the `#a,b#` pacing marks matter to a screen reader player.
