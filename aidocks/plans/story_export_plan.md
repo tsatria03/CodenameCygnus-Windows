@@ -36,9 +36,9 @@ The game reads the original's final data, not the older files bundled with the a
 - **It cleans up the types the archive left as strings:** numbers such as a timeout's `"7"` and a variable's `"-1"` become numbers, and `render` becomes `true` or `false`.
 - **The JSON keeps the bundled files' own key names and shape**, so a reader of the old files can read the new ones.
 - **The game reads no progress or saves from the database** ([[project_story_data_source]]).
+- **The output is three new files in `game/data/text/`:** `missions.json`, `resources.json` and `states.json` (the dev, 2026-10-17: "I agree"). They sit beside the bundled v1 files, which stay untouched as a record of what the app shipped. The game reads only the new ones, and the build ships them.
 
 ## Open questions
 
-- Where the JSON goes and what it is called, and whether the bundled v1 files stay.
 - Whether a copy also goes in `analysis/` for reading.
 - Whether the tool also checks the result: every episode reaching its end, and every recording on disk under its MP3 name.
