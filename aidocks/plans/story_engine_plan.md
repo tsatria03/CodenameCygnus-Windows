@@ -66,6 +66,16 @@ Each state's `script` is the text of what its recording says, in three kinds of 
 - **The window shows the script as it plays**, headings included ([[foundation_plan]]).
 - **The `#a,b#` marks only pace the on-screen text.** `-[CCScrollingTextView presentScript:]` (0x1000280a8) splits each line at `#` and each mark at `,` into reveal steps it calls ticks, which `tick` (0x100028d1c) steps through as the recording plays. The second number is how long to wait before the next piece appears (`insertTicks:toArray:`, 0x100028c80, pads empty steps for the wait), and the first says whether to clear the text so far first (`tickClears`). Speech drops them, and the window may use them or show each line whole.
 
+## Achievements
+
+The original reported achievements to Apple's Game Center. 23 states earn one, 16 achievements in all, since some can be reached by several routes. Their names and descriptions lived on Game Center's servers, not in the app.
+
+- **The port keeps them as its own local list** (the dev, 2026-10-17: "I want local achievements since the game center thing is an apple thing, and it's online").
+- **When one is earned,** the game says "Achievement earned" and its name at the next quiet moment: when a choice comes up or at the end of the episode, never over the story ([[foundation_plan]]'s speech rules).
+- **The agent profile lists them,** which are earned and how many of the 16 ([[menus_plan]]).
+- **They are saved with the progress and kept for good** ([[saves_plan]]).
+- **The port writes their names**, since the originals are lost, and the dev approves them.
+
 ## Open questions
 
-- What happens at the 23 states that earn an achievement, now that there is no Game Center.
+- The names of the 16 achievements.
