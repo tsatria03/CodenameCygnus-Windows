@@ -29,7 +29,7 @@ Agreed on 2026-10-17 (the dev: "I like all of it"). They follow the original's g
 **At any time:**
 - **H** says where you are: the scene heading, such as "Consulate, bomb room".
 - **V** turns speech recognition on or off, like the original's voice button ([[project_speech_recognition]]).
-- **Escape** opens the pause menu: Resume, Restart episode and Return to menu.
+- **Escape** opens the pause menu: Resume, Settings, Restart episode and Return to menu ([[menus_plan]]).
 - **F1** opens the key bindings screen.
 - **Shift with Home and End** set the master volume, **Page Up and Page Down** the ambience, and **Shift with Page Up and Page Down** the decision loop ([[audio_plan]]).
 
