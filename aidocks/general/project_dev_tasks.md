@@ -15,6 +15,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Finished
 
+- The ambiences and decision sounds are out of the repository and its local history, kept under the gitignored `game/data/audio/missions/`; only the eight menu sounds remain. GitHub keeps the old history until the force-push that ends the push hold (2026-10-17).
 - The whole story is written as plain text in `analysis/script/`, one file per episode, by `tools/script_text.py` (2026-10-17).
 - The voiced episode previews are out of the repository and its history, ignored in `game/data/audio/other/teasers/` (2026-10-17).
 - The mission recordings are out of the repository and its history, ignored from the first commit on (2026-10-17).

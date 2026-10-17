@@ -12,7 +12,7 @@ metadata:
 
 **Bring up pushing only from 10 unpushed commits** (the dev, 2026-10-17: "if it reaches grater than or equal to 10, you can count them", then "only push if it reaches grater than 10, like the commit count rule"). Below 10, commit quietly: no count and no question about pushing. At 10 or more, say how many are waiting and ask whether to push.
 
-**Hold while the dev says so.** Since 2026-10-17 pushes wait until all eight plans are written (the dev: "Let's wait for the push untill all plans are written"). While a hold stands, do not ask about pushing even past 10 commits; when it ends, report the count and ask. Remove this paragraph when the hold is over.
+**Hold while the dev says so.** Since 2026-10-17 pushes wait until all eight plans are written (the dev: "Let's wait for the push untill all plans are written"). While a hold stands, do not ask about pushing even past 10 commits; when it ends, report the count and ask. Remove this paragraph when the hold is over. **The push that ends this hold must be a force-push:** on 2026-10-17 the dev approved removing the ambiences from history ("Yes."), and the rewritten `main` no longer shares GitHub's commits. Push with `git push --force-with-lease=main:d17b1259d971f44e88621ca2991fed852e41e3a0 origin main`, then expire the reflog and run `git gc --prune=now` so the old audio leaves `.git` too, and delete the scratchpad's `backup-before-ambience-rewrite.bundle` once the dev is happy.
 
 **Make multiple commits when possible** (the dev, 2026-10-17: "Make multiple commits when possible"). When the dev asks to commit a batch of work, split it into one commit per logical change rather than one large commit.
 
