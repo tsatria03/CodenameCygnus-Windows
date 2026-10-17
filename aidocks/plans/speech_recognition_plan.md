@@ -1,12 +1,12 @@
 ---
 name: speech_recognition_plan
-description: "Plan 7 of 8: speaking choices aloud, as in the original, behind an on/off setting: the recogniser, the microphone, what is spoken, and how long it listens. Status: planned, questions open."
+description: "Plan 7 of 8: speaking choices aloud, as in the original, behind an on/off setting: PocketSphinx limited to the current choice's words, the microphone through sounddevice, off by default, 15 seconds of listening, and what is spoken. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built.
+**Status: planned, ready to build.** Every question is answered; nothing is built.
 
 Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and the decision to keep it behind a setting, are in [[project_speech_recognition]].
 
@@ -28,8 +28,13 @@ Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and 
 
 - **It starts off** (the dev, 2026-10-17: "I want it off by default"). The keyboard and screen reader are the port's main way to play; opening a microphone on a PC can bring up Windows' privacy prompt the first time, and on speakers the story itself could be heard as speech. A player turns it on with V or in Settings, and the game remembers it ([[saves_plan]]).
 
+- **The microphone is opened through the `sounddevice` package,** the default input device, read in small blocks fed straight to PocketSphinx. It is the usual way to feed PocketSphinx a microphone in Python, it is reliable on Windows, and it never touches pygame's sound output. No OpenAL ([[project_python_only]]). It joins `requirements.txt` when this is built.
+- **No microphone** (the dev, 2026-10-17: "Yes"):
+  - With speech recognition on and no microphone that opens, the screen reader says once a session: "No microphone found. Choose with the keys."
+  - If Windows' privacy settings block the microphone, it says "The microphone is blocked in Windows privacy settings." instead.
+  - The setting stays on, so a microphone plugged in later is used at the next choice.
+- **Keeping the story out of the microphone:** listening only starts once the question's recording has finished, so only the background and the decision loop play while it listens, and those carry little speech. The headphones notice at the first start already recommends headphones ([[menus_plan]]). Anything more is for testing by ear.
+
 ## Open questions
 
-- How the microphone is opened.
-- What is spoken when no microphone is found.
-- Keeping the story audio out of the microphone, on speakers rather than headphones.
+None. Ready to build once the dev says so.

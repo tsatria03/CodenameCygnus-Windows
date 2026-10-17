@@ -17,6 +17,8 @@ Don't propose moving parts to another language or engine. Choices are made from 
 
 **Audio is played as MP3 through pygame** (the dev, 2026-10-17: "I'll convert them myself to mp3 so pygame can play them"). The original recordings are AAC in `.m4a` files, which neither pygame's mixer nor OpenAL can decode. The dev converts them to MP3 on their own machine; Claude never runs the conversion.
 
+**No OpenAL** (the dev, 2026-10-17: "this game will not use openall right?", confirmed). Everything the game plays goes through pygame's mixer, and the microphone through `sounddevice` ([[speech_recognition_plan]]). Do not bring in OpenAL Soft, `cyal` or any OpenAL binding, even where the reference material in `user/` uses one.
+
 **How to apply:**
 - Write any new code in Python, inside `codenamecygnus/`.
 - The story data still names every recording with `.m4a`. The game looks each one up by its name with `.mp3` in place of `.m4a`, and never edits the original data to match.
