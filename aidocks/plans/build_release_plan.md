@@ -1,12 +1,12 @@
 ---
 name: build_release_plan
-description: "Plan 8 of 8: compiler.py builds CodenameCygnus.exe with PyInstaller and releaser.py versions, zips and publishes a release from the dev's own machine; Windows only, no GitHub Actions workflow; the recordings ship separately as an encrypted m1.dat the game downloads. Status: planned, questions open."
+description: "Plan 8 of 8: compiler.py builds CodenameCygnus.exe with PyInstaller and releaser.py versions, zips and publishes a release from the dev's own machine; Windows only, no GitHub Actions workflow; the recordings ship separately as an encrypted m1.dat the game downloads; folder build, single exe or one-file chosen each time. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built.
+**Status: planned, ready to build.** Every question is answered; nothing is built.
 
 Plan 8 of 8 ([[story_export_plan]] lists the order). It is the developer task "Adapt the build script and the release script for Windows only" in [[project_dev_tasks]].
 
@@ -51,7 +51,18 @@ The dev's idea (2026-10-17): "I was thinking of creating a file called m1.dat in
   9. **Dry run** (`--dry-run`): what a build would do, building nothing.
   - Every kind carries `docks`, `VERSION` and the license beside the exe. None ever carries `m1.dat`.
 
+- **The releaser's menu** (the dev, 2026-10-17: "Yes. It sure does."), the reference material's own without its workflow and second-system rows:
+  1. **Full release:** every step below from 2 to 8, in order, each asking Y or N first.
+  2. **Check that everything is ready:** everything committed and pushed, `gh` signed in, and 5 to 100 changes under `unrelease:`; with 1 to 4 it asks "Release anyway with N change(s)?" ([[feedback_changelog]]).
+  3. **Set the version and file the changelog:** `VERSION` becomes today's date and that day's number, such as `26.10.17-1`, and the `unrelease:` lines go under it.
+  4. **Build:** asks "1. the folder build, 2. the single exe, 0. skip" and runs the compiler. A failed build puts `VERSION` and the changelog back.
+  5. **Zip the build** into `CodenameCygnus-Win-<version>.zip`, which extracts to a `CodenameCygnus-Windows` folder. It only zips a build made for that version.
+  6. **Commit and push** `VERSION` and the changelog as "Release <version>".
+  7. **Tag the release** `V<version>`, and push the tag.
+  8. **Upload the release to GitHub** as "CodenameCygnus V<version>", with that version's changelog lines as its notes.
+  9. **Upload the mission pack:** puts `m1.dat` on the `mission-1` release, never marked Latest. **The pack goes up as the loose file, never zipped** (the dev: "The mission pack is never zipped up. It's the loose dat file"), since the game downloads exactly that file and checks its fingerprint.
+  - It never moves or replaces a tag, a release, or a file already on a release.
+
 ## Open questions
 
-- The releaser's menu.
-- What the zip is called.
+None. Ready to build once the dev says so.
