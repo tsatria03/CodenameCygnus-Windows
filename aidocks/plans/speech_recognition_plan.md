@@ -26,9 +26,10 @@ Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and 
   - Speech heard but matching no choice gets "Sorry, I did not catch that", and listening carries on for the rest of the 15 seconds.
   - Holiday Party's timed choices listen for their whole 7 seconds.
 
+- **It starts off** (the dev, 2026-10-17: "I want it off by default"). The keyboard and screen reader are the port's main way to play; opening a microphone on a PC can bring up Windows' privacy prompt the first time, and on speakers the story itself could be heard as speech. A player turns it on with V or in Settings, and the game remembers it ([[saves_plan]]).
+
 ## Open questions
 
 - How the microphone is opened.
-- The setting's default.
 - What is spoken when no microphone is found.
 - Keeping the story audio out of the microphone, on speakers rather than headphones.
