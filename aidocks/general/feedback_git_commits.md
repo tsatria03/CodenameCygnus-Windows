@@ -1,6 +1,6 @@
 ---
 name: feedback_git_commits
-description: "One commit per fix. Commit only when the dev asks. 'Commit' means commit only; 'commit/push' means both. Force pushes and history rewrites need an explicit go-ahead. Use git commit -F with a message file written by the Write tool, run git from PowerShell, and never hide git's errors."
+description: "One commit per fix. Commit without asking, but ask before every push. 'Commit' means commit only; 'commit/push' means both. Force pushes and history rewrites need an explicit go-ahead. Use git commit -F with a message file written by the Write tool, run git from PowerShell, and never hide git's errors."
 metadata:
   node_type: memory
   type: feedback
@@ -8,11 +8,11 @@ metadata:
 
 **"Commit" means commit only; "commit/push" means commit and push.** Commits pile up locally by default, because the dev tests batches before pushing. A push waits for the dev to say "push" or "commit/push".
 
-**Commit only when the dev asks.**
+**Commit without asking; ask before pushing** (the dev, 2026-10-17: "For commits, you don't have to ask me if I want it done. You can always commit, but still ask if I want it pushed"). When a change is done, commit it straight away. Never push until the dev says "push" or "commit/push"; after committing, say how many commits are waiting and ask whether to push.
 
 **Make multiple commits when possible** (the dev, 2026-10-17: "Make multiple commits when possible"). When the dev asks to commit a batch of work, split it into one commit per logical change rather than one large commit.
 
-**`git add`, `git commit` and `git fetch` run without approval** (the dev, 2026-10-17: "make git commits without approval if you use the command. Same with git add/fetch"). They are allowed in `.claude/settings.local.json`. A commit still happens only when the dev asks for one; the allowance only skips the permission prompt.
+**`git add`, `git commit` and `git fetch` run without approval** (the dev, 2026-10-17: "make git commits without approval if you use the command. Same with git add/fetch"). They are allowed in `.claude/settings.local.json`.
 
 **Fetching is fine without asking; bringing commits in is not.** Never pull, merge, rebase, cherry-pick or reset onto incoming commits without the dev's go-ahead.
 
