@@ -1,12 +1,12 @@
 ---
 name: menus_plan
-description: "Plan 5 of 8: the screens around the story: the opening, the main menu, the episode list, the agent profile with its traits and achievements, settings, credits and the end of an episode. Status: planned, questions open."
+description: "Plan 5 of 8: the screens around the story: the opening, the main menu, the episode list, the agent profile with its traits and achievements, settings, credits, the end of an episode, the pause menu and the original's interface sounds. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built.
+**Status: planned, ready to build.** Every question is answered; nothing is built.
 
 Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken menu in the screen loop of [[foundation_plan]]: Up and Down move, Enter chooses, Home and End jump to the first and last row, Escape goes back, and each row is spoken with its place.
 
@@ -85,6 +85,12 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   - Not used: `1930Radio D` (`playStoreVCSound`) and `Buy` (`playBuySound`) belonged to the Store, and nothing in the code plays `00000Push`.
   - Moving between rows plays nothing, as in the original, so no sound overlaps the screen reader. The sounds follow the master volume ([[audio_plan]]).
 
+- **The episode list** (the dev, 2026-10-17: "I think it should be like the original where you have to click on the episode to find the description of it"):
+  - The screen opens on "Episodes. Mission 1." The original's mission description ("Five premium episodes, 15-25 minutes each...") is left out, since it predates Holiday Party and was written for selling episodes. Mission 2, never released, is left out.
+  - Each row is the episode's number, title and state only: "Episode 2, Art Show, in progress." The states are new, in progress, completed and locked.
+  - Enter on an episode opens its own screen, which says its description first and then offers its buttons: Start, or Continue while in progress; Restart once it has been started before; and Preview next episode once it is finished and there is a next one.
+  - Enter on a locked episode says its description and then "Locked. You need to complete the previous episode before starting this one."
+
 ## Open questions
 
-- The episode list's exact rows and wording.
+None. Ready to build once the dev says so.
