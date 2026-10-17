@@ -60,9 +60,18 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   - A tie goes to the first in the original's own order, Openness, Predictability, Diplomacy, Activeness, so it is the same every time.
   - Each scale says which way it leans and how far, such as "Diplomacy: Charismatic, 3" or "Openness: Secretive, 2". At 0, "Activeness: balanced".
 
+- **The end of an episode** (the dev, 2026-10-17: "agreed"):
+  1. When the story reaches the episode's end state, the screen reader says "Episode complete!" and then the episode's completion text, as an important message that only a pressed key cuts off ([[foundation_plan]]).
+  2. Then any achievements earned during it, such as "Achievement earned: Card Shark."
+  3. Then a short menu:
+     - **Next episode** starts the episode this one unlocked, when there is one.
+     - **Preview next episode** plays its teaser, as the original's PREVIEW NEXT did.
+     - **Credits:** this episode's credits, one row each, such as "Miss Honeybourne: Sarah Elmaleh".
+     - **Return to menu.**
+  - A row with nothing behind it is left out. Signum Cygni and Holiday Party have no next episode and no preview, and Mission 2 was never released.
+
 ## Open questions
 
 - The episode list's exact rows and wording.
-- The end-of-episode screen and the preview.
 - The pause menu's rows.
 - Whether the menus use the original's interface sounds in `other/misc/`.
