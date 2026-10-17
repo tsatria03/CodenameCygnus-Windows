@@ -1,0 +1,1134 @@
+Codename Cygnus, Mission 1, Episode 2: Art Show
+Gain information on Neptune and the hostages.
+Starts at m1e2_start and ends at m1e2_end. 176 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e2_start
+Sets completion.m1e2_artShow to 1.
+Then goes to 001matthewsVerification.
+
+State: 001matthewsVerification
+Recording: 001matthewsVerification. Decision sound: decision_single.
+(THEME MUSIC)
+Scene: HIGHWAY - CAR - INTERIOR
+Alexander: (VIA EARPIECE) Director Matthews would like to speak to you about your mission. I'm connecting him now.
+Director Matthews: (VIA EARPIECE) Matthews, here. Is this... Damn it, Alex, is this thing even on?
+(TAPS ON MIC)
+Alexander: You're loud and clear, Director.
+Director Matthews: Watch the tone, Alex. I need to be sure I read you, Agent. Please say CONTINUE.
+Choice CONTINUE leads to 002transitionMissionBrief.
+
+State: 002transitionMissionBrief
+Recording: 002transitionMissionBrief. Background: back_carint.
+Director Matthews: Excellent. I heard you perfectly.
+Alexander: I said it was confirmed.
+Director Matthews: (SIGH) If you don't watch it, Alex, I'll have you reviewing security footage in the basement for the next six months! ...with Phelps.
+Alexander: I'm pulling up the mission brief, Director Matthews.
+Director Matthews: I have the dossier right here. (PAPERS SHUFFLING) In a folder. On paper. Where it should be...
+Then goes to 003missionBrief.
+
+State: 003missionBrief
+Recording: 003missionBrief. Background: back_carint. Decision sound: decision_single.
+Director Matthews: Agent, we have an emergency hostage crisis at the French Consulate in Back Bay. Six diplomats are trapped in the building after hours, held captive by armed thugs. We believe this is the work of Neptune, the man with no country, and his organization, TRIDENT. We don't have any demands from them, and all attempts at contact are met with radio silence. We're flying blind, so we can't just storm in and rescue the hostages. We need you to find out what Neptune and TRIDENT are doing so we can rescue the hostages safely! To acknowledge that all is clear, say CONTINUE.
+Choice CONTINUE leads to 004missionBriefRomance.
+
+State: 004missionBriefRomance
+Recording: 004missionBriefRomance. Background: back_carint.
+Director Matthews: Excellent, so it says here that... Aw, for the love of-- (PAPERS SHUFFLING) Phelps! I thought you said... Find me that file!
+If romance.m1e1_maleInterest==1, goes to 004M_romance; otherwise to 004F_romance.
+
+State: 004M_romance
+Recording: 004M_romance. Background: back_carint.
+Director Matthews: It appears that you were flirting with Armanno Tomassi during the Krasnoff mission.
+Then goes to 005romanceQuestion.
+
+State: 004F_romance
+Recording: 004F_romance. Background: back_carint.
+Director Matthews: It appears that you were flirting with Lisette Schafer during the Krasnoff mission.
+Then goes to 005romanceQuestion.
+
+State: 005romanceQuestion
+Recording: 005romanceQuestion. Background: back_carint. Decision sound: decision_single.
+Director Matthews: It will help us at Cygnus HQ to know what you're most comfortable with. When you're out on an assignment, do you prefer to chat up the ladies and take a roll of the dice with them, or are you better at attracting the interests of gentlemen to make things happen? I don't think I need to explain what this means to a seasoned veteran like you. Is it LADIES or GENTLEMEN for you?
+Choice LADIES leads to 006F_romanceQuestionResponse.
+Choice GENTLEMEN leads to 006M_romanceQuestionResponse.
+
+State: 006F_romanceQuestionResponse
+Recording: 006F_romanceQuestionResponse. Background: back_carint.
+(LADIES)
+Director Matthews: Well, it's about time Phelps.
+(PAPERS SHUFFLE VIA EARPIECE)
+Director Matthews: Hmm... A-ha, yes. Just as you said. You like to work your magic with the ladies. And your record in that regard is impressive, to say the least... Well, that's all I need to know for now. I'll leave you with Alex to start the mission. Good luck, Agent. Don't let Cygnus down.
+Sets romance.m1_maleInterest to 0.
+Then goes to achievement_romanceWomenMission1.
+
+State: 006M_romanceQuestionResponse
+Recording: 006M_romanceQuestionResponse. Background: back_carint.
+(GENTLEMEN)
+Director Matthews: Well, it's about time Phelps.
+(PAPERS SHUFFLE VIA EARPIECE)
+Director Matthews: A-ha, yes. Just as you said. You can have men eating out of the palm of your hand with no effort at all. An impressive record... Well, that's all I need to know for now. I'll leave you with Alex to start the mission. Good luck, Agent. Don't let Cygnus down.
+Sets romance.m1_maleInterest to 1.
+Then goes to achievement_romanceMenMission1.
+
+State: achievement_romanceWomenMission1
+Background: back_carint.
+Earns the achievement m1_maleInterest_0.
+Then goes to 007transitionAssignmentBrief.
+
+State: achievement_romanceMenMission1
+Background: back_carint.
+Earns the achievement m1_maleInterest_1.
+Then goes to 007transitionAssignmentBrief.
+
+State: 007transitionAssignmentBrief
+Recording: 007transitionAssignmentBrief.
+(CAR SCREECHES TO A HALT. CAR DOOR OPENS AND CLOSES)
+(TRANSITION MUSIC)
+If romance.m1_maleInterest==1, goes to 008M_assignmentBrief; otherwise to 008F_assignmentBrief.
+
+State: 008M_assignmentBrief
+Recording: 008M_assignmentBrief. Background: back_lobby.
+Scene: HOTEL - LOBBY - ARCHWAY
+Alexander: (VIA EARPIECE) Alex here again. You're in the Grand Plaza Hotel next to an archway. Beyond that is an art gala displaying the work of installation artist Nick M. If you ask me, he does what he does because he likes to pull the wool over the eyes of the wealthy patrons. He's an elite artist, but with humble roots and an apparent past connection to graffiti artists. Most recently, you guessed it, the last person seen with Neptune. Nick is your mark on this assignment.
+Then goes to 009assignmentBriefContact.
+
+State: 008F_assignmentBrief
+Recording: 008F_assignmentBrief. Background: back_lobby.
+Scene: HOTEL - LOBBY - ARCHWAY
+Alexander: (VIA EARPIECE) (VIA EARPIECE) Alex here again. You're inside the Grand Plaza Hotel next to an archway. Beyond that is an art gala displaying the work of installation artist Panonica. If you ask me, she does what she does because she likes to pull the wool over the eyes of the wealthy patrons. She's an elite artist, but with humble roots and an apparent past connection to the graffiti artists. Most recently, you guessed it, the last person seen with Neptune. Panonica is your mark on this assignment.
+Then goes to 009assignmentBriefContact.
+
+State: 009assignmentBriefContact
+Recording: 009assignmentBriefContact. Background: back_lobby. Decision sound: decision_single.
+Alexander: You need to make contact with your mark in order to learn the location of Neptune and discover his part in the hostage situation. To acknowledge that all is clear, please say CONTINUE.
+Choice CONTINUE leads to 010meetBartender.
+
+State: 010meetBartender
+Recording: 010meetBartender.
+Scene: HOTEL - GALA - BAR AREA
+(FOOTSTEPS, MUSIC, CHATTER, GLASSWARE CLINKING)
+Alexander: Looks like you're establishing a point of observation at the bar. I'll keep scanning with the cameras
+Then goes to 001transition_m1e2_a2p1.
+
+State: 001transition_m1e2_a2p1
+Background: back_bar.
+If romance.m1_maleInterest==1, goes to 011M_meetBartender; otherwise to 011F_meetBartender.
+
+State: 011M_meetBartender
+Recording: 011M_meetBartender. Background: back_bar.
+(COCKTAIL SHAKER SHAKING)
+Bartender: Now that's the look of someone who could use a drink. Lucky you, I got your libations right here. Pick your poison.
+Then goes to 012drinkPrompt.
+
+State: 011F_meetBartender
+Recording: 011F_meetBartender. Background: back_bar.
+(COCKTAIL SHAKER SHAKING)
+Bartender: Now that's the look of someone who could use a drink. Lucky you, I got your libations right here. Pick your poison.
+Then goes to 012drinkPrompt.
+
+State: 012drinkPrompt
+Recording: 012drinkPrompt. Background: back_bar. Decision sound: decision_single.
+Alexander: Reports indicate that the most commonly ordered drink of this hotel bar is (TYPING) the Martini. You could order the Martini to be FOCUSED, or an IMPULSIVE move would be to let the bartender choose. FOCUSED or IMPULSIVE.
+Choice FOCUSED leads to 013martiniDrinkSplitter.
+Choice IMPULSIVE leads to 013impulsiveDrinkSplitter.
+
+State: 013martiniDrinkSplitter
+Background: back_bar.
+Raises Predictability by one.
+Sets event.m1e2_drink to 1.
+Then goes to achievement_drinkMartini.
+
+State: 013impulsiveDrinkSplitter
+Background: back_bar.
+Lowers Predictability by one.
+Sets event.m1e2_drink to 0.
+If romance.m1_maleInterest==1, goes to 014M_impulsiveDrinkResponse; otherwise to 014F_impulsiveDrinkResponse.
+
+State: achievement_drinkMartini
+Background: back_bar.
+Earns the achievement m1e2_drink_1.
+If romance.m1_maleInterest==1, goes to 014M_martiniDrinkResponse; otherwise to 014F_martiniDrinkResponse.
+
+State: 014M_impulsiveDrinkResponse
+Recording: 014M_impulsiveDrinkResponse. Background: back_bar.
+(IMPULSIVE - Let the Bartender choose)
+Bartender: Someone that likes to try new things, eh? I'll mix you up a Scorpion, have it ready for ya in no time. I'll even put one of those little umbrellas in it.
+(ICE IN GLASS, DRINK BEING MIXED)
+Then goes to 015contactMark.
+
+State: 014F_impulsiveDrinkResponse
+Recording: 014F_impulsiveDrinkResponse. Background: back_bar.
+(IMPULSIVE - Let the Bartender choose)
+Bartender: Someone that likes to try new things, eh? I'll mix you up a Scorpion, have it ready for ya in no time. I'll even put one of those little umbrellas in it.
+(ICE IN GLASS, DRINK BEING MIXED)
+Then goes to 015contactMark.
+
+State: 014M_martiniDrinkResponse
+Recording: 014M_martiniDrinkResponse. Background: back_bar.
+(FOCUSED - Order martini)
+Bartender: Let me guess. Shaken, not stirred. Get those all the time. Comin' right up.
+(COCKTAIL SHAKER SHAKES, POURS DRINK)
+Then goes to 015contactMark.
+
+State: 014F_martiniDrinkResponse
+Recording: 014F_martiniDrinkResponse. Background: back_bar.
+(FOCUSED - Order martini)
+Bartender: Oh, let me guess. Shaken, not stirred. I get those all the time. Comin' right up!
+(COCKTAIL SHAKER SHAKES, POURS DRINK)
+Then goes to 015contactMark.
+
+State: 015contactMark
+Recording: 015contactMark. Background: back_bar.
+Alexander: I've always envied agents like you. Fancy parties, fancy drinks, chatting with glamorous people...
+If romance.m1_maleInterest==1, goes to 016M_contactMark; otherwise to 016F_contactMark.
+
+State: 016M_contactMark
+Recording: 016M_contactMark. Background: back_bar. Decision sound: decision_single.
+Alexander: Ah, I've spotted Nick in that crowd of patrons near the picture window. It looks like you can remain SECRETIVE and eavesdrop on the conversation, or maybe find a stranger and dance to capture Nick's attention with an ATHLETIC approach. What do you think? SECRETIVE or ATHLETIC?
+Choice SECRETIVE leads to 017eavesdropResponse.
+Choice ATHLETIC leads to 017danceResponse.
+
+State: 016F_contactMark
+Recording: 016F_contactMark. Background: back_bar. Decision sound: decision_single.
+Alexander: Ah, I've spotted Nica in that crowd of patrons near the picture window. It looks like you can remain SECRETIVE and eavesdrop on the conversation, or maybe find a stranger and dance to capture Nica's attention with an ATHLETIC approach. What do you think? SECRETIVE or ATHLETIC?
+Choice SECRETIVE leads to 017eavesdropResponse.
+Choice ATHLETIC leads to 017danceResponse.
+
+State: 017eavesdropResponse
+Recording: 017eavesdropResponse.
+(SECRETIVE - Eavesdrop on conversation)
+Alexander: Marvelous! A spy who likes to spy.
+(FOOTSTEPS, MUSIC RISES)
+Alexander: Wait for your moment, agent.
+Lowers Openness by one.
+If romance.m1_maleInterest==1, goes to 018M_eavesdropResponse; otherwise to 018F_eavesdropResponse.
+
+State: 017danceResponse
+Recording: 017danceResponse.
+(ATHLETIC - Find a stranger and dance)
+(FOOTSTEPS, MUSIC RISES)
+Alexander: Marvelous! A take-charge agent who likes to make a scene. You're more fun than that stick in the mud Phelps.
+Raises Activeness by one.
+If romance.m1_maleInterest==1, goes to 018M_danceResponse; otherwise to 018F_danceResponse.
+
+State: 018M_eavesdropResponse
+Recording: 018M_eavesdropResponse. Background: back_gala1.
+Scene: HOTEL - GALA - MAIN HALL
+Art Patron 1: Nick, is it true that you're now connected to Neptune and his TRIDENT organization?
+Nick: Who's Neptune? And why would an artist be associated with a group of environmental fish fanatics? What a boring question. Someone ask about my next installation.
+Art Patron 2: I'm sure it will be delightful and provocative. Oh, do tell, Nick.
+Nick: Believe it or not, Ladies and Gentlemen, I'm considering the use of popsicles dipped in crude oil.
+Various Patrons: "Oh, I say!" "So creative" "Ooo, I'm counting the days!" "Mmmmm..." "What an inspiration!"
+Art Patron 2: But, won't the popsicles melt?
+Nick: Yes. Yes they will. That is the point! What will happen when all we're left with is popsicle sticks!?
+(MURMURS OF APPROVAL, CLAPPING)
+Then goes to 019disperseCrowdPrompt.
+
+State: 018F_eavesdropResponse
+Recording: 018F_eavesdropResponse. Background: back_gala1.
+Scene: HOTEL - GALA - MAIN HALL
+Art Patron 1: Panonica, is it true that you're now connected to Neptune and his TRIDENT organization?
+Nica: Who's Neptune? And why would an artist be associated with a group of environmental fish fanatics? What a boring question. Someone ask me about my next installation.
+Art Patron 2: I'm sure it will be delightful and provocative!
+Nica: Believe it or not, Ladies and Gentlemen, I'm considering the use of popsicles dipped in crude oil.
+Various Patrons: "Oh, I say!" "So creative" "Ooo, I'm counting the days!" "Mmmmm..." "What an inspiration!"
+Art Patron 2: But, won't the popsicles melt?
+Nica: Yes! Yes they will. That is the point! What will happen when all we're left with is popsicle sticks!?
+(MURMURS OF APPROVAL, CLAPPING)
+Then goes to 019disperseCrowdPrompt.
+
+State: 018M_danceResponse
+Recording: 018M_danceResponse. Background: back_gala1.
+Scene: HOTEL - GALA - DANCE FLOOR
+Dance Partner: Me? Of course! I'd love to dance with you. I've been bored out of my mind.
+Then goes to 019danceTransition.
+
+State: 018F_danceResponse
+Recording: 018F_danceResponse. Background: back_gala1.
+Scene: HOTEL - GALA - DANCE FLOOR
+Dance Partner: Me? Of course! I'd love to dance with you. I've been bored out of my mind.
+Then goes to 019danceTransition.
+
+State: 019disperseCrowdPrompt
+Recording: 019disperseCrowdPrompt. Background: back_gala1. Decision sound: decision_single.
+Alexander: If you're thinking what I'm thinking, this artist needs to be brought back to reality with a HOSTILE statement. Then again, it's pretty easy to use a CLEVER move to disperse the crowd if all these patrons are here to appreciate the art. You could announce the sale of an expensive piece in the other room to CLEVER, or call out the artist to be HOSTILE. CLEVER or HOSTILE?
+Choice CLEVER leads to 020announcesaleResponse.
+Choice HOSTILE leads to 020callouttheartistSplitter.
+
+State: 019danceTransition
+Recording: 019danceTransition. Background: back_dance1.
+(MUSIC RISES, FAINT CHATTER IN BACKGROUND)
+Alexander: Those are some impressive moves, Agent. Your mark is looking your way.
+If romance.m1_maleInterest==1, goes to 019M_danceTransition; otherwise to 019F_danceTransition.
+
+State: 020announcesaleResponse
+Recording: 020announcesaleResponse. Background: back_gala1.
+(CLEVER - Announce sale)
+(EXCITED MURMURS, CROWD SCAMPERS AWAY)
+Alexander: Well, that did the trick to disperse the crowd.
+Lowers Activeness by one.
+If romance.m1_maleInterest==1, goes to 021M_announcesaleResponse; otherwise to 021F_announcesaleResponse.
+
+State: 020callouttheartistSplitter
+Background: back_gala1.
+Lowers Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 021M_callouttheartistResponse; otherwise to 021F_callouttheartistResponse.
+
+State: 019M_danceTransition
+Recording: 019M_danceTransition. Background: back_dance1.
+Dance Partner: I can barely keep up. You're a much better dancer than my wife.
+Then goes to 020danceTransition2.
+
+State: 019F_danceTransition
+Recording: 019F_danceTransition. Background: back_dance1.
+Dance Partner: I can barely keep up! You're a much better dancer than my husband.
+Then goes to 020danceTransition2.
+
+State: 021M_announcesaleResponse
+Recording: 021M_announcesaleResponse. Background: back_gala1.
+Alexander: Just watch out for that smile Nick is throwing your way.
+Then goes to 027greetMarkPromptA.
+
+State: 021F_announcesaleResponse
+Recording: 021F_announcesaleResponse. Background: back_gala1.
+Alexander: Just watch out for that smile Nica's throwing your way.
+Then goes to 027greetMarkPromptA.
+
+State: 021M_callouttheartistResponse
+Recording: 021M_callouttheartistResponse. Background: back_gala1.
+(HOSTILE - Call out the artist)
+(MURMURS OF SHOCK)
+Alexander: The look on his face is priceless!
+Nick: Excuse me, ladies and gentlemen. This plebeian doesn't deserve a public response, and it wouldn't be polite of me.
+Then goes to 022disperseCrowdAccomplished.
+
+State: 021F_callouttheartistResponse
+Recording: 021F_callouttheartistResponse. Background: back_gala1.
+(HOSTILE - Call out the artist)
+(MURMURS OF SHOCK)
+Alexander: The look on her face is priceless!
+Nica: Excuse me, ladies and gentlemen. This plebeian doesn't deserve a public response, and it wouldn't be polite of me.
+Then goes to 022disperseCrowdAccomplished.
+
+State: 020danceTransition2
+Recording: 020danceTransition2. Background: back_dance1.
+Alexander: Be careful now, agent. Keep out of unnecessary conflicts.
+If romance.m1_maleInterest==1, goes to 021M_danceTransition2; otherwise to 021F_danceTransition2.
+
+State: 027greetMarkPromptA
+Recording: 027greetMarkPrompt. Background: back_gala1. Decision sound: decision_single.
+Alexander: To greet your mark, you can either do it with a wink if you're CHARISMATIC, or give a typical hello if you're FOCUSED. CHARISMATIC or FOCUSED.
+Choice CHARISMATIC leads to 028greetMarkWinkSplitter.
+Choice FOCUSED leads to 028greetMarkFocused.
+
+State: 022disperseCrowdAccomplished
+Recording: 022disperseCrowdAccomplished. Background: back_gala1.
+Alexander: That did the trick. The crowd is gone.
+Then goes to 027greetMarkPromptA.
+
+State: 021M_danceTransition2
+Recording: 021M_danceTransition2. Background: back_dance1.
+Dance Partner: All she cares about is art-this and Nicholas-that. Who cares? I mean, who makes art out of popsicle sticks, anyways? Isn't that just crafts? And you know, I hear she's getting involved with these environmental fish fanatics.
+Alexander: Ah, he's talking about the TRIDENT organization. Neptune's group.
+Then goes to 022attractMarkPrompt.
+
+State: 021F_danceTransition2
+Recording: 021F_danceTransition2. Background: back_dance1.
+Dance Partner: All he cares about is art-this and Panonica-that. Who cares? I mean, who makes art out of popsicle sticks? Isn't that just crafts? And you know, I hear she's getting involved with those environmental fish fanatics.
+Alexander: Ah, she's talking about the TRIDENT organization. Neptune's group.
+Then goes to 022attractMarkPrompt.
+
+State: 028greetMarkWinkSplitter
+Background: back_gala3.
+Raises Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 029M_greetMarkWinkResponse; otherwise to 029F_greetMarkWinkResponse.
+
+State: 028greetMarkFocused
+Background: back_gala3.
+Raises Predictability by one.
+If romance.m1_maleInterest==1, goes to 029M_greetMarkConventionalResponse; otherwise to 029F_greetMarkConventionalResponse.
+
+State: 022attractMarkPrompt
+Recording: 022attractMarkPrompt. Background: back_dance1. Decision sound: decision_single.
+Alexander: I'd use the last moments of the dance to finish attracting your mark. You could be BOLD and try with a wild finishing move, or CHARISMATIC to show off and make your dance partner smile and laugh. BOLD or CHARISMATIC.
+Choice BOLD leads to 023finishingMoveSplitter.
+Choice CHARISMATIC leads to 023partnerLaughSplitter.
+
+State: 029M_greetMarkWinkResponse
+Recording: 029M_greetMarkWinkResponse. Background: back_gala3.
+(CHARISMATIC - Wink)
+Nick: I think you've got something in your eye, stranger.
+Then goes to 030M_greetMarkAccomplished.
+
+State: 029F_greetMarkWinkResponse
+Recording: 029F_greetMarkWinkResponse. Background: back_gala3.
+(CHARISMATIC - Wink)
+Nica: I think you've got something in your eye, stranger.
+Then goes to 030F_greetMarkAccomplished.
+
+State: 029M_greetMarkConventionalResponse
+Recording: 029M_greetMarkConventionalResponse. Background: back_gala3.
+(FOCUSED - Say hello)
+Nick: You... don't seem like the typical art patron. And I don't believe we've met.
+Then goes to 030M_greetMarkAccomplished.
+
+State: 029F_greetMarkConventionalResponse
+Recording: 029F_greetMarkConventionalResponse. Background: back_gala3.
+(FOCUSED - Say hello)
+Nica: You... don't seem like the typical art patron. And I don't believe we've met.
+Then goes to 030F_greetMarkAccomplished.
+
+State: 023finishingMoveSplitter
+Background: back_dance1.
+Raises Openness by one.
+If romance.m1_maleInterest==1, goes to 024M_finishingMoveResponse; otherwise to 024F_finishingMoveResponse.
+
+State: 023partnerLaughSplitter
+Background: back_dance1.
+Raises Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 024M_partnerLaughResponse; otherwise to 024F_partnerLaughResponse.
+
+State: 030M_greetMarkAccomplished
+Recording: 030M_greetMarkAccomplished. Background: back_gala3.
+Nick: I'm Nick. But you already knew that, I'm sure. What's your game?
+Then goes to 031gainConfidenceSplitter.
+
+State: 030F_greetMarkAccomplished
+Recording: 030F_greetMarkAccomplished. Background: back_gala3.
+Nica: I'm Panonica, but you can call me Nica. But you already know that, I'm sure. What's your game?
+Then goes to 031gainConfidenceSplitter.
+
+State: 024M_finishingMoveResponse
+Recording: 024M_finishingMoveResponse.
+(BOLD - Finishing move)
+(MUSIC CONCLUDES, CROWD CLAPS)
+Dance Partner: Whoa, oh my god! That was amazing!
+Then goes to 025finishingMoveTransition.
+
+State: 024F_finishingMoveResponse
+Recording: 024F_finishingMoveResponse.
+(BOLD - Finishing move)
+(MUSIC CONCLUDES, CROWD CLAPS)
+Dance Partner: Oh my god! That was amazing!
+Then goes to 025finishingMoveTransition.
+
+State: 024M_partnerLaughResponse
+Recording: 024M_partnerLaughResponse. Background: back_dance1.
+(CHARISMATIC - Make partner laugh)
+Dance Partner: (LAUGHS) Wow! What a package. Both attractive AND charming.
+Then goes to 025partnerLaughTransition.
+
+State: 024F_partnerLaughResponse
+Recording: 024F_partnerLaughResponse. Background: back_dance1.
+(CHARISMATIC - Make partner laugh)
+Dance Partner: (LAUGHS) What a package. Both attractive AND charming.
+Then goes to 025partnerLaughTransition.
+
+State: 031gainConfidenceSplitter
+Background: back_gala3.
+If romance.m1_maleInterest==1, goes to 032M_gainConfidencePrompt; otherwise to 032F_gainConfidencePrompt.
+
+State: 025finishingMoveTransition
+Recording: 025finishingMoveTransition. Background: back_gala2.
+Alexander: Well done, Agent. Your mark is headed your way.
+If romance.m1_maleInterest==1, goes to 026M_danceExit; otherwise to 025F_danceExit.
+
+State: 025partnerLaughTransition
+Recording: 025partnerLaughTransition.
+(MUSIC CONCLUDES, CROWD CLAPS)
+Alexander: As I said, be careful, Agent. We don't have time for a distraction. Your mark is headed your way.
+If romance.m1_maleInterest==1, goes to 026M_danceExit; otherwise to 025F_danceExit.
+
+State: 032M_gainConfidencePrompt
+Recording: 032M_gainConfidencePrompt. Background: back_gala3. Decision sound: decision_single.
+Alexander: Cut to the chase, Agent. You need to gain the confidence of your mark, fast. To start, you can either play it SECRETIVE and offer to buy him a cocktail, or show some ATHLETIC edge and ask him to dance. What do you think? SECRETIVE or ATHLETIC.
+Choice SECRETIVE leads to 033M_cocktailResponse.
+Choice ATHLETIC leads to 033M_danceResponse.
+
+State: 032F_gainConfidencePrompt
+Recording: 032F_gainConfidencePrompt. Background: back_gala3. Decision sound: decision_single.
+Alexander: Cut to the chase, Agent. You need to gain the confidence of your mark, fast. To start, you can either play it SECRETIVE and offer to buy her a cocktail, or show some ATHLETIC edge and ask her to dance. What do you think? SECRETIVE or ATHLETIC.
+Choice SECRETIVE leads to 033F_cocktailResponse.
+Choice ATHLETIC leads to 033F_danceResponse.
+
+State: 026M_danceExit
+Recording: 026M_danceExit. Background: back_gala2.
+(FOOTSTEPS)
+Dance Partner: (FADING) Whoa, wait a minute, where are you going? Hey, don't you want my number?
+Then goes to 027greetMarkPromptB.
+
+State: 025F_danceExit
+Recording: 025F_danceExit. Background: back_gala2.
+(FOOTSTEPS)
+Dance Partner: (FADING) Wait a minute, where are you going? Don't you want my number?
+Then goes to 027greetMarkPromptB.
+
+State: 033M_cocktailResponse
+Recording: 033M_cocktailResponse.
+(SECRETIVE - Buy cocktail)
+Nick: I'll take that drink, but only if it's a martini. I only drink martinis.
+(FOOTSTEPS)
+Scene: HOTEL - GALA - BAR AREA
+(COCKTAIL SHAKER SHAKES)
+Bartender: Let me guess, the gentleman would like another martini. No need to even ask.
+(POURS DRINK)
+Alexander: I've got to hand it to you. I can't make out which one is stiffer, Nick or that drink.
+Nick: Ah, perfect. You know me well, Sharky.
+Bartender/Shark: It's the Shark, Nick.
+Lowers Openness by one.
+Then goes to 034M_gainConfidencePrompt2.
+
+State: 033M_danceResponse
+Recording: 033M_danceResponse.
+(ATHLETIC - Dance)
+(DANCE, MUSIC SWELLS)
+Nick: I'll dance, but I doubt you can keep up.
+Alexander: Nice work. Just do what you do best.
+(MUSIC PLAYS)
+Alexander: I've got to hand it to you. Nick is smiling over your shoulder.
+(MUSIC CONCLUDES, CROWD CLAPS)
+Raises Activeness by one.
+Then goes to 034M_gainConfidencePrompt2.
+
+State: 033F_cocktailResponse
+Recording: 033F_cocktailResponse.
+(SECRETIVE - Buy cocktail)
+Nica: I'll take that drink, but only if it's a pink squirrel. I only drink pink squirrels.
+(FOOTSTEPS)
+Scene: HOTEL - GALA - BAR AREA
+(COCKTAIL SHAKER SHAKES)
+Bartender: Let me guess, she's here for another pink squirrel. Heh! No need to even ask.
+(POURS DRINK)
+Alexander: I've got to hand it to you. I can't make out which one is glowing more, Nica or that drink.
+Nica: Ah, perfect. You know me well, Sharky.
+Bartender/Shark: It's the Shark, Nica.
+Lowers Openness by one.
+Then goes to 034F_gainConfidencePrompt2.
+
+State: 033F_danceResponse
+Recording: 033F_danceResponse.
+(ATHLETIC - Dance)
+(DANCE, MUSIC SWELLS)
+Nica: I'll dance, but don't try anything funny.
+Alexander: Nice work. Just do what you do best.
+(MUSIC PLAYS)
+Alexander: I've got to hand it to you. Nica is smiling over your shoulder.
+(MUSIC CONCLUDES, CROWD CLAPS)
+Raises Activeness by one.
+Then goes to 034F_gainConfidencePrompt2.
+
+State: 027greetMarkPromptB
+Recording: 027greetMarkPrompt. Background: back_gala3. Decision sound: decision_single.
+Alexander: To greet your mark, you can either do it with a wink if you're CHARISMATIC, or give a typical hello if you're FOCUSED. CHARISMATIC or FOCUSED.
+Choice CHARISMATIC leads to 028greetMarkWinkSplitter.
+Choice FOCUSED leads to 028greetMarkFocused.
+
+State: 034M_gainConfidencePrompt2
+Recording: 034M_gainConfidencePrompt2. Background: back_gala3. Decision sound: decision_single.
+Alexander: Time to wrap this up. You can be CLEVER with a quote from his favorite artist Banksy, or be BOLD and point out that he's got a spot of food on his lapel. What do you think? CLEVER or BOLD.
+Choice CLEVER leads to 035M_quoteResponse.
+Choice BOLD leads to 035M_spotResponse.
+
+State: 034F_gainConfidencePrompt2
+Recording: 034F_gainConfidencePrompt2. Background: back_gala3. Decision sound: decision_single.
+Alexander: Time to wrap this up. You can be CLEVER with a quote from her favorite artist Banksy, or be BOLD and point out that her lipstick is smeared. What do you think? CLEVER or BOLD.
+Choice CLEVER leads to 035F_quoteResponse.
+Choice BOLD leads to 035F_spotResponse.
+
+State: 035M_quoteResponse
+Recording: 035M_quoteResponse. Background: back_gala3.
+(CLEVER - Quote Banksy)
+Nick: I agree with him, we do die twice. But only if we're lucky. Maybe I misjudged you.
+Lowers Activeness by one.
+Then goes to 036gainConfidenceAccomplished.
+
+State: 035M_spotResponse
+Recording: 035M_spotResponse. Background: back_gala3.
+(BOLD - Point out food on lapel)
+Nick: Ah, clumsy me... (BRUSH CLOTHES) There, much better... Most people wouldn't be bold enough to point that out. Thank you.
+Raises Openness by one.
+Then goes to 036gainConfidenceAccomplished.
+
+State: 035F_quoteResponse
+Recording: 035F_quoteResponse. Background: back_gala3.
+(CLEVER - Quote Banksy)
+Nica: I agree with him, we do die twice. But only if we're lucky. Maybe I misjudged you.
+Lowers Activeness by one.
+Then goes to 036gainConfidenceAccomplished.
+
+State: 035F_spotResponse
+Recording: 035F_spotResponse. Background: back_gala3.
+(BOLD - Point out smeared lipstick)
+Nica: Ah, clumsy me... There, much better... Most people wouldn't be bold enough to point that out. Thank you.
+Raises Openness by one.
+Then goes to 036gainConfidenceAccomplished.
+
+State: 036gainConfidenceAccomplished
+Recording: 036gainConfidenceAccomplished. Background: back_gala3.
+Alexander: Once again, I've got to hand it to you. A job well done. You've gained the mark's confidence.
+Then goes to 001rendezvousBrief.
+
+State: 001rendezvousBrief
+Recording: 001rendezvousBrief. Background: back_gala3. Decision sound: decision_single.
+Alexander: Perfect timing, too. Agent Delphi has arrived with the equipment you'll need. She'll rendezvous with you by the back door in less than a minute. A member of the waitstaff will arrive to claim that you have a phone call.
+(FOOTSTEPS)
+Waiter-Type: Pardon me. You have been requested on the phone.
+Alexander: To step away from your mark and rendezvous with Agent Delphi, simply say EXIT.
+Choice EXIT leads to 002excuseSelfSplitter.
+
+State: 002excuseSelfSplitter
+Background: back_gala3.
+If romance.m1_maleInterest==1, goes to 003M_excuseSelfResponse; otherwise to 003F_excuseSelfResponse.
+
+State: 003M_excuseSelfResponse
+Recording: 003M_excuseSelfResponse. Background: back_gala3.
+Nick: What a shame. I'll anticipate your return.
+Then goes to 004gadgetRendezvous.
+
+State: 003F_excuseSelfResponse
+Recording: 003F_excuseSelfResponse. Background: back_gala3.
+Nica: What a shame. I'll anticipate your return.
+Then goes to 004gadgetRendezvous.
+
+State: 004gadgetRendezvous
+Recording: 004gadgetRendezvous.
+(FOOTSTEPS, GALA SOUNDS FADE, DOOR OPENS AND CLOSES)
+Scene: HOTEL - GALA - BACKROOM
+Delphi: Very punctual, Agent. Eleven seconds early, in fact. I see they have you working the social engagement -- better you than me. But I am here to lend my expertise. (UNZIP BAG) And I've brought the necessary equipment from my lab at HQ.
+If romance.m1_maleInterest==1, goes to 005M_firstObjective; otherwise to 005F_firstObjective.
+
+State: 005M_firstObjective
+Recording: 005M_firstObjective. Background: back_delphi.
+Delphi: Your first objective will be to distract your mark - occupy his attention to draw him away from the crowd.
+Then goes to 006distractionGadgetSplitter.
+
+State: 005F_firstObjective
+Recording: 005F_firstObjective. Background: back_delphi.
+Delphi: Your first objective will be to distract your mark - occupy her attention to draw her away from the crowd.
+Then goes to 006distractionGadgetSplitter.
+
+State: 006distractionGadgetSplitter
+Background: back_delphi.
+If romance.m1_maleInterest==1, goes to 007M_distractionGadgetBrief; otherwise to 007F_distractionGadgetBrief.
+
+State: 007M_distractionGadgetBrief
+Recording: 007M_distractionGadgetBrief. Background: back_delphi.
+Delphi: There are two ways you can complete this objective. For BOLD agents, this device is a small explosive. Press that button in (CLICK), then leave it behind a potted plant -- or any medium-sized object, really -- and it will go off thirty seconds later. (CLICK) You could grab your mark's hand and run for a safe place. (RUMMAGING) Or, if you're a more SECRETIVE type of agent, here I have a perfectly-forged bill of sale for his piece, Spider Blood. It will appear as though the dealer sold it without his permission. I'm sure he'll want to discuss it privately.
+Then goes to 008distractionGadgetPrompt.
+
+State: 007F_distractionGadgetBrief
+Recording: 007F_distractionGadgetBrief. Background: back_delphi.
+Delphi: There are two ways you can complete this objective. For BOLD agents, this device is a small explosive. Press that button in (CLICK), and leave it behind a potted plant -- or any medium-sized object, really -- and it will go off thirty seconds later. (CLICK) You could grab your mark's hand and run for a safe place. (RUMMAGING) Or, if you're a more SECRETIVE type of agent, here I have a perfectly-forged bill of sale for her piece, Spider Blood. It will appear as though the dealer sold it without her permission. I'm sure she'll want to discuss it privately.
+Then goes to 008distractionGadgetPrompt.
+
+State: 008distractionGadgetPrompt
+Recording: 008distractionGadgetPrompt. Background: back_delphi. Decision sound: decision_single.
+Delphi: So, will it be the BOLD explosives option, or the SECRETIVE bill of sale option?
+Choice SECRETIVE leads to 009billofsaleResponse.
+Choice BOLD leads to 009explosivesResponse.
+
+State: 009billofsaleResponse
+Recording: 009billofsaleResponse. Background: back_delphi.
+(SECRETIVE - Bill of sale)
+Delphi: Interesting choice. According to Cygnus standards, a good spy does play into their own cover well. Alright then, here you are.
+(PAPER CRACKLES)
+Sets event.m1e2_distraction to 0.
+Lowers Openness by one.
+Then goes to 010secondObjective.
+
+State: 009explosivesResponse
+Recording: 009explosivesResponse. Background: back_delphi.
+(BOLD - Explosives)
+Delphi: Interesting choice. I've heard that you love to create a scene, and this will certainly do it. Alright then, here you are.
+(CLUNK)
+Sets event.m1e2_distraction to 1.
+Raises Openness by one.
+Then goes to 010secondObjective.
+
+State: 010secondObjective
+Recording: 010secondObjective. Background: back_delphi.
+Delphi: Your second objective is to administer a dose of truth serum to your mark in order to obtain Neptune's location.
+Then goes to 011informationGadgetPrompt.
+
+State: 011informationGadgetPrompt
+Recording: 011informationGadgetPrompt. Background: back_delphi. Decision sound: decision_single.
+Delphi: You have two options. For the more CHARISMATIC agent, I have it in pill form. (RATTLE PILLS) You would need to charm or trick the subject into ingesting it. On the other hand, the HOSTILE agent would prefer this writing pen that doubles as a syringe (CLICK). If you find the right moment to use it, a simple prick on the skin will do the trick. So will it be the CHARISMATIC pill option, or the HOSTILE pinprick option?
+Choice CHARISMATIC leads to 012pillResponse.
+Choice HOSTILE leads to 012pinprickResponse.
+
+State: 012pillResponse
+Recording: 012pillResponse. Background: back_delphi.
+(CHARISMATIC - Pill)
+Delphi: Always the diplomat, I see. I'm sure you'll have no problem charming your subject and using this pill.
+(RATTLE BOTTLE)
+Raises Diplomacy by one.
+Sets event.m1e2_serum to 1.
+Then goes to 013rendezvousAccomplished.
+
+State: 012pinprickResponse
+Recording: 012pinprickResponse. Background: back_delphi.
+(HOSTILE - Syringe)
+Delphi: Decisive action is a good call. I'm sure you'll have no problem finding the right moment to stick your subject with the pen.
+(CLICK)
+Lowers Diplomacy by one.
+Sets event.m1e2_serum to 0.
+Then goes to 013rendezvousAccomplished.
+
+State: 013rendezvousAccomplished
+Recording: 013rendezvousAccomplished. Background: back_delphi.
+Delphi: There you go, Agent. That's everything for now (ZIP BAG). Good luck to you.
+Then goes to 001rendezvousReturn.
+
+State: 001rendezvousReturn
+Recording: 001rendezvousReturn.
+(DOOR OPENS AND CLOSES, FOOTSTEPS, GALA SOUNDS RISE)
+Alexander: Delphi is a brilliant agent, and if you ask me, often overlooked by Matthews. Her marksman scores are off the charts, and as you see she's quite skilled with gadgets. Still, she's nothing compared to you.
+If event.m1e2_distraction==1, goes to 002distractMarkExplosives; otherwise to 002distractMarkBillofsale.
+
+State: 002distractMarkExplosives
+Recording: 002distractMarkExplosives. Background: back_gala3. Decision sound: decision_single.
+Scene: HOTEL - GALA
+Alexander: Okay, Agent, before you get back to the mark you should hide and set the explosives first. When you're ready to plant the explosives and return to your mark, let me know it's underway by saying PLANT.
+Choice PLANT leads to 003explosivesSplitter.
+
+State: 002distractMarkBillofsale
+Recording: 002distractMarkBillofsale. Background: back_gala3. Decision sound: decision_single.
+Scene: HOTEL - GALA
+Alexander: Okay, Agent, better hurry back to your mark. And as you approach, in order to show the Bill of Sale, you should drop it. When you're ready to do that, let me know it's underway by saying DROP.
+Choice DROP leads to 003billofsaleSplitter.
+
+State: 003explosivesSplitter
+Background: back_gala3.
+If romance.m1_maleInterest==1, goes to 004M_useExplosives; otherwise to 004F_useExplosives.
+
+State: 003billofsaleSplitter
+Background: back_gala3.
+If romance.m1_maleInterest==1, goes to 004M_useBillofsale; otherwise to 004F_useBillofsale.
+
+State: 004M_useExplosives
+Recording: 004M_useExplosives.
+(PLANT Explosives)
+Nick: There you are. I decided I was ready for another drink, so I got one while waiting. How about you?
+(SMALL EXPLOSION, SCREAMS)
+Nick: What the hell is that?! Quick, come this way!
+(FAST FOOTSTEPS, CONCERNED MURMURS)
+Then goes to 005distractMarkExplosivesAccomplished.
+
+State: 004F_useExplosives
+Recording: 004F_useExplosives.
+(PLANT Explosives)
+Nica: There you are. I decided I was ready for another drink, so I got one while waiting. How about you?
+(SMALL EXPLOSION, SCREAMS)
+Nica: What the hell is that?! Quick, come this way!
+(FAST FOOTSTEPS, CONCERNED MURMURS)
+Then goes to 005distractMarkExplosivesAccomplished.
+
+State: 004M_useBillofsale
+Recording: 004M_useBillofsale. Background: back_gala3.
+(DROP Bill of Sale)
+Nick: There you are. I decided I was ready for another drink, so I got one while waiting. What's that - a bill of sale for ... Is that from my dealer?
+(PAPER RUSTLES)
+Nick: Shall we go somewhere private to discuss this?
+Then goes to 005distractMarkBillofsaleAccomplished.
+
+State: 004F_useBillofsale
+Recording: 004F_useBillofsale. Background: back_gala3.
+(DROP Bill of Sale)
+Nica: There you are. I decided I was ready for another drink, so I got one while waiting. What's that - a bill of sale for what? Is that from my dealer?
+(PAPER RUSTLES)
+Nica: Shall we go somewhere private to discuss this?
+Then goes to 005distractMarkBillofsaleAccomplished.
+
+State: 005distractMarkExplosivesAccomplished
+Recording: 005distractMarkExplosivesAccomplished.
+Alexander: Good job, Agent! The explosion worked just the way I wanted it to.
+(SUCCESS MUSIC)
+Then goes to 006administerSerum.
+
+State: 005distractMarkBillofsaleAccomplished
+Recording: 005distractMarkBillofsaleAccomplished.
+Alexander: Good job, Agent! The bill of sale is working exactly as expected.
+(SUCCESS MUSIC)
+Then goes to 006administerSerum.
+
+State: 006administerSerum
+Recording: 006administerSerum. Background: back_curtain.
+Scene: HOTEL - GALA - PRIVATE ROOM
+(SMALL CURTAIN PULL)
+Alexander: Now that you've got your mark away, it's time to administer the truth serum.
+If event.m1e2_serum==1, goes to 007usePillSplitter; otherwise to 007useSyringePrompt.
+
+State: 007usePillSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 008M_usePillPrompt; otherwise to 008F_usePillPrompt.
+
+State: 007useSyringePrompt
+Recording: 007useSyringePrompt. Background: back_curtain. Decision sound: decision_single.
+Alexander: But how are you going to use the pen to administer the truth serum? This will require observation and a CLEVER approach to stick the mark when they're not looking. On the other hand, simply going for it only requires an ATHLETIC maneuver. What's best? CLEVER or ATHLETIC?
+Choice CLEVER leads to 008useSyringeCleverSplitter.
+Choice ATHLETIC leads to 008useSyringePhysicalSplittter.
+
+State: 008M_usePillPrompt
+Recording: 008M_usePillPrompt. Background: back_curtain. Decision sound: decision_single.
+Alexander: But how will you get him to ingest this pill? The FOCUSED approach is to put it in his drink while he's distracted. A more IMPULSIVE and riskier approach is to put it in your own mouth and kiss him. What do you think? FOCUSED or IMPULSIVE?
+Choice IMPULSIVE leads to 009usePillKissSplitter.
+Choice FOCUSED leads to 009usePillDrinkSplitter.
+
+State: 008F_usePillPrompt
+Recording: 008F_usePillPrompt. Background: back_curtain. Decision sound: decision_single.
+Alexander: But how will you get her to ingest this pill? The FOCUSED approach is to put it in her drink while she's distracted. A more IMPULSIVE and riskier approach is to put it in your own mouth and kiss her. What do you think? FOCUSED or IMPULSIVE?
+Choice FOCUSED leads to 009usePillDrinkSplitter.
+Choice IMPULSIVE leads to 009usePillKissSplitter.
+
+State: 008useSyringeCleverSplitter
+Background: back_curtain.
+Lowers Activeness by one.
+Sets event.m1e2_syringeUse to 0.
+Then goes to 009rejoinSplitter.
+
+State: 008useSyringePhysicalSplittter
+Background: back_curtain.
+Raises Activeness by one.
+Sets event.m1e2_syringeUse to 1.
+Then goes to 009rejoinSplitter.
+
+State: 009usePillKissSplitter
+Background: back_curtain.
+Lowers Predictability by one.
+If event.m1e2_distraction==1, goes to 010usePillExplosiveKissGenderSplitter; otherwise to 010usePillBillofsaleKissGenderSplitter.
+
+State: 009usePillDrinkSplitter
+Background: back_curtain.
+Raises Predictability by one.
+If event.m1e2_distraction==1, goes to 010usePillExplosiveDrinkGenderSplitter; otherwise to 010usePillBillofSaleDrinkGenderSplitter.
+
+State: 009rejoinSplitter
+Background: back_curtain.
+If event.m1e2_distraction==1, goes to 010syringeExplosivesSplitter; otherwise to 010syringeSaleSplitter.
+
+State: 010usePillExplosiveKissGenderSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 011M_usePillExplosivesKissResponse; otherwise to 011F_usePillExplosivesKissResponse.
+
+State: 010usePillBillofsaleKissGenderSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 011M_usePillSaleKissResponse; otherwise to 011F_usePillSaleKissResponse.
+
+State: 010usePillExplosiveDrinkGenderSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 011M_usePillDrinkExplosivesResponse; otherwise to 011F_usePillDrinkExplosivesResponse.
+
+State: 010usePillBillofSaleDrinkGenderSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 011M_usePillSaleDrinkResponse; otherwise to 011F_usePillSaleDrinkResponse.
+
+State: 010syringeExplosivesSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 011M_syringeExplosivesResponse; otherwise to 011F_syringeExplosivesResponse.
+
+State: 010syringeSaleSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 011M_syringeSaleResponse; otherwise to 011F_syringeSaleResponse.
+
+State: 011M_usePillExplosivesKissResponse
+Recording: 011M_usePillExplosivesKissResponse. Background: back_curtain.
+Nick: Hmm. Apparently that was only a practical joke--oh!
+(KISS)
+Then goes to 012M_pillIngestedKiss.
+
+State: 011F_usePillExplosivesKissResponse
+Recording: 011F_usePillExplosivesKissResponse. Background: back_curtain.
+Nica: Hmm. Apparently that was only a practical joke--oh!
+(KISS)
+Then goes to 012F_pillIngestedKiss.
+
+State: 011M_usePillSaleKissResponse
+Recording: 011M_usePillSaleKissResponse. Background: back_curtain.
+Nick: I shouldn't be too surprised this was sold without my permission. Inconvenient for me, but good for you-oh!
+(KISS)
+Then goes to 012M_pillIngestedKiss.
+
+State: 011F_usePillSaleKissResponse
+Recording: 011F_usePillSaleKissResponse. Background: back_curtain.
+Nica: I shouldn't be too surprised this was sold without my permission. Inconvenient for me, but good for you-oh!
+(KISS)
+Then goes to 012F_pillIngestedKiss.
+
+State: 011M_usePillDrinkExplosivesResponse
+Recording: 011M_usePillDrinkExplosivesResponse. Background: back_curtain.
+Nick: Hmm. Apparently that was only a practical joke. Ha! Cheers to that.
+(CLINK)
+Then goes to 012M_pillIngestedDrink.
+
+State: 011F_usePillDrinkExplosivesResponse
+Recording: 011F_usePillDrinkExplosivesResponse. Background: back_curtain.
+Nica: Hmm. Apparently that was only a practical joke. Ha! Cheers to that.
+(CLINK)
+Then goes to 012F_pillIngestedDrink.
+
+State: 011M_usePillSaleDrinkResponse
+Recording: 011M_usePillSaleDrinkResponse. Background: back_curtain.
+Nick: I shouldn't be too surprised this was sold without my permission. Inconvenient for me, but good for you. Cheers.
+(CLINK)
+Then goes to 012M_pillIngestedDrink.
+
+State: 011F_usePillSaleDrinkResponse
+Recording: 011F_usePillSaleDrinkResponse. Background: back_curtain.
+Nica: I shouldn't be too surprised this was sold without my permission. Inconvenient for me, but good for you. Cheers.
+(CLINK)
+Then goes to 012F_pillIngestedDrink.
+
+State: 011M_syringeExplosivesResponse
+Recording: 011M_syringeExplosivesResponse. Background: back_curtain.
+Nick: Hmm. Apparently that was only a practical joke. Ha! Cheers to that.
+(CLINK)
+(INJECT SYRINGE)
+Then goes to 012M_joinGenderSplitSyringe.
+
+State: 011F_syringeExplosivesResponse
+Recording: 011F_syringeExplosivesResponse. Background: back_curtain.
+Nica: Hmm. Apparently that was only a practical joke. Ha! Cheers to that.
+(CLINK)
+(INJECT SYRINGE)
+Then goes to 012F_joinGenderSplitSyringe.
+
+State: 011M_syringeSaleResponse
+Recording: 011M_syringeSaleResponse. Background: back_curtain.
+Nick: I shouldn't be too surprised this was sold without my permission. Inconvenient for me, but good for you. Cheers.
+(CLINK)
+(INJECT SYRINGE)
+Then goes to 012M_joinGenderSplitSyringe.
+
+State: 011F_syringeSaleResponse
+Recording: 011F_syringeSaleResponse. Background: back_curtain.
+Nica: I shouldn't be too surprised this was sold without my permission. Inconvenient for me, but good for you. Cheers.
+(CLINK)
+(INJECT SYRINGE)
+Then goes to 012F_joinGenderSplitSyringe.
+
+State: 012M_pillIngestedKiss
+Recording: 012M_pillIngestedKiss. Background: back_curtain.
+(IMPULSIVE - Pill in kiss)
+Nick: Oh, my. I can't be fooling around at a gala. I have to get back to business.
+Then goes to 014administerSerumAccomplished.
+
+State: 012F_pillIngestedKiss
+Recording: 012F_pillIngestedKiss. Background: back_curtain.
+(IMPULSIVE - Pill in kiss)
+Nica: Oh, my. I-I can't be fooling around at a gala. I have to get back to business.
+Then goes to 014administerSerumAccomplished.
+
+State: 012M_pillIngestedDrink
+Recording: 012M_pillIngestedDrink. Background: back_curtain.
+(FOCUSED - Pill in drink)
+Nick: (SMACKS LIPS) Hmmmm...
+Then goes to 014administerSerumAccomplished.
+
+State: 012F_pillIngestedDrink
+Recording: 012F_pillIngestedDrink. Background: back_curtain.
+(FOCUSED - Pill in drink)
+Nica: Huh, that tastes... different.
+Then goes to 014administerSerumAccomplished.
+
+State: 012M_joinGenderSplitSyringe
+Background: back_curtain.
+If event.m1e2_syringeUse==1, goes to 013M_syringeStabUsed; otherwise to 013M_syringeStickUsed.
+
+State: 012F_joinGenderSplitSyringe
+Background: back_curtain.
+If event.m1e2_syringeUse==1, goes to 013F_syringeStabUsed; otherwise to 013F_syringeStickUsed.
+
+State: 014administerSerumAccomplished
+Recording: 014AdministerSerumAccomplished. Background: back_curtain.
+Alexander: That did it, Agent! The truth serum should take effect any moment.
+Then goes to 001administerSerumTransition.
+
+State: 013M_syringeStabUsed
+Recording: 013M_syringeStabUsed. Background: back_curtain.
+(ATHLETIC - Inject mark)
+(INJECT SYRINGE)
+Nick: Ow! What the hell did you just jab into my hand?
+Then goes to 014administerSerumAccomplished.
+
+State: 013M_syringeStickUsed
+Recording: 013M_syringeStickUsed. Background: back_curtain.
+(CLEVER - Distract mark, inject syringe)
+Nick: Ouch. Was that a... what was that? Did you see anything? It feels like I was stung.
+Then goes to 014administerSerumAccomplished.
+
+State: 013F_syringeStabUsed
+Recording: 013F_syringeStabUsed. Background: back_curtain.
+(ATHLETIC - Inject mark)
+(INJECT SYRINGE)
+Nica: Ow! What the hell did you just jab into my hand?
+Then goes to 014administerSerumAccomplished.
+
+State: 013F_syringeStickUsed
+Recording: 013F_syringeStickUsed. Background: back_curtain.
+(CLEVER - Distract mark, inject syringe)
+Nica: Ouch. Was that a... what was that? Did you see anything? It feels like I was stung.
+Then goes to 014administerSerumAccomplished.
+
+State: 001administerSerumTransition
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 002M_observeEffects; otherwise to 002F_observeEffects.
+
+State: 002M_observeEffects
+Recording: 002M_observeEffects. Background: back_curtain.
+Nick: You're...quite something, you know that? Unexpected. I haven't met anyone...quite like you. I'd like to...get to know you better.
+Then goes to 003obtainNeptuneInformation.
+
+State: 002F_observeEffects
+Recording: 002F_observeEffects. Background: back_curtain.
+Nica: You're... quite something, you know that? Unexpected. Haven't met anyone...quite like you. I'd like to get to know you better.
+Then goes to 003obtainNeptuneInformation.
+
+State: 003obtainNeptuneInformation
+Recording: 003obtainNeptuneInformation. Background: back_curtain. Decision sound: decision_single.
+Alexander: Well, that's an unexpected bonus... Looks like the serum's working. When you're ready to learn about Neptune, just ASK.
+Choice ASK leads to 004neptuneAskSplitter.
+
+State: 004neptuneAskSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 005M_neptuneAskResponse; otherwise to 005F_neptuneAskResponse.
+
+State: 005M_neptuneAskResponse
+Recording: 005M_neptuneAskResponse. Background: back_curtain.
+Nick: Neptune? When he's in town he stays in the condo where he keeps his boy-toy Seth. Penthouse of the Waterfront Towers building, down on the Wharf.
+(SUCCESS MUSIC)
+Nick: All three of the top floors. W-Way up there, secluded and alone with that giant aquarium. Neptune doesn't like parties or art openings much. He'd rather stay home. Probably there now reading 20,000 Leagues Under the Sea.
+Then goes to 006obtainConsulateInformation.
+
+State: 005F_neptuneAskResponse
+Recording: 005F_neptuneAskResponse. Background: back_curtain.
+Nica: Neptune? When he's in town he stays in the condo where he keeps his gal Serena. Penthouse of the Waterfront Towers building, down on the Wharf.
+(SUCCESS MUSIC)
+Nica: All three of the top floors. Way up there, secluded and alone with that giant aquarium. Neptune doesn't like parties or art openings much. He'd rather stay home. Probably there now reading 20,000 Leagues Under the Sea.
+Then goes to 006obtainConsulateInformation.
+
+State: 006obtainConsulateInformation
+Recording: 006obtainConsulateInformation. Background: back_curtain. Decision sound: decision_single.
+Alexander: Waterfront Towers on the wharf. Spectacular work, Agent. I'm pulling up that address now. (TYPING) Before you leave, see what you can find out about the consulate. When you're ready, once again, just ASK.
+Choice ASK leads to 007consulateSplitter.
+
+State: 007consulateSplitter
+Background: back_curtain.
+If romance.m1_maleInterest==1, goes to 008M_bombInformation; otherwise to 008F_bombInformation.
+
+State: 008M_bombInformation
+Recording: 008M_bombInformation. Background: back_curtain.
+Nick: I've been trying for weeks to find out what he and TRIDENT had planned. I... I suppose this makes sense now. I only knew about the bomb, not hostages... He must have the bomb there at the consulate. If only I had discovered this sooner...
+Then goes to 009goodbyeGalaPrompt.
+
+State: 008F_bombInformation
+Recording: 008F_bombInformation. Background: back_curtain.
+Nica: I've been trying for weeks to find out what he and TRIDENT had planned. I.. .I suppose this makes sense now. I only knew about the bomb, not hostages. He must have the bomb there at the consulate. If only I had discovered this sooner...
+Then goes to 009goodbyeGalaPrompt.
+
+State: 009goodbyeGalaPrompt
+Recording: 009goodbyeGalaPrompt. Background: back_curtain. Decision sound: decision_single.
+Alexander: That's enough, Agent. We'll send for your extraction immediately. You might as well say goodbye. You can be CHARISMATIC or HOSTILE.
+Choice CHARISMATIC leads to 010charismaticGoodbyeSplitter.
+Choice HOSTILE leads to 010hostileGoodbyeSplitter.
+
+State: 010charismaticGoodbyeSplitter
+Background: back_curtain.
+Raises Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 011M_charismaticGoodbyeResponse; otherwise to 011F_charismaticGoodbyeResponse.
+
+State: 010hostileGoodbyeSplitter
+Background: back_curtain.
+Lowers Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 011M_hostileGoodbyeResponse; otherwise to 011F_hostileGoodbyeResponse.
+
+State: 011M_charismaticGoodbyeResponse
+Recording: 011M_charismaticGoodbyeResponse. Background: back_curtain.
+(CHARISMATIC Goodbye)
+Nick: Amazing. How can you be so charming at at time like this?
+Then goes to 012M_poisonCliffhanger.
+
+State: 011F_charismaticGoodbyeResponse
+Recording: 011F_charismaticGoodbyeResponse. Background: back_curtain.
+(CHARISMATIC Goodbye)
+Nica: Amazing. How can you be so charming at a time like this?
+Then goes to 012F_poisonCliffhanger.
+
+State: 011M_hostileGoodbyeResponse
+Recording: 011M_hostileGoodbyeResponse. Background: back_curtain.
+(HOSTILE Goodbye)
+Nick: There's no point in being rude. Although I can't really blame you, given the circumstances.
+Then goes to 012M_poisonCliffhanger.
+
+State: 011F_hostileGoodbyeResponse
+Recording: 011F_hostileGoodbyeResponse. Background: back_curtain.
+(HOSTILE Goodbye)
+Nica: There's no point in being rude. Although I can't really blame you, given the circumstances.
+Then goes to 012F_poisonCliffhanger.
+
+State: 012M_poisonCliffhanger
+Recording: 012M_poisonCliffhanger. Background: back_curtain.
+Nick: Eventually, that poison The Shark put in your drink is bound to catch up with you.
+(VOICES DISTORTING)
+Alexander: Wait... Did he say poison?
+(OMINOUS MUSIC)
+Nick: (LAUGHING) Oh, that's right. You didn't know. (CHUCKLING)
+Then goes to 013conclusion.
+
+State: 012F_poisonCliffhanger
+Recording: 012F_poisonCliffhanger. Background: back_curtain.
+Nica: Eventually, that poison The Shark put in your drink is bound to catch up with you.
+(VOICES DISTORTING)
+Alexander: Wait... Did she say poison?
+(OMINOUS MUSIC)
+Nica: (LAUGHING) Oh, that's right. You didn't know. (CHUCKLING)
+Then goes to 013conclusion.
+
+State: 013conclusion
+Recording: 013conclusion.
+(VOICES DISTORTING)
+Alexander: (TO MATTHEWS) Matthews!!
+Alexander: Stay with me, Agent! I need you to focus.
+(CONCLUDING MUSIC)
+Sets completion.m1e2_artShow to 2.
+Then goes to m1e2_end.
+
+State: m1e2_end
+End of the episode.
+
+When the episode is finished, the game says:
+You now know the location of Neptune and you're closer to rescuing the hostages, but how will you deal with the poison? Find out what happens next in Neptune's Lair or listen to a Preview in the Episodes Menu.
+
+Preview of the next episode, played after this one.
+
+State: m1e3_teaser
+Recording: m1e3_teaser.
+Then goes to m1e2_end.
+
+Credits
+VOICE ACTORS
+Alexander: Matthew Finn
+Director Matthews: Brian Moyer
+The Shark: Bridget O'Flynn
+Eric Hunn
+Panonica: Jennifer Bean
+Nick M.: Emery Westlake
+Armano Tomassi: Chris Ciulla
+Dance Partner: Anne Colpitts
+Chris Rando
+Art Patron 1: Rachel Baum
+Art Patron 2: Chris Rando
+Wait-Staff: Emma Joyce
+Agent Delphi: Rachel Baum
+ADDITIONAL VOICES
+Kristopher Moreau: Marleigh Norton
+Chelsea Spear: Jason Wiser
+PRODUCTION
+Story: Jonathon Myers &
+Heather Albano
+Lead Writing: Heather Albano
+Add'l Writing: Jonathon Myers
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali

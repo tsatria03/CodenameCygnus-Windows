@@ -1,0 +1,1230 @@
+Codename Cygnus, Mission 1, Episode 4: Consulate
+Stop TRIDENT to save the hostages.
+Starts at m1e4_start and ends at m1e4_end. 148 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e4_start
+Sets completion.m1e4_consulate to 1.
+Then goes to 001recap1.
+
+State: 001recap1
+Recording: 001recap1.
+If romance.m1_maleInterest==1, goes to 002M_recap; otherwise to 002F_recap.
+
+State: 002M_recap
+Recording: 002M_recap.
+(RECAP MUSIC)
+Neptune: As the leader of TRIDENT, I say to you now that if this resolution does not stand, your embassy will not stand either.
+Director Matthews: Get over to the Waterfront Towers for Neptune and find out how to stop that bomb before it takes out the block.
+The Shark: It is time for you to give me the code?
+Neptune: Twenty three, twenty two...
+Director Matthews: Ah, the classic book cipher.
+Neptune: You I consider far too dangerous to keep alive. You must now go to sleep with my fishes. Night-night, Agent...
+(SERVO RUNS, CHAIN MOVEMENT, WATER CLOSES OVER HEAD)
+(RECAP MUSIC ENDS)
+Then goes to 003recap.
+
+State: 002F_recap
+Recording: 002F_recap.
+(RECAP MUSIC)
+Neptune: As the leader of TRIDENT, I say to you now that if this resolution does not stand, your embassy will not stand either.
+Director Matthews: Get over to the Waterfront Towers for Neptune and find out how to stop that bomb before it takes out the block.
+The Shark: It is time for you to give me the code?
+Neptune: Twenty three, twenty two...
+Director Matthews: Ah, the classic book cipher.
+Neptune: You I consider far too dangerous to keep alive. You must now go to sleep with my fishes. Night-night, Agent...
+(SERVO RUNS, CHAIN MOVEMENT, WATER CLOSES OVER HEAD)
+(RECAP MUSIC ENDS)
+Then goes to 003recap.
+
+State: 003recap
+Recording: 003recap.
+(THEME MUSIC)
+Then goes to 004cliffhanger.
+
+State: 004cliffhanger
+Recording: 004cliffhanger. Decision sound: decision_single.
+Scene: WATERFRONT TOWERS - NEPTUNE'S LAIR - FISH TANK
+(WATER MOVEMENT, MUFFLED CELL PHONE RING)
+Neptune: (MUFFLED) What do you mean, I don't have permission... I will do as I please with... I see. As you wish.
+(SERVO RUNS, CHAIN MOVEMENT, HEARING CLEARS, WATER DRIPS)
+Neptune: You're in luck, "Jordan Parker." My... patron feels strongly that you are more valuable alive than dead. However, I cannot have you disrupting tonight's plans any further, so there you will stay, 'hung out to dry,' as it were.
+(CELL PHONE BEEPS)
+Neptune: The transgressors are on schedule. Excuse me. I will return soon to feed my friends. My patron said nothing about keeping your legs intact.
+(FOOTSTEPS, DOOR OPENS AND CLOSES)
+Alexander: Are you okay, agent? I'm back. If you're conscious, just say HERE.
+Choice HERE leads to 005firstObjectiveGetFree.
+
+State: 005firstObjectiveGetFree
+Recording: 005firstObjectiveGetFree. Background: back_tank_m1e4.
+Alexander: Glad you're still with us, Agent.
+Director Matthews: What took you so long, Alex?
+Alexander: Look, I was scrambling to save your agent's ass!
+Director Matthews: Go on...
+Alexander: The good news is that Agent Myra is on the way. She may not arrive in time, so let's not wait around arguing while--oh, here we go. (TYPING) A stroke of luck. I think you have a potential ally on the way.
+Then goes to 001objectiveGetFreeSplitter.
+
+State: 001objectiveGetFreeSplitter
+Background: back_tank_m1e4.
+If romance.m1_maleInterest==1, goes to 002M_getFree1; otherwise to 002F_getFree1.
+
+State: 002M_getFree1
+Recording: 002M_getFree1. Background: back_tank_m1e4.
+Alexander: Seth is close. I'll patch you into his cell phone transmission.
+If event.m1e3_entry==1, goes to 003climbEntrySplitter; otherwise to 003seduce_m1e3a2p1splitter.
+
+State: 002F_getFree1
+Recording: 002F_getFree1. Background: back_tank_m1e4.
+Alexander: Serena is close. I'll patch you into her cell phone transmission.
+If event.m1e3_entry==1, goes to 003climbEntrySplitter; otherwise to 003seduce_m1e3a2p1splitter.
+
+State: 003climbEntrySplitter
+Background: back_tank_m1e4.
+If romance.m1_maleInterest==1, goes to 004M_climbGetFree; otherwise to 004F_climbGetFree.
+
+State: 003seduce_m1e3a2p1splitter
+Background: back_tank_m1e4.
+If event.m1e3_sex==1, goes to 004sex_m1e3a2p1Splitter; otherwise to 004noSex_m1e3a2p1Splitter.
+
+State: 004M_climbGetFree
+Recording: 004M_climbGetFree. Background: back_tank_m1e4. Decision sound: decision_single.
+(TINNY VOICES)
+Seth: He's up to something. I don't know what it is, but I don't want to be a part of it and... I'm not sure I have a choice anymore.
+Friend: I told you that place was too good to be true.
+Seth: I don't see him much, but when I do... I don't know, he's really starting to freak me out lately. He's... capable of things. Things that most men aren't.
+Friend: That's it, Seth. Get your things together, I'll be over in 20 minutes. We'll get you out of there.
+Seth: No! Please don't. He'll find me, I know he will. Just-- just forget I said anything, okay?
+(CELL PHONE BEEPS)
+Alexander: Now, Agent. Get Seth's attention, yell HELLO.
+Choice HELLO leads to 005M_getHelpPrompt.
+
+State: 004F_climbGetFree
+Recording: 004F_climbGetFree. Background: back_tank_m1e4. Decision sound: decision_single.
+(TINNY VOICES)
+Serena: Neptune's up to something. I don't know what it is, but I don't want to be a part of it and... I'm not sure I have a choice anymore.
+Friend: I told you that place was too good to be true.
+Serena: I don't see him much, but when I do... he really frightens me. He's... capable of things. Things that most men aren't.
+Friend: That's it, Serena. Get your things together, I'll be over in 20 minutes. We'll get you out of there.
+Serena: No! Don't, please don't. He'll find me, I know he will. Just forget I said anything, okay?
+(CELL PHONE BEEPS)
+Alexander: Now, Agent. Get Serena's attention, yell HELLO.
+Choice HELLO leads to 005F_getHelpPrompt.
+
+State: 004sex_m1e3a2p1Splitter
+Background: back_tank_m1e4.
+If romance.m1_maleInterest==1, goes to 005M_sexResponse; otherwise to 005F_sexResponse.
+
+State: 004noSex_m1e3a2p1Splitter
+Background: back_tank_m1e4.
+If romance.m1_maleInterest==1, goes to 005M_noSexResponse; otherwise to 005F_noSexResponse.
+
+State: 005M_getHelpPrompt
+Recording: 005M_getHelpPrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+(DOOR OPENS)
+Seth: Hello, did-- Oh! Oh, no, not again...
+Alexander: Quick, Agent, get help! Be HOSTILE and demand it, or CHARISMATIC to plead for it! HOSTILE or CHARISMATIC.
+Choice CHARISMATIC leads to 006charismaticSplitter_m1e4.
+Choice HOSTILE leads to 006hostileSplitter_m1e4.
+
+State: 005F_getHelpPrompt
+Recording: 005F_getHelpPrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+(DOOR OPENS)
+Serena: Hello, did-- Oh! Oh, no, not again...
+Alexander: Quick, Agent, get help! Be HOSTILE and demand it, or CHARISMATIC to plead for it. HOSTILE or CHARISMATIC.
+Choice HOSTILE leads to 006hostileSplitter_m1e4.
+Choice CHARISMATIC leads to 006charismaticSplitter_m1e4.
+
+State: 005M_sexResponse
+Recording: 005M_sexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+Seth: And when I woke up, no one was there. But no one can leave the penthouse without a keycard. Something's wrong.
+Friend: That's it, Seth. Get your things together, I'll be over in 20 minutes. We'll get you out of there.
+(CELL PHONE BEEPS)
+Alexander: Now, Agent. Get Seth's attention, yell HELLO.
+Choice HELLO leads to 006M_foundPrompt.
+
+State: 005F_sexResponse
+Recording: 005F_sexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+Seth: And I woke up alone. But no one can leave the penthouse without a keycard. Something's wrong.
+Friend: That's it, Serena. Get your things together, I'll be over in 20 minutes. We'll get you out of there.
+(CELL PHONE BEEPS)
+Alexander: Now, Agent. Get Serena's attention, yell HELLO.
+Choice HELLO leads to 006F_foundPrompt.
+
+State: 005M_noSexResponse
+Recording: 005M_noSexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+Seth: And when I came back, no one was there. But, no one can leave the penthouse without a keycard. Something's wrong.
+Friend: That's it, Seth. Get your things together, I'll be over in 20 minutes. We'll get you out of there.
+(CELL PHONE BEEPS)
+Alexander: Now, Agent. Get Seth's attention, yell HELLO.
+Choice HELLO leads to 006M_foundPrompt.
+
+State: 005F_noSexResponse
+Recording: 005F_noSexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+Serena: And when I came back, they were gone! But no one can leave the penthouse without a keycard. Something's wrong.
+Friend: That's it, Serena. Get your things together, I'll be over in 20 minutes. We'll get you out of there.
+(CELL PHONE BEEPS)
+Alexander: Now, Agent. Get Serena's attention, yell HELLO.
+Choice HELLO leads to 006F_foundPrompt.
+
+State: 006charismaticSplitter_m1e4
+Background: back_tank_m1e4.
+Raises Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 007M_sethResponse; otherwise to 007F_serenaResponse.
+
+State: 006hostileSplitter_m1e4
+Background: back_tank_m1e4.
+Lowers Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 007M_sethResponse; otherwise to 007F_serenaResponse.
+
+State: 006M_foundPrompt
+Recording: 006M_foundPrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+(DOOR OPENS)
+Seth: Ah! No, no, no. I knew it! Did he hurt you?
+Alexander: Quick, Agent, get help! Be HOSTILE and demand it, or CHARISMATIC to plead for it! HOSTILE or CHARISMATIC.
+Choice CHARISMATIC leads to 007M_charismaticSexSplitter.
+Choice HOSTILE leads to 007M_hostileSexSplitter.
+
+State: 006F_foundPrompt
+Recording: 006F_foundPrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+(DOOR OPENS)
+Serena: No, no, no. I knew it! Did he hurt you?
+Alexander: Quick, Agent, get help! Be HOSTILE and demand it, or CHARISMATIC to plead for it! HOSTILE or CHARISMATIC.
+Choice CHARISMATIC leads to 007F_charismaticSexSplitter.
+Choice HOSTILE leads to 007F_hostileSexSplitter.
+
+State: 007M_sethResponse
+Recording: 007M_sethResponse. Background: back_tank_m1e4.
+(DOOR CLOSES)
+Seth: No - no, I'm sorry, but I can't. He'll know! He knows everything I do. Everything.
+Then goes to 008M_climbReassurePrompt.
+
+State: 007F_serenaResponse
+Recording: 007F_serenaResponse. Background: back_tank_m1e4.
+(DOOR CLOSES)
+Serena: No - no, I'm sorry, but I can't. He'll know! He knows everything I do. Everything.
+Then goes to 008F_climbReassurePrompt.
+
+State: 007M_charismaticSexSplitter
+Background: back_tank_m1e4.
+Raises Diplomacy by one.
+If event.m1e3_sex==1, goes to 008M_charismaticSexResponse; otherwise to 008M_charismaticNoSexResponse.
+
+State: 007M_hostileSexSplitter
+Background: back_tank_m1e4.
+Lowers Diplomacy by one.
+If event.m1e3_sex==1, goes to 011M_gainHelpAccomplished; otherwise to 008M_hostileNoSexResponse.
+
+State: 007F_charismaticSexSplitter
+Background: back_tank_m1e4.
+Raises Diplomacy by one.
+If event.m1e3_sex==1, goes to 008F_charismaticSexResponse; otherwise to 008F_charismaticNoSexResponse.
+
+State: 007F_hostileSexSplitter
+Background: back_tank_m1e4.
+Lowers Diplomacy by one.
+If event.m1e3_sex==1, goes to 011F_gainHelpAccomplished; otherwise to 008F_hostileNoSexResponse.
+
+State: 008M_climbReassurePrompt
+Recording: 008M_climbReassurePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Alexander: Tell him you work for people who can keep him safe.
+Director Matthews: Don't tell him who we are. Claim to be with the CIA.
+Alexander: This may not be the right time to be SECRETIVE, Director. The agent can also point out that we're better protection than the government... with a BOLD move. What will it be, Agent? SECRETIVE or BOLD.
+Choice SECRETIVE leads to 009M_reassurePromptSecretiveSplit.
+Choice BOLD leads to 009M_reassurePromptBoldSplit.
+
+State: 008F_climbReassurePrompt
+Recording: 008F_climbReassurePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Alexander: Tell her you work for people who can keep her safe.
+Director Matthews: Don't tell her who we are. Claim to be with the CIA.
+Alexander: This may not be the right time to be SECRETIVE, Director. The agent can also point out that we're better protection than the government... with a BOLD move. What will it be, Agent? SECRETIVE or BOLD.
+Choice SECRETIVE leads to 008F_reassurePromptSecretiveSplit.
+Choice BOLD leads to 008F_reassurePromptBoldSplit.
+
+State: 008M_charismaticSexResponse
+Recording: 008M_charismaticSexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+(CHARISMATIC - Plead for help)
+Seth: I... this is my fault. I'll do it, but then he'll come after me. Will you help me if I help you?
+Alexander: Well done Agent. Say YES.
+Choice YES leads to 012M_guardsPrompt.
+
+State: 008M_charismaticNoSexResponse
+Recording: 008M_charismaticNoSexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+(CHARISMATIC - Plead for help)
+Seth: You're too nice to me, even after this. I... this is my fault. I'll help, but then he'll come after me. Will you help me if I help you?
+Alexander: Well done Agent. Say YES.
+Choice YES leads to 012M_guardsPrompt.
+
+State: 011M_gainHelpAccomplished
+Recording: 011M_gainHelpAccomplished. Background: back_tank_m1e4. Decision sound: decision_single.
+Seth: I knew that someday people would try to stop him. I'll help you, as long you promise to keep me safe. Do you promise?
+Alexander: Well done, Agent. Say YES.
+Choice YES leads to 012M_guardsPrompt.
+
+State: 008M_hostileNoSexResponse
+Recording: 008M_hostileNoSexResponse. Background: back_tank_m1e4.
+(HOSTILE - Demand help)
+Seth: You've got a hell of a nerve taking that tone with me. And I couldn't help you if I wanted to... He'll know! He knows everything I do. Everything.
+Then goes to 009M_seduceReassurePrompt.
+
+State: 008F_charismaticSexResponse
+Recording: 008F_charismaticSexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+(CHARISMATIC - Plead for help)
+Serena: I... this is my fault. I'll do it, but then he'll come after me. Will you help me if I help you?
+Alexander: Well done Agent. Say YES.
+Choice YES leads to 012F_guardsPrompt.
+
+State: 008F_charismaticNoSexResponse
+Recording: 008F_charismaticNoSexResponse. Background: back_tank_m1e4. Decision sound: decision_single.
+(CHARISMATIC - Plead for help)
+Serena: You're too nice to me, even after this. I... this is my fault. I'll help you, but then he'll come after me. Will you help me if I help you?
+Alexander: Well done Agent. Say YES..
+Choice YES leads to 012F_guardsPrompt.
+
+State: 011F_gainHelpAccomplished
+Recording: 011F_gainHelpAccomplished. Background: back_tank_m1e4. Decision sound: decision_single.
+Serena: I knew that someday people would try to stop him. I'll help you, as long you promise to keep me safe. Do you promise?
+Alexander: Well done, Agent. Say YES.
+Choice YES leads to 012F_guardsPrompt.
+
+State: 008F_hostileNoSexResponse
+Recording: 008F_hostileNoSexResponse. Background: back_tank_m1e4.
+(HOSTILE - Demand help)
+Serena: You've got a hell of a nerve taking that tone with me! And I couldn't help you if I wanted to... He'll know! He knows everything I do. Everything.
+Then goes to 009F_seduceReassurePrompt.
+
+State: 009M_reassurePromptSecretiveSplit
+Background: back_tank_m1e4.
+Lowers Openness by one.
+If event.m1e3_defeatGuards==1, goes to 010M_defeatedGuardsSecretive; otherwise to 011M_gainHelpAccomplished.
+
+State: 009M_reassurePromptBoldSplit
+Background: back_tank_m1e4.
+Raises Openness by one.
+If event.m1e3_defeatGuards==1, goes to 010M_defeatedGuardsBold; otherwise to 011M_gainHelpAccomplished.
+
+State: 008F_reassurePromptSecretiveSplit
+Background: back_tank_m1e4.
+Lowers Openness by one.
+If event.m1e3_defeatGuards==1, goes to 010F_defeatedGuardsSecretive; otherwise to 011F_gainHelpAccomplished.
+
+State: 008F_reassurePromptBoldSplit
+Background: back_tank_m1e4.
+Raises Openness by one.
+If event.m1e3_defeatGuards==1, goes to 010F_defeatedGuardsBold; otherwise to 011F_gainHelpAccomplished.
+
+State: 012M_guardsPrompt
+Recording: 012M_guardsPrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+(FOOTSTEPS, SERVO TURNS ON AND OFF)
+Seth: Okay, just pull yourself up this way...
+(CHAIN MOVEMENT, METAL GROANS)
+Seth: Right!
+(KNOCK ON DOOR)
+Guard 1: Mr. Seth?
+Seth: It's the guards on their patrol!
+Alexander: Think fast! Be ATHLETIC and ambush the guards, or pretend you're still chained to be SECRETIVE. ATHLETIC or SECRETIVE?
+Choice ATHLETIC leads to 013M_guardsPhysicalDefeat.
+Choice SECRETIVE leads to 013M_guardsSecretiveSuccess.
+
+State: 009M_seduceReassurePrompt
+Recording: 009M_seduceReassurePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Alexander: Tell him you work for people who can keep him safe.
+Director Matthews: Don't tell him who we are. Claim to be with the CIA.
+Alexander: This may not be the right time to be SECRETIVE, Director. The agent can also point out that we're better protection than the government... with a BOLD move. What will it be, Agent? SECRETIVE or BOLD.
+Choice SECRETIVE leads to 010M_reassureSecretive.
+Choice BOLD leads to 010M_reassureBold.
+
+State: 012F_guardsPrompt
+Recording: 012F_guardsPrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+(FOOTSTEPS, SERVO TURNS ON AND OFF)
+Serena: Okay, just pull yourself up this way...
+(CHAIN MOVEMENT, METAL GROANS)
+Serena: That's right.
+(KNOCK ON DOOR)
+Guard 1: Miss Serena?
+Serena: It's the guards!
+Alexander: Think fast! Be ATHLETIC and ambush the guards, or pretend you're still chained to be SECRETIVE. ATHLETIC or SECRETIVE?
+Choice ATHLETIC leads to 013F_guardsPhysicalDefeat.
+Choice SECRETIVE leads to 013F_guardsSecretiveSuccess.
+
+State: 009F_seduceReassurePrompt
+Recording: 009F_seduceReassurePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Alexander: Tell her you work for people who can keep her safe.
+Director Matthews: Don't tell her who we are. Claim to be with the CIA.
+Alexander: This may not be the right time to be SECRETIVE, Director. The agent can also point out that we're better protection than the government... with a BOLD move. What will it be, Agent? SECRETIVE or BOLD.
+Choice SECRETIVE leads to 010F_ReassureSecretive.
+Choice BOLD leads to 010F_reassureBold.
+
+State: 010M_defeatedGuardsSecretive
+Recording: 010M_defeatedGuardsSecretive. Background: back_tank_m1e4.
+(SECRETIVE - Claim to be CIA)
+Seth: I don't know. He knows people. Even in the CIA. I'm sure he does.
+Then goes to 011M_convincePrompt.
+
+State: 010M_defeatedGuardsBold
+Recording: 010M_defeatedGuardsBold. Background: back_tank_m1e4.
+(BOLD - Reveal Cygnus)
+Seth: I don't know. How do I know you're not lying? I've never even heard of Cygnus.
+Then goes to 011M_convincePrompt.
+
+State: 010F_defeatedGuardsSecretive
+Recording: 010F_defeatedGuardsSecretive. Background: back_tank_m1e4.
+(SECRETIVE - Claim to be CIA)
+Serena: I don't know. He knows people. Even in the CIA. I'm sure he does.
+Then goes to 011F_convincePrompt.
+
+State: 010F_defeatedGuardsBold
+Recording: 010F_defeatedGuardsBold. Background: back_tank_m1e4.
+(BOLD - Reveal Cygnus)
+Serena: I don't know. How do I know you're not lying? I've never heard of Cygnus.
+Then goes to 011F_convincePrompt.
+
+State: 013M_guardsPhysicalDefeat
+Recording: 013M_guardsPhysicalDefeat. Background: back_tank_m1e4.
+(ATHLETIC - Ambush guards)
+Seth: Okay, if you're sure... I trust you.
+Alexander: If you hide behind that column, you'll be able to jump the guards after they step inside.
+(HEAVY KNOCKS ON DOOR)
+Seth: Yes - yes, just a minute.
+(DOOR OPENS)
+Guard 1: Mr. Seth? Everything okay?
+(THUMP, BODY FALL)
+Guard 2: Hey, what the hell--
+(PUNCH)
+Seth: Wow. You know what you're doing!
+Alexander: I concur.
+Raises Activeness by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 013M_guardsSecretiveSuccess
+Recording: 013M_guardsSecretiveSuccess. Background: back_tank_m1e4.
+(SECRETIVE - Pretend to be chained)
+Seth: Okay... I'll do what I can to get rid of them.
+(CHAIN MOVEMENT, METAL GROANS)
+(HEAVY KNOCKS ON DOOR)
+Guard 1: Mr. Seth?
+Seth: Yes - yes, just a minute.
+(DOOR OPENS)
+Guard 1: Everything okay?
+Seth: Yes, fine. Admiring the tank.
+Guard 2: Whoa, is that it? (TAPS ON TANK)
+Guard 1: Hey, keep back. I told you those things in there ain't friendly.
+Guard 2: I sure wouldn't want to be hanging from that crane right now.
+Guard 1: Yeah, well let's quit slouching around so that don't happen, eh? Take care now, Mr. Seth.
+(DOOR CLOSES)
+Lowers Openness by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 010M_reassureSecretive
+Background: back_tank_m1e4.
+Lowers Openness by one.
+Then goes to 011M_gainHelpAccomplished.
+
+State: 010M_reassureBold
+Background: back_tank_m1e4.
+Raises Openness by one.
+Then goes to 011M_gainHelpAccomplished.
+
+State: 013F_guardsPhysicalDefeat
+Recording: 013F_guardsPhysicalDefeat. Background: back_tank_m1e4.
+(ATHLETIC - Ambush guards)
+Serena: Okay, if you're sure... I trust you.
+Alexander: If you hide behind that column, you'll be able to jump the guards after they step inside. (HEAVY KNOCKS ON DOOR)
+Serena: Yes - yes, just a minute.
+(DOOR OPENS)
+Guard 1: Everything okay?
+(THUMP, BODY FALL)
+Guard 2: Hey, what the hell--
+(PUNCH)
+Serena: Wow! You know what you're doing.
+Alexander: I concur.
+Raises Activeness by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 013F_guardsSecretiveSuccess
+Recording: 013F_guardsSecretiveSuccess. Background: back_tank_m1e4.
+(SECRETIVE - Pretend to be chained)
+Serena: Okay... I'll do what I can to get rid of them.
+(METAL GROANS, CHAIN MOVEMENT)
+(HEAVY KNOCKS ON DOOR)
+Guard 1: Miss Serena?
+Serena: Yes - yes, just a minute.
+(DOOR OPENS)
+Guard 1: Everything okay?
+Serena: Yes, fine. Admiring the tank.
+Guard 2: Whoa, is that it? (TAPS ON TANK)
+Guard 1: Hey, keep back. I told you those things in there ain't friendly.
+Guard 2: I sure wouldn't want to be hanging from that crane right now.
+Guard 1: Yeah, well let's quit slouching around so that don't happen, eh? Take care now, Miss Serena.
+(DOOR CLOSES)
+Lowers Openness by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 010F_ReassureSecretive
+Background: back_tank_m1e4.
+Lowers Openness by one.
+Then goes to 011F_gainHelpAccomplished.
+
+State: 010F_reassureBold
+Background: back_tank_m1e4.
+Raises Openness by one.
+Then goes to 011F_gainHelpAccomplished.
+
+State: 011M_convincePrompt
+Recording: 011M_convincePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Alexander: You've got to make him believe it, Agent! You can try a CLEVER approach to convince him rationally, or become CHARISMATIC to sweep him off his feet with your charm. CLEVER or CHARISMATIC?
+Choice CLEVER leads to 012M_convinceIntellectualFree.
+Choice CHARISMATIC leads to 012M_convinceCharismaticFree.
+
+State: 011F_convincePrompt
+Recording: 011F_convincePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Alexander: You've got to make her believe it, Agent! You can try a CLEVER approach to convince her rationally, or become CHARISMATIC to sweep her off her feet with your charm. CLEVER or CHARISMATIC?
+Choice CLEVER leads to 012F_convinceIntellectualFree.
+Choice CHARISMATIC leads to 012F_convinceCharismaticFree.
+
+State: m1e4_a2p1conclusionRejoiner
+Background: back_tank_m1e4.
+Then goes to 001weaponsSplitter.
+
+State: 012M_convinceIntellectualFree
+Recording: 012M_convinceIntellectualFree. Background: back_tank_m1e4.
+(CLEVER - Be rational)
+Seth: That makes sense. I... I think we can do this.
+Alexander: Wonderful, Agent!
+(FOOTSTEPS, SERVO TURNS ON AND OFF)
+Seth: Okay, just pull yourself up this way...
+(CHAIN MOVEMENT, METAL GROANS)
+Seth: Right!
+Lowers Activeness by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 012M_convinceCharismaticFree
+Recording: 012M_convinceCharismaticFree. Background: back_tank_m1e4.
+(CHARISMATIC - Be charming)
+Seth: I'll help, but I think you'll owe me a date before this is through.
+Alexander: Wonderful, Agent!
+(FOOTSTEPS, SERVO TURNS ON AND OFF)
+Seth: Okay, just pull yourself up this way...
+(CHAIN MOVEMENT, METAL GROANS)
+Seth: Right!
+Raises Diplomacy by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 012F_convinceIntellectualFree
+Recording: 012F_convinceIntellectualFree. Background: back_tank_m1e4.
+(CLEVER - Be rational)
+Serena: That makes sense. I... think we can do this.
+Alexander: Wonderful, Agent!
+(FOOTSTEPS, SERVO TURNS ON AND OFF)
+Serena: Okay, just pull yourself up this way...
+(CHAIN MOVEMENT, METAL GROANS)
+Serena: That's right.
+Lowers Activeness by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 012F_convinceCharismaticFree
+Recording: 012F_convinceCharismaticFree. Background: back_tank_m1e4.
+(CHARISMATIC - Be charming)
+Serena: I'll help, but you'll owe me a date before this is all over.
+Alexander: Wonderful, Agent!
+(FOOTSTEPS, SERVO TURNS ON AND OFF)
+Serena: Okay, just pull yourself up this way...
+(CHAIN MOVEMENT, METAL GROANS)
+Serena: That's right.
+Raises Diplomacy by one.
+Then goes to m1e4_a2p1conclusionRejoiner.
+
+State: 001weaponsSplitter
+Background: back_tank_m1e4.
+If romance.m1_maleInterest==1, goes to 002M_aquireWeapon; otherwise to 002F_acquireWeapon.
+
+State: 002M_aquireWeapon
+Recording: 002M_acquireWeapon. Background: back_tank_m1e4. Decision sound: decision_single.
+Scene: WATERFRONT TOWERS - NEPTUNE'S LAIR
+Alexander: You need to move, Agent. Neptune and the Shark took all your weapons, so I'm not sure where--
+Seth: We can't go out there unarmed. I know where Neptune keeps his weapons.
+Alexander: Bingo.
+Seth: See this? It's not really a painting.
+(PANEL SLIDES)
+Seth: Voila! A secret panel. And that's not just a rifle-sized water pistol - it's full of sea snake venom. It's yours.
+Alexander: Yes, Agent, TAKE it.
+(PUMP RIFLE)
+Choice TAKE leads to 003M_hideFromNeptune.
+
+State: 002F_acquireWeapon
+Recording: 002F_acquireWeapon. Background: back_tank_m1e4. Decision sound: decision_single.
+Scene: WATERFRONT TOWERS - NEPTUNE'S LAIR
+Alexander: You need to move, Agent. Neptune and the Shark took all your weapons, so I'm not sure where--
+Serena: We can't go out there unarmed, but I know where Neptune keeps his weapons.
+Alexander: Bingo.
+Serena: See this? It's not really a painting.
+(PANEL SLIDES)
+Serena: Voila! A secret panel. And that's not just a rifle-sized water pistol - it's full of sea snake venom. It's yours.
+Alexander: Yes, Agent, TAKE it.
+(PUMP RIFLE)
+Choice TAKE leads to 003f_hideFromNeptune.
+
+State: 003M_hideFromNeptune
+Recording: 003M_hideFromNeptune. Background: back_tank_m1e4. Decision sound: decision_single.
+(NEPTUNE'S VOICE, MUFFLED)
+Seth: Oh crap...
+Neptune: (MUFFLED) And TRIDENT shall prevail.
+Seth: He's coming!
+Alexander: Quick, Agent, get behind the column. HIDE.
+Choice HIDE leads to 004M_fightNeptunePrompt.
+
+State: 003f_hideFromNeptune
+Recording: 003F_hideFromNeptune. Background: back_tank_m1e4. Decision sound: decision_single.
+(NEPTUNE'S VOICE, MUFFLED)
+Serena: Oh no...
+Neptune: (MUFFLED) And TRIDENT shall prevail.
+Serena: He's coming!
+Alexander: Quick, Agent, get behind the column. HIDE.
+Choice HIDE leads to 004F_fightNeptunePrompt.
+
+State: 004M_fightNeptunePrompt
+Recording: 004M_fightNeptunePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Seth: Wait a minute, I can't.
+Neptune: What the hell is going on in there?
+(DOOR OPENS)
+Neptune: Where -- what did you do?
+Seth: I...
+Neptune: WHAT DID YOU DO?!
+Seth: Nothing, you've got it all wrong.
+Neptune: You. You traitor. I've given you everything.
+Seth: No, wait!
+Alexander: Use the rifle! Shoot him with the venom now to be ATHLETIC or break the glass of the tank with the butt of the gun to cause a CLEVER distraction! It's ATHLETIC or CLEVER.
+Choice ATHLETIC leads to 005M_physicalNeptuneFight.
+Choice CLEVER leads to 005M_inellectualNeptuneFight.
+
+State: 004F_fightNeptunePrompt
+Recording: 004F_fightNeptunePrompt. Background: back_tank_m1e4. Decision sound: decision_single.
+Serena: Wait a minute, I can't!
+Neptune: What the hell is going on in there?
+(DOOR OPENS)
+Neptune: Where -- what did you do?
+Serena: I...
+Neptune: WHAT DID YOU DO?!
+Serena: Nothing! You've got it all wrong.
+Neptune: You. You traitor! I've given you everything...
+Serena: No, wait!
+Alexander: Use the rifle! Shoot him with the venom now to be ATHLETIC or break the glass of the tank with the butt of the gun to cause a CLEVER distraction! It's ATHLETIC or CLEVER.
+Choice ATHLETIC leads to 005F_physicalNeptuneFight.
+Choice CLEVER leads to 005F_intellectualNeptuneFight.
+
+State: 005M_physicalNeptuneFight
+Recording: 005M_physicalNeptuneFight. Background: back_tank_m1e4. Decision sound: decision_single.
+(ATHLETIC - Spray Neptune with venom)
+Neptune: I'm afraid this was your last transgression, my darling Seth.
+(RIFLE PUMPS, SPRAYS)
+Neptune: Aaaah! My eye!
+(BODY FALL)
+Alexander: Quick, Agent, knock him out while he's down! FIGHT!
+Raises Activeness by one.
+Choice FIGHT leads to 007concludeNeptuneFight.
+
+State: 005M_inellectualNeptuneFight
+Recording: 005M_intellectualNeptuneFight. Background: back_tank_m1e4. Decision sound: decision_single.
+(CLEVER - Hit tank with butt of gun)
+Neptune: I'm afraid this was your last transgression, my darling Seth.
+(FOOTSTEPS, RIFLE MOVEMENT)
+Neptune: No!
+(GLASS BREAKING, RUSHING WATER, FLOPPING)
+Neptune: My beautiful friends! They won't last...
+(SPLASHING)
+Alexander: The hole is too small for the sharks, but watch out for the sea snakes. You can grab Neptune while he's scrambling about. HOLD him!
+Lowers Activeness by one.
+Choice HOLD leads to 006intellectualNeptuneFight2.
+
+State: 005F_physicalNeptuneFight
+Recording: 005F_physicalNeptuneFight. Background: back_tank_m1e4, back_tank_m1e4. Decision sound: decision_single.
+(ATHLETIC - Spray Neptune with venom)
+Neptune: I'm afraid this was your last transgression, my darling Serena.
+(RIFLE PUMPS, SPRAYS)
+Neptune: Aaaah! My eye!
+(BODY FALL)
+Alexander: Quick, Agent, knock him out while he's down! FIGHT!
+Raises Activeness by one.
+Choice FIGHT leads to 007concludeNeptuneFight.
+
+State: 005F_intellectualNeptuneFight
+Recording: 005F_intellectualNeptuneFight. Background: back_tank_m1e4. Decision sound: decision_single.
+(CLEVER - Hit tank with butt of gun)
+Neptune: I'm afraid this was your last transgression, my darling Serena.
+(FOOTSTEPS, RIFLE MOVEMENT)
+Neptune: No!
+(GLASS BREAKING, RUSHING WATER, FLOPPING)
+Neptune: My beautiful friends! They won't last...
+(SPLASHING)
+Alexander: The hole is too small for the sharks, but watch out for the sea snakes. You can grab Neptune while he's scrambling about. HOLD him!
+Lowers Activeness by one.
+Choice HOLD leads to 006intellectualNeptuneFight2.
+
+State: 007concludeNeptuneFight
+Recording: 007concludeNeptuneFight. Background: back_tank_m1e4.
+(FIGHT)
+(SUCCESS MUSIC)
+Neptune: It is... nevertheless... too late... the Shark will finish my business.
+If romance.m1_maleInterest==1, goes to 009M_neptuneFightResponse; otherwise to 009F_neptuneFightResponse.
+
+State: 006intellectualNeptuneFight2
+Recording: 006IntellectualNeptuneFight2. Background: back_tank_m1e4. Decision sound: decision_single.
+(SPLASHING, WATER RUSHING, FLOPPING CREATURES)
+Neptune: No, my companions... You murderer! Let me at least save one. There, please!
+Alexander: Look out Agent, he's going to--
+(HISS, SNAP)
+Neptune: Aaaah! My eye!
+Alexander: Quick, Agent. Kick away the sea snake and knock him out. FIGHT!
+Choice FIGHT leads to 007concludeNeptuneFight.
+
+State: 009M_neptuneFightResponse
+Recording: 009M_neptuneFightResponse. Background: back_tank_m1e4.
+Seth: You did it.
+Then goes to 010getGrenadeMyra.
+
+State: 009F_neptuneFightResponse
+Recording: 009F_neptuneFightResponse. Background: back_tank_m1e4.
+Serena: You did it.
+Then goes to 010getGrenadeMyra.
+
+State: 010getGrenadeMyra
+Recording: 010getGrenadeMyra. Background: back_tank_m1e4. Decision sound: decision_single.
+Muffled Voice: Hiiiiiyaaa!
+(DOOR CRASHES OPEN)
+Agent Myra: FREEZE! Nobody move!
+Alexander: ...and there's Agent Myra to rescue you, right on schedule.
+Director Matthews: The rescue isn't necessary after all, Myra, but we'll need you to secure the area. Prepare Neptune and any remaining henchmen for delivery to the proper authorities.
+Agent Myra: Yes, sir, of course. I'm not sure what you've done, Agent. I cannot understand why Matthews has you out on this mission when a higher ranking agent like me is available.
+Director Matthews: That's enough, Agent Myra. I do what I do because I know what I know. That should come as no surprise for you.
+Agent Myra: No hard feelings, Agent. Here, take this. It's the gas grenade and mask I brought along in case things got out of control. It will be useful.
+Alexander: Good idea, Agent. TAKE it.
+Choice TAKE leads to 011exitPenthouseSplitter.
+
+State: 011exitPenthouseSplitter
+Background: back_tank_m1e4.
+If romance.m1_maleInterest==1, goes to 011M_exitPenthouse; otherwise to 011F_exitPenthouse.
+
+State: 011M_exitPenthouse
+Recording: 011M_exitPenthouse.
+Alexander: Now get to the consulate to save those hostages!
+(FOOTSTEPS)
+Seth: Wait! Wait, I'm coming with you! I can help. And you're not getting rid of me that easily.
+Then goes to 012m1e4_a2p2conclusion.
+
+State: 011F_exitPenthouse
+Recording: 011F_exitPenthouse.
+Alexander: Now get to the consulate to save those hostages!
+(FOOTSTEPS)
+Serena: Wait! Wait, I'm coming with you! I can help. And you're not getting rid of me that easily.
+Then goes to 012m1e4_a2p2conclusion.
+
+State: 012m1e4_a2p2conclusion
+Recording: 012m1e4_a2p2conclusion.
+(TRANSITION MUSIC)
+Then goes to 001m1e4_assignmentBrief.
+
+State: 001m1e4_assignmentBrief
+Recording: 001m1e4_assignmentBrief. Background: back_car_m1e4.
+Scene: INTERIOR - MOVING CAR
+Alexander: I have some data for you the consulate. Our surveillance shows at least six hostages. There are six TRIDENT guards.
+Director Matthews: But we're talking about amateurs here. These are not highly trained personnel.
+If romance.m1_maleInterest==1, goes to 002M_infiltrateEmbassyPrompt; otherwise to 002F_infiltrateEmbassyPrompt.
+
+State: 002M_infiltrateEmbassyPrompt
+Recording: 002M_infiltrateEmbassyPrompt. Background: back_car_m1e4. Decision sound: decision_single.
+Alexander: True. They may even fall for it if Seth were to bring you in as a prisoner.
+Director Matthews: The Trojan prisoner gambit? I'm not sure, Agent. Everybody knows better than to be fooled by that these days. If they're amateurs, it will be easy to draw them all to one part of the building, and lob that gas grenade through the window.
+Alexander: Sounds like the moment of truth, Agent. You can be ATHLETIC and use a grenade to force your way in. Or you can try a CLEVER approach and use the Trojan prisoner gambit with your "new partner." ATHLETIC or CLEVER.
+Choice ATHLETIC leads to 003M_physicalInfiltrationResponse.
+Choice CLEVER leads to 003M_intellectualInfiltrationResponse.
+
+State: 002F_infiltrateEmbassyPrompt
+Recording: 002F_infiltrateEmbassyPrompt. Background: back_car_m1e4. Decision sound: decision_single.
+Alexander: True. They may even fall for it if Serena were to bring you in as a prisoner.
+Director Matthews: The Trojan prisoner gambit? I'm not sure, Agent. Everybody knows better than to be fooled by that these days. If they're amateurs, it will be easy to draw them all to one part of the building, and lob that gas grenade through the window.
+Alexander: Sounds like the moment of truth, Agent. You can be ATHLETIC and use a grenade to force your way in. Or you can try a CLEVER approach and use the Trojan prisoner gambit with your "new partner." ATHLETIC or CLEVER.
+Choice ATHLETIC leads to 003F_physicalInfiltrationResponse.
+Choice CLEVER leads to 003F_intellectualInfiltrationResponse.
+
+State: 003M_physicalInfiltrationResponse
+Recording: 003M_physicalInfiltrationResponse. Background: back_outsidecon_m1e4.
+(ATHLETIC - Use grenade to force way in)
+(CAR PULLS UP, SHUTS OFF. CAR DOORS OPEN AND CLOSE. FOOTSTEPS.)
+Seth: I'll be waiting. Here.
+(KISS)
+Alexander: Save the smooching for later, Agent. And don't worry. Your driver will get him far enough away from the explosion... if it doesn't work out.
+(KISS)
+Alexander: Save the smooching for later, Agent. And don't worry. Your driver will get him far enough away from the explosion... if it doesn't work out.
+Raises Activeness by one.
+Then goes to 004physicalClimbTree.
+
+State: 003M_intellectualInfiltrationResponse
+Recording: 003M_intellectualInfiltrationResponse. Decision sound: decision_single.
+(CLEVER - Trojan Prisoner gambit)
+(CAR PULLS UP, SHUTS OFF. CAR DOORS OPEN AND CLOSE. FOOTSTEPS. DOOR OPENS)
+Scene: CONSULATE - LOBBY
+Guard 3: Who's there? Seth?
+Seth: Neptune sent me. To bring another one to put with Nica.
+Guard 3: Fine by me, (CLOSES DOOR) but the Shark needs to okay it first. Do, uh, do you know what's going on? We haven't heard from Neptune yet, the whole school is on edge waiting for an update.
+(SMASH, THUD)
+Alexander: An inspired use of a flower vase! Seth really is on your side.
+Seth: Quick, let me get those off you!
+(CLICK)
+Seth: They're all wearing the same masks and dark jackets. If you take Jimmy's, maybe you can knock them all out before they realize it's you?
+Alexander: Sounds like a good plan to me, Agent. Go ahead, the mask and jacket are yours. TAKE them.
+Lowers Activeness by one.
+Choice TAKE leads to 004M_goodbyeSeth.
+
+State: 003F_physicalInfiltrationResponse
+Recording: 003F_physicalInfiltrationResponse. Background: back_outsidecon_m1e4.
+(ATHLETIC - Use grenade to force way in)
+(CAR PULLS UP, SHUTS OFF. CAR DOORS OPEN AND CLOSE. FOOTSTEPS.)
+Serena: I'll be waiting. Here, for luck.
+(KISS)
+Alexander: Save the smooching for later, Agent. And don't worry. Your driver will get her far enough away from the explosion... if it doesn't work out.
+Raises Activeness by one.
+Then goes to 004physicalClimbTree.
+
+State: 003F_intellectualInfiltrationResponse
+Recording: 003F_intellectualInfiltrationResponse. Decision sound: decision_single.
+(CLEVER - Trojan Prisoner gambit)
+(CAR PULLS UP, SHUTS OFF. CAR DOORS OPEN AND CLOSE. FOOTSTEPS. DOOR OPENS)
+Scene: CONSULATE - LOBBY
+Guard 3: Who's there? Serena?
+Serena: Neptune sent me. To bring another one to put with Nica.
+Guard 3: Fine by me, (CLOSES DOOR) but the Shark needs to okay it first. Do, uh, do you know what's going on? We haven't heard from Neptune yet, the whole school is on edge waiting for an update.
+(SMASH, THUD)
+Alexander: An inspired use of a flower vase! Serena really is on your side.
+Serena: Quick, let me get those off you!
+(CLICK)
+Serena: They're all wearing the same masks and dark jackets. If you take Jimmy's, maybe you can knock them all out before they realize it's you?
+Alexander: Sounds like a good plan to me, Agent. Go ahead, the mask and jacket are yours. TAKE them.
+Lowers Activeness by one.
+Choice TAKE leads to 004F_goodbyeSerena.
+
+State: 004physicalClimbTree
+Recording: 004physicalClimbTree. Background: back_outsidecon_m1e4. Decision sound: decision_single.
+(DOOR CLOSES)
+Alexander: Agent, there's a tree at 9 o'clock that offers access to an upper story window. Most of the TRIDENT guards will rush up if you break it. When you're ready to get up on the tree and throw a rock, just CLIMB.
+Choice CLIMB leads to 005treeGasGrenade.
+
+State: 004M_goodbyeSeth
+Recording: 004M_goodbyeSeth. Background: back_consulate_m1e4.
+(OPENS DOOR)
+Seth: Now that you're in, I'll get back to the car. I'll be waiting. Here.
+(KISS)
+Alexander: Save the smooching for later, Agent. And don't worry. Your driver will get him far enough away from the explosion... if it doesn't work out.
+Then goes to 005oneGuardDown.
+
+State: 004F_goodbyeSerena
+Recording: 004F_goodbyeSerena. Background: back_consulate_m1e4.
+(OPENS DOOR)
+Serena: Now that you're in, I'll be back in the car. I'll be waiting. Here, for luck.
+(KISS)
+Alexander: Save the smooching for later, Agent. And don't worry. Your driver will get her far enough away from the explosion... if it doesn't work out.
+Then goes to 005oneGuardDown.
+
+State: 005treeGasGrenade
+Recording: 005treeGasGrenade. Background: back_outsidecon_m1e4. Decision sound: decision_single.
+(LEAVES RUSTLING)
+Alexander: Correct, that window right there.
+(WINDOW BREAKS)
+Distant Voice: What's goin' on?!
+Alexander: Now for the gas grenade, Agent!
+(CLICK)
+Alexander: THROW!
+Choice THROW leads to 006embassyWindowJump.
+
+State: 005oneGuardDown
+Recording: 005oneGuardDown. Background: back_consulate_m1e4. Decision sound: decision_single.
+Alexander: One guard down, five plus the Shark to go. The first two are around the corner to the left. To make this work right, you'll have to SNEAK.
+Choice SNEAK leads to 006threeGuardsDown.
+
+State: 006embassyWindowJump
+Recording: 006embassyWindowJump. Background: back_outsidecon_m1e4. Decision sound: decision_single.
+(HISS OF GAS)
+Guard 3: (DISTANT) Crap-crap-crap-crap, a gas grenade!
+Alexander: If you have the gas mask on, now's your moment, agent! JUMP!
+Choice JUMP leads to 007fightTridentGuards.
+
+State: 006threeGuardsDown
+Recording: 006threeGuardsDown. Background: back_consulate_m1e4. Decision sound: decision_single.
+Guard 4: Who's that? Jimmy?
+(THUD)
+(FOOTSTEPS)
+Guard 5: Hey, what the hell?
+(HIT)
+Alexander: Nicely done, Agent! Three down, three plus the Shark to go! There's another one at the end of this corridor to the right. When you're ready, go ahead and SNEAK.
+Choice SNEAK leads to 007fourGuardsDown.
+
+State: 007fightTridentGuards
+Recording: 007fightTridentGuards. Background: back_consulate_m1e4.
+Scene: CONSULATE - HALLWAY
+(GAS HISSING, COUGHS, FOOTSTEPS, CHOKING)
+Alexander: The gas got most of them, but two are still up - be careful -
+(PUNCH)
+Alexander: Oof! Oh, that looked painful, Agent!
+(FIGHT)
+Alexander: Well done, Agent.
+Then goes to 009encounterShark.
+
+State: 007fourGuardsDown
+Recording: 007fourGuardsDown. Background: back_consulate_m1e4. Decision sound: decision_single.
+Alexander: The guards... not looking your way... great!
+(DOOR OPENS)
+Guard 6: Hey! We got a rogue fish!
+Guard 7: What the hell do you think you're doing?
+Alexander: I'm sorry, Agent. I-I didn't see them, now you don't have a choice. You have to fight them both! FIGHT!
+Choice FIGHT leads to 008sixGuardsDown.
+
+State: 009encounterShark
+Recording: 009encounterShark. Background: back_consulate_m1e4.
+Director Matthews: What the hell is going on? Where is Alexander? Phelps!
+Alexander: All the opponents in the room are down! The bomb is in the large conference room, one level below. Hurry.
+If romance.m1_maleInterest==1, goes to 010M_femaleSharkPrompt; otherwise to 010F_maleSharkPrompt.
+
+State: 008sixGuardsDown
+Recording: 008sixGuardsDown. Background: back_consulate_m1e4.
+(FIGHT, CRIES OF PAIN, BREAKING GLASS AND WOOD)
+Alexander: Oof, oh that looked painful, Agent!
+(PUNCHES, CRIES, BODY FALLS)
+Alexander: Wow. Very nicely done.
+Then goes to 009encounterShark.
+
+State: 010M_femaleSharkPrompt
+Recording: 010M_femaleSharkPrompt. Background: back_consulate_m1e4. Decision sound: decision_single.
+The Shark: (DISTANT) What the hell is going on? Who's up there?
+Alexander: If you get over to the doorway fast, you may be able to attack him before he gets into the room. On the other hand, maybe it would be better to find a different escape route before she arrives. The first tactic is BOLD, the second is SECRETIVE. Do you want to be BOLD or SECRETIVE?
+Choice BOLD leads to 011M_femaleSharkBoldResponse.
+Choice SECRETIVE leads to 011M_femaleSharkSecretiveResponse.
+
+State: 010F_maleSharkPrompt
+Recording: 010F_maleSharkPrompt. Background: back_consulate_m1e4. Decision sound: decision_single.
+The Shark: (DISTANT) What the hell is going on? Who's up there?
+Alexander: If you get over to the doorway fast, you might be able to attack him before he gets into the room. On the other hand, maybe it would be better to find a different escape route before he arrives. The first tactic is BOLD, the second is SECRETIVE. Do you want to be BOLD or SECRETIVE?
+Choice BOLD leads to 011F_maleSharkBoldResponse.
+Choice SECRETIVE leads to 011F_maleSharkSecretiveResponse.
+
+State: 011M_femaleSharkBoldResponse
+Recording: 011M_femaleSharkBoldResponse. Background: back_consulate_m1e4.
+(BOLD - Attack)
+(FIGHT, GRUNT, GLASS BREAKS, THUMP)
+The Shark: A bold try - but it ain't enough against someone tough as me.
+Raises Openness by one.
+Then goes to 012M_femaleSharkWins.
+
+State: 011M_femaleSharkSecretiveResponse
+Recording: 011M_femaleSharkSecretiveResponse. Background: back_consulate_m1e4.
+(SECRETIVE - Escape)
+The Shark: (GETTING CLOSER) You don't think I see you there? Get out here and face me!
+(FIGHT, GLASS BREAKS, THUMP)
+The Shark: Sneaking off don't do you any good against the likes of me.
+Lowers Openness by one.
+Then goes to 012M_femaleSharkWins.
+
+State: 011F_maleSharkBoldResponse
+Recording: 011F_maleSharkBoldResponse. Background: back_consulate_m1e4.
+(BOLD - Attack)
+(FIGHT, GRUNTS, GLASS BREAKS)
+The Shark: Bold try, but it ain't enough against someone tough as me.
+Raises Openness by one.
+Then goes to 012F_maleSharkWins.
+
+State: 011F_maleSharkSecretiveResponse
+Recording: 011F_maleSharkSecretiveResponse. Background: back_consulate_m1e4.
+(SECRETIVE - Escape)
+The Shark: (GETTING CLOSER) (GETTING CLOSER) You don't think I see you there? Get out here and face me!
+(FIGHT, GRUNT, GLASS BREAKS, THUMP)
+The Shark: Sneaking off don't do you any good against the likes of me.
+Lowers Openness by one.
+Then goes to 012F_maleSharkWins.
+
+State: 012M_femaleSharkWins
+Recording: 012M_femaleSharkWins. Background: back_consulate_m1e4, back_consulate_m1e4, back_consulate_m1e4.
+The Shark: Stay still!
+(STRUGGLE, PUNCH)
+The Shark: I said stay still!
+If event.m1e2_drink==1, goes to 013M_femaleSharkMartini; otherwise to 013M_femaleSharkScorpion.
+
+State: 012F_maleSharkWins
+Recording: 012F_maleSharkWins. Background: back_consulate_m1e4.
+The Shark: Stay still!
+(STRUGGLE, PUNCH)
+The Shark: I said stay still!
+If event.m1e2_drink==1, goes to 013F_maleSharkMartini; otherwise to 013F_maleSharkScorpion.
+
+State: 013M_femaleSharkMartini
+Recording: 013M_femaleSharkMartini. Background: back_consulate_m1e4.
+The Shark: That's better. I finally get the chance to put you down like I should've back when you ordered that martini.
+Then goes to 014M_femaleSharkTaunt.
+
+State: 013M_femaleSharkScorpion
+Recording: 013M_femaleSharkScorpion. Background: back_consulate_m1e4.
+The Shark: That's better. I finally get the chance to put you down like I should've back when I made you that Scorpion.
+Then goes to 014M_femaleSharkTaunt.
+
+State: 013F_maleSharkMartini
+Recording: 013F_maleSharkMartini. Background: back_consulate_m1e4.
+The Shark: That's better. I finally get the chance to put you down like I should've back when you ordered that martini.
+Then goes to 014F_maleSharkTaunt.
+
+State: 013F_maleSharkScorpion
+Recording: 013F_maleSharkScorpion. Background: back_consulate_m1e4.
+The Shark: That's better. I finally get the chance to put you down like I should've back when I made you that Scorpion.
+Then goes to 014F_maleSharkTaunt.
+
+State: 014M_femaleSharkTaunt
+Recording: 014M_femaleSharkTaunt. Background: back_consulate_m1e4. Decision sound: decision_single.
+The Shark: I'ma shoot you with your own gun. (LAUGH) Unless you say I shouldn't. Do you want to try and convince me, little Cygnus agent? I can also take your fingers off with these suckers first.
+(CHOMPING)
+(TONE)
+Alexander: That's the knockout gun Delphi gave you. It will take the Shark out if she uses it. You could act HOSTILE and challenge her to kill you, or plead for your life in a CHARISMATIC manner to coax her. HOSTILE or CHARISMATIC?
+Choice HOSTILE leads to 015M_femaleSharkDiesHostile.
+Choice CHARISMATIC leads to 015M_femaleSharkDiesCharismatic.
+
+State: 014F_maleSharkTaunt
+Recording: 014F_maleSharkTaunt. Background: back_consulate_m1e4. Decision sound: decision_single.
+The Shark: I gonna shoot you with your own gun. (LAUGH) Unless you say I shouldn't. Do you want to try to convince me, little Cygnus agent? I can also take your fingers off with these suckers first.
+(CHOMPING)
+(TONE)
+Alexander: That's the knockout gun Delphi gave you. It will take the Shark out if he uses it. You could act HOSTILE and challenge him to kill you, or plead for your life in a CHARISMATIC manner to coax him. HOSTILE or CHARISMATIC?
+Choice HOSTILE leads to 015F_maleSharkDiesHostile.
+Choice CHARISMATIC leads to 015F_maleSharkDiesCharismatic.
+
+State: 015M_femaleSharkDiesHostile
+Recording: 015M_femaleSharkDiesHostile. Background: back_consulate_m1e4.
+(HOSTILE - Challenge)
+The Shark: Don't you talk that way about my teeth! You're dead, say goodbye!
+(GUN CLICKS, SPRAYS GAS, BODY FALLS)
+Lowers Diplomacy by one.
+Then goes to 016alexGlee.
+
+State: 015M_femaleSharkDiesCharismatic
+Recording: 015M_femaleSharkDiesCharismatic. Background: back_consulate_m1e4.
+(CHARISMATIC - Plead)
+The Shark: You think you're so special, dontcha? If I had the time, I'd make this slow. But that bomb ain't exactly waiting for me to finish. Goodbye.
+(GUN CLICKS, SPRAYS GAS, BODY FALLS)
+Raises Diplomacy by one.
+Then goes to 016alexGlee.
+
+State: 015F_maleSharkDiesHostile
+Recording: 015F_maleSharkDiesHostile. Background: back_consulate_m1e4.
+(HOSTILE - Challenge)
+The Shark: Don't you talk that way about my teeth! You're dead, say goodbye!
+(GUN CLICKS, SPRAYS GAS, BODY FALLS)
+Lowers Diplomacy by one.
+Then goes to 016alexGlee.
+
+State: 015F_maleSharkDiesCharismatic
+Recording: 015F_maleSharkDiesCharismatic. Background: back_consulate_m1e4.
+(CHARISMATIC - Plead)
+The Shark: You think you're so special, dontcha? If I had the time, I'd make this slow. But that bomb ain't exactly waiting for me to finish. Goodbye.
+(GUN CLICKS, SPRAYS GAS, BODY FALLS)
+Raises Diplomacy by one.
+Then goes to 016alexGlee.
+
+State: 016alexGlee
+Recording: 016alexGlee. Background: back_consulate_m1e4. Decision sound: decision_single.
+Alexander: Wonderful, this is all working out according to plan. Quick, now, run for the room with the bomb! RUN!
+Choice RUN leads to m1e4_a2p3conclusion.
+
+State: m1e4_a2p3conclusion
+Background: back_consulate_m1e4.
+Then goes to 001m1e3a3splitter.
+
+State: 001m1e3a3splitter
+Background: back_consulate_m1e4.
+If romance.m1_maleInterest==1, goes to 002M_nickAtBomb; otherwise to 002F_nicaAtBomb.
+
+State: 002M_nickAtBomb
+Recording: 002M_nickAtBomb. Background: back_consulate_m1e4.
+Scene: CONSULATE - BOMB ROOM
+(DOOR OPENS)
+Alexander: Here we go, Agent. The bomb, locked away behind a voice password. (CHUCKLES) And your rival agent Nick is here, handcuffed and unconscious. This is truly priceless.
+Then goes to 003argumentOverCode.
+
+State: 002F_nicaAtBomb
+Recording: 002F_nicaAtBomb. Background: back_consulate_m1e4.
+Scene: CONSULATE - BOMB ROOM
+(DOOR OPENS)
+Alexander: Here we go, Agent. The bomb, locked away behind a voice password. (CHUCKLES) And your rival agent Nica is here, handcuffed and unconscious. This is truly priceless.
+Then goes to 003argumentOverCode.
+
+State: 003argumentOverCode
+Recording: 003argumentOverCode. Background: back_consulate_m1e4.
+(MIC INTERFERNCE)
+Director Matthews: What the hell? Where are you, Alex? Report.
+Alexander: I'm right here, Director Matthews.
+Director Matthews: You're not at your post.
+Alexander: I'm patched in, isn't that all that matters?
+Director Matthews: Honeybourne, I need you on immediately!
+(STATIC)
+Miss Honeybourne: I'm here.
+Alexander: We won't be needing you, Honeybourne.
+Director Matthews: That's not your call to make.
+Alexander: Oh, I think it is. We've looked up the 22nd word of the 23rd chapter of 20,000 Leagues Under the Sea, Agent. It's "maelstrom." "
+Director Matthews: No, Agent, no it's not! I've got a copy right here - on paper, thank you very much - and the word is "be." As in, "to be or not to be."
+Alexander: Hmm, it could be that Honeybourne is needed after all. What do you think, Miss Honeybourne?
+Miss Honeybourne: Oh dear. There are two chapter 23s, Agent -- one in part 1 and one in part 2. How will we know which part Neptune used?
+Alexander: The word is "maelstorm." Trust me, Agent. Neptune's MO is the sea. And the days of Director Matthews are past.
+If romance.m1_maleInterest==1, goes to 004M_nickAtBombHoneybourne; otherwise to 004F_nicaAtBombHoneybourne.
+
+State: 004M_nickAtBombHoneybourne
+Recording: 004M_nickAtBombHoneybourne. Background: back_consulate_m1e4.
+Miss Honeybourne: We can't afford to bicker. We must come to a decision. And - oh dear. I think we know that young man strapped to the device...
+Nick: So... Agent... we meet... again. Tell me... you know how... to get me out of this?
+Then goes to 005oneLastChance.
+
+State: 004F_nicaAtBombHoneybourne
+Recording: 004F_nicaAtBombHoneybourne. Background: back_consulate_m1e4.
+Miss Honeybourne: We can't afford to bicker. We must come to a decision. And - oh dear. I think we know that young woman strapped to the device...
+Nica: So... Agent... we meet... again. Tell me... you know how... to get me out of this?
+Then goes to 005oneLastChance.
+
+State: 005oneLastChance
+Recording: 005oneLastChance. Background: back_consulate_m1e4.
+Miss Honeybourne: Stay attentive, Agent. You have one chance, but I'm certain you'll make the correct decision.
+Alexander: The word is "maelstrom."
+Director Matthews: I'm ordering you, Agent. The word is "be!"
+Miss Honeybourne: It is up to you now, Agent. You'll need to speak into the microphone interface on the device. It will recognize your word choice.
+If romance.m1_maleInterest==1, goes to 006M_bombPrompt; otherwise to 006F_bombPrompt.
+
+State: 006M_bombPrompt
+Recording: 006M_bombPrompt. Background: back_consulate_m1e4, back_consulate_m1e4. Decision sound: decision_single.
+(FOOTSTEPS)
+(TENSE MUSIC, TICKING )
+Nick: I trust you.
+Miss Honeybourne: Is it MAELSTROM or BE?
+Choice MAELSTROM leads to 007M_sideAlexTrue.
+Choice BE leads to 007M_sideAlexFalse.
+
+State: 006F_bombPrompt
+Recording: 006F_bombPrompt. Background: back_consulate_m1e4. Decision sound: decision_single.
+(FOOTSTEPS)
+(TENSE MUSIC, TICKING )
+Nica: I trust you.
+Miss Honeybourne: Is it MAELSTROM or BE?
+Choice MAELSTROM leads to 007F_sideAlexTrue.
+Choice BE leads to 007F_sideAlexFalse.
+
+State: 007M_sideAlexTrue
+Background: back_consulate_m1e4.
+Sets event.m1e4_chooseTrust to 1.
+Then goes to 008M_bombDefused.
+
+State: 007M_sideAlexFalse
+Background: back_consulate_m1e4.
+Sets event.m1e4_chooseTrust to 0.
+Then goes to 008M_bombDefused.
+
+State: 007F_sideAlexTrue
+Background: back_consulate_m1e4.
+Sets event.m1e4_chooseTrust to 1.
+Then goes to 008F_bombDefused.
+
+State: 007F_sideAlexFalse
+Background: back_consulate_m1e4.
+Sets event.m1e4_chooseTrust to 0.
+Then goes to 008F_bombDefused.
+
+State: 008M_bombDefused
+Recording: 008M_bombDefused. Background: back_consulate_m1e4.
+(TICKING SLOWS, THEN STOPS)
+(CLAPPING VIA EARPIECE)
+Nick: You did it! Get me out of this - they left the key just there.
+(JINGLE, CLICK)
+Nick: Brilliant work, Agent!
+(KISS)
+Nick: Until we meet again.
+(FOOTSTEPS, DOOR CLOSES)
+If event.m1e4_chooseTrust==1, goes to 009matthewsResponseSideAlex; otherwise to achievement_trustMatthews.
+
+State: 008F_bombDefused
+Recording: 008F_bombDefused. Background: back_consulate_m1e4.
+(TICKING SLOWS, THEN STOPS)
+(CLAPPING VIA EARPIECE)
+Nica: You did it! Get me out of this - they left the key just there.
+(JINGLE, CLICK)
+Nica: Brilliant work, Agent!
+(KISS)
+Nica: Until we meet again.
+(FOOTSTEPS, DOOR CLOSES)
+If event.m1e4_chooseTrust==1, goes to 009matthewsResponseSideAlex; otherwise to achievement_trustMatthews.
+
+State: 009matthewsResponseSideAlex
+Recording: 009matthewsResponseSideAlex. Background: back_consulate_m1e4.
+Director Matthews: That was fine work, Agent. But how could it have been book two?
+Sets npc_favor.matthews to -1.
+Sets npc_favor.alexander to 1.
+Then goes to 010alexReveal.
+
+State: achievement_trustMatthews
+Background: back_consulate_m1e4.
+Earns the achievement m1e4_chooseTrust_0.
+Then goes to 009MatthewsResponseSideMatthews.
+
+State: 010alexReveal
+Recording: 010alexReveal. Background: back_consulate_m1e4.
+Alexander: (LAUGHS) Oh, the look on all of your faces was priceless!
+Miss Honeybourne: Excuse me? Alex? How can you see us? Where are you?
+Director Matthews: Oh, no.
+Alexander: Watching all of you play my game has been truly a pleasure. I've waited years for this moment. And I intend to watch you all crumble. All of Cygnus. Stone by stone. It will fall.
+Director Matthews: Don't do this, Alex.
+Alexander: Agent "Jordan Parker," or whatever handle you next assume, I have no doubt that we will meet again. You might even say that we already have plans. (CHUCKLES) And oh, oh, oh, do I look forward to it. Miss Honeybourne - do take care of our agent. To all other agents and members of Cygnus, I hereby invite you to join me on my little crusade. I will welcome you with open arms and treat you with respect. And Director Matthews... I resign.
+(DISCONNECTS)
+Director Matthews: Why are you all standing around gawking?! I want a trace on Alexander. Right. NOW!
+Miss Honeybourne: I think it's already too late, Director. Cygnus has a new enemy - someone who knows all our secrets.
+Then goes to 011m1e4_conclusion.
+
+State: 009MatthewsResponseSideMatthews
+Recording: 009matthewsResponseSideMatthews. Background: back_consulate_m1e4.
+Director Matthews: That was fine work, Agent. I told you it was book one.
+Sets npc_favor.matthews to 1.
+Sets npc_favor.alexander to -1.
+Then goes to 010alexReveal.
+
+State: 011m1e4_conclusion
+Recording: 011m1e4_conclusion.
+(CONCLUDING MUSIC)
+Sets completion.m1e4_consulate to 2.
+Then goes to m1e4_end.
+
+State: m1e4_end
+End of the episode.
+
+When the episode is finished, the game says:
+What will happen now that Alex has turned traitor? Will Director Matthews be able to hold Cygnus together? Play the remaining Mission One episodes to find out.
+
+Preview of the next episode, played after this one.
+
+State: m1e5_teaser
+Recording: m1e5_teaser.
+Then goes to m1e4_end.
+
+Credits
+VOICE ACTORS
+Neptune: Logan Cunningham
+Director Matthews: Brian Moyer
+Miss Honeybourne: Sarah Elmaleh
+Alexander: Matthew Finn
+Serena: Eleza Kort Moyer
+Seth: Jacob Sommer
+Friend: Kite Tales
+Guard 1: Ian Hamilton
+Guard 2: David McHorney
+Agent Myra: Laurie Fisher
+The Shark: Bridget O'Flynn
+Eric Hunn
+Panonica: Jennifer Bean
+Nick M.: Emery Westlake
+Add'l Guards: David McHorney
+Greg Nugent
+Jason Wiser
+PRODUCTION
+Story: Jonathon Myers &
+Heather Albano
+Lead Writing: Heather Albano
+Add'l Writing: Jonathon Myers
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali

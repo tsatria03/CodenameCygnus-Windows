@@ -1,0 +1,1317 @@
+Codename Cygnus, Mission 1, Episode 7: Signum Cygni
+Escape a perilous situation as a former threat resurfaces.
+Starts at m1e7_start and ends at m1e7_end. 202 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e7_start
+Then goes to 1_000initializeVariables_m1e7.
+
+State: 1_000initializeVariables_m1e7
+Sets npc_favor.rhodes to 0.
+Sets npc_state.larissa to 1.
+Sets npc_favor.larissa to 0.
+Sets trait.cygnusLoyalty to 0.
+Sets knowledge.larissaUndercover to 0.
+Sets completion.m1e7_signumCygni to 1.
+Sets npc_state.rhodes to 1.
+Then goes to 1_001intro_m1e7.
+
+State: 1_001intro_m1e7
+Recording: 1_001intro_m1e7. Background: back_park_m1e7.
+Scene: PARK - SIDEWALK - DAYTIME
+(BIRDS CHIRPING)
+(DOG BARKING)
+(PERSON WHISTLING)
+(SLIGHT SIZZLE)
+Then goes to 1_002dogPrompt_m1e7.
+
+State: 1_002dogPrompt_m1e7
+Recording: 1_002dogPrompt_m1e7. Background: back_park_m1e7.
+Vendor: (HEAVY SIZZLE) I have been waiting months for a day like today. To get out here, peddle some franks in the sun. Can't do it once it drops below 45. There you go. That is a nice plump one.
+Then goes to 1_004needChangePrompt_m1e7.
+
+State: 1_004needChangePrompt_m1e7
+Recording: 1_004needChangePrompt_m1e7. Background: back_park_m1e7. Decision sound: decision_single.
+(TONGS)
+Vendor: Mustard and relish are right by the napkins.
+(SHUFFLING)
+Vendor: Very good. I can break that for you if you like. Do you need the change? YES or NO?
+Choice YES leads to 1_005Ayes_m1e7.
+Choice NO leads to 1_005Bno_m1e7.
+
+State: 1_005Ayes_m1e7
+Recording: 1_005Ayes_m1e7. Background: back_park_m1e7.
+(COINS)
+Vendor: There you go.... ya lousy cheapskate.
+(FOOTSTEPS)
+Vendor: (FADING) Stuck up, good for nothing... I want it to rain now! I hope you're happy.
+Sets event.m1e7_tipVendor to 0.
+Lowers Diplomacy by one.
+Then goes to 1_006accosted_m1e7.
+
+State: 1_005Bno_m1e7
+Recording: 1_005Bno_m1e7. Background: back_park_m1e7.
+Vendor: What a class act! (COINS DROPPED INTO TIN)
+(FOOTSTEPS)
+Vendor: (FADING) Hey, you enjoy this nice day now!
+Sets event.m1e7_tipVendor to 1.
+Raises Diplomacy by one.
+Then goes to 1_006accosted_m1e7.
+
+State: 1_006accosted_m1e7
+Recording: 1_006accosted_m1e7. Background: back_park_m1e7.
+(ABRUPTLY, DIFFERENT FOOTSTEPS)
+(FOOTSTEPS STOP)
+(GUN COCKED)
+Agent Rhodes: Whoa, whoa whoa take it easy there, partner. Just relax, and say hi to the gun in my coat pocket.
+Vendor: (OFF) Hey, is everything okay?
+Agent Rhodes: You're Ronald Archer, you live off of Broadway, you take the 9 bus to Copley. You have a wife, Paula, that you hate 'cause she cheated on you in 09, and a daughter, Cindy, age 6, who you love with all your heart. So to answer your original question. Everyone's okay. So just keeping selling your dogs and let's keep it at that.
+If event.m1e7_tipVendor==0, goes to 1_007AnoTipResponse_m1e7; otherwise to 1_007BtipResponse_m1e7.
+
+State: 1_007AnoTipResponse_m1e7
+Recording: 1_007AnoTipResponse_m1e7. Background: back_park_m1e7.
+Vendor: Haha! Instant karma, you cheapskate!
+Then goes to 1_008vanTransition_m1e7.
+
+State: 1_007BtipResponse_m1e7
+Recording: 1_007BtipResponse_m1e7. Background: back_park_m1e7.
+Vendor: You got it. I didn't see nothing but this beautiful day.
+Then goes to 1_008vanTransition_m1e7.
+
+State: 1_008vanTransition_m1e7
+Recording: 1_008vanTransition_m1e7. Background: back_park_m1e7.
+(VEHICLE SPEEDING UP FROM DISTANCE)
+Agent Rhodes: Here we go. Make it nice and easy, and hop in without a struggle. (MOCKING) Do it for Cygnus.
+(VEHICLE ARRIVES WITH A SCREECH)
+(VAN DOOR OPENS, FOOTSTEPS, SCUFFLING)
+Number 23: Yes, we have the Agent.
+(VAN DOOR SHUTS)
+Then goes to 1_009alexIntro_m1e7.
+
+State: 1_009alexIntro_m1e7
+Recording: 1_009alexIntro_m1e7. Background: back_van_m1e7.
+Scene: VAN - INTERIOR - BACK
+(VAN PEELS OUT, HEARD FROM INSIDE)
+Agent Rhodes: Easy, easy now. Remember me? Agent Rhodes? I would address you by your city, but oh, that's right... you don't have one yet. As you can tell, I'm no longer with the false Cygnus.
+Number 23: I'm sure the agent figured it out, Rhodes.
+Agent Rhodes: Alex made me Number 12. This firecracker here is Number 23.
+Number 23: I'll let you both get reacquainted.
+(DIVIDER OPENS AND CLOSES).
+Agent Rhodes: Now it's just us, Agent. Well, us and an old friend. Here. Have a listen.
+(EARPIECE BEING PLACED IN THE EAR)
+(INTERFERENCE)
+Alexander: Well hello, Agent. It's been a long time, hasn't it?
+Then goes to 1_010interlude_m1e7.
+
+State: 1_010interlude_m1e7
+Recording: 1_010interlude_m1e7.
+(MUSIC)
+Then goes to 2_001alexanderSpeech_m1e7.
+
+State: 2_001alexanderSpeech_m1e7
+Recording: 2_001alexanderSpeech_m1e7. Background: back_van_m1e7.
+Alexander: Have you thought of me much since our last goodbye, Agent? I must admit, I think about you often. Like Neptune, Matthews, and the rest, you played your part to perfection. In fact, I was so moved by your performance that I altered my plans for the reawakening. You see, that bomb in the consulate was originally set to detonate no matter which deactivation code you chose. But you forced me to reevaluate. In your performance I saw the masked origins of the false Cygnus. You were no bit part. You became a symbol. Impressive, but I couldn't have someone playing the martyr in the reawakening. A better plan came to me. An improvisation. And it ended with a test. A hopeful test of your allegiance. And I needed to see. Given only your gut instincts, to whom would you pledge your trust? Me? Or Matthews. Maelstrom or be?
+If event.m1e4_chooseTrust==1, goes to 2_A002alexBranchStart_m1e7; otherwise to 2_B002matthewsBranchStart_m1e7.
+
+State: 2_A002alexBranchStart_m1e7
+Recording: 2_A002alexBranchStart_m1e7. Background: back_van_m1e7.
+Alexander: And to my great amusement and delight, you believed me. Though you may not know it, there is a war taking place, Agent. A true Cygnus against a false Cygnus.
+Agent Rhodes: And you'll need to pick sides.
+Then goes to 2_A003alexExposition_m1e7.
+
+State: 2_B002matthewsBranchStart_m1e7
+Recording: 2_B002matthewsBranchStart_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: To my great disappointment you chose to trust Matthews and the false Cygnus.
+(INTERFERENCE)
+Number 23: Agent? Agent?
+Alexander: And your power as a symbol has grown, even in the time since we last spoke. .
+Number 23: If you can hear me, ASK Alex what he intends to do. ASK.
+Raises trait.cygnusLoyalty by one.
+Choice ASK leads to 2_B003larissaExposition_m1e7.
+
+State: 2_A003alexExposition_m1e7
+Recording: 2_A003alexExposition_m1e7. Background: back_van_m1e7.
+Alexander: But I have things to show you. Things you can't yet comprehend. Things Director Matthews has kept hidden from you... Don't you wonder about your fast track to Agenthood under Matthews? Do you ever stop to think that maybe he has ulterior motives? I think you do. You're not as naive and weak as I first thought.
+If Activeness>=0, goes to 2_AA004alexAthleticBranchStart_m1e7; otherwise to 2_AB004alexCleverBranchStart_m1e7.
+
+State: 2_B003larissaExposition_m1e7
+Recording: 2_B003larissaExposition_m1e7. Background: back_van_m1e7.
+Alexander: I'm sorry to say that we have no intention of killing you. No. We intend to turn you. Slowly.
+Agent Larissa: This is Agent Larissa.
+Alexander: You will come to understand the roots of the true Cygnus.
+Agent Larissa: I'm undercover for Matthews with Alex's new group.
+Alexander: You will learn the meaning behind the true oath - ad servo signum cygni usque mortis.
+Agent Larissa: I go by Number 23. I'm the one riding shotgun.
+Alexander: I look forward to working with you again, Agent.
+Agent Larissa: We'll get you out of this.
+Alexander: See you soon.
+(INTERFERENCE)
+Agent Rhodes: (CHUCKLES) Just sit back and enjoy the ride.
+Sets knowledge.larissaUndercover to 1.
+If Activeness>=0, goes to 2_BA004matthewsAthleticStart_m1e7; otherwise to 2_BB004matthewsCleverStart_m1e7.
+
+State: 2_AA004alexAthleticBranchStart_m1e7
+Recording: 2_AA004alexAthleticBranchStart_m1e7. Background: back_van_m1e7.
+Alexander: In your short time with Cygnus, you've proven yourself to be an agent of peak physical ability, even more ATHLETIC than your fellow agents.
+If npc_state.schafer==0, goes to 2_AA005tomassiAliveSplitter_m1e7; otherwise to 2_AA005FschaferAliveSplitter_m1e7.
+
+State: 2_AB004alexCleverBranchStart_m1e7
+Recording: 2_AB004alexCleverBranchStart_m1e7. Background: back_van_m1e7.
+Alexander: During your brief time at Cygnus you have proven yourself to be an expert of seduction, and planning; so CLEVER, you can come out the victor without firing a shot.
+If npc_state.schafer==0, goes to 2_AB005tomassiSplitter_m1e7; otherwise to 2_AB005schaferSplitter_m1e7.
+
+State: 2_BA004matthewsAthleticStart_m1e7
+Recording: 2_BA004matthewsAthleticStart_m1e7. Background: back_van_m1e7.
+Agent Larissa: I studied your file before entering my cover, Agent. Your ATHLETIC capabilities are enviable.
+If npc_state.schafer==0, goes to 2_BA005tomassiSplitter_m1e7; otherwise to 2_BA005schaferSplitter_m1e7.
+
+State: 2_BB004matthewsCleverStart_m1e7
+Recording: 2_BB004matthewsCleverStart_m1e7. Background: back_van_m1e7.
+Agent Larissa: I studied your file before entering my cover, Agent. Your CLEVER actions are an incredible advantage.
+If npc_state.schafer==0, goes to 2_BB005tomassiSplitter_m1e7; otherwise to 2_BB005schaferSplitter_m1e7.
+
+State: 2_AA005tomassiAliveSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.tomassi==3, goes to 2_AA006tomassiArm_m1e7; otherwise to 2_AA007rhodesResponse_m1e7.
+
+State: 2_AA005FschaferAliveSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.schafer==3, goes to 2_AA006schaferArm_m1e7; otherwise to 2_AA007rhodesResponse_m1e7.
+
+State: 2_AB005tomassiSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.tomassi==2, goes to 2_AB006tomassiBurned_m1e7; otherwise to 2_AB007distractionSplitter_m1e7.
+
+State: 2_AB005schaferSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.schafer==2, goes to 2_AB006schaferBurned_m1e7; otherwise to 2_AB007distractionSplitter_m1e7.
+
+State: 2_BA005tomassiSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.tomassi==3, goes to 2_BA006tomassiArm_m1e7; otherwise to 2_BA007serumSplitter_m1e7.
+
+State: 2_BA005schaferSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.schafer==3, goes to 2_BA006schaferArm_m1e7; otherwise to 2_BA007serumSplitter_m1e7.
+
+State: 2_BB005tomassiSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.tomassi==2, goes to 2_BB006tomassiBurned_m1e7; otherwise to 2_BB007distractionSplitter_m1e7.
+
+State: 2_BB005schaferSplitter_m1e7
+Background: back_van_m1e7.
+If npc_state.schafer==2, goes to 2_BB006schaferBurned_m1e7; otherwise to 2_BB007distractionSplitter_m1e7.
+
+State: 2_AA006tomassiArm_m1e7
+Recording: 2_AA006tomassiArm_m1e7. Background: back_van_m1e7.
+Alexander: Your hand-to-hand skills are second to none. You confronted Tomassi during the Krasnoff mission and left him with a broken arm.
+Then goes to 2_AA007rhodesResponse_m1e7.
+
+State: 2_AA007rhodesResponse_m1e7
+Recording: 2_AA007rhodesResponse_m1e7. Background: back_van_m1e7.
+Rhodes: What's the point of all that martial arts training if you can't knock a few heads around, am I right?
+If event.m1e2_serum==0, goes to 2_AA008syringeSplitter_m1e7; otherwise to 2_AA010entrySplitter_m1e7.
+
+State: 2_AA006schaferArm_m1e7
+Recording: 2_AA006schaferArm_m1e7. Background: back_van_m1e7.
+Alexander: Your hand-to-hand skills are second to none. You confronted Schafer during the Krasnoff mission and left her with a broken arm.
+Then goes to 2_AA007rhodesResponse_m1e7.
+
+State: 2_AB006tomassiBurned_m1e7
+Recording: 2_AB006tomassiBurned_m1e7. Background: back_van_m1e7.
+Alexander: When you were cornered by Krasnoff and Tomassi, the use of a lighter and some spilled alcohol lead to... an evening of the odds.
+Then goes to 2_AB007distractionSplitter_m1e7.
+
+State: 2_AB007distractionSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_distraction==0, goes to 2_AB008billofsaleResponse_m1e7; otherwise to 2_AB009serumSplitter_m1e7.
+
+State: 2_AB006schaferBurned_m1e7
+Recording: 2_AB006schaferBurned_m1e7. Background: back_van_m1e7.
+Alexander: When you were cornered by Krasnoff and Schafer, the use of a lighter and some spilled alcohol lead to... an evening of the odds.
+Then goes to 2_AB007distractionSplitter_m1e7.
+
+State: 2_BA006tomassiArm_m1e7
+Recording: 2_BA006tomassiArm_m1e7. Background: back_van_m1e7.
+Agent Larissa: You confronted Tomassi during the Krasnoff mission and left him with a broken arm.
+Then goes to 2_BA007serumSplitter_m1e7.
+
+State: 2_BA007serumSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_serum==0, goes to 2_BA008syringeResponse_m1e7; otherwise to 2_BA009distractionSplitter_m1e7.
+
+State: 2_BA006schaferArm_m1e7
+Recording: 2_BA006schaferArm_m1e7. Background: back_van_m1e7.
+Agent Larissa: You confronted Schafer during the Krasnoff mission and left her with a broken arm.
+Then goes to 2_BA007serumSplitter_m1e7.
+
+State: 2_BB006tomassiBurned_m1e7
+Recording: 2_BB006tomassiBurned_m1e7. Background: back_van_m1e7.
+Agent Larissa: When you were cornered by Krasnoff and Tomassi, your use of a lighter and some spilled alcohol turned up the heat.
+Then goes to 2_BB007distractionSplitter_m1e7.
+
+State: 2_BB007distractionSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_distraction==0, goes to 2_BB008billofsaleResponse_m1e7; otherwise to 2_BB009serumSplitter_m1e7.
+
+State: 2_BB006schaferBurned_m1e7
+Recording: 2_BB006schaferBurned_m1e7. Background: back_van_m1e7.
+Agent Larissa: When you were cornered by Krasnoff and Schafer, your use of a lighter and some spilled alcohol turned up the heat.
+Then goes to 2_BB007distractionSplitter_m1e7.
+
+State: 2_AA008syringeSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_syringeUse==1, goes to 2_AA009syringeStab_m1e7; otherwise to 2_AA010entrySplitter_m1e7.
+
+State: 2_AA010entrySplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e3_entry==1, goes to 2_AA011climbEntry_m1e7; otherwise to 2_AA012reconverge_m1e7.
+
+State: 2_AB008billofsaleResponse_m1e7
+Recording: 2_AB008billofsaleResponse_m1e7. Background: back_van_m1e7.
+Alexander: And wise choice at the art show, taking the more subtle approach with that forged bill of sale to lure your mark away.
+Then goes to 2_AB009serumSplitter_m1e7.
+
+State: 2_AB009serumSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_serum==1, goes to 2_AB010pillResponse_m1e7; otherwise to 2_AB011entrySplitter_m1e7.
+
+State: 2_BA008syringeResponse_m1e7
+Recording: 2_BA008syringeResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: When you administered the truth serum to your mark with a syringe, you used your physical instincts.
+Then goes to 2_BA009distractionSplitter_m1e7.
+
+State: 2_BA009distractionSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_distraction==1, goes to 2_BA010explosiveResponse_m1e7; otherwise to 2_BA011entrySplitter_m1e7.
+
+State: 2_BB008billofsaleResponse_m1e7
+Recording: 2_BB008billofsaleResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: And wise choice at the art show, taking the more subtle approach with that forged bill of sale to lure your mark away.
+Then goes to 2_BB009serumSplitter_m1e7.
+
+State: 2_BB009serumSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e2_serum==1, goes to 2_BB010pillResponse_m1e7; otherwise to 2_BB011entrySplitter_m1e7.
+
+State: 2_AA009syringeStab_m1e7
+Recording: 2_AA009syringeStab_m1e7. Background: back_van_m1e7.
+Alexander: Your reflexes are better than most agents on record. Back at the art gallery, you injected the truth serum into your mark while they were looking right at you.
+Agent Rhodes: Not the discreet type. I can appreciate that.
+Then goes to 2_AA010entrySplitter_m1e7.
+
+State: 2_AA011climbEntry_m1e7
+Recording: 2_AA011climbEntry_m1e7. Background: back_van_m1e7.
+Alexander: Who could forget that you single-handedly climbed a 20-story building to infiltrate Neptune's headquarters?
+Agent Rhodes: I think the Cygnus record's something like 35? But hey, you tried.
+Then goes to 2_AA012reconverge_m1e7.
+
+State: 2_AA012reconverge_m1e7
+Recording: 2_AA012reconverge_m1e7. Background: back_van_m1e7.
+Alexander: Not to mention when you took down that small army of Neptune's goons. But I deserve some of the credit for that. We work well together.
+Then goes to 3_AA001alexAthleticContinue_m1e7.
+
+State: 2_AB010pillResponse_m1e7
+Recording: 2_AB010pillResponse_m1e7. Background: back_van_m1e7.
+Alexander: Choosing the pill instead of the syringe to administer the truth serum shows you are not only an agent who prefers stealthier options, but you have the confidence to use them.
+Then goes to 2_AB011entrySplitter_m1e7.
+
+State: 2_AB011entrySplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e3_entry==0, goes to 2_AB012seduceEntry_m1e7; otherwise to 2_AB013savedLiliSplitter_m1e7.
+
+State: 2_BA010explosiveResponse_m1e7
+Recording: 2_BA010explosiveResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: Using the explosive charge instead of the bill of sale showed your determination to get the job done, even if you risked things getting messy.
+Then goes to 2_BA011entrySplitter_m1e7.
+
+State: 2_BA011entrySplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e3_entry==1, goes to 2_BA012climbEntry_m1e7; otherwise to 2_BA013defeatGuardsSplitter_m1e7.
+
+State: 2_BB010pillResponse_m1e7
+Recording: 2_BB010pillResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: Choosing the pill instead of the syringe to administer the truth serum shows you are not only an agent who prefers stealthier options, but one with the confidence to use them.
+Then goes to 2_BB011entrySplitter_m1e7.
+
+State: 2_BB011entrySplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e3_entry==0, goes to 2_BB012seduceEntry_m1e7; otherwise to 2_BB013savedLiliSplitter_m1e7.
+
+State: 3_AA001alexAthleticContinue_m1e7
+Recording: 3_AA001alexAthleticContinue_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: What I'm getting at is, you're an agent of action. If there isn't an opening, you make one. So I'm going to continue my test to see if I can trust you. You trusted me then, more than Matthews, and what I want to know... what I need to know, is just how far that goes. When you're ready, just tell me to GO ON
+Choice GO ON leads to 3_AA002shootRhodesPrompt_m1e7.
+
+State: 2_AB012seduceEntry_m1e7
+Recording: 2_AB012seduceEntry_m1e7. Background: back_van_m1e7.
+Alexander: Your decision to woo Neptune's lover in order to gain entrance to his lair... Now that's something only an expert of seduction could pull off.
+Agent Rhodes: That's my kind of infiltration.
+Raises npc_favor.rhodes by one.
+Then goes to 2_AB013savedLiliSplitter_m1e7.
+
+State: 2_AB013savedLiliSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e5_savedLili==1, goes to 2_AB014savedLiliResponse_m1e7; otherwise to 2_AB015reconverge_m1e7.
+
+State: 2_BA012climbEntry_m1e7
+Recording: 2_BA012climbEntry_m1e7. Background: back_van_m1e7.
+Agent Larissa: Your ascent of the 20-story building to infiltrate Neptune's headquarters has definitely been noticed by a few. Not the highest record in Cygnus history, but still impressive.
+Then goes to 2_BA013defeatGuardsSplitter_m1e7.
+
+State: 2_BA013defeatGuardsSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e3_defeatGuards==1, goes to 2_BA014defeatGuardsResponse_m1e7; otherwise to 2_BA015savedLiliSplitter_m1e7.
+
+State: 2_BB012seduceEntry_m1e7
+Recording: 2_BB012seduceEntry_m1e7. Background: back_van_m1e7.
+Agent Larissa: Your decision to woo Neptune's lover in order to gain entrance to his lair... something only an expert on seduction could pull off.
+Then goes to 2_BB013savedLiliSplitter_m1e7.
+
+State: 2_BB013savedLiliSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e5_savedLili==1, goes to 2_BB014savedLiliResponse_m1e7; otherwise to 2_BB015reconverge_m1e7.
+
+State: 3_AA002shootRhodesPrompt_m1e7
+Recording: 3_AA002shootRhodesPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: It's a simple test, really. At least, it should be for an agent of your athletic prowess. All I need you to do... is take your gun back from Agent Rhodes, then shoot him.
+Agent Rhodes: Wait, what?!
+Alexander: It's up to you. SHOOT RHODES, or REFUSE.
+Choice REFUSE leads to 3_AAB003refuse_m1e7.
+Choice SHOOT RHODES leads to 3_AAA003shootRhodes_m1e7.
+
+State: 2_AB014savedLiliResponse_m1e7
+Recording: 2_AB014savedLiliResponse_m1e7. Background: back_van_m1e7.
+Alexander: And you successfully rescued the Senator's daughter, even going so far as to work alongside a rival agent.
+Agent Rhodes: Didn't know we knew that, did ya? Alex here, he knows everything.
+Then goes to 2_AB015reconverge_m1e7.
+
+State: 2_AB015reconverge_m1e7
+Recording: 2_AB015reconverge_m1e7. Background: back_van_m1e7.
+Alexander: The point I'm trying to make Agent, is that you are a gifted individual - always able to find your way in, complete the mission, and worm your way out unscathed.
+Agent Rhodes: Like he says, you're a real top notch kind of operative. Are we gonna talk the Agent to death, or what?
+Alexander: Number 12, I need a private word with the Agent.
+Agent Rhodes: You've got to be kidding me.
+Alexander: Number 12, That will be all. .
+Agent Rhodes: As you wish chief. Hope it works.
+(STATIC)
+Then goes to 3_AB001alexCleverContinue_m1e7.
+
+State: 2_BA014defeatGuardsResponse_m1e7
+Recording: 2_BA014defeatGuardsResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: When you decided to take down Neptune's guards instead of sneaking by, it showed you are adept in identifying potential threats.
+Then goes to 2_BA015savedLiliSplitter_m1e7.
+
+State: 2_BA015savedLiliSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e5_savedLili==1, goes to 2_BA016savedLiliResponse_m1e7; otherwise to 2_BA017reconverge_m1e7.
+
+State: 2_BB014savedLiliResponse_m1e7
+Recording: 2_BB014savedLiliResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: And you successfully rescued the Senator's daughter, going so far as to work alongside a rival agent.
+Then goes to 2_BB015reconverge_m1e7.
+
+State: 2_BB015reconverge_m1e7
+Background: back_van_m1e7.
+Then goes to 3_BB001matthewsCleverContinue_m1e7.
+
+State: 3_AAB003refuse_m1e7
+Recording: 3_AAB003refuse_m1e7. Background: back_van_m1e7.
+Alexander: I'm disappointed, Agent. I really thought you might be one of us. At least now you've made your allegiances clear.
+(STATIC)
+Alexander: Goodbye, Agent. For now.
+(STATIC)
+Raises npc_favor.rhodes by one.
+Raises trait.cygnusLoyalty by one.
+Lowers npc_favor.alexander by one.
+Then goes to 3_AAB004rhodesResponse_m1e7.
+
+State: 3_AAA003shootRhodes_m1e7
+Recording: 3_AAA003shootRhodes_m1e7. Background: back_van_m1e7.
+(STRUGGLE, GRUNT)
+Agent Rhodes: Alex, you backstabbing-
+(GUN COCKED)
+Agent Rhodes: No. Agent, hold up, don't do anything drastic.
+Lowers npc_favor.rhodes by one.
+Lowers trait.cygnusLoyalty by one.
+Raises npc_favor.alexander by one.
+Then goes to 3_AAA004rhodesPrompt_m1e7.
+
+State: 3_AB001alexCleverContinue_m1e7
+Recording: 3_AB001alexCleverContinue_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: There we go, Agent. A little privacy. Honestly, you and I are very alike. We need someone else who is skilled in the more subtle arts. You trusted me then, more than Matthews, and what I want to know... what I need to know, is just how far that goes. I'd like to continue my test. If you pass, I can open a world of knowledge to you. A full history of the true Cygnus - ad servo signum cygni usque mortis. It is your choice. Do you ACCEPT or REFUSE?
+Choice REFUSE leads to 3_AB002alexCleverRefuse.
+Choice ACCEPT leads to 3_AB002alexCleverAcceptPrompt_m1e7.
+
+State: 2_BA016savedLiliResponse_m1e7
+Recording: 2_BA016savedLiliResponse_m1e7. Background: back_van_m1e7.
+Agent Larissa: And you successfully rescued the Senator's daughter, going so far as to work alongside a rival agent.
+Then goes to 2_BA017reconverge_m1e7.
+
+State: 2_BA017reconverge_m1e7
+Background: back_van_m1e7.
+Then goes to 3_BA001matthewsAthleticContinue_m1e7.
+
+State: 3_BB001matthewsCleverContinue_m1e7
+Recording: 3_BB001matthewsCleverContinue_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+(TIRE SQUEAL)
+Agent Rhodes: Whoa! What the hell's goin' on up there?
+Agent Larissa: Sorry about that, Agent. My pistol seems to have intimidated the driver.
+(KNOCKING ON SEPARATOR)
+Agent Rhodes: Keep your eyes on the damn road! (Under his breath) Number 44 is a freakin' amateur.
+Agent Larissa: I've boosted my signal to override Alex, but we only have a few minutes. I have a plan. When you're ready to hear it, just say GO ON.
+Choice GO ON leads to 3_BB002matthewsCleverPrompt_m1e7.
+
+State: 3_AAB004rhodesResponse_m1e7
+Recording: 3_AAB004rhodesResponse_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Well, all things being considered, thanks for not shooting me, Agent.
+(GUN DRAWN AND COCKED)
+Agent Rhodes: That said, I lasted in the false Cygnus because I knew my enemies.
+(EARPIECE REMOVED, CRUNCH)
+Agent Rhodes: There we go. Little bit of privacy without him listening in. Alex wants me to take you out, but I'm finding it hard to trust someone who ordered my death.
+Then goes to achievement_succeedRhodesAAB.
+
+State: 3_AAA004rhodesPrompt_m1e7
+Recording: 3_AAA004rhodesPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+(GUNSHOT)
+Rhodes: Oh... Damn... I really hate getting shot.
+(GUN DRAWN)
+Agent Rhodes: But y'know, in our line of work, a little protection goes a long way.
+Alexander: A bulletproof vest. Very clever, Agent Rhodes.
+Agent Rhodes: Clever enough, Alex.
+(STATIC, CRUNCH)
+Alexander: Agent, did Rhodes just remove his earpiece?
+Agent Rhodes: Your earpiece, too. Hand it OVER.
+Choice OVER leads to 3_AAA005privacy_m1e7.
+
+State: 3_AB002alexCleverRefuse
+Background: back_van_m1e7.
+Raises trait.cygnusLoyalty by one.
+If romance.m1_maleInterest==1, goes to 3_AB002alexCleverRefusePromptM_m1e7; otherwise to 3_AB002alexCleverRefusePromptF_m1e7.
+
+State: 3_AB002alexCleverAcceptPrompt_m1e7
+Recording: 3_AB002alexCleverAcceptPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: I'm very glad to hear that. Rhodes is one of my most loyal agents. I want you to convince him to rejoin the false Cygnus. You'll get one opportunity. In the past you have shown TACTFUL determination of the appropriate level of openness while undercover. You have also proven to you can demonstrate different levels of DIPLOMATIC interaction. Which general strategy will you choose, TACTFUL or DIPLOMATIC?
+Choice TACTFUL leads to 3_ABA003opennessBranchPrompt_m1e7.
+Choice DIPLOMATIC leads to 3_ABB003diplomacyBranchPrompt_m1e7.
+
+State: 3_BA001matthewsAthleticContinue_m1e7
+Recording: 3_BA001matthewsAthleticContinue_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: What I'm getting at is that your Athletic skill will be the key to your survival right now. We have to work fast. If you understand, KICK the divider. KICK.
+Choice KICK leads to 3_BA002larissaEscapePrompt_m1e7.
+
+State: 3_BB002matthewsCleverPrompt_m1e7
+Recording: 3_BB002matthewsCleverPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: What the hell is Alex saying to you now? Hello? Hello, chief?
+Agent Larissa: If you can somehow convince Agent Rhodes to turn against Alex before he reestablishes communication, we could gain an invaluable asset.
+(TAPPING ON EARPIECE)
+Agent Rhodes: Hey! Hey chief, I'm gettin' nothin'. What's with the privacy?
+Agent Larissa: Will you take a DIPLOMATIC route, which depends on your level of personability, or will you opt for a more TACTICAL plan, basing your approach on your level of Openness. I'd pick an approach you're familiar with, based on your past missions. So, what do you think? DIPLOMATIC, or TACTICAL?
+Choice DIPLOMATIC leads to 3_BBB003matthewsDiplomacyPrompt_m1e7.
+Choice TACTICAL leads to 3_BBA003matthewsTacticalPrompt_m1e7.
+
+State: achievement_succeedRhodesAAB
+Background: back_van_m1e7.
+Earns the achievement succeedRhodes.
+Then goes to 3_AAB005rhodesPositionPrompt_m1e7.
+
+State: 3_AAA005privacy_m1e7
+Recording: 3_AAA005privacy_m1e7. Background: back_van_m1e7.
+Alexander: Wait, Agent. Don't-!
+(EARPIECE REMOVED, CRUNCH)
+Agent Rhodes: There we go. A little privacy. Least until Alex's goons up front get wise. If Alex is going to order my death, screw it, I'm heading back to Matthews. At least I can explain how his favorite agent turned sides to Alex.
+(GUN COCKED)
+Then goes to 3_AAA006escapePrompt_m1e7.
+
+State: 3_AB002alexCleverRefusePromptM_m1e7
+Recording: 3_AB002alexCleverRefusePromptM_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: Loyalty is an admirable trait, however... loyalty is only good for people who are still alive.
+(STATIC)
+Agent Rhodes: Uh-huh? Well, that matter's settled. So what now chief? Drop the body in a shallow grave on the way back (GUN COCKED) or you got something better in mind?
+Alexander: Leave them be for now. Return and we will deal with the Agent here. I must turn my attention to the new player.
+Agent Rhodes: Wait, you're gonna talk about Lotus? No way Matthews or this greenhorn knows diddly-squat about that.
+Alexander: Even the Agent has dealt with their extended reach, by way of a certain installation artist... Tell me Agent, I know you tailed Nick to Lotus. Do you know anything about this new player, Lazarus, YES or NO?
+Choice YES leads to 3_AB003refuseYes_m1e7.
+Choice NO leads to 3_AB005refuseNoInfoLaz_m1e7.
+
+State: 3_AB002alexCleverRefusePromptF_m1e7
+Recording: 3_AB002alexCleverRefusePromptF_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: Loyalty is an admirable trait, however... loyalty is only good for people who are still alive.
+(STATIC)
+Agent Rhodes: Uh-huh? Well, that matter's settled. So what now chief? Drop the body in a shallow grave on the way back (GUN COCKED) or you got something better in mind?
+Alexander: Leave them be for now. Return and we will deal with the Agent here. I must turn my attention to the new player.
+Agent Rhodes: Wait, you're gonna talk about Lotus? No way Matthews or this greenhorn knows diddly-squat about that.
+Alexander: Even the Agent has dealt with their extended reach, by way of a certain installation artist... Tell me Agent, I know you tailed Panonica to Lotus. Do you know anything about this new player, Lazarus, YES or NO?
+Choice NO leads to 3_AB005refuseNoInfoLaz_m1e7.
+Choice YES leads to 3_AB003refuseYes_m1e7.
+
+State: 3_ABA003opennessBranchPrompt_m1e7
+Recording: 3_ABA003opennessBranchPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: Marvelous. Do you feel a BOLD tactic is your most familiar? In this case, you would force Rhodes to face certain facts. Or is your most comfortable tactic the SECRETIVE route, instead withholding information and forcing Rhodes's mind and conviction to waver? BOLD or SECRETIVE?
+Choice BOLD leads to 3_ABA004boldCheck_m1e7.
+Choice SECRETIVE leads to 3_ABA004secretiveCheck_m1e7.
+
+State: 3_ABB003diplomacyBranchPrompt_m1e7
+Recording: 3_ABB003diplomacyBranchPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Alexander: Do you feel a CHARISMATIC strategy of playing to Rhodes's insecurity would be best, or do you think pursuing a HOSTILE tactic would be more reliable? You should base this on your experience. CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 3_ABB004charismaticCheck_m1e7.
+Choice HOSTILE leads to 3_ABB004hostileCheck_m1e7.
+
+State: 3_BA002larissaEscapePrompt_m1e7
+Recording: 3_BA002larissaEscapePrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: Hey, watch it. Don't make me knock you out.
+Agent Larissa: Good. Listen carefully. There are two ways we can proceed to provoke a physical altercation. The first is a BOLD option that gets the job done, but in the process MY cover will be compromised. The second option is riskier, but if we use a SECRETIVE approach I may be able to keep my cover. It's up to you Agent, BOLD or SECRETIVE.
+Choice SECRETIVE leads to 3_BAB003larissaSecretStart_m1e7.
+Choice BOLD leads to 3_BAA003larissaBoldPrompt_m1e7.
+
+State: 3_BBB003matthewsDiplomacyPrompt_m1e7
+Recording: 3_BBB003matthewsDiplomacyPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: Getting Rhodes to turn will be tough, so go with your experience. Will you turn him with a CHARISMATIC observation, or a more HOSTILE threat to his well-being? Do you want to come across as CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 3_BBB003matthewsCharCheck_m1e7.
+Choice HOSTILE leads to 3_BBB003matthewsHostileCheck_m1e7.
+
+State: 3_BBA003matthewsTacticalPrompt_m1e7
+Recording: 3_BBA003matthewsTacticalPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: Getting Rhodes to turn will be tough, so go with your experience. Will you get him to turn with a BOLD offer for a high-paying contract from Cygnus, or instead a more SECRETIVE devil's advocate approach, suggesting that turncoat agents like him are always the first to get double-crossed by their employers? How about it, Agent? BOLD or SECRETIVE?
+Choice BOLD leads to 3_BBA004matthewsBoldCheck_m1e7.
+Choice SECRETIVE leads to 3_BBA004matthewsSecretCheck_m1e7.
+
+State: 3_AAB005rhodesPositionPrompt_m1e7
+Recording: 3_AAB005rhodesPositionPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: I'll get you out of this mess.
+(SUCCESS MUSIC)
+Agent Rhodes: But I need to know where you want me after that. I can come back with you and MATTHEWS, or I could keep undercover with ALEX and stream you intel as a thank you. Do you want me with MATTHEWS or ALEX?
+Choice MATTHEWS leads to 3_AAB006number23Attacks_m1e7.
+Choice ALEX leads to 3_AAB006alexResponse_m1e7.
+
+State: 3_AAA006escapePrompt_m1e7
+Recording: 3_AAA006escapePrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: Don't worry, this bullet isn't for you. My story is a lot less believable if I shoot you now. But, since we need to both get out of this situation alive, I'll need a distraction to keep Alex's ears and eyes off me.
+(KNOCKING ON SEPARATOR)
+Number 23: (MUFFLED) Hey! What's going on back there?
+(TIRE SQUEAL)
+Number 23: (MUFFLED) HEY! Number 44! Keep your eyes on the road.
+Agent Rhodes: You know, funny thing about these operations. The drivers never wear bulletproof vests. I'd hang onto something if I were you. READY?
+Choice READY leads to 3_AAA007transition_m1e7.
+
+State: 3_AB003refuseYes_m1e7
+Recording: 3_AB003refuseYes_m1e7. Background: back_van_m1e7.
+Agent Rhodes: (LAUGHS) Met their leader, did you? That's rich. (CHUCKLES) So he calls himself Lazarus, right? What is he, planning to revive the dead with some spooky secret powers?
+Alexander: It won't remain a mystery for long.
+(STATIC)
+Alexander: Agent, did Rhodes just turn off his earpiece?
+Agent Rhodes: (SHOUTING) Don't worry Alex, I'll get her working again in a moment. Not sure what the deal is, I'm taking a look now.
+(FIDDLING WITH WIRES)
+Agent Rhodes: (WHISPERS) Now, Agent, I'm not all that keen on sticking with Alex, and I wonder if you know as much about Lotus as you're letting on. I'm gonna do a search to see if you're bluffing just to save your hide. If you've got that famous gold-plated Lazarus card, then we may have a deal.
+(BODY SEARCH)
+If inventory.m1e5_lazarusCard==1, goes to 3_AB004refuseCardYes_m1e7; otherwise to 3_AB004refuseCardNo_m1e7.
+
+State: 3_AB005refuseNoInfoLaz_m1e7
+Recording: 3_AB005refuseNoInfoLaz_m1e7. Background: back_van_m1e7.
+Alexander: Well, that is a shame. See you soon, Agent.
+(STATIC, CALL ENDS)
+(FAILURE MUSIC)
+Then goes to 3_ABend_failConvergence_m1e7.
+
+State: 3_ABA004boldCheck_m1e7
+Background: back_van_m1e7.
+If Openness>=0, goes to 3_ABA006boldCheckSuccess_m1e7; otherwise to 3_ABA005boldCheckFail_m1e7.
+
+State: 3_ABA004secretiveCheck_m1e7
+Background: back_van_m1e7.
+If Openness<=0, goes to 3_ABA006secretiveCheckSuccess_m1e7; otherwise to 3_ABA005secretiveCheckFail_m1e7.
+
+State: 3_ABB004charismaticCheck_m1e7
+Background: back_van_m1e7.
+If Diplomacy>=0, goes to 3_ABB005charismaticCheckSuccess_m1e7; otherwise to 3_ABB005charismaticCheckFail_m1e7.
+
+State: 3_ABB004hostileCheck_m1e7
+Background: back_van_m1e7.
+If Diplomacy<=0, goes to 3_ABB006hostileCheckSuccess_m1e7; otherwise to 3_ABB005hostileCheckFail_m1e7.
+
+State: 3_BAB003larissaSecretStart_m1e7
+Recording: 3_BAB003larissaSecretStart_m1e7. Background: back_van_m1e7.
+Agent Larissa: All right then, Agent. I am going to slip you a knife while we chat. To keep my cover, you're going to have to hit me, hard. I don't care what you do, just make sure to do it on my signal. I'll unclasp my holster and shout. Repeat back my shout when you attack.
+Raises Openness by one.
+Then goes to 3_BAB005larissaCoverEntrance_m1e7.
+
+State: 3_BAA003larissaBoldPrompt_m1e7
+Recording: 3_BAA003larissaBoldPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: All right then, Agent. I'm on my way back, but we'll need to neutralize Rhodes if this is going to work. You will need to distract him when I get in position. You could go with a HOSTILE approach and enrage him. Or another option is to just talk with him in a CHARISMATIC way. HOSTILE or CHARISMATIC?
+Lowers Openness by one.
+Choice CHARISMATIC leads to 3_BAAB004larissaCharismaticLines_m1e7.
+Choice HOSTILE leads to 3_BAAA004larissaHostileStart_m1e7.
+
+State: 3_BBB003matthewsCharCheck_m1e7
+Background: back_van_m1e7.
+If Diplomacy>=0, goes to 3_BBB004matthewsCharismaticPrompt_m1e7; otherwise to 3_BBB004matthewsCharismaticFail_m1e7.
+
+State: 3_BBB003matthewsHostileCheck_m1e7
+Background: back_van_m1e7.
+If Diplomacy<=0, goes to 3_BBB004matthewsHostilePrompt_m1e7; otherwise to 3_BBB004matthewsHostileFail_m1e7.
+
+State: 3_BBA004matthewsBoldCheck_m1e7
+Background: back_van_m1e7.
+If Openness>=0, goes to 3_BBA005matthewsBoldPrompt_m1e7; otherwise to 3_BBA004matthewsBoldFail_m1e7.
+
+State: 3_BBA004matthewsSecretCheck_m1e7
+Background: back_van_m1e7.
+If Openness<=0, goes to 3_BBA005mattewsSecretPrompt_m1e7; otherwise to 3_BBA004matthewsSecretFail_m1e7.
+
+State: 3_AAB006number23Attacks_m1e7
+Recording: 3_AAB006number23Attacks_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: That's what I thought.
+(SEPARATOR DOOR OPENS, GUN COCKED)
+Number 23: You might've expected it, Rhodes, but I didn't. I have to say, I'm as disappointed as Alex right now.
+Then goes to 3_AAB007matthewsEscapePrompt_m1e7.
+
+State: 3_AAB006alexResponse_m1e7
+Recording: 3_AAB006alexResponse_m1e7. Background: back_van_m1e7.
+Agent Rhodes: That's what I thought you'd recommend. You got it.
+(KNOCKING ON SEPARATOR)
+Number 23: Hey! What's going on back there?
+(TIRE SQUEAL)
+Number 23: HEY! Number 44! Keep your eyes on the road!
+Agent Rhodes: No problems back here!
+Then goes to 3_AAB007alexEscapePrompt_m1e7.
+
+State: 3_AAA007transition_m1e7
+Background: back_van_m1e7.
+Sets npc_state.rhodes to 5.
+Then goes to achievement_succeedRhodesAAA.
+
+State: 3_AB004refuseCardYes_m1e7
+Recording: 3_AB004refuseCardYes_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Whoa. Whoa, whoa, whoa, what is this?
+Alexander: Agent, what is going on?
+(EARPIECE REMOVED, CRUNCH)
+Then goes to 3_AB005refuseRhodesCardYes_m1e7.
+
+State: 3_AB004refuseCardNo_m1e7
+Recording: 3_AB004refuseCardNo_m1e7. Background: back_van_m1e7.
+Agent Rhodes: You've got nothing. That's disappointing, friend.
+(FINISHES REPAIRS)
+Lowers npc_favor.rhodes by one.
+Then goes to 3_AB005refuseRhodesCardNo_m1e7.
+
+State: 3_ABend_failConvergence_m1e7
+Background: back_van_m1e7.
+Lowers npc_favor.alexander by one.
+Sets npc_state.rhodes to 1.
+Then goes to achievement_failRhodesAB.
+
+State: 3_ABA006boldCheckSuccess_m1e7
+Recording: 3_ABA006boldCheckSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: There's no way Alex would betray me. I was one of the first to join his cause... but I'm just a number to him... and it's only a matter of time before he forces me to do something I'm not that crazy about. Cygnus with Matthews might be weak, but they have principles that I can live with.
+(SUCCESS MUSIC)
+Then goes to 3_ABend_successConvergence_m1e7.
+
+State: 3_ABA005boldCheckFail_m1e7
+Recording: 3_ABA005boldCheckFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: So what Agent? So Alex might betray me? That tends to happen in our line of work. My job now is to ensure he never has a reason. You think I made this choice lightly?
+Then goes to 3_ABend_alexGoodbyeAttempt_m1e7.
+
+State: 3_ABA006secretiveCheckSuccess_m1e7
+Recording: 3_ABA006secretiveCheckSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: You really think he'd do that? He recruited me... He wanted my help to make the true Cygnus great again. But... the way he does things... I don't think I can go along with them anymore.
+(SUCCESS MUSIC)
+Then goes to 3_ABend_successConvergence_m1e7.
+
+State: 3_ABA005secretiveCheckFail_m1e7
+Recording: 3_ABA005secretiveCheckFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Agent, don't try to beat around the bush, you're not very good at it. You think I made the decision to join Alex lightly? The false Cygnus is a ghost town and if Alex can reawaken its former glory, good for him.
+Then goes to 3_ABend_alexGoodbyeWords_m1e7.
+
+State: 3_ABB005charismaticCheckSuccess_m1e7
+Recording: 3_ABB005charismaticCheckSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: I hate to admit it, but you're right. I got into spy work because for selfish reasons - I had an itch I can't ever seem to scratch - but it used to feel like I was doing something for the greater good... but lately... I'm just fighting over a name.
+(SUCCESS MUSIC)
+Then goes to 3_ABend_successConvergence_m1e7.
+
+State: 3_ABB005charismaticCheckFail_m1e7
+Recording: 3_ABB005charismaticCheckFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Nice try, but I'm not someone you can fool with some kind words. Alex has done more for the true Cygnus than Matthews or any other director did for the false Cygnus. That's more than enough for me.
+Then goes to 3_ABend_alexGoodbyeWords_m1e7.
+
+State: 3_ABB006hostileCheckSuccess_m1e7
+Recording: 3_ABB006hostileCheckSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: (GUN COCKS) Shut up! You think I don't know I can't do the fancy social missions? Alex recruited me for my talents, it's why I'm here right now holding a gun to your head! (UNCOCKS) But you're right. I'm a glorified bouncer now... Matthews found ways to use me as more than just a glorified tough guy. I should go back to where I'm valued.
+(SUCCESS MUSIC)
+Then goes to 3_ABend_successConvergence_m1e7.
+
+State: 3_ABB005hostileCheckFail_m1e7
+Recording: 3_ABB005hostileCheckFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: So what, Agent? So Alex might betray me? That tends to happen in our line of work. My job now is to ensure he never has a reason. You think I made this choice lightly?
+Then goes to 3_ABend_alexGoodbyeAttempt_m1e7.
+
+State: 3_BAB005larissaCoverEntrance_m1e7
+Recording: 3_BAB005larissaCoverEntrance_m1e7. Background: back_van_m1e7.
+(DIVIDER DOOR OPENS)
+Agent Rhodes: Well now 23. Come to give the me and the Agent some company?
+Agent Larissa: No such luck Rhodes. I just came back here to see the little minion of Matthews we caught. Call it... a bit of cathartic therapy.
+Then goes to 3_BAB005larissaCoverThreat_m1e7.
+
+State: 3_BAAB004larissaCharismaticLines_m1e7
+Recording: 3_BAAB004larissaCharismaticLines_m1e7. Background: back_van_m1e7.
+Agent Rhodes: I understand what you mean, Agent. But we signed up for this, well not this in particular. (DIVIDER DOOR OPENS) But the fact is, every day we take sides. Everything we do helps to draw lines in the sand. (DIVIDER DOOR CLOSES) While I'm certain we agree on many things, sad to say this time we're on opposite sides of that line.
+Raises npc_favor.rhodes by one.
+Raises Diplomacy by one.
+Then goes to 3_BAAB005larissaCharismaticReveal_m1e7.
+
+State: 3_BAAA004larissaHostileStart_m1e7
+Recording: 3_BAAA004larissaHostileStart_m1e7. Background: back_van_m1e7.
+Agent Rhodes: What'd you say to me? (SPITEFUL LAUGH) I think I've earned the right to wear what I want without getting yapped at by someone soon be in a world of pain.
+(DIVIDER DOOR OPENS AND CLOSES)
+Lowers npc_favor.rhodes by one.
+Lowers Diplomacy by one.
+Then goes to 3_BAAA005hostileGunCocked_m1e7.
+
+State: 3_BBB004matthewsCharismaticPrompt_m1e7
+Recording: 3_BBB004matthewsCharismaticPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: (LAUGHS) If I was Alex's best agent, why do you think I'd be here stuck in the dark while he's yapping at you? This was all supposed to be a quick job, but I can see the writing on the wall. That backstabber's looking to have me replaced, isn't he? That man is a real piece of work.
+Agent Larissa: Good job, Agent! Rhodes is having doubts about Alex's plans.
+(SUCCESS MUSIC)
+Agent Larissa: Now's your best chance to turn him to Cygnus under the guise of protecting him from Alex. Go ahead, offer him PROTECTION.
+Choice PROTECTION leads to 3_BBB005matthewsCharismaticSuccess_m1e7.
+
+State: 3_BBB004matthewsCharismaticFail_m1e7
+Recording: 3_BBB004matthewsCharismaticFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Yeah, right. You've got about as much tact as a hollow point to the chest, you know that?
+Agent Larissa: Okay, so, you're not the charismatic type.
+Sets event.m1e7_convinceFail to 2.
+Then goes to 3_BBB005matthewsLazRetry_m1e7.
+
+State: 3_BBB004matthewsHostilePrompt_m1e7
+Recording: 3_BBB004matthewsHostilePrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: Nervous? Why should I be nervous? Nervous about what? Oh, you think that Alex doesn't trust me, huh? But I'm number... uh... I'm number 12. He did just cut me out the loop. That, uh... probably doesn't bode well, does it?
+Agent Larissa: Good job, Agent!
+(SUCCESS MUSIC)
+Agent Larissa: You've got Rhodes believing that Alex may turn on him, now's your best chance to convince him to rejoin Cygnus. Go ahead and offer him PROTECTION.
+Choice PROTECTION leads to 3_BBB005matthewsHostileSuccess_m1e7.
+
+State: 3_BBB004matthewsHostileFail_m1e7
+Recording: 3_BBB004matthewsHostileFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: (LAUGHS) Sure, keep telling yourself that. I'm not the one who got dragged into a van with a gun to their head.
+Agent Larissa: You still may be able to turn this around. You met with Lazarus, didn't you? Maybe Rhodes will respect you if he realizes that powerful connection.
+Sets event.m1e7_convinceFail to 3.
+Then goes to 3_BB006matthewsLazCheck_m1e7.
+
+State: 3_BBA005matthewsBoldPrompt_m1e7
+Recording: 3_BBA005matthewsBoldPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: Whoa, that's, uh... huh. That's a pretty big number, isn't it? Alex doesn't even pay me half that. Or, uh... quarter that. Can you guarantee that from Director Matthews?
+Agent Larissa: Good job, Agent! With guys like Rhodes, loyalty is always easier to get when you buy it outright.
+(SUCCESS MUSIC)
+Agent Larissa: Finish turning him to Cygnus under the guise of protecting him from Alex. Go ahead, offer him PROTECTION.
+Choice PROTECTION leads to 3_BBA006matthewsBoldSuccess_m1e7.
+
+State: 3_BBA004matthewsBoldFail_m1e7
+Recording: 3_BBA004matthewsBoldFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: You think I turned to Alex for the money? You think you can just wave a couple of numbers around and I'll turn against the man who opened my eyes? Your Cygnus is yesterday's news. Alex - he's got a better vision. If you can prove to me that you and Matthews have bigger plans, you might find me interested again. But c'mon, Matthews is a dinosaur.
+Agent Larissa: Rhodes is interested in new ideas. You met with Lazarus, didn't you? He's a major new player, and if Rhodes thinks Lazarus is an ally of Cygnus he'll also think that Cygnus is at the forefront of intelligence while Alex is just playing catch-up.
+Sets event.m1e7_convinceFail to 1.
+Then goes to 3_BB006matthewsLazCheck_m1e7.
+
+State: 3_BBA005mattewsSecretPrompt_m1e7
+Recording: 3_BBA005mattewsSecretPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: Wh... what do you mean by that? Alex would never turn on me. I turned on the false Cygnus to join him! But... ah... I guess all Alex has to go on is that I betrayed my own agency. To him I'm a traitor. .
+Agent Larissa: Great work, Agent! With a few words, you planted a seed of doubt in Agent Rhodes' head.
+(SUCCESS MUSIC)
+Agent Larissa: Finish turning him to Cygnus under the guise of protecting him from Alex. Go ahead, offer him PROTECTION.
+Choice PROTECTION leads to 3_BBA006matthewsSecretSuccess_m1e7.
+
+State: 3_BBA004matthewsSecretFail_m1e7
+Recording: 3_BBA004matthewsSecretFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: You're saying what? That Alex would turn on me because I turned on Cygnus? Alex rewarded me for turning on the false Cygnus. Alex came to me - opened my eyes. You think Matthews is the right guy to lead? We're both smart people, Agent. We know that isn't true.
+Agent Larissa: Seems that Agent Rhodes is pretty confident in his position with Alexander. But what about new players in the intelligence world. You met with Lazarus, didn't you? If you can show Rhodes that Cygnus is allied with Lazarus he'll think that Cygnus is at the forefront of intelligence while Alex is just playing catch-up.
+Sets event.m1e7_convinceFail to 1.
+Then goes to 3_BB006matthewsLazCheck_m1e7.
+
+State: 3_AAB007matthewsEscapePrompt_m1e7
+Recording: 3_AAB007matthewsEscapePrompt_m1e7. Background: back_van_m1e7.
+(PISTOL DRAWN)
+Agent Rhodes: There's no way I can go back to Alex now. You should know that, 23.
+Number 23: I do know that. That's why he's asked me to kill the both of you before you get any more bright ideas.
+(TIRE SQUEAL)
+Number 23: HEY! Number 44! Keep your eyes on the road!
+Agent Rhodes: Grab her gun, Agent! Now. GRAB IT!
+Choice GRAB IT leads to 3_AAB008transition_m1e7.
+
+State: 3_AAB007alexEscapePrompt_m1e7
+Recording: 3_AAB007alexEscapePrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: All right, Agent. Only way I can go back to Alex without offing you is making it look like you ARE dead. Maybe we had a struggle. Maybe in that struggle, you grabbed my gun and I accidentally shot the driver, causing the van to lose control and run off the road.
+(GUN COCKED)
+Agent Rhodes: Maybe I jumped out of the van before it went over, and assumed you died in the crash. (CHUCKLE) You Might want to grab on something. HANG ON.
+Choice HANG ON leads to 3_AAB008transition_m1e7.
+
+State: achievement_succeedRhodesAAA
+Background: back_van_m1e7.
+Earns the achievement succeedRhodes.
+Then goes to 4_AAA001alexAthleticShootRhodesEND_m1e7.
+
+State: 3_AB005refuseRhodesCardYes_m1e7
+Recording: 3_AB005refuseRhodesCardYes_m1e7. Background: back_van_m1e7.
+Agent Rhodes: There's a bit of privacy for us. (LAUGHS) Is this really the guy's business card? Nobody gets this card. Alex has been trying to get his hands on this for months. If you and Matthews are joining up with folks like Lazarus, then the old Cygnus just got a lot more interesting.
+(SUCCESS MUSIC)
+Raises npc_favor.rhodes by one.
+Then goes to achievement_succeedRhodesAAB.
+
+State: 3_AB005refuseRhodesCardNo_m1e7
+Recording: 3_AB005refuseRhodesCardNo_m1e7. Background: back_van_m1e7.
+Agent Rhodes: There we go. Alex, can you read me?
+Alexander: Crystal clear, Agent Rhodes. What's your assessment? Does the Agent have any additional details about Lazarus?
+Agent Rhodes: Nope. Nothing.
+Alexander: Well, that is a shame. See you soon, Agent.
+(STATIC, CALL ENDS)
+(FAILURE MUSIC)
+Then goes to 3_ABend_failConvergence_m1e7.
+
+State: achievement_failRhodesAB
+Background: back_van_m1e7.
+Earns the achievement failRhodes.
+Then goes to 4_ABB001alexCleverFail_m1e7.
+
+State: 3_ABend_successConvergence_m1e7
+Background: back_van_m1e7.
+Raises npc_favor.rhodes by one.
+Lowers trait.cygnusLoyalty by one.
+Sets npc_state.rhodes to 3.
+Then goes to achievement_succeedRhodesAB.
+
+State: 3_ABend_alexGoodbyeAttempt_m1e7
+Recording: 3_ABend_alexGoodbyeAttempt_m1e7. Background: back_van_m1e7.
+Alexander: An admirable attempt, but it would seem Rhodes is staying with me. Farewell.
+(STATIC, CALL ENDS)
+(FAILURE MUSIC)
+Lowers npc_favor.rhodes by one.
+Then goes to 3_ABend_failConvergence_m1e7.
+
+State: 3_ABend_alexGoodbyeWords_m1e7
+Recording: 3_ABend_alexGoodbyeWords_m1e7. Background: back_van_m1e7.
+Alexander: I will keep his words in mind as I proceed... unfortunately without you, Agent.
+(STATIC, CALL ENDS)
+(FAILURE MUSIC)
+Lowers npc_favor.rhodes by one.
+Then goes to 3_ABend_failConvergence_m1e7.
+
+State: 3_BAB005larissaCoverThreat_m1e7
+Recording: 3_BAB005larissaCoverThreat_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: Look at you... Agent. Such a promising career, ahead of you. Such a shame...
+(FOOTSTEPS)
+Agent Larissa: Honestly Agent, your devotion to the false Cygnus... it makes me... perhaps it's just looking at your ugly mug. Maybe I can sculpt it, with the butt of my gun. (HOLSTER UNCLIPS) Wait! STOP IT!
+Choice STOP IT leads to 3_BAB006larissaKnifeExchange_m1e7.
+
+State: 3_BAAB005larissaCharismaticReveal_m1e7
+Recording: 3_BAAB005larissaCharismaticReveal_m1e7. Background: back_van_m1e7.
+Agent Larissa: Don't get too chummy. It's never a good idea to make friends with a corpse.
+Agent Rhodes: Come on 23, you know me better than that, I'm just making small talk. There's no harm in- (GUN COCKED) that.
+Agent Larissa: I wasn't talking to you, Rhodes.
+Agent Rhodes: What the-
+Agent Larissa: It's a shame we have to fight each other, but we've made our decisions.
+Agent Rhodes: (LAUGHS) Fair enough, Agent Larissa.
+Then goes to 3_BAAB006larissaCharPrompt_m1e7.
+
+State: 3_BAAA005hostileGunCocked_m1e7
+Recording: 3_BAAA005hostileGunCocked_m1e7. Background: back_van_m1e7.
+Agent Larissa: Hey, hey, keep that gun in that holster a little longer, Rhodes.
+Agent Rhodes: Yeah, yeah, but he didn't say we couldn't play rough.
+Then goes to 3_BAAA006larissaHostileReveal_m1e7.
+
+State: 3_BBB005matthewsCharismaticSuccess_m1e7
+Recording: 3_BBB005matthewsCharismaticSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: If you're offering me protection that's better than sticking it out with Alex. And he hasn't made you flinch once after talking to you this whole time? I gotta admit, that's impressive. Alright, I'm in, so let's not waste any more time. We'll do this Rhodes-style.
+Then goes to 3_BB012rhodesJoinSuccesConverge_m1e7.
+
+State: 3_BBB005matthewsLazRetry_m1e7
+Recording: 3_BBB005matthewsLazRetry_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Here's the thing that bugs me, right. All those contacts you lied to, all those lovers you sweep off their feet, what've you done that makes you trustworthy at all? Why should I trust you, huh? Gimme a good reason.
+Agent Larissa: This could be your last chance to turn this around, Agent. You met with Lazarus, didn't you? Maybe Rhodes will trust you if he knows that Lazarus values you.
+Then goes to 3_BB006matthewsLazCheck_m1e7.
+
+State: 3_BBB005matthewsHostileSuccess_m1e7
+Recording: 3_BBB005matthewsHostileSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: So, you're offering me protection with Matthews, huh? I'll admit, in these cutthroat kinda operations, turncoats like me are usually the first ones to bite the dust. Better with the devil you know than the one you don't, am I right? I'm down, what's the plan?
+Then goes to 3_BBend_matthewsSuccessTransition_m1e7.
+
+State: 3_BB006matthewsLazCheck_m1e7
+Recording: 3_BB006matthewsLazCheck_m1e7. Background: back_van_m1e7.
+Agent Larissa: Do you have anything to prove that you know Lazarus?
+If inventory.m1e5_lazarusCard==1, goes to 3_BB006larissaCardShow_m1e7; otherwise to achievement_failRhodesBB.
+
+State: 3_BBA006matthewsBoldSuccess_m1e7
+Recording: 3_BBA006matthewsBoldSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: I guess you can't pay me that exorbitant contract if I'm not safe working for you, right? I'm in, so let's not waste any more time. We're gonna do this Rhodes-style.
+Then goes to 3_BB012rhodesJoinSuccesConverge_m1e7.
+
+State: 3_BBA006matthewsSecretSuccess_m1e7
+Recording: 3_BBA006matthewsSecretSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: So, you're offering me protection, huh? Matthews always did watch out for its own. Okay, I'm in. What's the plan?
+Then goes to 3_BBend_matthewsSuccessTransition_m1e7.
+
+State: 3_AAB008transition_m1e7
+Background: back_van_m1e7.
+Sets npc_state.rhodes to 4.
+Note: GRAB IT and HANG ON both lead here, and this state has two automatic exits. The original took whichever came first in an unordered table, so either ending could follow either choice. The port sends GRAB IT on to 4_AABA002alexAthleticRefuseMatthewsEND_m1e7 and HANG ON on to 4_AABB003alexAthleticRefuseAlexEND_m1e7.
+Then goes to 4_AABB003alexAthleticRefuseAlexEND_m1e7.
+Then goes to 4_AABA002alexAthleticRefuseMatthewsEND_m1e7.
+
+State: 4_AAA001alexAthleticShootRhodesEND_m1e7
+Recording: 4_AAA001alexAthleticShootRhodesEND_m1e7.
+(GUNSHOT)
+Number 23: What the-!? Number 44? 44!
+(TIRE SQUEAL)
+Agent Rhodes: All right, Agent! This is where we say our goodbyes!
+(BACK DOOR OPENS)
+Agent Rhodes: Good luck with Alex, Agent! You're gonna need it!
+(JUMP)
+Number 23: I can't control it! Everybody, hang on back there! We're going over the side!
+(CRASH)
+Then goes to 4_CygnusLoyaltySplitter.
+
+State: 4_ABB001alexCleverFail_m1e7
+Recording: 4_ABB001alexCleverFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Well Agent, now all we have to do is get back home. Might as well settle in, it's gonna be a long ride.
+Then goes to 4_ABB002alexCleverFail_m1e7.
+
+State: achievement_succeedRhodesAB
+Background: back_van_m1e7.
+Earns the achievement succeedRhodes.
+Then goes to 4_ABA001alexCleverSuccess_m1e7.
+
+State: 3_BAB006larissaKnifeExchange_m1e7
+Recording: 3_BAB006larissaKnifeExchange_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+(LOUD THUD, KNIFE EXCHANGE)
+Agent Larissa: GAWH! You jerk.
+Agent Rhodes: (LAUGHS) That was a hell of a headbutt!
+Agent Larissa: That's not funny, Rhodes.
+Agent Rhodes: It was to me. (CHUCKLES) Go back up front. There's a first aid kit in the glove compartment.
+Agent Larissa: I'm going, I'm going. (DOOR OPENS AND CLOSES)
+Agent Larissa: Good work, Agent... though, not gonna lie, that was one heck of a headbutt.
+(SUCCESS MUSIC)
+Agent Larissa: It's up to you now. When you get the opportunity to neutralize Rhodes, FIGHT.
+Choice FIGHT leads to 3_BAB007larissaFightTransition_m1e7.
+
+State: 3_BAAB006larissaCharPrompt_m1e7
+Recording: 3_BAAB006larissaCharPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: If you continue to cooperate, I'll put a good word in with Matthews.
+Agent Rhodes: That is mighty kind. However, I'm not going that easily.
+(QUICK STRUGGLE)
+(GUNSHOT)
+Agent Larissa: AGENT, Watch out. FIGHT!
+Choice FIGHT leads to 3_BAAend_larissaRevealConverge_m1e7.
+
+State: 3_BAAA006larissaHostileReveal_m1e7
+Recording: 3_BAAA006larissaHostileReveal_m1e7. Background: back_van_m1e7.
+Agent Larissa: That's true, Rhodes, but both Director Matthews and I would rather you didn't.
+(GUN COCKED)
+Agent Rhodes: (LAUGHS) Oh, really now?
+Agent Larissa: Sorry Number 12, but I cannot let you and Alex continue.
+Agent Rhodes: You got it all wrong, Larissa. That's the false Cygnus.
+Then goes to 3_BAAA007larissaHostilePrompt_m1e7.
+
+State: 3_BB012rhodesJoinSuccesConverge_m1e7
+Background: back_van_m1e7.
+Raises npc_favor.rhodes by one.
+Sets npc_state.rhodes to 4.
+Then goes to achievement_succeedRhodesBBB.
+
+State: 3_BBend_matthewsSuccessTransition_m1e7
+Background: back_van_m1e7.
+Raises npc_favor.rhodes by one.
+Sets npc_state.rhodes to 4.
+Then goes to achievement_succeedRhodesBBA.
+
+State: 3_BB006larissaCardShow_m1e7
+Recording: 3_BB006larissaCardShow_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: How about that gold-plated business card he gave you? Go on, show it to Rhodes. Tell him to TAKE IT.
+Choice TAKE IT leads to 3_BB007rhodesLazCard_m1e7.
+
+State: achievement_failRhodesBB
+Background: back_van_m1e7.
+Earns the achievement failRhodes.
+Then goes to 3_BB006larissaCardFail_m1e7.
+
+State: 4_AABB003alexAthleticRefuseAlexEND_m1e7
+Recording: 4_AABB003alexAthleticRefuseAlexEND_m1e7.
+(GUNSHOT)
+(TIRE SQUEAL)
+Number 23: What the-!? Number 44? 44!
+Agent Rhodes: All right, Agent! This is where we say our goodbyes!
+(BACK DOOR OPENS)
+Agent Rhodes: Good luck, Agent!
+(JUMPS)
+Number 23: I can't... I can't control it! Everybody, hang on back there! We're going over the side!
+(CRASH)
+Then goes to 4_CygnusLoyaltySplitter.
+
+State: 4_AABA002alexAthleticRefuseMatthewsEND_m1e7
+Recording: 4_AABA002alexAthleticRefuseMatthewsEND_m1e7.
+(STRUGGLE)
+Number 23: Let go-!
+(GUNSHOT, SLUMP)
+Number 23: 44? 44!
+(TIRE SQUEAL)
+Number 23: You just shot the driver, you idiot!
+(BACKDOOR OPENED)
+Agent Rhodes: Let's go, Agent! Out the back door! Hurry!
+Number 23: Wait. (GUNSHOTS) Agents. Don't!
+Agent Rhodes: Hang on, Agent! We're going over the side!
+(CRASH)
+Then goes to 4_CygnusLoyaltySplitter.
+
+State: 4_CygnusLoyaltySplitter
+If trait.cygnusLoyalty>0, goes to achievement_matthewsLoyalist; otherwise to achievement_alexanderLoyalist.
+
+State: 4_ABB002alexCleverFail_m1e7
+Recording: 4_ABB002alexCleverFail_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+(STATIC)
+Agent Larissa: Agen... A...nt, Do you read me, Agent? This is Number 23, in the front, Agent Larissa. I'm undercover for Director Matthews. I've worked out a way for you to escape, but you have to trust me. Please KICK the divider. When you're ready KICK.
+Sets knowledge.larissaUndercover to 1.
+Choice KICK leads to 4_ABB003alexCleverFail_m1e7.
+
+State: 4_ABA001alexCleverSuccess_m1e7
+Recording: 4_ABA001alexCleverSuccess_m1e7. Background: back_van_m1e7.
+Alexander: Well done, Agent. I knew his conviction was faltering. I look forward to working with you for a long time. And together we can rebuild the true Cygnus to its former glory. I'll be in touch.
+Agent Rhodes: Give me that.
+(EARPIECE REMOVED, CRUSHED)
+Raises npc_favor.alexander by one.
+Then goes to 4_ABA002alexCleverSuccess_m1e7.
+
+State: 3_BAB007larissaFightTransition_m1e7
+Background: back_van_m1e7.
+Sets npc_state.larissa to 2.
+Sets npc_state.rhodes to 1.
+Then goes to achievement_failRhodesBAB.
+
+State: 3_BAAend_larissaRevealConverge_m1e7
+Background: back_van_m1e7.
+Sets npc_state.larissa to 2.
+Sets npc_state.rhodes to 1.
+Then goes to achievement_failRhodesBAA.
+
+State: 3_BAAA007larissaHostilePrompt_m1e7
+Recording: 3_BAAA007larissaHostilePrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: Hopefully after some time away you can think about it clearly. Agent, head up to the front and get Number 44 to- (PUNCH) Gawh. Watch out, Agent. FIGHT!
+Choice FIGHT leads to 3_BAAend_larissaRevealConverge_m1e7.
+
+State: achievement_succeedRhodesBBB
+Background: back_van_m1e7.
+Earns the achievement succeedRhodes.
+Then goes to 4_BBB001matthewsCleverSuccessB_m1e7.
+
+State: achievement_succeedRhodesBBA
+Background: back_van_m1e7.
+Earns the achievement succeedRhodes.
+Then goes to 4_BBA001matthewsCleverSuccessA_m1e7.
+
+State: 3_BB007rhodesLazCard_m1e7
+Recording: 3_BB007rhodesLazCard_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Whoa. Whoa, whoa, whoa, what is this? Is this really the guy's business card? Nobody gets this card. Maybe three or four people in the world have it.
+If event.m1e7_convinceFail==3, goes to 3_BB009rhodesResponseHostile_m1e7; otherwise to 3_BB008rhodesReponseCheck_m1e7.
+
+State: 3_BB006larissaCardFail_m1e7
+Recording: 3_BB006larissaCardFail_m1e7. Background: back_van_m1e7.
+(FAIL MUSIC)
+Agent Larissa: If not, then we'll need another plan.
+Agent Rhodes: I'm tired of this. I don't care if Alex wants you alive...
+(GUN DRAWN)
+Agent Rhodes: I don't. This is the end of the road for you.
+(GUN COCKED)
+Agent Larissa: Looks like we're out of options! You have to fight Agent Rhodes and disarm him. Ready? FIGHT!
+Lowers npc_favor.rhodes by one.
+Sets npc_state.rhodes to 1.
+Choice FIGHT leads to 3_BB007filler_m1e7.
+
+State: achievement_matthewsLoyalist
+Earns the achievement cygnusLoyalty_0.
+Then goes to 4_ConclusionMusicReconverge_m1e7.
+
+State: achievement_alexanderLoyalist
+Earns the achievement cygnusLoyalty_1.
+Then goes to 4_ConclusionMusicReconverge_m1e7.
+
+State: 4_ABB003alexCleverFail_m1e7
+Recording: 4_ABB003alexCleverFail_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Hey, watch it. Don't make me knock you out.
+Agent Larissa: Brace yourself. Things are going to get hectic as I take out Number 44.
+Then goes to 4_LarissaShotDriver001_m1e7.
+
+State: 4_ABA002alexCleverSuccess_m1e7
+Recording: 4_ABA002alexCleverSuccess_m1e7. Background: back_van_m1e7.
+Agent Rhodes: There we go. A little privacy... I hate to admit it, but you're right. I'm heading back to Matthews. At least I can explain how-
+(SEPARATOR OPENS)
+Then goes to 4_ABA003alexCleverLarissaThreat_m1e7.
+
+State: achievement_failRhodesBAB
+Background: back_van_m1e7.
+Earns the achievement failRhodes.
+Then goes to 4_BAB001matthewsAthleticSecretive_m1e7.
+
+State: achievement_failRhodesBAA
+Background: back_van_m1e7.
+Earns the achievement failRhodes.
+Then goes to 4_BAA001matthewsAthleticBoldEND_m1e7.
+
+State: 4_BBB001matthewsCleverSuccessB_m1e7
+Recording: 4_BBB001matthewsCleverSuccessB_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+(GUNSHOT)
+Agent Larissa: Bad news first, Agent! Rhodes just shot the driver.
+(TIRE SQUEAL)
+Agent Larissa: I'll try to regain control, but I'd suggest you grab onto something. HANG ON!
+Choice HANG ON leads to 4_RhodesShotDriverEND_m1e7.
+
+State: 4_BBA001matthewsCleverSuccessA_m1e7
+Recording: 4_BBA001matthewsCleverSuccessA_m1e7. Background: back_van_m1e7.
+Agent Larissa: Now's the risky part. The only way for us to evade Alexander's eyes and ears is if he thinks we're dead.
+Then goes to 4_LarissaShotDriver001_m1e7.
+
+State: 3_BB009rhodesResponseHostile_m1e7
+Recording: 3_BB009rhodesResponseHostile_m1e7. Background: back_van_m1e7.
+Agent Rhodes: You know, for a second there, I thought you might've been more bark than bite, but this card proves you know what you're talking about.
+(SUCCESS MUSIC)
+Then goes to 3_BB010rhodesSuccessPrompt_m1e7.
+
+State: 3_BB008rhodesReponseCheck_m1e7
+Background: back_van_m1e7.
+If event.m1e7_convinceFail==2, goes to 3_BB009rhodesResponseCharismatic_m1e7; otherwise to 3_BB009rhodesResponseBoldSecretive_m1e7.
+
+State: 3_BB007filler_m1e7
+Background: back_van_m1e7.
+Then goes to 4_LarissaShotDriver001_m1e7.
+
+State: 4_ConclusionMusicReconverge_m1e7
+Recording: 4_ConclusionMusicReconverge_m1e7.
+Sets completion.m1e7_signumCygni to 2.
+Sets completion.m1e8_holidayParty to 0.
+Then goes to achievement_completeSignumCygni.
+
+State: 4_LarissaShotDriver001_m1e7
+Recording: 4_LarissaShotDriver001_m1e7. Background: back_van_m1e7.
+(GUNSHOT)
+Agent Rhodes: Whoa! What the hell-!?
+Agent Larissa: That was the driver, by the way. If I were you, I'd hang on to something about now, Agent. HANG ON!
+Then goes to 4_LarissaShotDriver002END_m1e7.
+
+State: 4_ABA003alexCleverLarissaThreat_m1e7
+Recording: 4_ABA003alexCleverLarissaThreat_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+(GUN COCKED)
+Number 23: I have to say, I'm as disappointed as Alex right now.
+Agent Rhodes: There's no way I can go back to Alex now. You should know that, 23.
+Number 23: I do know that.
+(TIRE SQUEAL)
+Number 23: HEY! Number 44! Keep your eyes on the road!
+Agent Rhodes: Grab her gun, Agent! Now. GRAB IT!
+Choice GRAB IT leads to 4_ABA004transition_m1e7.
+
+State: 4_BAB001matthewsAthleticSecretive_m1e7
+Recording: 4_BAB001matthewsAthleticSecretive_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: That wasn't very nice, taking a cheap shot at a fellow agent like that. Though I guess- HEY!
+(STRUGGLE, SWIPE OF KNIFE)
+(PUNCH)
+Agent Rhodes: (GROWL) You'll pay for that.
+(SEVERAL QUICK PUNCHES)
+(SLAM AGAINST METAL)
+(GUN DROPS)
+(GUNSHOT, SLUMPING SOUND)
+Agent Larissa: Number 44? 44! The driver's been shot!
+(VAN ACCELERATING AS TIRES SQUEAL)
+Agent Larissa: Hold onto something! HANG ON!
+Choice HANG ON leads to 4_RhodesShotDriverEND_m1e7.
+
+State: 4_BAA001matthewsAthleticBoldEND_m1e7
+Recording: 4_BAA001matthewsAthleticBoldEND_m1e7. Background: back_van_m1e7.
+(STRUGGLE)
+(PUNCH)
+Agent Rhodes: (GROWL) You'll pay for that.
+(SEVERAL QUICK PUNCHES)
+(SLAM AGAINST METAL)
+Then goes to 4_BAA002rhodesACE_m1e7.
+
+State: 4_RhodesShotDriverEND_m1e7
+Recording: 4_RhodesShotDriverEND_m1e7.
+(METAL SCRAPING)
+Agent Rhodes: That does not sound good!
+Agent Larissa: I can't... I can't control it! Everybody hang on back there. We're going over the side!
+(CRASH)
+Then goes to 4_CygnusLoyaltySplitter.
+
+State: 3_BB010rhodesSuccessPrompt_m1e7
+Recording: 3_BB010rhodesSuccessPrompt_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Larissa: He seems more open-minded now. Now's your chance, Agent. Offer Rhodes protection from Alex if he turns himself over. Go ahead, offer him PROTECTION.
+Choice PROTECTION leads to 3_BB011rhodesSuccessSplitter_m1e7.
+
+State: 3_BB009rhodesResponseCharismatic_m1e7
+Recording: 3_BB009rhodesResponseCharismatic_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Your silver tongue may be a bit tarnished, but this card it proves you know what you're talking about.
+(SUCCESS MUSIC)
+Then goes to 3_BB010rhodesSuccessPrompt_m1e7.
+
+State: 3_BB009rhodesResponseBoldSecretive_m1e7
+Recording: 3_BB009rhodesResponseBoldSecretive_m1e7. Background: back_van_m1e7. Decision sound: decision_single.
+Agent Rhodes: If Cygnus is joining up with folks like Lazarus, the intelligence-gathering world just got a lot more interesting.
+(SUCCESS MUSIC)
+Then goes to 3_BB010rhodesSuccessPrompt_m1e7.
+
+State: achievement_completeSignumCygni
+Earns the achievement 1.
+Then goes to m1e7_end.
+
+State: 4_LarissaShotDriver002END_m1e7
+Recording: 4_LarissaShotDriver002END_m1e7.
+(TIRE SQUEAL)
+Agent Rhodes: What the hell's going on up there!?
+Agent Larissa: Well, bad news first, Agent! I can't control the van.
+Agent Rhodes: We're gonna crash!
+Agent Larissa: Everybody, hang on back there! We're going over the side!
+(CRASH)
+Then goes to 4_CygnusLoyaltySplitter.
+
+State: 4_ABA004transition_m1e7
+Background: back_van_m1e7.
+Then goes to 4_AABA002alexAthleticRefuseMatthewsEND_m1e7.
+
+State: 4_BAA002rhodesACE_m1e7
+Recording: 4_BAA002rhodesACE_m1e7.
+Agent Larissa: Nice... nice work Agent.
+(KNOCK)
+Agent Larissa: We're fine Number 44, the Agent just got... (BEEP) what the... (BEEP) Watch out Agent!
+Agent Rhodes: Larissa, you should know by now, I always have an A.C.E. up my sleeve. (LAUGHS)
+(BEEPING RAPIDLY INCREASES)
+Agent Rhodes: Ad servo signum cygni usque mortis!
+Agent Larissa: NO!
+(SMALL EXPLOSION)
+Then goes to 4_CygnusLoyaltySplitter.
+
+State: 3_BB011rhodesSuccessSplitter_m1e7
+Background: back_van_m1e7.
+If event.m1e7_convinceFail==2, goes to 3_BB011rhodesReturnsCharismatic_m1e7; otherwise to 3_BB011rhodesReturnsOther_m1e7.
+
+State: m1e7_end
+End of the episode.
+
+State: 3_BB011rhodesReturnsCharismatic_m1e7
+Recording: 3_BB011rhodesReturnsCharismatic_m1e7. Background: back_van_m1e7.
+Agent Rhodes: So, you're offering me protection with Matthews, huh? Well, I guess if a supergenius like Lazarus trusts you... well, why shouldn't I? Hm. Alright, I'm in. What's your plan?
+Then goes to 3_BB012rhodesJoinSuccesConverge_m1e7.
+
+State: 3_BB011rhodesReturnsOther_m1e7
+Recording: 3_BB011rhodesReturnsOther_m1e7. Background: back_van_m1e7.
+Agent Rhodes: Alexander has some new ideas, that's for sure... but how do I know he'll actually be able to execute on 'em? Matthews may be a jerk, but if you're working with new hotshots like Lazarus, maybe you'll actually get something done. And if I can be a part of that, I'm in.
+Then goes to 3_BB012rhodesJoinSuccesConverge_m1e7.
+
+When the episode is finished, the game says:
+Who will survive the crash? Who can you trust now that Alexander's reawakening has divided Cygnus? Stay tuned for Mission Two!
+
+Credits
+VOICE ACTORS
+Hot Dog Vendor: Greg Nugent
+Agent Rhodes: Billy Nichols
+Agent Larissa: Kathryn Perez
+Alexander: Matthew Finn
+PRODUCTION
+Story: Jonathon Myers
+Lead Writing: Alex Kain
+Writing: Christian Erali
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali

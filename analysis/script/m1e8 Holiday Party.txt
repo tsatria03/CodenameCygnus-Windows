@@ -1,0 +1,742 @@
+Codename Cygnus, Mission 1, Episode 8: Holiday Party
+Fondly recall last year's holiday party with Cygnus.
+Starts at m1e8_start and ends at m1e8_end. 98 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e8_start
+Sets completion.m1e8_holidayParty to 1.
+Then goes to 001intro_m1e8.
+
+State: 001intro_m1e8
+Recording: 001intro_m1e8.
+Dave: Hi, this is Dave Grossman at Reactive Studios. Welcome to this totally free bonus holiday special episode, which we've made to say thanks for all your support so far. I wanted to let you know that this is going to be a little different from other episodes of Codename Cygnus you may have played before. You'll be asked to make some choices that have unpredictable, unfair consequences, and it may take a few tries before you get to the end of the story. Don't worry about any of this, just try stuff and see what happens. Have fun. And happy holidays.
+Then goes to 002intro_m1e8.
+
+State: 002intro_m1e8
+Recording: 002intro_m1e8.
+(THEME MUSIC)
+Sets event.m1e8_alreadyPlayed to 0.
+Then goes to 000_initializeVariables_m1e8.
+
+State: 000_initializeVariables_m1e8
+Background: back_front_m1e8.
+Sets inventory.m1e8_chloroform to 0.
+Sets inventory.m1e8_napkin to 0.
+Sets inventory.m1e8_dart to 0.
+Sets npc_state.m1e8_matthews to 1.
+Sets inventory.m1e8_straw to 0.
+Sets npc_state.m1e8_myra to 1.
+Sets event.m1e8_noDrinkDrugged to 0.
+Sets event.m1e8_ownDrinkDrugged to 0.
+Sets inventory.m1e8_drink to 0.
+Then goes to 003matthewsDrinkPrompt_m1e8.
+
+State: 003matthewsDrinkPrompt_m1e8
+Recording: 003matthewsDrinkPrompt_m1e8. Background: back_front_m1e8. Decision sound: decision_null_m1e8.
+Scene: WELCOME TO THE PARTY
+(COCKTAIL PARTY)
+Matthews: Well hello, agent, glad you could make it to the party this year! Would you like a drink?
+Choice YES leads to 004AmatthewsDrinkPromptYes_m1e8.
+Choice NO leads to 004BmatthewsDrinkPromptNo_m1e8.
+With no choice within 7 seconds, goes to 004Ctimeout_m1e8.
+
+State: 004AmatthewsDrinkPromptYes_m1e8
+Recording: 004AmatthewsDrinkPromptYes_m1e8. Background: back_front_m1e8.
+(YES TO THE DRINK)
+Matthews: Here you go. Mixed it myself.
+(SIPPING)
+Matthews: The unusual taste is benzodiazepine. (DISTORTED) Packs quite a wallop, doesn't it? You'll be unconscious in a few seconds.
+(BODY CRUMPLES TO FLOOR)
+Matthews: (FADING) Hey, everybody, I think we have a new record holder!
+(LAUGHTER)
+Then goes to 102_matthewsFail_m1e8.
+
+State: 004BmatthewsDrinkPromptNo_m1e8
+Recording: 004BmatthewsDrinkPromptNo_m1e8. Background: back_front_m1e8.
+(NO TO THE DRINK)
+Matthews: (CHUCKLE) Well, it was worth a try. The entertainment tonight is the same as usual. Try to eliminate the other agents any way you can, non-fatally if you don't mind, and the last person standing gets to claim the large, attractive present on that table by the stage.
+Then goes to 005honeybourne_m1e8.
+
+State: 004Ctimeout_m1e8
+Background: back_front_m1e8.
+Then goes to 004BmatthewsDrinkPromptNo_m1e8.
+
+State: 102_matthewsFail_m1e8
+Recording: 100_restart_m1e8. Background: back_front_m1e8.
+(RESTART THEME)
+Then goes to 000_initializeVariables_m1e8.
+
+State: 005honeybourne_m1e8
+Recording: 005honeybourne_m1e8. Background: back_front_m1e8.
+Matthews: Here's a knockout pill to get you started. Good luck, and enjoy the evening.
+(CRACKLE)
+Honeybourne: (BREATHLESS) Oh dear, sorry I'm late, agent. This cold has really got me off balance. Thanks for letting me tag along in your ear - I'd have loved to be there in person, but this is the next best thing.
+Then goes to 006drinkAdvice_m1e8.
+
+State: 006drinkAdvice_m1e8
+Recording: 006drinkAdvice_m1e8. Background: back_front_m1e8.
+Matthews: Phelps! Welcome to the party. Would you like a drink?
+(SIPPING)
+Honeybourne: I see you've remembered the cardinal rule always mix your own drinks.
+Then goes to 007phelpsDown_m1e8.
+
+State: 007phelpsDown_m1e8
+Recording: 007phelpsDown_m1e8. Background: back_front_m1e8.
+(BODY CRUMPLES TO FLOOR)
+Matthews: Hey, everybody, I think we have a new record holder!
+(LAUGHTER)
+Honeybourne: Why don't you head over to the self-service bar for an un-doctored cocktail?
+(FOOTSTEPS)
+Then goes to 008delphiBar_m1e8.
+
+State: 008delphiBar_m1e8
+Recording: 008delphiBar_m1e8. Background: back_atbar_m1e8.
+Scene: PICK YOUR POISON
+Delphi: Heeey, agent! Come for some liquid courage? I'm drinking martinis. Obviously. I'm not sure why Matthews even bothers to stock the stuff to make Pink Squirrels when every self-respecting agent only drinks martinis. He could take all the money he'd save on straws and umbrellas and spend it on more gin. Anyway, help yourself.
+Then goes to 009drinkPrompt_m1e8.
+
+State: 009drinkPrompt_m1e8
+Recording: 009drinkPrompt_m1e8. Background: back_atbar_m1e8. Decision sound: decision_null_m1e8.
+Honeybourne: With a martini you might be able to get someone else to drink it, but on the other hand, it could be useful to be able to identify which drink is yours. I don't know, what do you think, martini, or pink squirrel?
+Choice MARTINI leads to 010AmartiniDrink_m1e8.
+Choice PINK SQUIRREL leads to 010BpinkSquirrelDrink_m1e8.
+With no choice within 7 seconds, goes to 010Ctimeout_m1e8.
+
+State: 010AmartiniDrink_m1e8
+Recording: 010AmartiniDrink_m1e8. Background: back_atbar_m1e8.
+(MARTINI)
+(POURING)
+Delphi: Fantastic. Drink martinis with me. I'm, uh, a little bit ahead I guess, but you can catch up.
+Sets inventory.m1e8_drink to 2.
+Then goes to 011drinkReconverge_m1e8.
+
+State: 010BpinkSquirrelDrink_m1e8
+Recording: 010BpinkSquirrelDrink_m1e8. Background: back_atbar_m1e8.
+(PINK SQUIRREL)
+(POURING)
+Delphi: Going for it, huh? Well, you're braver than I am. But I guess we both knew that already.
+Delphi: Try not to hurt yourself with the straw.
+Sets inventory.m1e8_straw to 1.
+Sets inventory.m1e8_drink to 1.
+Then goes to 011drinkReconverge_m1e8.
+
+State: 010Ctimeout_m1e8
+Recording: 010Ctimeout_m1e8. Background: back_atbar_m1e8.
+(TIMEOUT - MARTINI)
+Delphi: Look, here, just take this martini. I've got a spare.
+Honeybourne: Oh dear. Hang on to that if you like, but you'd probably best not drink any of it.
+Sets inventory.m1e8_drink to 2.
+Then goes to 011drinkReconverge_m1e8.
+
+State: 011drinkReconverge_m1e8
+Recording: 011drinkReconverge_m1e8. Background: back_atbar_m1e8.
+Delphi: I'm sorry Honeybourne couldn't make it. She's easy to talk to.
+Honeybourne: How sweet!
+Delphi: Not that you're not, agent, I mean... shoot.
+(SIPPING)
+Then goes to 012delphiTalks_m1e8.
+
+State: 012delphiTalks_m1e8
+Recording: 012delphiTalks_m1e8. Background: back_atbar_m1e8.
+Delphi: Did I tell you I took out Agent Lampsacus earlier, with nothing but my watch? Of course it's a very special watch, I designed it myself just for tonight. But still. I mean look at us all, gathered here, thinking we're so superior, when really we're nothing but a bunch of wildebeests. Bald, vertical wildebeests.
+Then goes to 013drinkDruggedPrompt_m1e8.
+
+State: 013drinkDruggedPrompt_m1e8
+Recording: 013drinkDruggedPrompt_m1e8. Background: back_atbar_m1e8. Decision sound: decision_delphi_m1e8.
+Honeybourne: Delphi seems a bit distracted. Now might be a good time to use your knockout pill. You could try to slip it into her drink, or, if you're feeling clever, put it into your own. What do you think, Delphi's, or your own?
+Choice DELPHI'S leads to 014AdelphisDrinkDrugged_m1e8.
+Choice MY OWN leads to 014BmyOwnResponse_m1e8.
+With no choice within 7 seconds, goes to 014Ctimeout_m1e8.
+Choice MINE, hidden leads to 014BmineHiddenResponse_m1e8.
+Choice HER DRINK, hidden leads to 014AherDrinkhiddenResponse_m1e8.
+
+State: 014AdelphisDrinkDrugged_m1e8
+Recording: 014AdelphisDrinkDrugged_m1e8. Background: back_atbar_m1e8.
+(DELPHI'S DRINK)
+Delphi: I don't know why I come to these parties. I don't like them.
+(PILL DROPS INTO DRINK)
+Delphi: Thank goodness for martinis.
+(SIP)
+Delphi: Agent, have you ever wondered... wondered...
+Then goes to 016reconvergeDelphiOut_m1e8.
+
+State: 014BmyOwnResponse_m1e8
+Background: back_atbar_m1e8.
+Then goes to 014Breconverge_m1e8.
+
+State: 014Ctimeout_m1e8
+Recording: 014Ctimeout_m1e8. Background: back_atbar_m1e8.
+(TIMEOUT)
+Delphi: I don't know why I come to these parties. I don't like them.
+Delphi: Thank goodness for martinis.
+Delphi: Although I'm not sure I should have had quite so, uh, quite so... is the room spinning for you, too?
+Sets event.m1e8_noDrinkDrugged to 1.
+Then goes to 016reconvergeDelphiOut_m1e8.
+
+State: 014BmineHiddenResponse_m1e8
+Background: back_atbar_m1e8.
+Then goes to 014Breconverge_m1e8.
+
+State: 014AherDrinkhiddenResponse_m1e8
+Background: back_atbar_m1e8.
+Then goes to 014AdelphisDrinkDrugged_m1e8.
+
+State: 016reconvergeDelphiOut_m1e8
+Recording: 016reconvergeDelphiOut_m1e8. Background: back_clinkroom_m1e8.
+(BODY COLLAPSES)
+(LAUGHTER, CHEERING)
+Rhodes: Delphi's down!
+If event.m1e8_noDrinkDrugged==1, goes to 017noDrinkDruggedFlavor_m1e8; otherwise to 018watchPrompt_m1e8.
+
+State: 014Breconverge_m1e8
+Recording: 014Breconverge_m1e8. Background: back_atbar_m1e8.
+(MY DRINK)
+Delphi: I don't know why I come to these parties. I don't like them.
+(PILL DROPS INTO DRINK)
+Sets event.m1e8_ownDrinkDrugged to 1.
+If inventory.m1e8_drink==1, goes to 015ApinkSquirrelFlavor_m1e8; otherwise to 015BmartiniFlavor_m1e8.
+
+State: 017noDrinkDruggedFlavor_m1e8
+Recording: 017noDrinkDruggedFlavor_m1e8. Background: back_clinkroom_m1e8.
+Honeybourne: Well, it looks like you didn't have to do anything at all.
+Then goes to 018watchPrompt_m1e8.
+
+State: 018watchPrompt_m1e8
+Recording: 018watchPrompt_m1e8. Background: back_clinkroom_m1e8. Decision sound: decision_watch_m1e8.
+Honeybourne: You could take that watch she was talking about and try to use it yourself, although maybe that's not your style. Your choice, agent, take it, or leave it.
+Choice LEAVE IT leads to 020leaveIt_m1e8.
+With no choice within 7 seconds, goes to 20Btimeout_m1e8.
+Choice TAKE IT leads to 019takeIt_m1e8.
+
+State: 015ApinkSquirrelFlavor_m1e8
+Recording: 015ApinkSquirrelFlavor_m1e8. Background: back_atbar_m1e8.
+Delphi: What. No, no thanks, I've got my own drink, I don't need yours too. In fact I probably shouldn't have even had this one, I'm actually feeling a little, uh, a little...
+Then goes to 016reconvergeDelphiOut_m1e8.
+
+State: 015BmartiniFlavor_m1e8
+Recording: 015BmartiniFlavor_m1e8. Background: back_atbar_m1e8.
+Delphi: What are you--are you trying to swap drinks on me? Sneaky. But I think I should stop drinking anyway, I'm actually feeling a little, uh, a little...
+Then goes to 016reconvergeDelphiOut_m1e8.
+
+State: 020leaveIt_m1e8
+Recording: 020leaveIt_m1e8. Background: back_clinkroom_m1e8.
+(LEAVE WATCH)
+Megara: Hey, if you're not going to search her, move over while I do it.
+Megara: Delphi's always got the best stuff. Must be something I can use. I wonder what this does?
+(ZAP!)
+(BODY CRUMPLES TO FLOOR)
+Rhodes: Whoa!
+Matthews: Ha! That booby-trapped watch has been very effective tonight. Leave it to Delphi, only she could take somebody out when she's not even conscious.
+Honeybourne: Good choice, agent.
+Then goes to 021transitionToMyra_m1e8.
+
+State: 20Btimeout_m1e8
+Background: back_clinkroom_m1e8.
+Then goes to 020leaveIt_m1e8.
+
+State: 019takeIt_m1e8
+Recording: 019takeIt_m1e8. Background: back_clinkroom_m1e8.
+(TAKE WATCH)
+(ZAP!)
+(BODY CRUMPLES TO FLOOR)
+Rhodes: Whoa!
+Matthews: (FADING) Ha! That booby-trapped watch has been very effective tonight. Leave it to Delphi, only she could take somebody out when she's not even conscious.
+Then goes to 100_restart_m1e8.
+
+State: 021transitionToMyra_m1e8
+Recording: 021transitionToMyra_m1e8. Background: back_app_m1e8.
+Alex: They're dropping like flies tonight, but I see you're still standing. Surprising. Oh! Hey! Baris! Got a minute? Excuse me, agent.
+(FOOTSTEPS)
+Honeybourne: Let's see what there is for appetizers. Agent Myra is over there, and this might be a nice opportunity to clear the air about your having been assigned the Krasnov mission ahead of her.
+(FOOTSTEPS)
+Then goes to 022greetMyraPrompt_m1e8.
+
+State: 100_restart_m1e8
+Recording: 100_restart_m1e8. Background: back_front_m1e8.
+(RESTART THEME)
+If event.m1e8_alreadyPlayed==1, goes to 000_initializeVariables_m1e8; otherwise to 101_hint_m1e8.
+
+State: 022greetMyraPrompt_m1e8
+Recording: 022greetMyraPrompt_m1e8. Background: back_app_m1e8. Decision sound: decision_null_m1e8.
+Scene: AN APPETIZING ENCOUNTER
+Myra: Agent.
+Honeybourne: Oh dear. She does seem a bit chilly, doesn't she.
+Myra: Crab puffs are already gone, but these cheese nibbles are pretty good.
+Honeybourne: I wouldn't know about the cheese nibbles, I'm lactose intolerant. Up to you if you want to take one, or pass.
+Choice TAKE ONE leads to 023AtakeOnePrompt_m1e8.
+Choice PASS leads to 023Bpass_m1e8.
+With no choice within 7 seconds, goes to 023Dtimeout_m1e8.
+
+State: 101_hint_m1e8
+Recording: 101_hint_m1e8. Background: back_dave_m1e8.
+Dave: See what I mean? That might have been slightly unfair. But I don't want you to think that this is just about avoiding the decisions that immediately get you knocked out. Some of your choices will wind up affecting other things further down the path, and that's where you want to be a little bit clever. Pay attention to what you're carrying, and what other people do or don't do, and put all the pieces together that you need to complete the story. Anyway, keep going, you're doing great!
+Sets event.m1e8_alreadyPlayed to 1.
+Then goes to 000_initializeVariables_m1e8.
+
+State: 023AtakeOnePrompt_m1e8
+Recording: 023AtakeOnePrompt_m1e8. Background: back_app_m1e8. Decision sound: decision_null_m1e8.
+(TAKE ONE)
+(EATS NIBBLE)
+Myra: Here, take a napkin. You've got cheese on your - no, left - yeah, that's got it.
+Myra: Lemme have your toothpick. I want to show you something.
+Honeybourne: Could be dangerous. It's Myra, after all.
+Myra: C'mon, give me the toothpick.
+Honeybourne: What do you think, give it to her, or keep it?
+Sets inventory.m1e8_napkin to 1.
+Choice GIVE IT leads to 024AgiveItToHerResponse_m1e8.
+Choice KEEP IT leads to 024BkeepIt_m1e8.
+With no choice within 7 seconds, goes to 024Ctimeout_m1e8.
+
+State: 023Bpass_m1e8
+Recording: 023Bpass_m1e8. Background: back_app_m1e8.
+(PASS)
+Myra: More for me.
+(EATS NIBBLE)
+Then goes to 025myraFlirts_m1e8.
+
+State: 023Dtimeout_m1e8
+Background: back_app_m1e8.
+Then goes to 023Bpass_m1e8.
+
+State: 024AgiveItToHerResponse_m1e8
+Recording: 024AgiveItToHerResponse_m1e8. Background: back_app_m1e8.
+(GIVE TOOTHPICK)
+Myra: You can kill someone with one of these, if you know what you're doing. Which I do. But here, let me show you how to make a tranquilizer dart out of a toothpick and some soft cheese. Could come in handy later, when you're on the Krasnov mission. Not that I have any hard feelings about that.
+Myra: Anyway, this goes on the end like that, and then you heat the cheese...
+(CRACKLING)
+Myra: ...to release the paralytic toxin. Simple, right?
+Myra: Here, you take it. I'm planning something more... up close and personal for Rhodes this year. Bye now.
+Sets inventory.m1e8_dart to 1.
+Then goes to 030chloroformSpill_m1e8.
+
+State: 024BkeepIt_m1e8
+Recording: 024BkeepIt_m1e8. Background: back_app_m1e8.
+(KEEP TOOTHPICK)
+Myra: Suit yourself. I wasn't going to do anything... nasty.
+Then goes to 025myraFlirts_m1e8.
+
+State: 024Ctimeout_m1e8
+Background: back_app_m1e8.
+Then goes to 024BkeepIt_m1e8.
+
+State: 025myraFlirts_m1e8
+Recording: 025myraFlirts_m1e8. Background: back_app_m1e8.
+Myra: Look, we've gotten off on the wrong foot. I don't dislike you. Quite the opposite, really. And I can't help but feel like a holiday party is just the time to... make amends?
+Honeybourne: What's this? She must be up to something.
+Myra: What do you say, agent - let's seal it with a kiss.
+Honeybourne: Well, this is awkward.
+Then goes to 027myraTacticPrompt_m1e8.
+
+State: 030chloroformSpill_m1e8
+Recording: 030chloroformSpill_m1e8. Background: back_clinkroom_m1e8.
+Baris: Hey, Alexander, look behind you, there's a, um, a monkey!
+Alex: Nice try, Baris. But hey, you should look up.
+Baris: Nice try, Alexander, but if you're not going to fall for it I'm certainly not--
+(LOUD CRASH)
+Alex: Ha ha ha!
+Matthews: Is he okay?
+Alex: What a sap. Who hired that guy? Clumsy misdirection, obvious bottle of chloroform - and look, now it's all over the floor! Anybody got a towel or a napkin or anything? Clean that up before somebody slips and gets hurt.
+If inventory.m1e8_napkin==1, goes to 031useNapkinPrompt_m1e8; otherwise to 032Breconverge_m1e8.
+
+State: 027myraTacticPrompt_m1e8
+Recording: 027myraTacticPrompt_m1e8. Background: back_app_m1e8. Decision sound: decision_null_m1e8.
+Honeybourne: Still, playing along might be to your advantage. Or you might surprise her with a karate move. Or, be cautious and wait to see what she does next. I suggest one of those three alternatives kiss her, use karate, or wait.
+Choice KISS HER leads to 028AkissHer_m1e8.
+Choice USE KARATE leads to 028BuseKarate_m1e8.
+Choice WAIT leads to 028Cwait_m1e8.
+With no choice within 7 seconds, goes to 028Dtimeout_m1e8.
+
+State: 031useNapkinPrompt_m1e8
+Recording: 031useNapkinPrompt_m1e8. Background: back_clinkroom_m1e8. Decision sound: decision_napkin_m1e8.
+Honeybourne: You could use your napkin to mop up the chloroform, although you might not want to take your eyes off of Alex while he's nearby. Your choice, clean it up or leave it alone.
+Choice LEAVE IT ALONE leads to 032Breconverge_m1e8.
+With no choice within 7 seconds, goes to 032Ctimeout_m1e8.
+Choice CLEAN IT UP leads to 032AuseNapkin_m1e8.
+
+State: 032Breconverge_m1e8
+Background: back_clinkroom_m1e8.
+If npc_state.m1e8_myra==1, goes to 033AmyraIn_m1e8; otherwise to 033BmyraOut_m1e8.
+
+State: 028AkissHer_m1e8
+Recording: 028AkissHer_m1e8. Background: back_app_m1e8.
+(KISS HER)
+(KISS)
+Myra: Mmm.
+Myra: (DISTORTED) What do you think of my lipstick, agent? It's a new shade for me, it's called... "poison." But don't worry, you'll wake up in a day or two...
+(BODY CRUMPLED TO FLOOR)
+(LAUGHTER)
+Then goes to 100_restart_m1e8.
+
+State: 028BuseKarate_m1e8
+Recording: 028BuseKarate_m1e8. Background: back_app_m1e8.
+(USE KARATE)
+Myra: HeeYAA!
+(BODY THROWN TO FLOOR)
+Rhodes: Uh oh!
+Myra: You should know better than to try that with a top-level martial arts expert. I teach five of the classes here.
+Myra: (FADING) Want to know what today's lesson is? How to close off someone's airway until they pass out. Without killing them. Pay attention, you might be able to use this at next year's party...
+Then goes to 100_restart_m1e8.
+
+State: 028Cwait_m1e8
+Recording: 028Cwait_m1e8. Background: back_app_m1e8.
+(WAIT)
+Myra: (CHUCKLES) All right, maybe I need to try that on someone less intelligent. Agent Rhodes looks promising. Here, give me a swig of your drink.
+(SIPPING)
+If event.m1e8_ownDrinkDrugged==1, goes to 029AmyraOut_m1e8; otherwise to 029BmyraIn_m1e8.
+
+State: 028Dtimeout_m1e8
+Background: back_app_m1e8.
+Then goes to 028Cwait_m1e8.
+
+State: 032Ctimeout_m1e8
+Background: back_clinkroom_m1e8.
+Then goes to 032Breconverge_m1e8.
+
+State: 032AuseNapkin_m1e8
+Recording: 032AuseNapkin_m1e8. Background: back_clinkroom_m1e8.
+(CLEAN IT UP)
+(WIPING)
+Honeybourne: A napkin soaked in chloroform might be useful at an event like this. Best hang on to it.
+Sets inventory.m1e8_chloroform to 1.
+Then goes to 032Breconverge_m1e8.
+
+State: 033AmyraIn_m1e8
+Recording: 033AmyraIn_m1e8. Background: back_clinkroom_m1e8.
+Scene: THE INEVITABLE TOAST
+(GLASS CLINK)
+Matthews: Ladies and gentlemen!
+Then goes to 034reconvergeSpeech_m1e8.
+
+State: 033BmyraOut_m1e8
+Recording: 033BmyraOut_m1e8. Background: back_clinkroom_m1e8.
+Scene: THE INEVITABLE TOAST
+(GLASS CLINK)
+Matthews: People! Agents!
+Then goes to 034reconvergeSpeech_m1e8.
+
+State: 029AmyraOut_m1e8
+Recording: 029AmyraOut_m1e8. Background: back_app_m1e8.
+Myra: (COUGHS) What's... no! You drugged your own drink? You crafty, sneaky, unbelievable...
+(BODY CRUMPLES TO FLOOR)
+(LIGHT APPLAUSE)
+Sets npc_state.m1e8_myra to 0.
+Then goes to 030chloroformSpill_m1e8.
+
+State: 029BmyraIn_m1e8
+Recording: 029BmyraIn_m1e8. Background: back_app_m1e8.
+(FOOTSTEPS)
+Then goes to 030chloroformSpill_m1e8.
+
+State: 034reconvergeSpeech_m1e8
+Recording: 034reconvergeSpeech_m1e8. Background: back_clinkroom_m1e8.
+Matthews: I'd like to make a toast while there are still a couple of you to appreciate it.
+Rhodes: Too late!
+Matthews: Cygnus is an organization built on trust.
+Alex: (COUGHS)
+Matthews: Its foundation is its people, and its people are strong in unison. It is by upholding our proud traditions that we forge that unity.
+Alex: (SCOFFS)
+If inventory.m1e8_dart==1, goes to 035AhaveDart_m1e8; otherwise to 035BnoDart_m1e8.
+
+State: 035AhaveDart_m1e8
+Background: back_clinkroom_m1e8.
+If inventory.m1e8_straw==1, goes to 036AhaveStrawPrompt_m1e8; otherwise to 036BdartNoStraw_m1e8.
+
+State: 035BnoDart_m1e8
+Recording: 035BnoDart_m1e8. Background: back_clinkroom_m1e8.
+Honeybourne: It's a pity you haven't got some sort of a range weapon. Now would be the perfect time.
+Then goes to 037CnoUseDart_m1e8.
+
+State: 036AhaveStrawPrompt_m1e8
+Recording: 036AhaveStrawPrompt_m1e8. Background: back_clinkroom_m1e8. Decision sound: decision_matthews_m1e8.
+Honeybourne: You could launch that knockout dart Myra gave you with the straw from your drink. Now would be an excellent time. Don't you agree?
+Choice YES leads to 037AuseDart_m1e8.
+Choice NO leads to 037CnoUseDart_m1e8.
+With no choice within 7 seconds, goes to 037Btimeout_m1e8.
+
+State: 036BdartNoStraw_m1e8
+Recording: 036BdartNoStraw_m1e8. Background: back_clinkroom_m1e8.
+Honeybourne: Pity you haven't got a straw or something to launch that tranquilizer dart. Now would be the perfect time to use it.
+Then goes to 037CnoUseDart_m1e8.
+
+State: 037CnoUseDart_m1e8
+Recording: 037CnoUseDart_m1e8. Background: back_clinkroom_m1e8.
+(NO)
+Matthews: We've lost a lot, getting to where we are now. A lot of good agents. A few nation-states. But the thing I miss most, late at night, is just this - subtlety.
+Matthews: To subtlety! And happy holidays.
+Alex: Hear hear.
+Then goes to 038reconverge_m1e8.
+
+State: 037AuseDart_m1e8
+Recording: 037AuseDart_m1e8. Background: back_clinkroom_m1e8.
+(YES)
+Matthews: We've lost a lot, getting to where we are now. A lot of good agents. A few nation-states. But the thing I miss most, late at night, is just this - subtlety.
+(WHOOSH, THWAP, THUD)
+Matthews: To sutt... to subble... Hammy Hommledaze.
+(BODY CRUMPLES TO FLOOR)
+Alex: Hah! Ahaha! Oh, that was great. Thank you, agent.
+Sets npc_state.m1e8_matthews to 0.
+Then goes to 038reconverge_m1e8.
+
+State: 037Btimeout_m1e8
+Background: back_clinkroom_m1e8.
+Then goes to 037CnoUseDart_m1e8.
+
+State: 038reconverge_m1e8
+Background: back_clinkroom_m1e8.
+If npc_state.m1e8_myra==0, goes to 039AmyraOut_m1e8; otherwise to 039BmyraIn_m1e8.
+
+State: 039AmyraOut_m1e8
+Recording: 039AmyraOut_m1e8. Background: back_clinkroom_m1e8.
+Honeybourne: Wait a moment, what's happened to Agent Rhodes? He was just there...
+Rhodes: Nighty-night, sweetheart!
+(CLANG)
+Rhodes: (FADING) Subtlety. Overrated if you ask me. Hey, Matthews! C'mere!
+Then goes to 100_restart_m1e8.
+
+State: 039BmyraIn_m1e8
+Recording: 039BmyraIn_m1e8. Background: back_clinkroom_m1e8.
+Myra: That was an inspiring toast, don't you think? What do you say, Agent Rhodes, how about a little unity? A little subtle holiday cheer? We can put some mistletoe on your hat if you want to be traditional.
+Rhodes: (CHUCKLES) Well, I was about to take out our other friend over there, but I guess that can wait twenty seconds. Don't try anything funny. I'm a lot stronger than you are.
+Myra: Indeed.
+(KISS)
+Then goes to 040rhodesMyraOut_m1e8.
+
+State: 040rhodesMyraOut_m1e8
+Recording: 040rhodesMyraOut_m1e8. Background: back_clinkroom_m1e8.
+Myra: What do you think of my lipstick, Rhodes? It's a new shade for me, it's called... "poison."
+Rhodes: You little weasel! But it'll take more. Than. Thuh...
+(BODY CRUMPLES TO FLOOR)
+Myra: Don't worry, you'll wake up in a day or two. Maybe then you'll realize that strength isn't worth much when your opponent is much cleverer than you are. You need to learn to see things coming, Rhodes, especially when your--
+(BODY CRUMPLES TO FLOOR)
+Alex: And you need to learn not to gloat so much, Myra. You'd think you'd have figured that out after last year.
+If npc_state.m1e8_matthews==1, goes to 041AmatthewsIn_m1e8; otherwise to 042matthewsOut_m1e8.
+
+State: 041AmatthewsIn_m1e8
+Recording: 041AmatthewsIn_m1e8. Background: back_room_m1e8.
+Honeybourne: Wait a moment, what's happened to Director Matthews? He was just there...
+(CLANG)
+Matthews: (FADING) Then again, subtlety isn't always the answer.
+Alex: Overrated, for once I agree. Well, Matthews, it's just the two of us now, winner take all...
+Then goes to 100_restart_m1e8.
+
+State: 042matthewsOut_m1e8
+Recording: 042matthewsOut_m1e8. Background: back_room_m1e8.
+Scene: CHESS
+Alex: Well, agent, it's down to just the two of us. I wouldn't have predicted that, but there you are. The game changes when there are only two left; it's intellectual combat, like a game of chess.
+If inventory.m1e8_chloroform==1, goes to 043AagainstAlexWithChloroform_m1e8; otherwise to 043BagainstAlexNoChloroform_m1e8.
+
+State: 043AagainstAlexWithChloroform_m1e8
+Recording: 043AagainstAlexWithChloroform_m1e8. Background: back_room_m1e8. Decision sound: decision_alex_m1e8.
+Honeybourne: Chess. What a blowhard. Let's act quickly.
+Honeybourne: I'd recommend either using the chloroform, or simply punching him - sometimes subtlety is overrated. How about it, agent, chloroform, or punching?
+Choice CHLOROFORM leads to 044CchloroformAlex_m1e8.
+Choice PUNCHING leads to 044DpunchAlex_m1e8.
+With no choice within 7 seconds, goes to 044Atimeout_m1e8.
+
+State: 043BagainstAlexNoChloroform_m1e8
+Recording: 043BagainstAlexNoChloroform_m1e8. Background: back_room_m1e8. Decision sound: decision_alex_m1e8.
+Honeybourne: Chess. What a blowhard. Let's act quickly.
+Honeybourne: You might try to trick him, or you could simply punch him - sometimes subtlety is overrated. How about it, agent, trickery, or punching?
+Choice TRICKERY leads to 044BtrickeryFail_m1e8.
+Choice PUNCHING leads to 044DpunchAlex_m1e8.
+With no choice within 7 seconds, goes to 044Atimeout_m1e8.
+
+State: 044CchloroformAlex_m1e8
+Recording: 044CchloroformAlex_m1e8. Background: back_room_m1e8.
+(USE CHLOROFORM)
+Alex: Knowledge is always key. For example--
+Alex: What's with the napkin, what are yoummmph! Mmmprhgl! Mm hm HM! M GMUM HM GM, G GM! mhmmm...
+(BODY CRUMPLES TO FLOOR)
+Honeybourne: Nicely done, agent. Apparently irony isn't dead after all.
+Sets inventory.m1e8_chloroform to 0.
+Then goes to 045prizePrompt_m1e8.
+
+State: 044DpunchAlex_m1e8
+Recording: 044DpunchAlex_m1e8. Background: back_room_m1e8.
+(PUNCH ALEX)
+Alex: Knowledge is always key. For example--
+Alex: Wait, hold on, let's be reasonable, this doesn't have to get physical if--
+(PUNCHING, CRASHES)
+Alex: Ow...
+(BODY CRUMPLES TO FLOOR)
+Honeybourne: Nicely done, agent. That was quite satisfying.
+Then goes to 045prizePrompt_m1e8.
+
+State: 044Atimeout_m1e8
+Recording: 044Atimeout_m1e8. Background: back_room_m1e8.
+(TIMEOUT)
+Alex: Knowledge is always key. For example, let's take Director Matthews.
+(FOOTSTEPS)
+Alex: Because I was expecting to be facing him now, I happen to know that he's carrying *this* - a remote control for the lights.
+(CLICK)
+Honeybourne: Oh dear.
+Alex: And that's why I wore my night vision contact lenses!
+(WHUMP, WHACK)
+(BODY CRUMPLES TO FLOOR)
+Alex: (FADING) Better luck next time, agent.
+Then goes to 100_restart_m1e8.
+
+State: 044BtrickeryFail_m1e8
+Recording: 044BtrickeryFail_m1e8. Background: back_room_m1e8.
+(TRICKERY)
+Alex: Knowledge is always key. For example, did you know that you have a tell when you're about to try something sneaky? I doubt anyone else has noticed, but I have.
+Honeybourne: Uh oh.
+Alex: Here's another example. Director Matthews.
+(FOOTSTEPS)
+Alex: Because I was expecting to be facing him now, I happen to know that he's carrying *this* - a remote control for the lights.
+(CLICK)
+Honeybourne: Oh dear.
+Alex: And that's why I wore my night vision contact lenses!
+(WHUMP, WHACK)
+(BODY CRUMPLES TO FLOOR)
+Alex: (FADING) Better luck next time, agent.
+Then goes to 100_restart_m1e8.
+
+State: 045prizePrompt_m1e8
+Recording: 045prizePrompt_m1e8. Background: back_room_m1e8. Decision sound: decision_null_m1e8.
+Honeybourne: And congratulations, you've done it, you're the last one standing! It's been a pleasure to be here with you. Go ahead and open the prize, I'm dying to know what's inside!
+Choice OPEN, hidden leads to 46CopenResponse_m1e8.
+Choice NO, hidden leads to 046DhiddenNoResponse_m1e8.
+With no choice within 7 seconds, goes to 046Etimeout_m1e8.
+Choice OPEN THE PRIZE leads to 046AopenThePrizeEnding_m1e8.
+
+State: 46CopenResponse_m1e8
+Background: back_room_m1e8.
+Then goes to 046AopenThePrizeEnding_m1e8.
+
+State: 046DhiddenNoResponse_m1e8
+Recording: 046DhiddenNoResponse_m1e8. Background: back_room_m1e8.
+(DON'T OPEN THE PRIZE)
+(DOOR CREAKS OPEN)
+(FOOTSTEPS)
+Honeybourne: Too clever to fall for my little trap, then? Well, good for you. You've always been-- achoo! (SNIFF) Yes, the cold is real, but not my absence. I've actually been here all along, just next door. Whoever was left was supposed to open the prize, and-- achoo!
+If inventory.m1e8_chloroform==1, goes to 047AsneezeEnding_m1e8; otherwise to 047BstalemateEnding_m1e8.
+
+State: 046Etimeout_m1e8
+Background: back_room_m1e8.
+Then goes to 046DhiddenNoResponse_m1e8.
+
+State: 046AopenThePrizeEnding_m1e8
+Recording: 046AopenThePrizeEnding_m1e8. Background: back_room_m1e8.
+(OPEN THE PRIZE)
+(FOOTSTEPS)
+(UNWRAPPING)
+(HISSING)
+(BODY CRUMPLES TO FLOOR)
+(DOOR CREAKS OPEN)
+(FOOTSTEPS)
+Honeybourne: Paralytic gas isn't quite what you were expecting, was it? That's right - I've been just next door all along, waiting for you to eliminate each other until there was only one left. And I'm glad it was you, but there's only room for one winner in this contest, and this year's winner is... me!
+Honeybourne: Ha ha ha ha ha ha ha
+(FLOURISH)
+Then goes to 046AopenThePrizeEnding2_m1e8.
+
+State: 047AsneezeEnding_m1e8
+Recording: 047AsneezeEnding_m1e8. Background: back_room_m1e8.
+Honeybourne: Oh, yes, thank you, agent, a napkin, that's perfect.
+(BLOWS NOSE)
+Honeybourne: Oh, I say, what's the...oh, dear. The chloroform, of course. It's always the little things, isn't it? Looks like you win after all.
+(BODY CRUMPLES TO FLOOR)
+(FLOURISH)
+Then goes to 047AsneezeEnding2_m1e8.
+
+State: 047BstalemateEnding_m1e8
+Recording: 047BstalemateEnding_m1e8. Background: back_room_m1e8.
+Honeybourne: Well, you know. So, here we are... um... can I offer you a drink?
+(FLOURISH)
+Then goes to 047BstalemateEnding2_m1e8.
+
+State: 046AopenThePrizeEnding2_m1e8
+Recording: 046AopenThePrizeEnding2_m1e8. Background: back_dave_m1e8.
+Dave: Hi, this is Dave at Reactive again. Congratulations, you found the prize ending. I hope you're having a good time.
+Sets event.m1e8_alreadyPlayed to 1.
+Then goes to achievement_thePrize.
+
+State: 047AsneezeEnding2_m1e8
+Recording: 047AsneezeEnding2_m1e8. Background: back_dave_m1e8.
+Dave: Hi, this is Dave at Reactive again. Congratulations, you found the sneeze ending! I hope you enjoyed it.
+Sets event.m1e8_alreadyPlayed to 1.
+Then goes to achievement_sneeze.
+
+State: 047BstalemateEnding2_m1e8
+Recording: 047BstalemateEnding2_m1e8. Background: back_dave_m1e8.
+Dave: Hi, this is Dave at Reactive again. Congratulations, you found the stalemate ending! I hope you enjoyed it.
+Sets event.m1e8_alreadyPlayed to 1.
+Then goes to achievement_stalemate.
+
+State: achievement_thePrize
+Background: back_dave_m1e8.
+Earns the achievement prize.
+Then goes to 048playAgain_m1e8.
+
+State: achievement_sneeze
+Background: back_dave_m1e8.
+Earns the achievement sneeze.
+Then goes to 048playAgain_m1e8.
+
+State: achievement_stalemate
+Background: back_dave_m1e8.
+Earns the achievement stalemate.
+Then goes to 048playAgain_m1e8.
+
+State: 048playAgain_m1e8
+Recording: 048playAgain_m1e8. Background: back_dave_m1e8. Decision sound: decision_null_m1e8.
+Dave: This holiday special actually has three different endings. Would you like to play again right now to find the others?
+Choice YES leads to 049AagainYes_m1e8.
+Choice NO leads to 049BagainNo_m1e8.
+
+State: 049AagainYes_m1e8
+Recording: 049AagainYes_m1e8. Background: back_dave_m1e8.
+(PLAY AGAIN)
+Dave: Okay! Good luck.
+Then goes to 200_restart_m1e8.
+
+State: 049BagainNo_m1e8
+Recording: 049BagainNo_m1e8. Background: back_dave_m1e8.
+(DON'T PLAY AGAIN)
+Dave: Thanks for joining us. Be sure to share this with your fun-loving friends and relatives, and come back again for more Codename Cygnus. Happy holidays.
+Sets completion.m1e8_holidayParty to 2.
+Then goes to 050outroMusic_m1e8.
+
+State: 200_restart_m1e8
+Background: back_front_m1e8.
+Then goes to 000_initializeVariables_m1e8.
+
+State: 050outroMusic_m1e8
+Recording: 002intro_m1e8.
+(OUTRO MUSIC)
+Then goes to m1e8_end.
+
+State: m1e8_end
+End of the episode.
+
+When the episode is finished, the game says:
+You completed the Holiday Party, but did you find all three endings? Find out which endings your friends found!
+
+States no episode ever reaches, cut from the original.
+
+State: 026gentlemenFlavor_m1e8
+Recording: 026gentlemenFlavor_m1e8.
+Honeybourne: I assume she must know you prefer gentlemen.
+
+State: 46BopenItResponse_m1e8
+Background: back_room_m1e8.
+
+Credits
+VOICE ACTORS
+Miss Honeybourne: Sarah Elmaleh
+Director Matthews: Brian Moyer
+Alexander: Matthew Finn
+Agent Myra: Laurie Fisher
+Agent Delphi: Rachel Baum
+Agent Rhodes: Billy Nichols
+Agent Megara: Jennifer Bean
+Agent Baris: Jason Tennis
+Himself: Dave Grossman
+PRODUCTION
+Story & Writing: Dave Grossman
+Producer: Eddy Webb
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali
+Deck the Halls: Kevin MacLeod

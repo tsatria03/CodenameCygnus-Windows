@@ -1,0 +1,348 @@
+Codename Cygnus, Mission 1, Episode 1: Prologue
+Extract yourself from the Krasnoff Mission.
+Starts at m1e1_start and ends at m1e1_end. 41 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e1_start
+Sets Activeness to 0.
+Sets npc_state.tomassi to 1.
+Sets Diplomacy to 0.
+Sets npc_state.schafer to 1.
+Sets Predictability to 0.
+Sets Openness to 0.
+Then goes to m1_completionVariablesSet.
+
+State: m1_completionVariablesSet
+Sets completion.m1e2_artShow to 0.
+Sets completion.m1e6_neptunesGift to 0.
+Sets completion.m1e4_consulate to 0.
+Sets completion.m1e5_lazarusAwakens to 0.
+Sets completion.m1e3_neptunesLair to 0.
+Sets completion.m1e1_prologue to 1.
+Then goes to 001introOpen.
+
+State: 001introOpen
+Recording: 001introOpen. Background: back_casino. Decision sound: decision_single.
+Scene: CASINO - BACK ROOM - CARD TABLE
+(RADIO DIAL SCROLLING)
+(STATIC, MIC INTERFERENCE)
+Miss Honeybourne: (VIA EARPIECE) Is your earpiece working properly, Agent? I believe we lost you for a moment.
+(CARDS SHUFFLE, POKER CHIPS CLINK)
+Miss Honeybourne: Don't disturb your cover at the card table, but please acknowledge that you can hear me. Request TWO cards this turn. Say TWO CARDS.
+Choice TWO CARDS leads to 002introOpenPrompt.
+
+State: 002introOpenPrompt
+Recording: 002introOpenPrompt. Background: back_casino. Decision sound: decision_single.
+Krasnoff: You are good, friend, but not good enough for the likes of Vassi Markovich-Krasnoff.
+(CHIPS CLINK ON PILE)
+Dealer: Monsieur Krasnoff raises fifty thousand.
+Tomassi: This is too much for me.
+(CARDS THROWN ON TABLE)
+Female Dealer: Armanno Tomassi folds. Excusez-moi, it is your turn, Parker. Are you in, or out?
+(KEYBOARD CLACKING VIA EARPIECE)
+Miss Honeybourne: I see no point in you folding with a full house, aces high. You could call the bet with a FOCUSED move, or instead raise if you're feeling IMPULSIVE. Are you FOCUSED or IMPULSIVE?
+Choice FOCUSED leads to 003introCallBet.
+Choice IMPULSIVE leads to 003introRaiseBet.
+
+State: 003introCallBet
+Recording: 003introCallBet. Background: back_casino.
+(FOCUSED - Call the bet)
+(CARDS LAID ON TABLE)
+Krasnoff: Four Kings.
+Dealer: Monsieur Krasnoff's four of a kind defeats Parker's full house.
+Krasnoff: (LAUGHS, RAKES IN CHIPS)
+(FAILURE MUSIC PLAYS)
+Raises Predictability by one.
+Sets event.m1e1_cardsWin to 0.
+Then goes to 004introFlirtLoss.
+
+State: 003introRaiseBet
+Recording: 003introRaiseBet. Background: back_casino.
+(IMPULSIVE - Raise the bet)
+(CHIPS CLINK ON PILE)
+Dealer: Jordan Parker sees fifty thousand (MORE CHIPS) And raises another fifty thousand. Back to Monsieur Krasnoff.
+Krasnoff: Govno!
+(CARDS THROWN DOWN)
+Dealer: Monsieur Krasnoff... folds.
+(SUCCESS MUSIC PLAYS)
+(RAKE IN CHIPS)
+Lowers Predictability by one.
+Sets event.m1e1_cardsWin to 1.
+Then goes to achievement_cardsWin.
+
+State: 004introFlirtLoss
+Recording: 004introFlirtLoss. Background: back_casino.
+Miss Honeybourne: Pity. Perhaps you should brush off the loss with a flirtatious joke.
+Then goes to 006introFlirtPrompt.
+
+State: achievement_cardsWin
+Background: back_casino.
+Earns the achievement m1e1_cardsWin.
+Then goes to 005introFlirtWin.
+
+State: 006introFlirtPrompt
+Recording: 006introFlirtPrompt. Background: back_casino. Decision sound: decision_single.
+Miss Honeybourne: There's the German player to your left, Lisette Schafer. If you prefer to flirt with a gentleman, Mr. Armanno Tomassi is the Italian to your right. Will it be LADY or GENTLEMAN?
+Choice LADY leads to 007introFlirtLadyResponse.
+Choice GENTLEMAN leads to 007introFlirtGentlemanResponse.
+
+State: 005introFlirtWin
+Recording: 005introFlirtWin. Background: back_casino.
+Miss Honeybourne: Very well done, Agent. Perhaps you should compound your win with a flirtatious joke to a tablemate.
+Then goes to 006introFlirtPrompt.
+
+State: 007introFlirtLadyResponse
+Recording: 007introFlirtLadyResponse. Background: back_casino.
+(FLIRT WITH LADY)
+Schafer: (LAUGHS) Such a clever one with unbelievably light spirits. Your 'confidence' must make you extremely memorable to all the women you meet.
+Sets romance.m1e1_maleInterest to 0.
+Then goes to 008introInterruption.
+
+State: 007introFlirtGentlemanResponse
+Recording: 007introFlirtGentlemanResponse. Background: back_casino.
+(FLIRT WITH GENTLEMAN)
+Tomassi: How adorable. I can only imagine your passion for wit is as intense when alone.
+Sets romance.m1e1_maleInterest to 1.
+Then goes to 008introInterruption.
+
+State: 008introInterruption
+Recording: 008introInterruption. Background: back_casino. Decision sound: decision_single.
+Miss Honeybourne: Though I'm sure your amorous involvements would no doubt entertain me, I'm afraid we'll need to cut things short. I'm connecting you with Alexander at Cygnus HQ.
+(MIC INTERFERENCE)
+Alexander: (VIA EARPIECE) We're extracting you from the Parker cover immediately, by order of Director Matthews. You're needed elsewhere for a crisis situation. To acknowledge that you heard these details, say CONTINUE.
+Choice CONTINUE leads to 009introInterruptionSplitter.
+
+State: 009introInterruptionSplitter
+Background: back_casino.
+If event.m1e1_cardsWin==1, goes to 010introInterruptionWinPrompt; otherwise to 010introInterruptionLosePrompt.
+
+State: 010introInterruptionWinPrompt
+Recording: 010introInterruptionWinPrompt. Background: back_casino. Decision sound: decision_single.
+Miss Honeybourne: Krasnoff will not take it well if you cash out now. He's also not one to respect insincerity or excuses. To make a BOLD move, you can claim the competition is too weak to continue playing.
+Alexander: On the other hand, a more SECRETIVE option is simply to make an excuse and cash out. BOLD or SECRETIVE.
+Choice BOLD leads to 011introRejectResponse.
+Choice SECRETIVE leads to 011introExcuseResponse.
+
+State: 010introInterruptionLosePrompt
+Recording: 010introInterruptionLosePrompt. Background: back_casino. Decision sound: decision_single.
+Miss Honeybourne: Krasnoff will not take it well if you cash out now. He's also not one to respect insincerity or excuses. To make a BOLD move, you can accuse Krasnoff of cheating.
+Alexander: On the other hand, a more SECRETIVE option is simply to make an excuse and cash out. BOLD or SECRETIVE.
+Choice SECRETIVE leads to 011introExcuseResponse.
+Choice BOLD leads to 011introAccuseResponse.
+
+State: 011introRejectResponse
+Recording: 011introRejectResponse. Background: back_casino.
+(BOLD - Competition too weak)
+Krasnoff: Only one who cheats would depart after such a payout. Even now you fear I am on to you. Speak the truth, Parker.
+Raises Openness by one.
+Then goes to 012introRejectPrompt.
+
+State: 011introExcuseResponse
+Recording: 011introExcuseResponse. Background: back_casino.
+(SECRETIVE - Make excuse and cash out)
+Krasnoff: For early departure, there is a very steep penalty fee, Parker. You do not want to run away in the middle of a game like a coward.
+Lowers Openness by one.
+Then goes to 012introExcusePrompt.
+
+State: 011introAccuseResponse
+Recording: 011introAccuseResponse. Background: back_casino.
+(BOLD - Accuse of cheating)
+Krasnoff: (LAUGHS) You almost had me fooled with such aggression, Parker. But only a defenseless little animal would dare lash out in this way. Speak the truth, coward.
+Raises Openness by one.
+Then goes to 012introAccusePrompt.
+
+State: 012introRejectPrompt
+Recording: 012introRejectPrompt. Background: back_casino. Decision sound: decision_single.
+Alexander: Great, now he considers you a cheater. Make a CHARISMATIC joke about needing to leave for a hot date, or instead make a HOSTILE counter-accusation to stand your ground and accuse him of cheating. CHARISMATIC or HOSTILE.
+Choice CHARISMATIC leads to 013introJokeResponse.
+Choice HOSTILE leads to 013introCounteraccuseResponse.
+
+State: 012introExcusePrompt
+Recording: 012introExcusePrompt. Background: back_casino. Decision sound: decision_single.
+Alexander: Looks like he's going to make this difficult. You could be CHARISMATIC with a joke about happily leaving a large tip, or you can be HOSTILE and refuse to pay the fee. CHARISMATIC or HOSTILE.
+Choice HOSTILE leads to 013introRefuseResponse.
+Choice CHARISMATIC leads to 013introJokeResponse.
+
+State: 012introAccusePrompt
+Recording: 012introAccusePrompt. Background: back_casino. Decision sound: decision_single.
+Alexander: He's calling your bluff. Make a CHARISMATIC joke about being late for a hot date, or instead continue with a more HOSTILE assertion that he cheated. CHARISMATIC or HOSTILE.
+Choice CHARISMATIC leads to 013introJokeResponse.
+Choice HOSTILE leads to 013introCounteraccuseResponse.
+
+State: 013introJokeResponse
+Recording: 013introJokeResponse. Background: back_casino.
+(CHARISMATIC - Joke about hot date)
+(SCHAFER & TOMASSI LAUGH)
+Krasnoff: You think this is funny? No, you give me insult. (SMASHES GLASS) No one dares to cross me.
+Raises Diplomacy by one.
+If romance.m1e1_maleInterest==1, goes to 014M_introYourSide; otherwise to 014F_introYourSide.
+
+State: 013introCounteraccuseResponse
+Recording: 013introCounteraccuseResponse. Background: back_casino.
+(HOSTILE - Accuse Krasnoff of cheating)
+Krasnoff: You think you can get away with insult? (SMASHES GLASS) No one dares to accuse me. You are the cheater.
+Lowers Diplomacy by one.
+If romance.m1e1_maleInterest==1, goes to 014M_introOpponentSide; otherwise to 014F_introOpponentSide.
+
+State: 013introRefuseResponse
+Recording: 013introRefuseResponse. Background: back_casino.
+(HOSTILE - Refuse to pay the fee)
+Krasnoff: You think you can walk away with insult? (SMASHES GLASS) No one walks away from my game.
+Lowers Diplomacy by one.
+If romance.m1e1_maleInterest==1, goes to 014M_introOpponentSide; otherwise to 014F_introOpponentSide.
+
+State: 014M_introYourSide
+Recording: 014M_introYourSide. Background: back_casino.
+Tomassi: Lighten up, Vassi. I see no insult you can't forgive.
+Krasnoff: You are now telling me my business, eh?
+Tomassi: If your business is harassing our charming opponent, yes.
+Krasnoff: That is enough from you, 'paisan'.
+(GUNSHOT WITH SILENCER)
+(TOMASSI GASPS, BODY FALLS)
+Krasnoff: Now, Fraulein, what shall we do with our friend Parker?
+Sets npc_state.tomassi to 0.
+Then goes to 015introActionDown.
+
+State: 014F_introYourSide
+Recording: 014F_introYourSide. Background: back_casino.
+Schafer: Relax, Vassi. I see no insult you can't forgive.
+Krasnoff: You are now telling me my business, eh?
+Schafer: If your business is harassing our charming opponent, then yes.
+Krasnoff: That is enough from you, Fraulein.
+(GUNSHOT WITH SILENCER)
+(SCHAFER GASPS, BODY FALLS)
+Krasnoff: And now, Armanno, what shall we do with our friend Parker?
+Sets npc_state.schafer to 0.
+Then goes to 015introActionDown.
+
+State: 014M_introOpponentSide
+Recording: 014M_introOpponentSide. Background: back_casino.
+Tomassi: That's right, Vassi. That flapping tongue begs to be cut out.
+Schafer: What are you two doing? (PISTOL COCKS) P-put those away.
+(GUNSHOT WITH SILENCER)
+(SCHAFER GASPS, BODY FALLS)
+Krasnoff: And now, Armanno, what shall we do with our friend Parker?
+Sets npc_state.schafer to 0.
+Then goes to 015introActionDown.
+
+State: 014F_introOpponentSide
+Recording: 014F_introOpponentSide. Background: back_casino.
+Schafer: My dear Vassi. I think that wagging tongue begs to be cut out
+Tomassi: What are you two doing? (PISTOL COCKS) Put those away.
+(GUNSHOT WITH SILENCER)
+(TOMASSI GASPS, BODY FALLS)
+Krasnoff: Now, Fraulein, what shall we do with our friend Parker?
+Sets npc_state.tomassi to 0.
+Then goes to 015introActionDown.
+
+State: 015introActionDown
+Recording: 015introActionDown. Background: back_casino. Decision sound: decision_single.
+Alexander: Get down, Agent. DOWN!
+Choice DOWN leads to 016introDownResponse.
+
+State: 016introDownResponse
+Recording: 016introDownResponse. Background: back_casino.
+(GUNSHOTS, BULLETS WHIZ, WOOD SPLINTERS, GLASS BREAKS)
+Krasnoff: Careful. I want Parker alive.
+Alexander: Keep crawling, Agent. Get behind the bar. Keep your head down...
+(FOOTSTEPS CRUNCH ON GLASS)
+Alexander: They're getting closer, Agent.
+Then goes to 017introDownPrompt.
+
+State: 017introDownPrompt
+Recording: 017introDownPrompt. Background: back_casino. Decision sound: decision_single.
+Alexander: You have two options. Be ATHLETIC and disarm one as they near you, or take a CLEVER approach and toss a lighter into that puddle of alcohol. ATHLETIC or CLEVER.
+Choice CLEVER leads to 018introLighterResult.
+Choice ATHLETIC leads to 018introDisarmResult.
+
+State: 018introLighterResult
+Background: back_casino.
+Lowers Activeness by one.
+If npc_state.tomassi==1, goes to 019introLighterResult_tomassiAlive; otherwise to 019introLighterResult_schaferAlive.
+
+State: 018introDisarmResult
+Background: back_casino.
+Raises Activeness by one.
+If npc_state.tomassi==1, goes to 019introDisarmResult_tomassiAlive; otherwise to 019introDisarmResult_schaferAlive.
+
+State: 019introLighterResult_tomassiAlive
+Recording: 019introLighterResult_tomassiAlive. Background: back_casino.
+(CLEVER - Use lighter on alcohol)
+(ZIPPO IS LIT AND TOSSED, ALCOHOL IGNITES)
+(TOMASSI IGNITES, SCREAMS, RUNS FROM ROOM)
+Alexander: That worked perfectly. Seems you took out Tomassi.
+Sets npc_state.tomassi to 2.
+Then goes to 020introEscape.
+
+State: 019introLighterResult_schaferAlive
+Recording: 019introLighterResult_schaferAlive. Background: back_casino.
+(CLEVER - Use lighter on alcohol)
+(ZIPPO IS LIT AND TOSSED, ALCOHOL IGNITES)
+(SCHAFER IGNITES, SCREAMS, RUNS FROM ROOM)
+Alexander: That worked perfectly. Seems you took out Schafer.
+Sets npc_state.schafer to 2.
+Then goes to 020introEscape.
+
+State: 019introDisarmResult_tomassiAlive
+Recording: 019introDisarmResult_tomassiAlive. Background: back_casino.
+(ATHLETIC - Disarm opponent)
+(FIGHT)
+(ARM CRACK, TOMASSI SCREAMS, GUN DROPS)
+Alexander: Great work, Tomassi is neutralized.
+Sets npc_state.tomassi to 3.
+Then goes to 020introEscape.
+
+State: 019introDisarmResult_schaferAlive
+Recording: 019introDisarmResult_schaferAlive. Background: back_casino.
+(ATHLETIC - Disarm opponent)
+(FIGHT)
+(ARM CRACK, SCHAFER SCREAMS, GUN DROPS)
+Alexander: Great work, Schafer is neutralized.
+Sets npc_state.schafer to 3.
+Then goes to 020introEscape.
+
+State: 020introEscape
+Recording: 020introEscape. Background: back_casino. Decision sound: decision_single.
+Krasnoff: (LAUGHS) A more formidable opponent than I expected. Do not think this is the end, Parker. We shall play again.
+(DOOR SLAM, LOCK)
+Alexander: Your best exit is the window, Agent. You're two stories up, but there's an awning for a tobacco shop to break your fall. When you're ready, JUMP!
+Choice JUMP leads to 021introWindow.
+
+State: 021introWindow
+Recording: 021introWindow.
+(CRASH, WIND, THUMP)
+(LAND ON SIDEWALK, PEDESTRIANS GASP)
+Scene: STREET - SIDEWALK - NIGHT
+(BRUSH DEBRIS OFF CLOTHES)
+Alexander: I knew those stories about you were true. That was amazing, Agent. But there's no time to waste. We have a hostage crisis for you to handle, and I'll brief you in transit. Your driver will arrive at your location for extraction in 3... 2... 1...
+(CAR SCREECHES IN, CAR DOOR OPENS AND CLOSES)
+(THEME MUSIC PLAYS AS CAR DRIVES AWAY)
+Sets completion.m1e1_prologue to 2.
+Then goes to m1e1_end.
+
+State: m1e1_end
+End of the episode.
+
+When the episode is finished, the game says:
+Well done, agent! Are you ready to save the hostages in the first episode of Mission One? Find out what happens next in Art Show or listen to a Preview in the Episodes Menu under Prologue.
+
+Preview of the next episode, played after this one.
+
+State: m1e2_teaser
+Recording: m1e2_teaser.
+Then goes to m1e1_end.
+
+Credits
+VOICE ACTORS
+Miss Honeybourne: Sarah Elmaleh
+Vassi M. Krasnoff: Chris Rando
+Armano Tomassi: Chris Ciulla
+Lisette Schafer: Laurie Fisher
+Dealer: Khadeja Merenkov
+Alexander: Matthew Finn
+PRODUCTION
+Story & Writing: Jonathon Myers
+Additional Writing: Shannon Daly
+Sound: Shannon Daly
+Music: Xiao'an Li

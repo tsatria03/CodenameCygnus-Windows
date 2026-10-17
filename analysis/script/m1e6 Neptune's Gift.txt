@@ -1,0 +1,405 @@
+Codename Cygnus, Mission 1, Episode 6: Neptune's Gift
+Learn more about Neptune's motivations.
+Starts at m1e6_start and ends at m1e6_end. 45 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e6_start
+Sets completion.m1e6_neptunesGift to 1.
+Then goes to 001intro_m1e6.
+
+State: 001intro_m1e6
+Recording: 001intro_m1e6.
+(THEME MUSIC)
+Then goes to 002firstMoment_PRESENT_m1e6.
+
+State: 002firstMoment_PRESENT_m1e6
+Recording: 002firstMoment_PRESENT_m1e6. Background: back_beach_m1e6.
+Scene: SEASIDE - MIDDLE OF NOWHERE
+(OCEAN WAVES, SEAGULLS)
+(DIGGING IN THE SAND)
+Thug 1: End of the line. There's your grave over there.
+Thug 2: We were real nice and dug it for you.
+Thug 3: So... any last words, before we put you in there?
+Miss Honeybourne: (VIA EARPIECE) An ambush? Three thugs with guns aimed right at your temple? Again? Oh, we should've known there'd be trouble when we listened to Neptune... Quickly, Agent, think back to your visit last week. Do you recall what he said? It may help, if you could only remember...
+(CYMBAL CRASH)
+Then goes to 003visitNeptune1_PAST_m1e6.
+
+State: 003visitNeptune1_PAST_m1e6
+Recording: 003visitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6. Decision sound: decision_single.
+(FLASHBACK MUSIC)
+Scene: FLASHBACK - MAXIMUM SECURITY PRISON
+Guard: You're here to talk to... him? I'm sorry, but... my guards can't go in with you. It's too risky. I wouldn't even let you down there except, well, looking at your pass I'd say you outrank me!
+(KEYS JANGLING, TYPING)
+Guard: That guy creeps me out... he has... shark eyes. Er uh, shark eye, anyway. Boy, you really did a number on him. (DOT MATRIX PRINTER) But be sure to check out the eye patch they gave him. Did the taxpayers buy that for him, or did he pick it out himself?
+(FOOTSTEPS, MECHANIZED DOOR OPENS)
+Guard: Don't forget to be careful in there!
+(FOOTSTEPS, DOOR CLOSES)
+Neptune: Ah, I was wondering when you'd arrive.
+(MIC INTERFERENCE)
+Director Matthews: Matthews here. I'll be listening to the whole interview.
+Neptune: I know you're listening, Matthews.
+Director Matthews: Don't worry, he can't actually hear me. So what's your opening move, will you be BOLD or CHARISMATIC?
+Choice BOLD leads to 004boldVisitNeptune1_PAST_m1e6.
+Choice CHARISMATIC leads to 004charismaticVisitNeptune1_PAST_m1e6.
+
+State: 004boldVisitNeptune1_PAST_m1e6
+Recording: 004boldVisitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6.
+(BOLD)
+Neptune: Well, well, well, look who's the mighty inquisitor. Hard for you to threaten me when I'm trapped behind foot-thick glass.
+(TAPS ON GLASS)
+Raises Openness by one.
+Then goes to 005visitNeptune1_PAST_m1e6.
+
+State: 004charismaticVisitNeptune1_PAST_m1e6
+Recording: 004charismaticVisitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6.
+(CHARISMATIC)
+Neptune: Don't try to charm me. You forget... I'm cold-blooded.
+Raises Diplomacy by one.
+Then goes to 005visitNeptune1_PAST_m1e6.
+
+State: 005visitNeptune1_PAST_m1e6
+Recording: 005visitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6. Decision sound: decision_single.
+Neptune: Matthews sent you, didn't he? You're looking for my "lost treasure." You think it's stolen goods, or a missing body, or high-value intelligence. You don't even know what it is, but you want it. And only I can lead you to it. Am I right? YES or NO?
+Choice YES leads to 006yesVisitNeptune1_PAST_m1e6.
+Choice NO leads to 006noVisitNeptune1_PAST_m1e6.
+
+State: 006yesVisitNeptune1_PAST_m1e6
+Recording: 006yesVisitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6.
+(YES)
+Neptune: Hmm, so you're not just here to gloat?
+Then goes to 007visitNeptune1_PAST_m1e6.
+
+State: 006noVisitNeptune1_PAST_m1e6
+Recording: 006noVisitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6.
+(NO)
+Neptune: Don't mock me. I can see right through you.
+Then goes to 007visitNeptune1_PAST_m1e6.
+
+State: 007visitNeptune1_PAST_m1e6
+Recording: 007visitNeptune1_PAST_m1e6. Background: back_nepcell_m1e6.
+Neptune: They keep me in this dark room, all alone. This... solitude... is not healthy for me. A week from today, head up to the coast to a secluded park by the ocean. This place is important. I discovered it when I was thirteen, when my parents - when one of my parents - dragged me out there and let me out of their sight for a while. I'll give you the coordinates. Someone will meet you at the gate. And be sure to cover your tracks - others will be stalking my treasure... Matthews isn't the only one who's listening to us.
+Then goes to 001escape_PRESENT_m1e6.
+
+State: 001escape_PRESENT_m1e6
+Recording: 001escape_PRESENT_m1e6. Background: back_beach_m1e6. Decision sound: decision_single.
+Scene: SEASIDE- MIDDLE OF NOWHERE
+(FLASHBACK MUSIC ENDS)
+(CYMBAL CRASH)
+Thug 1: I can't believe Alexander called it - how'd he know the spy would show up? Right on time.
+Thug 3: Don't use his name! You know the instructions - no messing around, no ransoms. We're here for one thing, and one thing only.
+Thug 2: Why don't you just tell us where the treasure is, and no one has to hurt you.
+Miss Honeybourne: You can't take them all on at once - but if you make it into the woods, you might have a chance! Will you trick them and run away, or force your way out of there? CLEVER or ATHLETIC?"
+Choice CLEVER leads to 002cleverEscape_PRESENT_m1e6.
+Choice ATHLETIC leads to 002athleticEscape_PRESENT_m1e6.
+
+State: 002cleverEscape_PRESENT_m1e6
+Recording: 002cleverEscape_PRESENT_m1e6. Background: back_beach_m1e6. Decision sound: decision_single.
+(CLEVER - Trick them and run)
+Thug 1: What's that? Oh, you want a last cigarette, hm? Fine. Either of you have a lighter?
+Thug 2: Not me.
+Thug 3: Ask the, uh, agent.
+(FRISKING)
+Thug 1: Yeah, there we go. Okay super spy, enjoy this while it lasts.
+(LIGHTER CLICKS, LOUD BANG)
+Thug 1: Ahh!
+Thug 2: WHAT?
+Thug 3: My eyes! Eyugh!
+Miss Honeybourne: Well done, Agent! That flashbang disguised as a cigarette lighter always dazzles them. But it only bought you a few seconds - RUN!
+Lowers Activeness by one.
+Choice RUN leads to 003escapeIntoWoods_PRESENT_m1e6.
+
+State: 002athleticEscape_PRESENT_m1e6
+Recording: 002athleticEscape_PRESENT_m1e6. Background: back_beach_m1e6. Decision sound: decision_single.
+(ATHLETIC - Force your way out)
+(PUNCH, CLANG)
+Thug 1: Ow, my head!
+(PUNCH)
+Thug 2: My gun!
+(THUMP)
+Thug 3: My groiiaahhh ...
+(FALL)
+Miss Honeybourne: Well done, Agent! But it only bought you a few seconds - RUN!
+Raises Activeness by one.
+Choice RUN leads to 003escapeIntoWoods_PRESENT_m1e6.
+
+State: 003escapeIntoWoods_PRESENT_m1e6
+Recording: 003escapeIntoWoods_PRESENT_m1e6.
+(RUNNING ON SAND)
+Thug 1: Hey wait! (GETTING DISTANT) The spy is getting away!
+(RUNNING ON SAND CHANGES TO RUNNING THROUGH FOREST)
+(CYMBAL CRASH)
+Then goes to 004visitNeptune2_PAST_m1e6.
+
+State: 004visitNeptune2_PAST_m1e6
+Recording: 004visitNeptune2_PAST_m1e6. Background: back_nepcell_m1e6. Decision sound: decision_single.
+Scene: MAXIMUM SECURITY PRISON - NEPTUNE'S CELL
+(FLASHBACK MUSIC)
+Neptune: Did you have a happy, safe childhood, Agent? No need for your life story - a YES or a NO is fine.
+Choice YES leads to 005yesVisitNeptune2_PAST_m1e6.
+Choice NO leads to 005noVisitNeptune2_PAST_m1e6.
+
+State: 005yesVisitNeptune2_PAST_m1e6
+Recording: 005yesVisitNeptune2_PAST_m1e6. Background: back_nepcell_m1e6.
+Neptune: Really? Then you were more fortunate than me.
+Sets trait.happyChildhood to 1.
+Then goes to 006visitNeptune2_PAST_m1e6.
+
+State: 005noVisitNeptune2_PAST_m1e6
+Recording: 005noVisitNeptune2_PAST_m1e6. Background: back_nepcell_m1e6.
+Neptune: I didn't think so. Who knows? Maybe you'll understand.
+Sets trait.happyChildhood to 0.
+Then goes to achievement_unhappyChildhood.
+
+State: 006visitNeptune2_PAST_m1e6
+Recording: 006visitNeptune2_PAST_m1e6. Background: back_nepcell_m1e6.
+Neptune: In the ocean, even the deadliest predators are born small. A shark is as small as your hand when born... and its parents are long gone. It must swim around as fast as it can, and steer clear of the larger fish - the same fish it will eat for fun, if only it beats the odds, if only it survives. I never thought I would survive. My parents yanked me back and forth, taking out their anger on me and on each other. How many children spend their eighth birthday in the hospital, with a fresh cast on their arm? But I knew I would be greater than either of them.
+Then goes to 007fleePrompt_PRESENT_m1e6.
+
+State: achievement_unhappyChildhood
+Background: back_nepcell_m1e6.
+Earns the achievement happyChildhood_0.
+Then goes to 006visitNeptune2_PAST_m1e6.
+
+State: 007fleePrompt_PRESENT_m1e6
+Recording: 007fleePrompt_PRESENT_m1e6. Background: back_woods_m1e6. Decision sound: decision_single.
+Scene: SEASIDE - FOREST
+(FLASHBACK MUSIC ENDS)
+(CYMBAL CRASH)
+(FOOTSTEPS THROUGH FOREST)
+Thug 1: (DISTANT) That way!
+Thug 2: (DISTANT) The Cygnus agent ran that way!
+Miss Honeybourne: Apparently your wilderness training is paying off. It sounds like they spread out to find you - now's your chance to pick them off, one by one. How will you do it? CLEVER OR ATHLETIC.
+Choice CLEVER leads to 008cleverFlee_PRESENT_m1e6.
+Choice ATHLETIC leads to 008athleticFlee_PRESENT_m1e6.
+
+State: 008cleverFlee_PRESENT_m1e6
+Recording: 008cleverFlee_PRESENT_m1e6. Background: back_woods_m1e6.
+(CLEVER)
+Miss Honeybourne: How are your bird calls? And can you throw your voice as well as you did at the holiday party?
+(DISTANT BIRD CALL)
+Thug 1: Over there!
+(DISTANT FOOTSTEPS)
+Thug 2: What was that?
+(GUNSHOT)
+Thug 1: Dammit! Ah, you shot me!
+Miss Honeybourne: One down! Now keep moving.
+Lowers Activeness by one.
+Then goes to 009prompt_PRESENT_m1e6.
+
+State: 008athleticFlee_PRESENT_m1e6
+Recording: 008athleticFlee_PRESENT_m1e6. Background: back_woods_m1e6.
+(ATHLETIC)
+Miss Honeybourne: That's right. Climb up that tree, don't make a sound... reach up and swing your legs over that branch... there. Well done, Agent.
+(FOOTSTEPS, LEAVES CRUNCHING)
+Miss Honeybourne: He's coming. Yes, he's right beneath you now... jump!
+(RUSTLE, THUMP)
+Thug 1: (CHOKING NOISES)
+(BODY FALLS)
+Miss Honeybourne: ...and he's down.
+Raises Activeness by one.
+Then goes to 009prompt_PRESENT_m1e6.
+
+State: 009prompt_PRESENT_m1e6
+Recording: 009prompt_PRESENT_m1e6. Background: back_woods_m1e6. Decision sound: decision_single.
+(LIGHT FOOTSTEPS ON FOREST FLOOR)
+Miss Honeybourne: The map shows an old, World War II-era bunker up ahead. It's near the water, where they used to watch for U-boats. There must be a way to lose them in there. Ah! You can race up the steps and over the other side, or hide inside the building. Will you RUN or HIDE?
+Choice RUN leads to 010run_PRESENT_m1e6.
+Choice HIDE leads to 010hide_PRESENT_m1e6.
+
+State: 010run_PRESENT_m1e6
+Recording: 010run_PRESENT_m1e6. Background: back_woods_m1e6. Decision sound: decision_single.
+(RUN)
+(RUNNING ON FOREST FLOOR, GUNSHOTS)
+Honeybourne: They're getting close, it looks as though you'll need to pick up the pace... SPRINT!
+Choice SPRINT leads to 011runSprint_PRESENT_m1e6.
+
+State: 010hide_PRESENT_m1e6
+Recording: 010hide_PRESENT_m1e6. Decision sound: decision_single.
+(HIDE)
+(HATCH OPENS, CLOSES)
+Thug 2: (MUFFLED) Hey you! (KNOCK, KNOCK, KNOCK) I know you're in there! (OPENS HATCH) Dammit, why didn't I bring a flashlight?
+(SLOW FOOTSTEPS)
+Miss Honeybourne: Time to slip back out, and (FOREST NOISE GROWS LOUDER) is there something you could use to block the door? The rebar. Use that on the door. BLOCK it.
+Choice BLOCK leads to 011hideBlock_PRESENT_m1e6.
+
+State: 011runSprint_PRESENT_m1e6
+Recording: 011runSprint_PRESENT_m1e6. Background: back_beach_m1e6.
+(FASTER FOOTSTEPS, CHANGING FROM FOREST FLOOR TO SAND)
+(CYMBAL CRASH)
+Then goes to 012visitNeptune3_PAST_m1e6.
+
+State: 011hideBlock_PRESENT_m1e6
+Recording: 011hideBlock_PRESENT_m1e6. Background: back_beach_m1e6.
+(HATCH CLOSES, METAL BAR CLINKS)
+Thug 2: (MUFFLED) Hey! Get me out of here! (POUNDS ON DOOR) I'm scared of the dark!
+Miss Honeybourne: The other thug will never stop to rescue her. Not while he's after you. For now, continue past the bunker! You're almost at the beach...
+(CYMBAL CRASH)
+Then goes to 012visitNeptune3_PAST_m1e6.
+
+State: 012visitNeptune3_PAST_m1e6
+Recording: 012visitNeptune3_PAST_m1e6. Background: back_nepcell_m1e6.
+Scene: MAXIMUM SECURITY PRISON - NEPTUNE'S CELL
+(FLASHBACK MUSIC)
+Neptune: I ran away from home a dozen times. The farthest I ever got was that beach. The one with the abandoned fort, and the sand I could sleep on and the waves that I watched for days and days. I spied on the tourists and conversed with the beach bums. I was learning to be on my own, to survive. And then one day, the day before they dragged me away, I found the key to my strength. A stranger on the beach revealed the answer to me... and then I knew what to do. I thought about my parents, my bullies, everyone who ever mocked me, everyone who couldn't see me for what I am. And I knew, I'd get them back. I'd get them all back.
+(MIC INTERFERENCE)
+Director Matthew: Well, mission accomplished. And that reckless need for vengeance landed him right in that cell.
+(MECHANIZED DOOR OPENS, FOOTSTEPS)
+Neptune: Enjoy the hunt for my treasure. I'll see you again soon... I hope.
+(MECHANIZED DOOR CLOSES)
+Then goes to 013runningOnPier_PRESENT_m1e6.
+
+State: 013runningOnPier_PRESENT_m1e6
+Recording: 013runningOnPier_PRESENT_m1e6. Background: back_beach_m1e6.
+Scene: SEASIDE - BEACH - PIER
+(FLASHBACK MUSIC ENDS)
+(CYMBAL CRASH)
+(RUNNING ON SAND)
+Miss Honeybourne: Now to find what we're here for - you remember where Neptune told you to go? Bad news, I'm afraid; it's at the end of the pier.
+Then goes to 014runningOnPier_PRESENT_m1e6.
+
+State: 014runningOnPier_PRESENT_m1e6
+Recording: 014runningOnPier_PRESENT_m1e6. Background: back_beach_m1e6.
+(RUNNING FOOTSTEPS ON PIER)
+Miss Honeybourne: Hurry! They're gaining on you! Almost there...
+(FOOTSTEPS GET CLOSER, THEN STOP)
+Then goes to 014endOfPier_PRESENT_m1e6.
+
+State: 014endOfPier_PRESENT_m1e6
+Recording: 014endOfPier_PRESENT_m1e6. Background: back_beach_m1e6. Decision sound: decision_single.
+(WATER LAPPING ON PIER)
+Thug 3: (PANTING) Nowhere to go now, Agent! Get your hands up!
+Miss Honeybourne: This has gone too far. I'm sending the boats.
+Thug 3: If you behave, maybe I won't take out your kneecaps.
+Miss Honeybourne: What are you doing, Agent? You're not going to JUMP?! ...Okay, JUMP!
+Choice JUMP leads to 015splashdown_PRESENT_m1e6.
+
+State: 015splashdown_PRESENT_m1e6
+Recording: 015splashdown_PRESENT_m1e6.
+(SPLASH, SWIM UNDERWATER)
+Honeybourne: What is that?
+(DIG IN SAND, METAL TING)
+(SWIM UP AND RESURFACE)
+Thug 3: (DISTANT) Where-Where'd you go? Are you down there?
+Miss Honeybourne: Well done, Agent. Orient yourself quickly. You're on the side of the pier. Backup is almost there.
+Then goes to 018defendPrompt_PRESENT_m1e6.
+
+State: 018defendPrompt_PRESENT_m1e6
+Recording: 018defendPrompt_PRESENT_m1e6. Background: back_beach_m1e6. Decision sound: decision_single.
+(CLIMB UP PIER, WATER DRIPS, TIN OPENS)
+Miss Honeybourne: That thing you're holding? Is... is that Neptune's treasure? It looks like... a giant elastic band with handles? You could hit him with that... thing, or maybe you could bait him with it? Will you be HOSTILE, or SECRETIVE?
+Choice HOSTILE leads to 019hostileDefend_PRESENT_m1e6.
+Choice SECRETIVE leads to 019secretiveDefend_PRESENT_m1e6.
+
+State: 019hostileDefend_PRESENT_m1e6
+Recording: 019hostileDefend_PRESENT_m1e6. Background: back_beach_m1e6.
+(HOSTILE)
+(ELASTIC STRETCHES)
+Thug 3: What the hell is that? Wha-? Wait, is that--
+(ELASTIC SNAPS)
+Thug 3: Hyuaccch!
+(FALLS)
+Lowers Diplomacy by one.
+Then goes to 020conclusion_PRESENT_m1e6.
+
+State: 019secretiveDefend_PRESENT_m1e6
+Recording: 019secretiveDefend_PRESENT_m1e6. Background: back_beach_m1e6.
+(SECRETIVE)
+Thug 3: What the hell is that? Wha-? Wait - is that... it? Is that Neptune's treasure? No, it can't be -
+(DART HITS, FALLS)
+Lowers Openness by one.
+Then goes to 020conclusion_PRESENT_m1e6.
+
+State: 020conclusion_PRESENT_m1e6
+Recording: 020conclusion_PRESENT_m1e6. Background: back_beach_m1e6.
+Director Matthews: Excellent! We'll pick you up in a moment. Now, that treasure you found in the metal case.
+Miss Honeybourne: That is, uh, it's, uhhhh--
+Director Matthews: It's a Steve Titan home exercise kit! You grab those handles and stretch your arms as far apart as you can, and the resistance turns you into a strongman! Not that I've ever used one.
+Miss Honeybourne: As far as the agency's concerned you're naturally fit, Matthews.
+Director Matthews: (CHUCKLING) But is this really Neptune's treasure?
+Miss Honeybourne: Why not? He was a young boy with no confidence. He learned to fight back.
+Director Matthews: It's his treasure, but I'm afraid it's our trash. The real source of Neptune's power is still beyond our reach.
+Miss Honeybourne: There's only one source... and it's locked there with him in prison.
+Then goes to 021musicTransition_m1e6.
+
+State: 021musicTransition_m1e6
+Recording: 021musicTransition_m1e6.
+(TRANSITION MUSIC)
+Then goes to 001visitNeptune4_PRESENT_m1e6.
+
+State: 001visitNeptune4_PRESENT_m1e6
+Recording: 001visitNeptune4_PRESENT_m1e6. Background: back_nepcellPresent_m1e6.
+Scene: MAXIMUM SECURITY PRISON
+Guard: Hey, back again? (TYPING) I don't know how much more you can get out of him. (DOT MATRIX PRINTER, TEAR PAPER) He hasn't spoken to a soul since your last visit.
+(FOOTSTEPS, MECHANIZED DOOR OPENS AND THEN CLOSES)
+Then goes to 002visitNeptune4_PRESENT_m1e6.
+
+State: 002visitNeptune4_PRESENT_m1e6
+Recording: 002visitNeptune4_PRESENT_m1e6. Background: back_nepcellPresent_m1e6. Decision sound: decision_single.
+Neptune: Well, Agent, did you find my treasure? Or did Alexander beat you to the punch?
+(ELASTIC STRETCHES)
+Neptune: No, it's just as I guessed. You got there first. I'm sure the 'treasure' won't do you much good. But tell me this; now that you've heard my tale, do you think you understand me? YES or NO?
+Choice YES leads to 003yesVisitNeptune4_PRESENT_m1e6.
+Choice NO leads to 003noVisitNeptune4_PRESENT_m1e6.
+
+State: 003yesVisitNeptune4_PRESENT_m1e6
+Recording: 003yesVisitNeptune4_PRESENT_m1e6. Background: back_nepcellPresent_m1e6.
+(YES)
+Neptune: Of course you do. I'm just a freak in a fish tank, here for you to stare at me. And look, I have only one eye to stare back with. What makes me tick is pretty simple.
+Sets event.m1e6_sympathizeNeptune to 1.
+Then goes to 004visitNeptune4_PRESENT_m1e6.
+
+State: 003noVisitNeptune4_PRESENT_m1e6
+Recording: 003noVisitNeptune4_PRESENT_m1e6. Background: back_nepcellPresent_m1e6.
+(NO)
+Neptune: I'm disappointed. You know, I'm really a simple man.
+Sets event.m1e6_sympathizeNeptune to 0.
+Then goes to 004visitNeptune4_PRESENT_m1e6.
+
+State: 004visitNeptune4_PRESENT_m1e6
+Recording: 004visitNeptune4_PRESENT_m1e6. Background: back_nepcellPresent_m1e6.
+Neptune: I'm just like you; I'm trying to be the biggest fish in the ocean. What choice do I have? I'm a lot like my previous benefactor, your friend Alexander - we're dangerous because we have to be, to survive. And as for you, Agent, here's some advice - if you want to win, you'll need to become just as dangerous.
+Then goes to 005goodbyeNeptune_PRESENT_m1e6.
+
+State: 005goodbyeNeptune_PRESENT_m1e6
+Recording: 005goodbyeNeptune_PRESENT_m1e6. Background: back_nepcellPresent_m1e6.
+(MECHANIZED DOOR OPENS, FOOTSTEPS)
+Neptune: (FLASHBACK) Matthews isn't the only one who's listening to us.
+(MECHANIZED DOOR CLOSES)
+Then goes to 005outroMusic.
+
+State: 005outroMusic
+Recording: 005outroMusic_m1e6.
+(CONCLUDING MUSIC)
+Sets completion.m1e6_neptunesGift to 2.
+Sets completion.m1e7_signumCygni to 0.
+Then goes to m1e6_end.
+
+State: m1e6_end
+End of the episode.
+
+When the episode is finished, the game says:
+What can Cygnus do to heed Neptune's warnings about Alexander? Will you be ready to face him? Learn more in Signum Cygni!
+
+Preview of the next episode, played after this one.
+
+State: m1e7_teaser
+Recording: m1e7_teaser.
+Then goes to m1e6_end.
+
+Credits
+VOICE ACTORS
+Neptune: Logan Cunningham
+Miss Honeybourne: Sarah Elmaleh
+Director Matthews: Brian Moyer
+Prison Guard: David Olsen
+Thugs: Ian Hamilton
+Khadeja Merenkov
+Ziba Scott
+PRODUCTION
+Story & Writing: Chris Dahlen
+Add'l Writing: Jonathon Myers
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali &
+Shannon Daly

@@ -1,0 +1,972 @@
+Codename Cygnus, Mission 1, Episode 5: Lazarus Awakens
+Discover the origin of Lazarus.
+Starts at m1e5_start and ends at m1e5_end. 127 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e5_start
+Sets completion.m1e5_lazarusAwakens to 1.
+Then goes to 000music_m1e5.
+
+State: 000music_m1e5
+Recording: 000music_m1e5.
+(THEME MUSIC)
+Then goes to 001opening_m1e5.
+
+State: 001opening_m1e5
+Recording: 001opening_m1e5. Background: back_city_m1e5. Decision sound: decision_single.
+Scene: CITY STREET
+Miss Honeybourne: Hello again, Agent. I'd ask that you please tread lightly with Director Matthews. Due to recent events, he's been a bit abrasive with the remaining Cygnus agents. Rather, more abrasive... than he normally tends to be. Ah, here he is. Say HELLO.
+Choice HELLO leads to 002matthewsSplitter_m1e5.
+
+State: 002matthewsSplitter_m1e5
+Background: back_city_m1e5.
+If event.m1e4_chooseTrust==1, goes to 003matthewsAngry_m1e5; otherwise to 003matthewsHappy_m1e5.
+
+State: 003matthewsAngry_m1e5
+Recording: 003matthewsAngry_m1e5. Background: back_city_m1e5.
+(MIC INTERFERENCE)
+Director Matthews: Well, hello Agent. I see you're still keeping your head high and sailing through the maelstrom.
+Miss Honeybourne: Director Matthews!
+Director Matthews: What? All I'm saying is our agent seems to be very calm despite the swirling maelstrom.
+Miss Honeybourne: It was the right word to diffuse the bomb, Director Matthews. Perhaps it's best to focus on this assignment?
+Then goes to 004matthewsAssignment_m1e5.
+
+State: 003matthewsHappy_m1e5
+Recording: 003matthewsHappy_m1e5. Background: back_city_m1e5.
+(MIC INTERFERENCE)
+Director Matthews: Good evening, my fine Agent! Ready for the next assignment?
+Miss Honeybourne: I stand corrected. Are you feeling okay?
+Director Matthews: Couldn't be better. I've got an agent that I can trust on the job. One who obeys during high-pressure situations.
+Miss Honeybourne: Very well, then.
+Then goes to 004matthewsAssignment_m1e5.
+
+State: 004matthewsAssignment_m1e5
+Recording: 004matthewsAssignment_m1e5. Background: back_city_m1e5. Decision sound: decision_single.
+Director Matthews: Agent, we have a potentially high-profile missing persons situation. Lily, the daughter of Senator O'Donnell, has not been seen since her Sociology class five days ago... Can you verify that you're listening on a secure channel with the new software? If so, say CLEAR.
+Choice CLEAR leads to 005matthewsCaution_m1e5.
+
+State: 005matthewsCaution_m1e5
+Recording: 005matthewsCaution_m1e5. Background: back_city_m1e5. Decision sound: decision_single.
+Director Matthews: This morning the Senator received a ransom note. It forbade her to go to the police. She knew well enough to reach out to us instead. But here's the thing, Agent. The ransom note claims Lily is held captive by a professional mercenary organization, but it doesn't sit right. I'm betting this is simpler. And nastier. Turns out there's an ex-boyfriend. Bad news. Runs a bar called The Wolves Den - classy. The Senator forced a break-up and Lily was happy to jump to the next pad, so naturally there's plenty of reason for resentment. Got that so far? If so, say CONTINUE.
+Choice CONTINUE leads to 006matthewsAssignment_m1e5.
+
+State: 006matthewsAssignment_m1e5
+Recording: 006matthewsAssignment_m1e5. Background: back_city_m1e5.
+Director Matthews: Your assignment is to drop in on The Wolves Den. We need to find out if the girl is being held against her will. Return with the intelligence, and if the opportunity presents itself, recover the girl alive. And don't mess this one up - it's O'Donnell's daughter, for crissakes, and there's more than enough chaos in Cygnus after Alexander's defection. I'll be monitoring the situation. Honeybourne, you'll handle the agent from here. Matthews out.
+Then goes to 001honeybourneBrief_m1e5.
+
+State: 001honeybourneBrief_m1e5
+Recording: 001honeybourneBrief_m1e5. Background: back_city_m1e5. Decision sound: decision_single.
+Miss Honeybourne: All right, Agent, that's The Wolves Den up on the left. When you're ready, approach the door and ENTER.
+Choice ENTER leads to 002enterBar_m1e5.
+
+State: 002enterBar_m1e5
+Recording: 002enterBar_m1e5.
+(FOOTSTEPS DOWN STREET, OPEN BAR DOOR)
+Scene: THE WOLVES DEN - DOORWAY
+(ROCK MUSIC BLARING, LAUGHTER AND CHATTER)
+Miss Honeybourne: I think you want to unzip your front for a more casual look.
+(ZIPPER)
+Miss Honeybourne: Yes, perfect.
+If romance.m1_maleInterest==1, goes to 004M_encounterNick_m1e5; otherwise to 004F_encounterNica_m1e5.
+
+State: 004M_encounterNick_m1e5
+Recording: 004M_encounterNick_m1e5. Background: back_bar_m1e5.
+Nick: And then I told them, 'You've got to be out of your mind. I don't do requests and I don't cater to critics. So go review some cat pictures on Bookface.'
+(SMALL CROWD LAUGHS)
+Miss Honeybourne: Nick? In The Wolves Den? He doesn't appear to have noticed you come in.
+Then goes to 005M_reactToNickPrompt_m1e5.
+
+State: 004F_encounterNica_m1e5
+Recording: 004F_encounterNica_m1e5. Background: back_bar_m1e5.
+Nica: And then I told them, 'You've got to be out of your mind! I don't do requests and I don't cater to critics. So go review some cat pictures on Bookface.'
+(SMALL CROWD LAUGHS)
+Miss Honeybourne: Nica? In The Wolves Den? She doesn't appear to have noticed your arrival.
+Then goes to 005F_reactToNicaPrompt_m1e5.
+
+State: 005M_reactToNickPrompt_m1e5
+Recording: 005M_reactToNickPrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: If you're quick, you can duck into a booth to stay hidden. Or you could announce your presence and join the group. SECRETIVE or BOLD.
+Choice BOLD leads to 006AboldSet_m1e5.
+Choice SECRETIVE leads to 006BsecretiveTransition_m1e5.
+
+State: 005F_reactToNicaPrompt_m1e5
+Recording: 005F_reactToNicaPrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: If you're quick, you can duck into a booth to stay hidden. Or you could announce your presence and join the group. SECRETIVE or BOLD.
+Choice SECRETIVE leads to 006BsecretiveTransition_m1e5.
+Choice BOLD leads to 006AboldSet_m1e5.
+
+State: 006AboldSet_m1e5
+Background: back_bar_m1e5.
+Sets event.m1e5_secretive to 0.
+Sets event.m1e5_collaborateN to 1.
+Raises Openness by one.
+If romance.m1_maleInterest==1, goes to 006AM_boldResponse_m1e5; otherwise to 006AF_boldResponse_m1e5.
+
+State: 006BsecretiveTransition_m1e5
+Recording: 006BsecretiveTransition_m1e5. Background: back_bar_m1e5.
+(FOOTSTEPS, LAUGHTER FROM BAR)
+Sets event.m1e5_secretive to 1.
+Sets event.m1e5_collaborateN to 0.
+Lowers Openness by one.
+Then goes to 007BsecretiveBurnoutPrompt_m1e5.
+
+State: 006AM_boldResponse_m1e5
+Recording: 006AM_boldResponse_m1e5. Background: back_bar_m1e5.
+Scene: WOLVES DEN - TAPROOM
+(BOLD - Join the group)
+Nick: Well, hello there. This, everyone, is my insurance agent. Are you surprised to find me here, my dear "Agent?"
+Then goes to 007AM_nickPrompt_m1e5.
+
+State: 006AF_boldResponse_m1e5
+Recording: 006AF_boldResponse_m1e5. Background: back_bar_m1e5.
+Scene: WOLVES DEN - TAPROOM
+(BOLD - Join the group)
+Nica: Well, hello there. This, everyone, is my insurance agent. Surprised to find me here, my dear "Agent?"
+Then goes to 007AF_nicaPrompt_m1e5.
+
+State: 007BsecretiveBurnoutPrompt_m1e5
+Recording: 007BsecretiveBurnoutPrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Scene: WOLVES DEN - TAPROOM
+(SECRETIVE - Duck into booth)
+(BOOTH CREAKS)
+Burnout: Hey. This is my seat!
+Miss Honeybourne: Oh goodness, Agent, I didn't realize someone was already in this booth. She doesn't... look so good, does she?
+Burnout: Who're you? I....... Haven't seen you b'fore. Wait, wh... have I? Nah. I'd remember you. I've got a good memory.
+Miss Honeybourne: I'm not sure of the most effective way to handle this situation, Agent. You could prolong the conversation - it is possible she knows something. Or you could be standoffish to extricate yourself quickly. CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 008BsecretiveCharismatic_m1e5.
+Choice HOSTILE leads to 008BsecretiveHostile_m1e5.
+
+State: 007AM_nickPrompt_m1e5
+Recording: 007AM_nickPrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Do you suppose he's here on assignment for his organization? You can charm Nick into revealing his employer with a CHARISMATIC approach. Or it could be more effective to behave in a HOSTILE manner and hope he lets something slip in anger. Which one shall it be, CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 008AM_charismatic_m1e5.
+Choice HOSTILE leads to 008AM_hostileNick_m1e5.
+
+State: 007AF_nicaPrompt_m1e5
+Recording: 007AF_nicaPrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Do you suppose she's here on assignment for her organization? You can charm Nica into revealing her employer with a CHARISMATIC approach. Or it could be more effective to behave in a HOSTILE manner and hope she lets something slip in anger. Which one shall it be, CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 008AF_charismatic_m1e5.
+Choice HOSTILE leads to 008AF_hostileNica_m1e5.
+
+State: 008BsecretiveCharismatic_m1e5
+Recording: 008BsecretiveCharismatic_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(CHARISMATIC)
+Burnout: Oh, hey, that's really sweet. And that's a nice... outfit. That's a... really nice outfit. You don't come here too often, do you? I've, uh... oh, crap, I'm seein', uh, oh I get it. You... Uh, so, I've got something I've got to do. In the back. Just a minute. Right.
+(GETS UP, FOOTSTEPS AWAY)
+Miss Honeybourne: Oh, pity. I suspect she took you for a police officer, Agent. But she's headed towards the back room. I think a little judicious eavesdropping could tell us quite a lot. Adjust your earpiece to LISTEN.
+Raises Diplomacy by one.
+Choice LISTEN leads to 009BsecretiveCharismatic_m1e5.
+
+State: 008BsecretiveHostile_m1e5
+Recording: 008BsecretiveHostile_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(HOSTILE)
+Burnout: I don't, I don't have to take that crap from you, you uh... Jesus, I'm gonna... I'm gonna... I'm gonna go to the back room and I'm finding Brett, and that's gonna be it, yeah. And that-he's just gonna ban you from this bar. Seriously. You just wait. Like, that's gonna be so funny now, you just watch.
+(GET UP, FOOTSTEPS AWAY)
+Miss Honeybourne: Interesting. She's headed towards the back room. I think you can learn a lot with a little judicious eavesdropping, Agent. Turn on your earpiece to LISTEN.
+Lowers Diplomacy by one.
+Choice LISTEN leads to 009BsecretiveHostile_m1e5.
+
+State: 008AM_charismatic_m1e5
+Recording: 008AM_charismatic_m1e5. Background: back_bar_m1e5.
+(CHARISMATIC)
+Nick: (LAUGHS) You're still the most charming person I ever met. You'll have to excuse me, ladies and gentlemen - we were quite the pair once upon a time. You must buy me a drink so we can catch up.
+Raises Diplomacy by one.
+Then goes to 009AM_charismaticBooth_m1e5.
+
+State: 008AM_hostileNick_m1e5
+Recording: 008AM_hostileNick_m1e5. Background: back_bar_m1e5.
+(HOSTILE)
+Nick: You really are a jerk, aren't you? As I was saying, my friends, one would think that an insurance agent knows how to avoid risky statements that could lead to a drink in the face. (SPLASH) But one would think wrong.
+(CROWD LAUGHS)
+Lowers Diplomacy by one.
+Sets event.m1e5_collaborateN to 0.
+Then goes to 009AhostileMatthews_m1e5.
+
+State: 008AF_charismatic_m1e5
+Recording: 008AF_charismatic_m1e5. Background: back_bar_m1e5.
+(CHARISMATIC)
+Nica: (LAUGHS) You're still the most charming person I ever met. You'll have to excuse me, ladies and gentlemen - we were quite the pair once upon a time. You must buy me a drink so we can catch up.
+Raises Diplomacy by one.
+Then goes to 009AF_charismaticBooth_m1e5.
+
+State: 008AF_hostileNica_m1e5
+Recording: 008AF_hostileNica_m1e5. Background: back_bar_m1e5.
+(HOSTILE)
+Nica: You really are a jerk, aren't you? As I was saying, my friends, one would think that an insurance agent would know how to avoid risky statements that could lead to a drink in the face. (SPLASH) But one would think wrong.
+(CROWD LAUGHS)
+Lowers Diplomacy by one.
+Sets event.m1e5_collaborateN to 0.
+Then goes to 009AhostileMatthews_m1e5.
+
+State: 009BsecretiveCharismatic_m1e5
+Recording: 009BsecretiveCharismatic_m1e5. Background: back_roomthrudoor_m1e5.
+Scene: WOLVES DEN - BACKROOM
+(HIGH TONES OF AUDIO ENHANCER POWERING UP)
+(BURST OF STATIC)
+Burnout: Brett, Lily, things are not cool. I think that your mom, like, called the cops! I'm pretty sure, well, nah, but yeah, seriously, I'm guessing there's somebody undercover out there? If you don't get out soon, you're seriously not gonna make it to that... Seashellies place. Seriously.
+Then goes to 010BsecretiveDistractionPrompt_m1e5.
+
+State: 009BsecretiveHostile_m1e5
+Recording: 009BsecretiveHostile_m1e5. Background: back_roomthrudoor_m1e5.
+Scene: WOLVES DEN - BACKROOM
+(HIGH TONES OF AUDIO ENHANCER POWERING UP)
+(BURST OF STATIC)
+Burnout: Brett, Lily, things are not cool. There's some weirdo out there acting major foul. Before you head out to that Seashellies place you gotta do me a solid and just ban them for life... Oh, wow, it just hit me. Like, seriously, for the first time it just really hit me. You're like gone. As in, not coming back. What the hell guys? What're we gonna do without you two? Is this place, like, not gonna be this place anymore or something?
+Brett: Uh, just a minute, Tiffany. Me and Lily, we're having a moment.
+Burnout/Tiffany: You got it, Brett.
+Then goes to 010BsecretiveDistractionPrompt_m1e5.
+
+State: 009AM_charismaticBooth_m1e5
+Recording: 009AM_charismaticBooth_m1e5. Background: back_bar_m1e5.
+(FOOTSTEPS)
+Nick: You'd better actually get us drinks. You know what I like. Meet me at that back booth, and we can talk.
+Then goes to 010AM_drinkPromptNick_m1e5.
+
+State: 009AhostileMatthews_m1e5
+Recording: 009AhostileMatthews_m1e5. Background: back_bar_m1e5.
+Miss Honeybourne: Hmm, pity. That didn't go quite as well as we'd hoped. Lucky that Agent Delphi gave you that waterproof earpiece, or--
+Director Matthews: I told you I don't want to hear her agent name again.
+Miss Honeybourne: A-hem. Perhaps, Agent, you'd better ask for a towel to clean off. The bartender is bound to comply--
+If romance.m1_maleInterest==1, goes to 010AM_hostileNick_m1e5; otherwise to 010AF_hostileNica_m1e5.
+
+State: 009AF_charismaticBooth_m1e5
+Recording: 009AF_charismaticBooth_m1e5. Background: back_bar_m1e5.
+(FOOTSTEPS)
+Nica: You'd better actually get us drinks. You know what I like. Meet me at that back booth, and we can talk.
+Then goes to 010AF_drinkPromptNica_m1e5.
+
+State: 010BsecretiveDistractionPrompt_m1e5
+Recording: 010BsecretiveDistractionPrompt_m1e5. Background: back_roomthrudoor_m1e5. Decision sound: decision_single.
+Lily: You know, Brett, maybe we should just give this all up? I mean, what if we get captured by Somali pirates or something. We were pretty schnockered when you thought of it.
+Brett: No, no, Honey, we're almost there. All we got to do is keep it up another couple hours, and we'll have the money and be on the plane to the Seychelles and your mom can't ever stop us again, right?
+Lily: Yeah... I guess. But first, you gotta say it. Please?
+Brett: You got it, Babe. We're gonna blow this popsicle stand, Pookie Bear.
+Lily: I love it when you say that!
+(KISS)
+Brett: That's my girl. I've gotta go back out there and tend bar, but I'll check on you again as soon as I can. (OPENS DOOR) Don't want my girl to get lonely, eh?
+Scene: WOLVES DEN - TAPROOM
+(DOOR CLOSES)
+Miss Honeybourne: I think I see an opportunity to resolve this situation. If you can get to the back room, you can talk Lily O'Donnell into speaking with her mother before she leaves. You'll need a distraction. You could pick a fight with those two noisy patrons over there. Or you could try to get them to fight each other. ATHLETIC or CLEVER?
+Choice ATHLETIC leads to 014playerStartsFight_m1e5.
+Choice CLEVER leads to 011BcauseFight_m1e5.
+
+State: 010AM_drinkPromptNick_m1e5
+Recording: 010AM_drinkPromptNick_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(FOOTSTEPS, BOTTLES RATTLE)
+Brett: And you, what're ya having?
+Miss Honeybourne: (TYPING) Our records show Nick prefers martinis. To order one, simply say MARTINI.
+Choice MARTINI leads to 011AM_reconvergeBooth_m1e5.
+
+State: 010AM_hostileNick_m1e5
+Recording: 010AM_hostileNick_m1e5. Background: back_bar_m1e5.
+Loud Guy 1: What the hell? Get a damn napkin and quit drippin' all over me!
+Loud Gal: Hey, that's the jerk who was bothering Nick.
+Loud Guy 1: Oh, really. Are you trying to come into my bar and talk that way to one of us? Is this punk bothering ya?
+Nick: Yes. Bothering me terribly. Good luck escaping this one, genius.
+Then goes to 011AhostilePrompt_m1e5.
+
+State: 010AF_hostileNica_m1e5
+Recording: 010AF_hostileNica_m1e5. Background: back_bar_m1e5.
+Loud Guy 1: What the hell? Get a damn napkin and quit drippin' all over me!
+Loud Gal: Hey, that's the jerk who was bothering Nica.
+Loud Guy 1: Oh, really. Are you trying to come into my bar and talk that way to one of us? Is this punk bothering ya?
+Nica: Yes. Bothering me terribly. Good luck escaping this one, genius.
+Then goes to 011AhostilePrompt_m1e5.
+
+State: 010AF_drinkPromptNica_m1e5
+Recording: 010AF_drinkPromptNica_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(FOOTSTEPS, BOTTLES RATTLE)
+Brett: And you, what're ya having?
+Miss Honeybourne: (TYPING) Our records show Nica prefers a concoction known as a... Pink Squirrel. To order one, simply say PINK SQUIRREL.
+Choice PINK SQUIRREL leads to 011AF_reconvergeBooth_m1e5.
+
+State: 014playerStartsFight_m1e5
+Recording: 014playerStartsFight_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(ATHLETIC - Start a fight)
+Loud Guy 2: You see, that's what I'm talkin' about! You're all rollin' over into a late season coma like Len Petersen! Just face it. The Yanks rock, screw the Sox, end of story. What, heh, what're you lookin' at?
+Miss Honeybourne: Here's your chance. Throw the first PUNCH
+Raises Activeness by one.
+Choice PUNCH leads to 015playerContinuesFight_m1e5.
+
+State: 011BcauseFight_m1e5
+Recording: 011BcauseFight_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Ah, there's a loud mouth sporting fan in favor of a rival city.
+Loud Guy 2: You see, that's what I'm talkin' about! You're all rollin' over into a late season coma like Len Petersen! Just face it. The Yanks rock, screw the Sox, end of story.
+Miss Honeybourne: This will be easier than we presumed. When you're ready, elbow the belligerent one, but make it look as though someone else is responsible. When you're ready, BUMP
+Lowers Activeness by one.
+Choice BUMP leads to 012BcauseFightConcludes_m1e5.
+
+State: 011AM_reconvergeBooth_m1e5
+Recording: 011AM_reconvergeBooth_m1e5. Background: back_bar_m1e5.
+(COCKTAIL SHAKER SHAKES, POURS)
+Brett: Here you go, but a word of advice? This ain't the bar to be orderin' that kinda drink, if you know what I'm sayin'.
+Miss Honeybourne: How pleasant. Though I suppose that is expected from an establishment named the Wolves Den.
+Then goes to 011AM_transitionBooth2_m1e5.
+
+State: 011AhostilePrompt_m1e5
+Recording: 011AhostilePrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Loud Guy 1: You're far from home, eh? Yeah, you're lost, so don't expect a warm welcome here. We don't like anyone bothering our regular pals.
+(PUNCH, CLAPS AND JEERS)
+Miss Honeybourne: Are you all right, Agent? Don't hesitate, it appears you have a fight on your hands!
+(FIGHT, CROWD CHANTING, GLASS BREAKS)
+Brett: Hey-HEY-HEY, what the hell's going on here?
+Miss Honeybourne: I'm sure you could fight them off. But if you'd prefer something simpler you could immediately appeal to the bartender, perhaps with some amorous attention? ATHLETIC or CLEVER?
+Choice CLEVER leads to 016AcleverDistraction_m1e5.
+Choice ATHLETIC leads to 016fightConcludes2_m1e5.
+
+State: 011AF_reconvergeBooth_m1e5
+Recording: 011AF_reconvergeBooth_m1e5. Background: back_bar_m1e5.
+(COCKTAIL SHAKER SHAKES, POURS)
+Brett: Here you go, but a word of advice? This ain't the bar to be orderin' that kinda drink, if you know what I'm sayin'.
+Miss Honeybourne: How pleasant. Though I suppose that is expected from an establishment named The Wolves Den.
+Then goes to 011AF_transitionBooth_m1e5.
+
+State: 015playerContinuesFight_m1e5
+Recording: 015playerContinuesFight_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(PUNCH, CROWD CHEERS)
+Loud Guy 2: Oh, you're gonna be so sorry you did that, you punk. I'm all over you, I'm gonna--
+Loud Guy 1: Ah, shut your freakin' mouth, ya freakin' Sox hater. You're the one who's gonna be sorry! Take yer sorry ass and go back to where you came from.
+Miss Honeybourne: Well done, Agent! DUCK!
+Choice DUCK leads to 016fightConcludes_m1e5.
+
+State: 012BcauseFightConcludes_m1e5
+Recording: 012BcauseFightConcludes_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+(SCUFFLE)
+Loud Guy 1: Hey, what's with the elbows?
+Loud Guy 2: Shut your trap, I ain't elbowin' no one.
+Loud Guy 1: That's it. I am gonna tear you apart!
+(PUNCH, CROWD CHEERING)
+Loud Guy 2: Oh, you're gonna be so sorry you did that, you punk, I'm gonna-
+Loud Guy 1: Ah, shut your freakin' mouth, you freakin' Sox hater. You're the one who's gonna be sorry! Take yer sorry ass and go back to where you came from.
+Miss Honeybourne: Well done, Agent! DUCK!
+Choice DUCK leads to 016fightConcludes_m1e5.
+
+State: 011AM_transitionBooth2_m1e5
+Recording: 011AM_transitionBooth2_m1e5. Background: back_bar_m1e5.
+(LAUGHTER, FOOTSTEPS)
+(MIC INTERFERENCE)
+Director Matthews: Matthews here. I understand you've encountered Nick again. We're on it. Phelps, keep a record of everything!
+(SIT IN BOOTH)
+Then goes to 012AM_boothBriefNick_m1e5.
+
+State: 016AcleverDistraction_m1e5
+Recording: 016AcleverDistraction_m1e5. Background: back_bar_m1e5.
+Brett: Whoa-whoa-whoa. I need to stop you right, right there. I, uh, I like the look you're givin' me, don't get me wrong, but um, I'm kinda spoken for. Y'know, hey, under other circumstances, maybe, but, um, I-I've really given up on that. Me and my girl, we're takin' off, we're leavin' this all behind, two become one, the whole, the whole nine.
+(BARFLIES MUTTER)
+Loud Gal: Are you serious, Brett? You're leavin' us? Why didn't you say so?
+Loud Guy 1: Jesus, let's get a round going.
+Lowers Activeness by one.
+Then goes to 017distractionConverge_m1e5.
+
+State: 016fightConcludes2_m1e5
+Recording: 016fightConcludes2_m1e5. Background: back_bar_m1e5.
+(FIGHT, CROWD CHEERING GLASS BREAKS)
+Brett: Hey, hey, cut the fighting! Show me some respect for crissakes, this is my last night at the bar!
+(BARFLIES MUTTER)
+Loud Gal: Are you serious, Brett? You're leavin' us? Why didn't you say so?
+Loud Guy 1: Jesus, let's get a round going. Here, let me help you up -- round's on me.
+Raises Activeness by one.
+Then goes to 017distractionConverge_m1e5.
+
+State: 011AF_transitionBooth_m1e5
+Recording: 011AF_transitionBooth_m1e5. Background: back_bar_m1e5.
+(LAUGHTER, FOOTSTEPS)
+(MIC INTERFERENCE)
+Director Matthews: Matthews here. I understand you've encountered Nica again. We're on it. Phelps, keep a record of everything!
+(SIT IN BOOTH)
+Then goes to 012AF_boothBriefNica_m1e5.
+
+State: 016fightConcludes_m1e5
+Recording: 016fightConcludes_m1e5. Background: back_bar_m1e5.
+(FIGHT, CROWD CHEERING GLASS BREAKS)
+Brett: Hey, hey, cut the fighting! Show me some respect for crissakes, this is my last night at the bar!
+(BARFLIES MUTTER)
+Loud Gal: Are you serious, Brett? You're leavin' us? Why didn't you say so?
+Loud Guy 1: Jesus, let's get a round going. Here, let me help you up -- round's on me.
+Loud Guy 2: You got it. You toss a hell of a left hook, you know?
+Then goes to 017distractionConverge_m1e5.
+
+State: 012AM_boothBriefNick_m1e5
+Recording: 012AM_boothBriefNick_m1e5. Background: back_bar_m1e5.
+Nick: Ah, perfect. You know just what I like. I suspect you're here for the same reason I am. Shut up, just listen. We received information from Senator O'Donnell as well; my boss hears everything at once, and I'm not being figurative. We were afraid the boyfriend was holding Lily against her will, but now it's clear the ransom note was faked by the couple. She's in the back room, packing for their trip to the Seychelles. I had almost convinced her to go back and talk to her mother before Brett interrupted. It won't take me more than few minutes to break down the girl's defenses, but I need a distraction to get back there in the first place. Any thoughts?
+Miss Honeybourne: How fortunate you decided to act charismatic toward Nick, Agent.
+Then goes to 013AcharmingDistractionPrompt_m1e5.
+
+State: 017distractionConverge_m1e5
+Background: back_bar_m1e5.
+Then goes to 001splitterWithN_m1e5.
+
+State: 012AF_boothBriefNica_m1e5
+Recording: 012AF_boothBriefNica_m1e5. Background: back_bar_m1e5.
+Nica: Ah, perfect. You know just what I like. I suspect you're here for the same reason I am. Shut up, just listen. We received information from Senator O'Donnell as well; my boss hears everything at once, and I'm not being figurative. We were afraid the boyfriend was holding Lily against her will, but now it's clear the ransom note was faked by the couple. She's in the back room, packing for their trip to the Seychelles. I had almost convinced her to go back and talk to her mother before Brett interrupted. It won't take me more than few minutes to break down the girl's defenses, but I need a distraction to get back there in the first place. Any thoughts?
+Miss Honeybourne: How fortunate you decided to act charismatic toward Nica, Agent.
+Then goes to 013AcharmingDistractionPrompt_m1e5.
+
+State: 013AcharmingDistractionPrompt_m1e5
+Recording: 013AcharmingDistractionPrompt_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: For a distraction, you could start a bar brawl, or distract the bartender with "interesting conversation." ATHLETIC or CLEVER.
+Choice ATHLETIC leads to 014playerStartsFight_m1e5.
+Choice CLEVER leads to 014AcleverDistractionLeadIn_m1e5.
+
+State: 001splitterWithN_m1e5
+Background: back_bar_m1e5.
+If event.m1e5_collaborateN==1, goes to 002withN_m1e5; otherwise to 002notWithN_m1e5.
+
+State: 014AcleverDistractionLeadIn_m1e5
+Recording: 014AcleverDistractionLeadIn_m1e5. Background: back_bar_m1e5.
+(CLEVER - Hit on Brett the bartender)
+(GET UP, FOOTSTEPS TO BAR, LAUGHTER)
+Lowers Activeness by one.
+Then goes to 016AcleverDistractionPrivate_m1e5.
+
+State: 002withN_m1e5
+Background: back_bar_m1e5.
+If romance.m1_maleInterest==1, goes to 003M_listenNick_m1e5; otherwise to 003F_listenNica_m1e5.
+
+State: 002notWithN_m1e5
+Background: back_bar_m1e5.
+If event.m1e5_secretive==0, goes to 003genderSplitter_m1e5; otherwise to 003falseSuccess_m1e5.
+
+State: 016AcleverDistractionPrivate_m1e5
+Recording: 016AcleverDistractionPrivate_m1e5. Background: back_bar_m1e5.
+Brett: Whoa-whoa-whoa. I need to stop you right, right there. I, uh, I like the look you're givin' me, don't get me wrong, but um, I'm kinda spoken for. Y'know, hey, under other circumstances, maybe, but, um, I-I've really given up on that. Me and my girl, we're takin' off, we're leavin' this all behind, two become one, the whole, the whole nine. But, hey, don't feel bad, it's really nothing personal. It's really nothing personal.
+Then goes to 017distractionConverge_m1e5.
+
+State: 003M_listenNick_m1e5
+Recording: 003M_listenNick_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Goodness, that's quite a show, Agent. Nick slipped into the back room without a problem. You can listen from here if you turn your earpiece RIGHT.
+Choice RIGHT leads to 004M_listenNick_m1e5.
+
+State: 003F_listenNica_m1e5
+Recording: 003F_listenNica_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Goodness, that's quite a show, Agent. Nica slipped into the back room without a problem. You can listen from here if you turn your earpiece RIGHT.
+Choice RIGHT leads to 004F_listenNica_m1e5.
+
+State: 003genderSplitter_m1e5
+Background: back_bar_m1e5.
+If romance.m1_maleInterest==1, goes to 004M_hostileListenNick_m1e5; otherwise to 004F_hostileListenNica_m1e5.
+
+State: 003falseSuccess_m1e5
+Recording: 003falseSuccess_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Well done, with everyone distracted you now have an easy path to the back room. Go on, EXIT.
+Choice EXIT leads to 006transitionBackRoom_m1e5.
+
+State: 004M_listenNick_m1e5
+Recording: 004M_listenNick_m1e5. Background: back_roomthrudoor_m1e5.
+(HIGH TONES OF AUDIO ENHANCER POWERING UP)
+(BURST OF STATIC)
+Lily: Yeah... I dunno... I was sort of thinking it was stupid. My French is really rusty and I sunburn easily. It made more sense when we were drunk, you know?
+Nick: It's not too late. I'm a private agent from Lotus. Your mom hasn't involved the police yet. If you go home now, I can assure that your boyfriend won't be charged. Be reasonable. You really don't want to let this play out.
+Lily: Okay. I'll go talk to her.
+Nick: Great. Just slip out the back here. (OPENS DOOR) One of my colleagues will make sure you get home safe. And Lily... you're doing the right thing. (CLOSES DOOR)
+Then goes to 005transitionBackRoom_m1e5.
+
+State: 004F_listenNica_m1e5
+Recording: 004F_listenNica_m1e5. Background: back_roomthrudoor_m1e5.
+(HIGH TONES OF AUDIO ENHANCER POWERING UP)
+(BURST OF STATIC)
+Lily: Yeah... I dunno... I was sort of thinking it was stupid. My French is really rusty, and I sunburn easily. It made more sense when we were drunk, you know?
+Nica: It's not too late. I'm a private agent from Lotus. Your mom hasn't involved the police yet. If you go home now, I can assure that your boyfriend won't be charged. Be reasonable. You really don't want to let this play out.
+Lily: Okay. I'll go talk to her.
+Nica: Good. Just slip out the back here. (OPENS DOOR) One of my colleagues will make sure you get home safe. And Lily... you're doing the right thing. (CLOSES DOOR)
+Then goes to 005transitionBackRoom_m1e5.
+
+State: 004M_hostileListenNick_m1e5
+Recording: 004M_hostileListenNick_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: While you were distracted, Nick slipped into the back room to speak with Lily. You can listen from here if you turn your earpiece RIGHT.
+Choice RIGHT leads to 005M_hostileListenNick_m1e5.
+
+State: 004F_hostileListenNica_m1e5
+Recording: 004F_hostileListenNica_m1e5. Background: back_bar_m1e5. Decision sound: decision_single.
+Miss Honeybourne: While you were distracted, Nica slipped into the back room to speak with Lily. You can listen from here if you turn your earpiece RIGHT.
+Choice RIGHT leads to 005F_hostileListenNica_m1e5.
+
+State: 006transitionBackRoom_m1e5
+Recording: 006transitionBackRoom_m1e5.
+(FOOTSTEPS, DOOR OPENS AND CLOSES)
+If romance.m1_maleInterest==1, goes to 007M_notWithNickFail_m1e5; otherwise to 007F_notWithNicaFail_m1e5.
+
+State: 005transitionBackRoom_m1e5
+Recording: 005transitionBackRoom_m1e5.
+Miss Honeybourne: Well done, with everyone distracted you now have an easy path to the back room.
+(FOOTSTEPS, OPEN AND CLOSE DOOR)
+If romance.m1_maleInterest==1, goes to 006M_withNickSuccess_m1e5; otherwise to 006F_withNicaSuccess_m1e5.
+
+State: 005M_hostileListenNick_m1e5
+Recording: 005M_hostileListenNick_m1e5. Background: back_roomthrudoor_m1e5.
+(HIGH TONES OF AUDIO ENHANCER POWERING UP)
+(BURST OF STATIC)
+Lily: Yeah... I dunno... I was sort of thinking it was stupid. My French is really rusty and I sunburn easily. It made more sense when we were drunk, you know?
+Nick: It's not too late. I'm a private agent from Lotus. Your mom hasn't involved the police yet. If you go home now, I can assure that your boyfriend won't be charged. Be reasonable. You really don't want to let this play out.
+Lily: Okay. I'll go talk to her.
+Nick: Great. Just slip out the back here. (OPENS DOOR) One of my colleagues will make sure you get home safe. And Lily... you're doing the right thing. (CLOSES DOOR)
+Then goes to 006transitionBackRoom_m1e5.
+
+State: 005F_hostileListenNica_m1e5
+Recording: 005F_hostileListenNica_m1e5. Background: back_roomthrudoor_m1e5.
+(HIGH TONES OF AUDIO ENHANCER POWERING UP)
+(BURST OF STATIC)
+Lily: Yeah... I dunno... I was sort of thinking it was stupid. My French is really rusty, and I sunburn easily. It made more sense when we were drunk, you know?
+Nica: It's not too late. I'm a private agent from Lotus. Your mom hasn't involved the police yet. If you go home now, I can assure that your boyfriend won't be charged. Be reasonable. You really don't want to let this play out.
+Lily: Okay. I'll go talk to her.
+Nica: Good. Just slip out the back here. (OPENS DOOR) One of my colleagues will make sure you get home safe. And Lily... you're doing the right thing. (CLOSES DOOR)
+Then goes to 006transitionBackRoom_m1e5.
+
+State: 007M_notWithNickFail_m1e5
+Recording: 007M_notWithNickFail_m1e5. Background: back_backroom_m1e5.
+Scene: WOLVES DEN - BACKROOM
+Nick: Oh, it's you. No need to trouble yourself, Agent, I took care of it. Lily's off to make up with her mother. One of my colleagues is escorting her home safely.
+(FAILURE MUSIC)
+Sets event.m1e5_savedLili to 0.
+Then goes to 008M_knockoutGasPrompt_m1e5.
+
+State: 007F_notWithNicaFail_m1e5
+Recording: 007F_notWithNicaFail_m1e5. Background: back_backroom_m1e5.
+Scene: WOLVES DEN - BACKROOM
+Nica: Oh, it's you. No need to trouble yourself, Agent, I took care of it. Lily's off to make up with her mother. One of my colleagues is escorting her home safely.
+(FAILURE MUSIC)
+Sets event.m1e5_savedLili to 0.
+Then goes to 008F_knockoutGasPrompt_m1e5.
+
+State: 006M_withNickSuccess_m1e5
+Recording: 006M_withNickSuccess_m1e5. Background: back_backroom_m1e5.
+Scene: WOLVES DEN - BACKROOM
+Nick: Ah, here you are. We did great. She's on her way home with one of my colleagues. I couldn't have done it without you.
+(KISS)
+(SUCCESS MUSIC)
+Sets event.m1e5_savedLili to 1.
+Then goes to 008M_knockoutGasPrompt_m1e5.
+
+State: 006F_withNicaSuccess_m1e5
+Recording: 006F_withNicaSuccess_m1e5. Background: back_backroom_m1e5.
+Scene: WOLVES DEN - BACKROOM
+Nica: Ah, here you are. We did great. She's on her way home with one of my colleagues. I couldn't have done it without you.
+(KISS)
+(SUCCESS MUSIC)
+Sets event.m1e5_savedLili to 1.
+Then goes to 008F_knockoutGasPrompt_m1e5.
+
+State: 008M_knockoutGasPrompt_m1e5
+Recording: 008M_knockoutGasPrompt_m1e5. Background: back_backroom_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Agent, that ring Nick's fiddling with - I've seen that before! It sprays knockout gas; you'll have to hold your breath and pretend to be unconscious!
+Nick: It's really a pity you won't get lucky on your second date.
+Miss Honeybourne: The poison takes three seconds to work, so be ready in time. Don't breathe!
+(SPRAY)
+Miss Honeybourne: Three, two, one... FALL.
+Choice FALL leads to 009M_knockoutTransition.
+
+State: 008F_knockoutGasPrompt_m1e5
+Recording: 008F_knockoutGasPrompt_m1e5. Background: back_backroom_m1e5. Decision sound: decision_single.
+Miss Honeybourne: Agent, that ring Nica's fiddling with - I've seen that before! It sprays knockout gas; you'll have to hold your breath and pretend to be unconscious!
+Nica: It's really a pity you won't get lucky on your second date.
+Miss Honeybourne: The poison takes three seconds to work, so be ready in time. Don't breathe!
+(SPRAY)
+Miss Honeybourne: Three, two, one... FALL.
+Choice FALL leads to 009F_knockoutTransition.
+
+State: 009M_knockoutTransition
+Recording: 009M_knockoutTransition_m1e5. Background: back_backroom_m1e5.
+(THUMP)
+Nick: You're so predictable. It's... cute.
+(BEEP)
+Nick: Yes, Lazarus, I'm here. Correct. All done. Lily is safe - heading to base.
+Director Matthews: Agent? Agent, are you there?
+Miss Honeybourne: Our agent can't answer right now, Director Matthews.
+Director Matthews: What? Oh, of course not. But the agent can hear me. This is a golden opportunity to find out who Nick's employer is. Let him think he dropped you, but tail him back to his home base!
+(FOOTSTEPS, DOOR OPENS AND CLOSES)
+Director Matthews: The coast is clear, Agent. Get up and get after him.
+Then goes to 010conclusion_m1e5_a2p2.
+
+State: 009F_knockoutTransition
+Recording: 009F_knockoutTransition_m1e5. Background: back_backroom_m1e5.
+(THUMP)
+Nica: You're so predictable. It's... cute.
+(BEEP)
+Nica: Yes, Lazarus, I'm here. Correct. All done. Lily is safe - heading to base.
+Director Matthews: Agent? Agent, are you there?
+Miss Honeybourne: Our agent can't answer right now, Director Matthews.
+Director Matthews: What? Oh, of course not. But the agent can hear me. This is a golden opportunity to find out who Nica's employer is. Let her think she dropped you, but tail her back to her home base!
+(FOOTSTEPS, DOOR OPENS AND CLOSES)
+Director Matthews: The coast is clear, Agent. Get up and get after her.
+Then goes to 010conclusion_m1e5_a2p2.
+
+State: 010conclusion_m1e5_a2p2
+Recording: 010conclusion_m1e5_a2p2.
+(TRANSITION MUSIC)
+Then goes to 001introLotus_m1e5.
+
+State: 001introLotus_m1e5
+Recording: 001introLotus_m1e5. Background: back_street_m1e5.
+(CAR PULLS AWAY)
+Scene: MYSTERIOUS BUILDING
+Then goes to 002lotusSplitter_m1e5.
+
+State: 002lotusSplitter_m1e5
+Background: back_street_m1e5.
+If romance.m1_maleInterest==1, goes to 002M_enterLotusPrompt_m1e5; otherwise to 002F_enterLotusPrompt_m1e5.
+
+State: 002M_enterLotusPrompt_m1e5
+Recording: 002M_enterLotusPrompt_m1e5. Background: back_street_m1e5. Decision sound: decision_single.
+Miss Honeybourne: (TYPING) Agent, we monitored Nick's entry ahead of you. Apparently the building is owned by the Lotus Conglomerate. Hmm. They own quite a bit of office space. And... about half of it, including this building, they bought from the Y Company. Yet that company has been out of business since 2009...
+Director Matthews: It's a shell company.
+Miss Honeybourne: Right. Prior to the Y Company, this building was owned by a consultancy called The Lazarus Group. And before that... oh, well that's interesting.
+Director Matthews: What? What is it?
+Miss Honeybourne: The original owner of this building was Len Peterson.
+Director Matthews: Who?
+Miss Honeybourne: Don't you remember, Director? That handsome athlete.
+Director Matthews: Is that supposed to ring a bell?
+Miss Honeybourne: The one who fell into a coma. The baseball player. A... a pitcher, I believe.
+Director Matthews: Wait. Len Peterson. That Len Peterson? He was one of the best. But... no one's heard from him in almost a decade.
+Miss Honeybourne: Not since he woke from the coma. And I believe... Yes, his family had him declared legally dead. Hmm, the only thing between his ownership and the current ownership of the building is an elaborate string of shell companies.
+Director Matthews: Agent, are you getting this? I need you to find a way in for some answers. That steel door must be the entrance. I need you to--
+(LARGE DOOR OPENS)
+Miss Honeybourne: Oh my. That opened on it's own, did it?
+Director Matthews: Looks that way. Be cautious Agent, but ENTER.
+Choice ENTER leads to 003enterLotus_m1e5.
+
+State: 002F_enterLotusPrompt_m1e5
+Recording: 002F_enterLotusPrompt_m1e5. Background: back_street_m1e5. Decision sound: decision_single.
+Miss Honeybourne: (TYPING) Agent, we monitored Nica's entry ahead of you. Apparently the building is owned by the Lotus Conglomerate. Hmm. They own quite a bit of office space. And... about half of it, including this building, they bought from the Y Company. Yet that company has been out of business since 2009...
+Director Matthews: It's a shell company.
+Miss Honeybourne: Right. Prior to the Y Company, this building was owned by a consultancy called The Lazarus Group. And before that... oh, well that's interesting.
+Director Matthews: What? What is it?
+Miss Honeybourne: The original owner of this building was Len Peterson.
+Director Matthews: Who?
+Miss Honeybourne: Don't you remember, Director? That handsome athlete.
+Director Matthews: Is that supposed to ring a bell?
+Miss Honeybourne: The one who fell into a coma. The baseball player. A... a pitcher, I believe.
+Director Matthews: Wait. Len Peterson. That Len Peterson? He was one of the best. But... no one's heard from him in almost a decade.
+Miss Honeybourne: Not since he woke from the coma. And I believe... Yes, his family had him declared legally dead. Hmm, the only thing between his ownership and the current ownership of the building is an elaborate string of shell companies.
+Director Matthews: Agent, are you getting this? I need you to find a way in for some answers. That steel door must be the entrance. I need you to--
+(LARGE DOOR OPENS)
+Miss Honeybourne: Oh my. That opened on it's own, did it?
+Director Matthews: Looks that way. Be cautious Agent, but ENTER.
+Choice ENTER leads to 003enterLotus_m1e5.
+
+State: 003enterLotus_m1e5
+Recording: 003enterLotus_m1e5. Background: back_foyer_m1e5.
+(FOOTSTEPS, LARGE DOOR CLOSES)
+Then goes to 004lazarusAskPrompt_m1e5.
+
+State: 004lazarusAskPrompt_m1e5
+Recording: 004lazarusAskPrompt_m1e5. Background: back_foyer_m1e5. Decision sound: decision_single.
+Scene: LOTUS BASE - FRONT HALL
+Lazarus: (VIA SPEAKERS) The mitigation of the Lazarus and Lotus concerns for rare earth Rubidium is no longer a concern, orange break. Tag it 989.
+Miss Honeybourne: What was that?
+Lazarus: (VIA SPEAKERS) Hello there, Agent.
+Director Matthews: Miss Honeybourne, run a voice print on that. Get him to speak more, Agent.
+Miss Honeybourne: I recognize that voice. It is him, I'm sure of it.
+Director Matthews: Run the voice print anyway.
+Miss Honeybourne: You'll have to say something back, Agent. You could be BOLD, and ask if he is really Len Peterson. Or you could be SECRETIVE, and ask his name. BOLD or SECRETIVE?
+Choice BOLD leads to 005boldLazarusAsk_m1e5.
+Choice SECRETIVE leads to 005secretiveLazarusAsk_m1e5.
+
+State: 005boldLazarusAsk_m1e5
+Background: back_foyer_m1e5.
+Raises Activeness by one.
+Then goes to 006lazarusAskResponse_m1e5.
+
+State: 005secretiveLazarusAsk_m1e5
+Background: back_foyer_m1e5.
+Lowers Activeness by one.
+Then goes to 006lazarusAskResponse_m1e5.
+
+State: 006lazarusAskResponse_m1e5
+Recording: 006lazarusAskResponse_m1e5. Background: back_foyer_m1e5.
+Lazarus: (VIA SPEAKERS) I am no longer who I once was. I woke. I am Lazarus now.
+Then goes to 006lazarusHallWalk_m1e5.
+
+State: 006lazarusHallWalk_m1e5
+Recording: 006lazarusHallWalk_m1e5. Background: back_foyer_m1e5.
+Lazarus: (VIA SPEAKERS) Come inside.
+(LIGHTS BUZZ, FOOTSTEPS)
+Lazarus: (VIA SPEAKERS) Activation energy lipid undergoes indigo and red break, but it will encounter complications unforeseen as of yet. Tag it 442.
+Then goes to 007lazarusEnterPrompt_m1e5.
+
+State: 007lazarusEnterPrompt_m1e5
+Recording: 007lazarusEnterPrompt_m1e5. Background: back_foyer_m1e5. Decision sound: decision_single.
+(FOOTSTEPS)
+Lazarus: (VIA SPEAKERS) Please, be my guest, and ENTER.
+Choice ENTER leads to 010lazarusIntroduction_m1e5.
+
+State: 010lazarusIntroduction_m1e5
+Recording: 010lazarusIntroduction_m1e5. Background: back_laz_m1e5.
+Scene: LOTUS BASE - THE FORUM
+(DOOR OPENS ON CACOPHONY OF AUDIO AND VIDEO SOURCES PLAYING AT ONCE)
+Honeybourne: Please wait, Agent! You may need to be cautious. It could --
+Lazarus: (IN PERSON) Ah, sorry about that. Nothing from Miss Honeybourne while you're visiting my den. My house, my rules. Cat got your tongue? Ah, that's right. I'm sorry. Let me take care of that.
+(BEEP)
+(AUDIO AND VIDEO SOURCES CEASE)
+Lazarus: It's easy to forget that it's just noise to all the rest. But hey, what are you gonna do? (CLICK) Yellow and red break commodity exchange closure must be identified. Tag it 6564. (CLICK) It's funny. People used to tell me I was special cause I could toss a ball 90 miles per hour. Back then, nobody cared what I knew or what I didn't. Hell, I didn't care either. That's what makes me the right guy to handle this. The information passes along, through me, and it's light as a feather. There's no weight. Folks can't deal with that. Hell, what if you woke up one day and suddenly everyone was moving and talking at a snail's pace? What would you do? I'll tell ya, it freaked me out at first. (CLICK) Identify indigo break and Presidential Library location gets blue and blue break for a site of superfunding. Tag it 9920. (CLICK) But I've made peace with my condition. Once the information is moving through you, and you don't try to control it, then you know it exists, really exists. It's not data, it's a part of ya. (CHUCKLES) It probably sounds like I'm off my rocker, but the point is, I keep my balance.
+Then goes to 010lazarusDrinkPrompt_m1e5.
+
+State: 010lazarusDrinkPrompt_m1e5
+Recording: 010lazarusDrinkPrompt_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: (SIPS DRINK) Where are my manners? Can I get you a drink? I like to drink the good ole Moscow Mule. You know, heavy on the lime? And I won't slip you any venom like The Shark did. Huh. This is an interesting moment. I'm thinking... if you're a CHARISMATIC agent you'll play it all 'when in Rome' and have what I'm having, but if you're a HOSTILE agent you'll just pass on the drink entirely. So, what kind of agent are you? CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 011lazarusCharismaticDrink_m1e5.
+Choice HOSTILE leads to 011lazarusHostileDrink_m1e5.
+
+State: 011lazarusCharismaticDrink_m1e5
+Recording: 011lazarusCharismaticDrink_m1e5. Background: back_laz_m1e5.
+(CHARISMATIC - Have a drink)
+(ICE IN GLASS, CAN OPENS AND POURS)
+Lazarus: I like you already, Agent. You keep playing your cards right and there's good things in store. Here you go.
+Raises Diplomacy by one.
+Then goes to 012lazarusInterest_m1e5.
+
+State: 011lazarusHostileDrink_m1e5
+Recording: 011lazarusHostileDrink_m1e5. Background: back_laz_m1e5.
+(HOSTILE - Decline beverage)
+Lazarus: Fair enough. Just be careful not to piss me off too much. You won't like me when I'm angry.
+Lowers Diplomacy by one.
+Then goes to 012lazarusInterest_m1e5.
+
+State: 012lazarusInterest_m1e5
+Recording: 012lazarusInterest_m1e5. Background: back_laz_m1e5.
+Lazarus: (CLICK) Almond futures orange break, futures speculation of excitement brings a blue and yellow break stripe signal. Tag it 544. (CLICK) So let's see. You were Parker for Cygnus while tangling with Krasnoff. But let me tell ya, I was really impressed by what you did with that whole Farouk situation. Now that's what got me interested. (CLICK) Blue break Blue and Violet break will bring a legislator sequestration. Tag it 888. (CLICK) You're a tight-lipped agent, aren't ya? You like to keep your cards close to your chest. Fair enough. I understand the trade of truths can be a sticky thing. (CLICK) Yellow and blue break, possible for Pan-Arabian conference flu virus as it will spread, the result of oil pricing. Tag it 1635. (CLICK)
+Then goes to 013lazarusReady_m1e5.
+
+State: 013lazarusReady_m1e5
+Recording: 013lazarusReady_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: I'm sure it's no surprise I didn't bring you here just to chit-chat. I want to see what you're made of. READY?
+Choice READY leads to 014questionOne_m1e5.
+
+State: 014questionOne_m1e5
+Recording: 014questionOne_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: So... let's just say you're chasing an arms dealer. The Krasnoff type. He's going to sell a suitcase nuke to a group of extremists. He sets a trap that puts your handler in peril, sweet Miss Honeybourne. Would you SAVE her, knowing that the arms dealer would get away? Or would you CAPTURE the dealer to retain that nuclear warhead? SAVE or CAPTURE?
+Choice SAVE leads to 015saveResponseQuestionTwo_m1e5.
+Choice CAPTURE leads to 015captureResponseQuestionTwo_m1e5.
+
+State: 015saveResponseQuestionTwo_m1e5
+Recording: 015saveResponseQuestionTwo_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+(SAVE Miss Honeybourne)
+Lazarus: Yeah, you're the sentimental type. But think of all those people who suffer just for Honeybourne, is that fair? You let a group of terrorists set off a warhead. I can't say that I agree. But since you're thinking about your own feelings, let's make this next one about you. Let's just say you've been poisoned by a heavy metal. It's only a matter of time, but two vials sit in front of you. You get one chance to drink. On the left is white Dithiol, on the right is red Strontium-90. To save your life, will you drink white Dithiol or red Strontium-90? WHITE or RED?
+Choice WHITE leads to 016whiteCorrectResponse_m1e5.
+Choice RED leads to 018redQuestionThree_m1e5.
+
+State: 015captureResponseQuestionTwo_m1e5
+Recording: 015captureResponseQuestionTwo_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+(CAPTURE the dealer)
+Lazarus: That's a tough decision. But I think you're right. You can't justify all those deaths just to save one person. Greater good and all that, I'm glad you get it. But what about when it's your own life on the line? You're trapped inside the cafeteria of a burning warehouse less than a minute before it collapses. Nearby is some Sodium Bicarbonate, so you can stay IMPULSIVE and dump that on yourself before running through the flames, on the other hand you can hit up the supply closet further in to be FOCUSED and grab some Calcium Chloride for making a path. Either one will help, but one is less safe and the other takes longer. If the clock is ticking on that collapsing roof, which will you choose? IMPULSIVE or FOCUSED?
+Choice IMPULSIVE leads to 016impulsiveResponse_m1e5.
+Choice FOCUSED leads to 016focusedResponse_m1e5.
+
+State: 016whiteCorrectResponse_m1e5
+Recording: 016whiteCorrectResponse_m1e5. Background: back_laz_m1e5.
+(WHITE Dithiol)
+Lazarus: There you have it. You know to stay away from those radioactive materials.
+Then goes to 017whiteImpulsiveQuestionThree_m1e5.
+
+State: 018redQuestionThree_m1e5
+Recording: 018redQuestionThree_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+(RED Strontium-90)
+Lazarus: Wrong answer, friend. I'll be honest with ya... this is gonna get a little scary.
+(CHAMBER SPINS, GUN COCKS)
+Lazarus: I have a revolver to your head. I'm gonna to pull the trigger in just a moment. Only one chamber carries a bullet, and I've spun the cylinder so I don't even know where that bullet is. I make you this offer, I can pull this trigger. Or we can let my roulette wheel decide. If it comes up red, I shoot you for certain. Will you take your chances with the REVOLVER or WHEEL?
+Choice REVOLVER leads to 019revolverResponse_m1e5.
+Choice WHEEL leads to 019wheelResponse_m1e5.
+
+State: 016impulsiveResponse_m1e5
+Recording: 016impulsiveResponse_m1e5. Background: back_laz_m1e5.
+(IMPULSIVE - Sodium Bicarbonate)
+Lazarus: Well, that's a shame. I hope you don't always go with the most immediate solution when you're in the field.
+Lowers Predictability by one.
+Then goes to 017whiteImpulsiveQuestionThree_m1e5.
+
+State: 016focusedResponse_m1e5
+Recording: 016focusedResponse_m1e5. Background: back_laz_m1e5.
+(FOCUSED - Calcium chloride)
+Lazarus: You're just knocking it out of the park, Agent. Let's see if you can keep this streak.
+Raises Predictability by one.
+Then goes to 019questionFour_m1e5.
+
+State: 017whiteImpulsiveQuestionThree_m1e5
+Recording: 017whiteImpulsiveQuestionThree_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: Enough with the chemistry. How about this? The Golden Horde ravaged lands and hid countless treasures. Which nation is most likely to be hiding all that treasure? RUSSIA or SWITZERLAND?
+Choice SWITZERLAND leads to 018redQuestionThree_m1e5.
+Choice RUSSIA leads to 018russiaCorrectResponse_m1e5.
+
+State: 019revolverResponse_m1e5
+Recording: 019revolverResponse_m1e5. Background: back_laz_m1e5.
+(REVOLVER)
+Lazarus: As you wish.
+(DRY FIRE)
+Lazarus: I'm glad you made it. And you do know your odds. Maybe you'll impress me again someday.
+Sets inventory.m1e5_lazarusCard to 0.
+Sets npc_favor.lazarus to -1.
+Then goes to 022goodbye_m1e5.
+
+State: 019wheelResponse_m1e5
+Recording: 019wheelResponse_m1e5. Background: back_laz_m1e5.
+(WHEEL)
+(ROULETTE SPINS)
+Lazarus: You're lucky. Because those were horrible odds.
+(FAILURE MUSIC)
+Lazarus: I'm not sure you are who I thought you were. Don't worry, Agent. I'll keep my eye on ya.
+Sets inventory.m1e5_lazarusCard to 0.
+Sets npc_favor.lazarus to -2.
+Then goes to 022goodbye_m1e5.
+
+State: 019questionFour_m1e5
+Recording: 019questionFour_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: Imagine there's a circuit box in front of you with three wires, colored blue, green, and yellow. These three wires control the fate of all the data Cygnus holds. One of the wires will do nothing if cut. Another one will lock down and secure the data. The last one will wipe it all out. To make it more interesting, I know for a fact which one does nothing. You can ask me to cut the neutral wire that does nothing. I'll do that and then you make your choice between the other two. On the other hand, you can ask me for my analysis; I'll tell you which wire will secure the data. Either way I'm narrowing down your possibilities. What really matters is whether or not you trust me. Should I CUT the neutral wire, or give you my ANALYSIS on how to secure the data. CUT or ANALYSIS?
+Choice CUT leads to 020cutResponseQuestionFive_m1e5.
+Choice ANALYSIS leads to 020analysisResponseQuestionFive_m1e5.
+
+State: 018russiaCorrectResponse_m1e5
+Recording: 018russiaCorrectResponse_m1e5. Background: back_laz_m1e5.
+(RUSSIA)
+Lazarus: Those Mongols never let up on the Russians, did they? We're almost through.
+Then goes to 019questionFour_m1e5.
+
+State: 022goodbye_m1e5
+Recording: 022goodbye_m1e5. Background: back_laz_m1e5.
+Lazarus: But now, it's time for you to go.
+(DOOR OPENS)
+Lazarus: Goodbye.
+Choice GOODBYE leads to 023conclusion_m1e5_a2p3.
+
+State: 020cutResponseQuestionFive_m1e5
+Recording: 020cutResponseQuestionFive_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: Okay. I cut the yellow wire. You can now cut one. BLUE or GREEN?
+Choice BLUE leads to 021cutBlue_m1e5.
+Choice GREEN leads to 021cutGreen_m1e5.
+
+State: 020analysisResponseQuestionFive_m1e5
+Recording: 020analysisResponseQuestionFive_m1e5. Background: back_laz_m1e5. Decision sound: decision_single.
+Lazarus: Here's what I think. Only one of the colors mentioned is a combination of the other two. If I were you, that's the one I'd cut. BLUE or GREEN?
+Choice GREEN leads to 021analysisGreen_m1e5.
+Choice BLUE leads to 021analysisBlue_m1e5.
+
+State: 023conclusion_m1e5_a2p3
+Recording: 023conclusion_m1e5_a2p3.
+(BEEP)
+(CACOPHONY OF AUDIO AND VIDEO COME BACK ON. DOOR OPENS AND CLOSES)
+Lazarus: (VIA SPEAKERS) Simple deduction of yellow and red break, and orange for all cases of amalgamation and consolidation. Tag it 1159.
+Then goes to 023conclusion2_m1e5_a2p3.
+
+State: 021cutBlue_m1e5
+Recording: 021cutBlue_m1e5. Background: back_laz_m1e5.
+(BLUE)
+Lazarus: Nope. It was the green. I'm not normally wrong about people like you, but maybe I am this time. I'll keep my eye on ya. Maybe you'll impress me again someday.
+Sets inventory.m1e5_lazarusCard to 0.
+Sets npc_favor.lazarus to -1.
+Then goes to 022goodbye_m1e5.
+
+State: 021cutGreen_m1e5
+Recording: 021cutGreen_m1e5. Background: back_laz_m1e5.
+(GREEN)
+Lazarus: Sure, that's right. I have a hunch that you're just guessing, but even if that's the case then luck is on your side. I'll keep an eye out for you in the months ahead. It could be that we need someone like you at Lotus. Think about it.
+Sets inventory.m1e5_lazarusCard to 0.
+Sets npc_favor.lazarus to 1.
+Then goes to 022goodbye_m1e5.
+
+State: 021analysisGreen_m1e5
+Recording: 021analysisGreen_m1e5. Background: back_laz_m1e5.
+(GREEN)
+Lazarus: The bonds of trust break all numbers.
+(SUCCESS MUSIC)
+Lazarus: It could be that we need someone like you at Lotus. Think about it in the months ahead. And here, take my card. Maybe when the timing's right, we'll have another chat.
+Sets inventory.m1e5_lazarusCard to 1.
+Sets npc_favor.lazarus to 3.
+Then goes to achievement_lazarusCard.
+
+State: 021analysisBlue_m1e5
+Recording: 021analysisBlue_m1e5. Background: back_laz_m1e5.
+(BLUE)
+Lazarus: Nope. It was the green. I'm not normally wrong about people like you, but maybe I am this time. I'll keep my eye on ya. Maybe you'll impress me again someday. Maybe there's a place for you at Lotus. Then again, maybe not.
+Sets inventory.m1e5_lazarusCard to 0.
+Sets npc_favor.lazarus to 2.
+Then goes to 022goodbye_m1e5.
+
+State: 023conclusion2_m1e5_a2p3
+Recording: 023conclusion2_m1e5_a2p3. Background: back_outlotus_m1e5.
+(DOOR OPENS, FOOTSTEPS, DOOR CLOSES)
+Then goes to 000intro_m1e5_a3.
+
+State: achievement_lazarusCard
+Background: back_laz_m1e5.
+Earns the achievement m1e5_lazarusCard_1.
+Then goes to 022goodbye_m1e5.
+
+State: 000intro_m1e5_a3
+Background: back_outlotus_m1e5.
+Then goes to 001reconnect_m1e5.
+
+State: 001reconnect_m1e5
+Recording: 001reconnect_m1e5. Background: back_outlotus_m1e5. Decision sound: decision_single.
+Scene: LOTUS BASE - EXTERIOR
+(MIC INTERFERENCE, STATIC)
+Miss Honeybourne: ...read me? Repeat. Come in, Agent. Can you read me? Say HERE.
+Choice HERE leads to 002reconnectContinued_m1e5.
+
+State: 002reconnectContinued_m1e5
+Recording: 002reconnectContinued_m1e5. Background: back_outlotus_m1e5.
+Miss Honeybourne: Thank goodness, are you okay, Agent? We lost contact, I've been worried sick.
+Director Matthews: Thank you, Miss Honeybourne, that will be all.
+Miss Honeybourne: Oh, all? Did you mean to--
+Director Matthews: Yes, I need to speak privately with the agent.
+Miss Honeybourne: In that case, I'll bid you a farewell, Agent. I'm very happy you're okay.
+Director Matthews: Me too, Agent...
+If event.m1e4_chooseTrust==1, goes to 003sideAlexConclusion_m1e5; otherwise to 003sideMatthewsConclusion_m1e5.
+
+State: 003sideAlexConclusion_m1e5
+Recording: 003sideAlexConclusion_m1e5. Background: back_outlotus_m1e5.
+Director Matthews: I... apologize for being so harsh earlier. You must understand, it's a very difficult time for Cygnus. It's my own fault. I have no one to blame but myself. But we're weaker now than we've ever been, and Cygnus... needs you.
+Sets npc_favor.matthews to 0.
+Then goes to 004matthewsOut_m1e5.
+
+State: 003sideMatthewsConclusion_m1e5
+Recording: 003sideMatthewsConclusion_m1e5. Background: back_outlotus_m1e5.
+Director Matthews: You had me worried. Cygnus could not stand to lose you at a time like this. We... We're.. It's my own fault. I have no one to blame but myself. But we're now weaker than we've ever been.
+Sets npc_favor.matthews to 2.
+Then goes to 004matthewsOut_m1e5.
+
+State: 004matthewsOut_m1e5
+Recording: 004matthewsOut_m1e5. Background: back_outlotus_m1e5.
+Director Matthews: Take a break. Report back in a day or two. Soon -- not now, but very soon -- you're going to earn your own city. Matthews out.
+Then goes to 005conclusionMusic_m1e5.
+
+State: 005conclusionMusic_m1e5
+Recording: 005conclusionMusic_m1e5.
+(CONCLUDING MUSIC)
+Sets completion.m1e5_lazarusAwakens to 2.
+Then goes to m1e5_end.
+
+State: m1e5_end
+End of the episode.
+
+When the episode is finished, the game says:
+You've met Lazarus of the Lotus Conglomerate, but what's in store next for the weakened Cygnus? Try the episode Neptune's Gift to find out.
+
+Preview of the next episode, played after this one.
+
+State: m1e6_teaser
+Recording: m1e6_teaser.
+Then goes to m1e5_end.
+
+Credits
+VOICE ACTORS
+Lazarus: Rob Wiethoff
+Miss Honeybourne: Sarah Elmaleh
+Director Matthews: Brian Moyer
+Panonica: Jennifer Bean
+Nick M.: Emery Westlake
+Brett/Bartender: Ian Hamilton
+Lily O'Donnell: Elizabeth Bean
+Angry Sox Fan: Ziba Scott
+Burnout: Caroline Murphy
+Annoying Patron: Jonathon Myers
+Female Patron: Shannon Daly
+PRODUCTION
+Story: Jonathon Myers &
+Shannon Daly
+Lead Writing: Heather Albano
+Add'l Writing: Steve Williams &
+Jonathon Myers
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali &
+Shannon Daly

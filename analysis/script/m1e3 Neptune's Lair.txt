@@ -1,0 +1,929 @@
+Codename Cygnus, Mission 1, Episode 3: Neptune's Lair
+Infiltrate the Waterfront Towers to eavesdrop on Neptune.
+Starts at m1e3_start and ends at m1e3_end. 122 states.
+From the original's final data: story version 53, episodes version 18.
+Each block is one state. Search for a state's name to follow a choice to it.
+
+State: m1e3_start
+Sets completion.m1e3_neptunesLair to 1.
+Then goes to 001setEpisodeStart.
+
+State: 001setEpisodeStart
+Recording: 001setEpisodeStart. Background: back_curtain_m1e3.
+(MIC INTERFERENCE)
+Director Matthews: (VIA EARPIECE) The mission is in jeopardy, Agent. Cygnus is counting on you to save the hostages from a bomb in the French Consulate, but you're up against Neptune and his TRIDENT organization.
+If romance.m1_maleInterest==1, goes to 002M_recapNeptune; otherwise to 002F_recapNeptune.
+
+State: 002M_recapNeptune
+Recording: 002M_recapNeptune.
+(RECAP MUSIC STARTS)
+Nick: Who's Neptune? And why would an artist be associated with a group of environmental fish fanatics?
+Director Matthews: Previously, you infiltrated a gallery opening to obtain Neptune's location from Nick.
+Nick: When he's in town he stays in the condo where he keeps his boy-toy Seth. Penthouse of the Waterfront Towers building, down on the Wharf. All three of the top floors.
+Director Matthews: But Alex tells me you've encountered a complication.
+(VOICES DISTORTING)
+Nick: Eventually, that poison The Shark put in your drink is bound to catch up with you.
+Alex: Stay with me, agent! I need you to focus.
+(RECAP MUSIC ENDS)
+Then goes to 003recapTransition.
+
+State: 002F_recapNeptune
+Recording: 002F_recapNeptune.
+(RECAP MUSIC STARTS)
+Nica: Who's Neptune? And why would an artist be associated with a group of environmental fish fanatics?
+Director Matthews: Previously, you infiltrated a gallery opening to obtain Neptune's location from Panonica.
+Nica: When he's in town he stays in the condo where he keeps his gal Serena. Penthouse of the Waterfront Towers building, down on the Wharf. All three of the top floors.
+Director Matthews: But Alex tells me you've encountered a complication.
+(VOICES DISTORTING)
+Nica: Eventually, that poison The Shark put in your drink is bound to catch up with you.
+Alex: Stay with me, agent! I need you to focus.
+(RECAP MUSIC ENDS)
+Nica: Eventually, that poison The Shark put in your drink is bound to catch up with you.
+Alex: Stay with me, agent! I need you to focus.
+(RECAP MUSIC ENDS)
+Then goes to 003recapTransition.
+
+State: 003recapTransition
+Recording: 003recapTransition.
+(THEME MUSIC)
+If romance.m1_maleInterest==1, goes to 004M_antidoteOfferPrompt; otherwise to 004F_antidoteOfferPrompt.
+
+State: 004M_antidoteOfferPrompt
+Recording: 004M_antidoteOfferPrompt. Decision sound: decision_single.
+Scene: GALA - PRIVATE ROOM
+(VOICES DISTORTING)
+Nick: Lucky for you that all she did was slip you poison. They call her the Shark because her teeth can cut glass. Naturally, she is Neptune's lead henchman. I can sort out your little problem with the sea snake venom - I've been carrying around the antidote in case I needed it myself.
+Alexander: (VIA EARPIECE) Sea snake venom is nasty stuff, Agent. I think you'll want to accept the help--
+Director Matthews: (VIA EARPIECE) Hold up. Are you suggesting that our agent should trust this man? He's the mark, for crissakes!
+Alexander: I don't see a lot of choices on the table right now, Director.
+Nick: I don't think you have a moment to lose. Here, take the syringe and use it.
+Alexander: It's your call, Agent. Are you going to take the syringe, or not? YES or NO?
+Choice YES leads to 005M_antidoteYes.
+Choice NO leads to 005M_antidoteNo.
+
+State: 004F_antidoteOfferPrompt
+Recording: 004F_antidoteOfferPrompt. Decision sound: decision_single.
+Scene: GALA - PRIVATE ROOM
+(VOICES DISTORTING)
+Nica: Lucky for you that all he did was slip you poison. They call him the Shark because his teeth can cut glass. He is Neptune's lead henchman. I can sort out your little problem with the sea snake venom - I've been carrying around the antidote in case I needed it myself.
+Alexander: (VIA EARPIECE) Sea snake venom is nasty stuff, Agent. I think you'll want to accept the help and use that syringe she's offering.
+Director Matthews: (VIA EARPIECE) Hold up. Are you suggesting that our agent should trust this woman? She's the mark, for crissakes!
+Alexander: I don't see a lot of choices on the table right now, Director.
+Nica: I don't think you have a moment to lose. Here, take the syringe and use it.
+Alexander: It's your call, Agent. Are you going to take the syringe, or not? YES or NO?
+Choice YES leads to 005F_antidoteYes.
+Choice NO leads to 005F_antidoteNo.
+
+State: 005M_antidoteYes
+Recording: 005M_antidoteYes.
+(INJECT SYRINGE)
+(VOICE DISTORTING)
+Nick: There.
+Nick: Aren't you perceptive. (VOICE SOUNDS NORMAL) Figured out I'm not actually working for Neptune, have you?
+Sets event.m1e3_trustN to 1.
+Then goes to 006M_questionNickPrompt.
+
+State: 005M_antidoteNo
+Recording: 005M_antidoteNo.
+(VOICE DISTORTING)
+Nick: Stubborn, I see. Then I guess I'll have to do it myself.
+(INJECT SYRINGE)
+Nick: You're lucky I'm not what I seem. (VOICE SOUNDS NORMAL) If a real henchman of Neptune's had stabbed you with a syringe, I'm sure you'd be dead.
+Sets event.m1e3_trustN to 0.
+Then goes to 006M_questionNickPrompt.
+
+State: 005F_antidoteYes
+Recording: 005F_antidoteYes.
+(INJECT SYRINGE)
+(VOICE DISTORTING)
+Nica: There.
+Nica: Aren't you perceptive. (VOICE SOUNDS NORMAL) Figured out I'm not actually working for Neptune, did you?
+Sets event.m1e3_trustN to 1.
+Then goes to 006F_questionPanonicaPrompt.
+
+State: 005F_antidoteNo
+Recording: 005F_antidoteNo.
+(VOICE DISTORTING)
+Nica: Stubborn, I see. Then I guess I'll have to do it myself.
+(INJECT SYRINGE)
+Nica: You're lucky I'm not what I seem. (VOICE SOUNDS NORMAL) If a real henchman of Neptune's had stabbed you with a syringe, I'm sure you'd be dead.
+Sets event.m1e3_trustN to 0.
+Then goes to 006F_questionPanonicaPrompt.
+
+State: 006M_questionNickPrompt
+Recording: 006M_questionNickPrompt. Background: back_curtain_m1e3. Decision sound: decision_single.
+Alexander: If he doesn't work for Neptune, now is the perfect chance to find out if he works for someone else. If you want to be BOLD, you could just ask him outright and count on the truth serum. Or you can go about it in a SECRETIVE way and pretend like you're still woozy from the venom to coax it out of him. What's it going to be, Agent? BOLD or SECRETIVE?
+Choice BOLD leads to 007M_questionNickAsk.
+Choice SECRETIVE leads to 007M_questionNickCoax.
+
+State: 006F_questionPanonicaPrompt
+Recording: 006F_questionPanonicaPrompt. Background: back_curtain_m1e3. Decision sound: decision_single.
+Alexander: If she doesn't work for Neptune, now is the perfect chance to find out if she works for someone else. If you want to be BOLD, you could just ask her outright and count on the truth serum. Or you can go about it in a SECRETIVE way and pretend like you're still woozy from the venom to coax it out of her. What's it going to be, Agent? BOLD or SECRETIVE?
+Choice BOLD leads to 007F_questionPanonicaAsk.
+Choice SECRETIVE leads to 007F_questionPanonicaCoax.
+
+State: 007M_questionNickAsk
+Background: back_curtain_m1e3.
+Raises Openness by one.
+Then goes to 008M_questionNickResponse.
+
+State: 007M_questionNickCoax
+Background: back_curtain_m1e3.
+Lowers Openness by one.
+Then goes to 008M_questionNickResponse.
+
+State: 007F_questionPanonicaAsk
+Background: back_curtain_m1e3.
+Raises Openness by one.
+Then goes to 008F_questionPanonicaResponse.
+
+State: 007F_questionPanonicaCoax
+Background: back_curtain_m1e3.
+Lowers Openness by one.
+Then goes to 008F_questionPanonicaResponse.
+
+State: 008M_questionNickResponse
+Recording: 008M_questionNickResponse. Background: back_curtain_m1e3.
+Nick: Surely you don't think Cygnus is the only player in this game?
+Alexander: Other players? What?
+Director Matthews: What the hell? We don't know any other-- Find out who he's talking about, now. That's an order, Agent!
+Nick: I-I, I represent- I represent a small... (COUGHING) Excuse me.
+(FUMBLING, WRAPPER RUSTLING)
+Alexander: What's he doing? Hold on, that's no cough drop. Don't let him bite that tablet.
+(CRUNCH)
+Nick: Aaaaah. Nice try, Agent. You almost had me. And in case you're worried about little old me, that wasn't a suicide pill. Just something to counteract the truth serum you gave me. I'll see your 'clever' and raise you a bit of 'resourcefulness.'
+Then goes to 009M_ditchNickPrompt.
+
+State: 008F_questionPanonicaResponse
+Recording: 008F_questionPanonicaResponse. Background: back_curtain_m1e3.
+Nica: Surely you don't think Cygnus is the only player in this game?
+Alexander: Other players? What?
+Director Matthews: What the hell? We don't know any-- Find out who she's talking about, now! That's an order, Agent!
+Nica: I-I, I represent- I represent a small... (COUGHING) Excuse me.
+(FUMBLING, WRAPPER RUSTLING)
+Alexander: What's she doing? Hold on, that's no cough drop. Don't let her bite that tablet.
+(CRUNCH)
+Nica: Aaaaah. Nice try, Agent. You almost had me. And in case you're worried about little old me, that wasn't a suicide pill. Just something to counteract the truth serum you gave me. I'll see your 'clever' and raise you a bit of 'resourcefulness.'
+Then goes to 009F_ditchPanonicaPrompt.
+
+State: 009M_ditchNickPrompt
+Recording: 009M_ditchNickPrompt. Background: back_curtain_m1e3. Decision sound: decision_single.
+Director Matthews: (GRUMBLES) You've got the location you need and you don't have time to bring them in. Get over to Waterfront Towers for Neptune and find out how to stop that bomb before it takes out the block. And don't let this puppy dog follow you home.
+Alexander: Nick could be useful someday, so a CHARISMATIC brush off might pay dividends in the future. On the other hand, a HOSTILE brush off may get you out of there quicker. Which will it be, Agent, CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 010M_ditchNickCharismatic.
+Choice HOSTILE leads to 010M_ditchNickHostile.
+
+State: 009F_ditchPanonicaPrompt
+Recording: 009F_ditchPanonicaPrompt. Background: back_curtain_m1e3. Decision sound: decision_single.
+Director Matthews: (GRUMBLES) You've got the location you need and you don't have time to bring them in. Get over to Waterfront Towers for Neptune and find out how to stop that bomb before it takes out the block. And don't let this puppy dog follow you home.
+Alexander: Nica could be useful someday, so a CHARISMATIC brush off might pay dividends in the future. On the other hand, a HOSTILE brush off may get you out of there quicker. Which will it be, Agent, CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 010F_ditchPanonicaCharismatic.
+Choice HOSTILE leads to 010F_ditchPanonicaHostile.
+
+State: 010M_ditchNickCharismatic
+Background: back_curtain_m1e3.
+Raises Diplomacy by one.
+Then goes to 011M_nickGoodbye.
+
+State: 010M_ditchNickHostile
+Background: back_curtain_m1e3.
+Lowers Diplomacy by one.
+Then goes to 011M_nickGoodbye.
+
+State: 010F_ditchPanonicaCharismatic
+Background: back_curtain_m1e3.
+Raises Diplomacy by one.
+Then goes to 011F_panonicaGoodbye.
+
+State: 010F_ditchPanonicaHostile
+Background: back_curtain_m1e3.
+Lowers Diplomacy by one.
+Then goes to 011F_panonicaGoodbye.
+
+State: 011M_nickGoodbye
+Recording: 011M_nickGoodbye. Background: back_curtain_m1e3.
+Nick: Yes, yes, very nice work ditching me, but I have no desire to follow you. I lost sight of the Shark while playing doctor here, so I'll be after her. Why not make yourself useful and do something to stop Neptune? Until we meet again?
+Then goes to 012galaExitPrompt.
+
+State: 011F_panonicaGoodbye
+Recording: 011F_panonicaGoodbye. Background: back_curtain_m1e3.
+Nica: Yes, yes, very nice work ditching me, but I have no desire to follow you. I lost sight of the Shark while playing doctor here, so I'll be after him. Why not make yourself useful and do something to stop Neptune? Until we meet again?
+Then goes to 012galaExitPrompt.
+
+State: 012galaExitPrompt
+Recording: 012galaExitPrompt. Background: back_curtain_m1e3. Decision sound: decision_single.
+(KISS)
+(FOOTSTEPS, SMALL CURTAIN PULLS)
+Alexander: Once you recover from that kiss, it's time to make your EXIT and get down to Waterfront Towers. When you're ready, just EXIT.
+Choice EXIT leads to 013exitTransition.
+
+State: 013exitTransition
+Recording: 013exitTransition.
+(FOOTSTEPS AS YOU RUN FROM GALA)
+(BACK DOOR OPENS AND CLOSES)
+(CAR PULLS UP AND STOPS)
+(CAR DOOR OPENS AND CLOSES)
+(CAR STARTS AND DRIVES AWAY)
+(TRANSITION MUSIC)
+Then goes to 001assignmentBrief_m1e3.
+
+State: 001assignmentBrief_m1e3
+Recording: 001assignmentBrief_m1e3. Decision sound: decision_single.
+Scene: INTERIOR - MOVING CAR
+Alexander: While you're in transit, I have some specs on the Waterfront Towers. The penthouse occupies the top three floors of the twenty-story building. Gorgeous view, or so it's said by those that frequent the private parties. The security is going to pose a challenge, which is why you're about to get what you need from Agent Delphi.
+(CAR SLOWS, IDLES)
+Alexander: You're half a block from the towers. When you're ready to leave the car and rendezvous with Delphi, just EXIT.
+Choice EXIT leads to 002transitionAssignmentBrief_m1e3.
+
+State: 002transitionAssignmentBrief_m1e3
+Recording: 002transitionAssignmentBrief_m1e3.
+(CAR DOOR OPENS AND CLOSES)
+(CAR DRIVES AWAY)
+Then goes to 003greetDelphi.
+
+State: 003greetDelphi
+Recording: 003greetDelphi. Background: back_citypark. Decision sound: decision_single.
+Scene: PARKING LOT - NIGHT
+(CRICKETS, DOGS BARKING AND DISTANT TRAFFIC)
+Delphi: Hello again, Agent. A busy night, I see. (UNZIP BAG) My contacts at HQ tell me there is a high likelihood of some old-fashioned eavesdropping in your future. You'll need this audio enhancer. Clip it right over your earpiece...
+(MUFFLED IMPACT ON EARPIECE)
+Delphi: Right, exactly like that. And it will help distant voices come clear. Try it now-- twist the dial to the RIGHT.
+Alexander: When you're all set, turn it RIGHT.
+Choice RIGHT leads to 004eavesdropGadget.
+
+State: 004eavesdropGadget
+Recording: 004eavesdropGadget. Background: back_citypark. Decision sound: decision_single.
+(HIGH FAINT TONES AS AUDIO ENHANCER POWERS UP)
+Delphi: You should be able to listen in on the cute young couple on that bench 50 meters away.
+(BURST OF STATIC)
+Craig: Callie, I know we've only been together for a few months.
+Callie: Seems like days, it's gone so fast.
+Craig: Exactly, which is why I wanted to ask...
+Callie: Yes?
+Craig: Will you...? Oh, I shouldn't be so embarrassed. I should just come out and say it.
+Callie: Oh yes, Craig, yes! Of course I'll marry you!
+Craig: Oh! Th-This is awkward. I-I was going to see if you'd agree to a threesome? With Barbara?
+(SLAP)
+Delphi: (MUFFLED) What on earth happened over there? Hmph! Human courtship is so mind-boggling. Hello, Agent? You'll need to turn it back to hear me well again. Turn the dial to the LEFT.
+Alexander: In case you can't hear Delphi, she said LEFT.
+Choice LEFT leads to 005earpieceInfo.
+
+State: 005earpieceInfo
+Recording: 005earpieceinfo. Background: back_citypark. Decision sound: decision_single.
+Delphi: (CLEAR VOICE) Perfect. And as a bonus, you now have a waterproofed earpiece. I considered it a prudent aspect of design after the, uh, splash you made in Washington. Eh? (CHUCKLES)
+Alexander: I don't think you need a reminder of how that went down. Just say CONTINUE.
+Choice CONTINUE leads to 006gunGadget.
+
+State: 006gunGadget
+Recording: 006gunGadget. Background: back_citypark. Decision sound: decision_single.
+Delphi: I see. Next, a little invention of my own. A classic concept, but one we haven't seen in recent years. It's a backward-firing gun!
+Director Matthews: Great. Delphi's been playing around in the lab again.
+Alexander: You're not helping, Director.
+Director Matthews: When I was in the field, gadgets were a last resort.
+Delphi: The gun appears standard-issue, and operates normally, but should someone other than you attempt to use it, knockout spray comes from this back end... here. There's a slight audible warning, so if you hear this sound--(TONE)--it means that you don't want to be standing behind them when they use it! Go on, it's yours.
+Alexander: TAKE it.
+Choice TAKE leads to 007gainEntrySetup.
+
+State: 007gainEntrySetup
+Recording: 007gainEntrySetup. Background: back_citypark.
+Delphi: Finally, you'll probably need a way to scale the side of building.
+Director Matthews: You are not risking this mission with a 20-story climb, Agent.
+Alexander: It's an option on the table, Director, and as you know we don't have much time to spare.
+Miss Honeybourne: Director Matthews has a point, Alex. Our agent has been quite resourceful in the past. An ATHLETIC risk may not be necessary.
+Director Matthews: Thank you, Honeybourne. Well put.
+Miss Honeybourne: I'm yours anytime, Director. Oh, I mean, anytime you need me, I'm yours. My advice, I mean. I'm here for you. I'm- I'm here to help. With advice, if you need it. (Sigh)
+Delphi: Is there any objection to the Agent deciding for themselves?
+Alexander: She's right. There you are, Agent. It's up to you to penetrate the perimeter and learn about the bomb. It will require a large degree of ATHLETIC ability if you decide to climb it.
+If romance.m1_maleInterest==1, goes to 008M_honeybourneSuggestion; otherwise to 008F_honeybourneSuggestion.
+
+State: 008M_honeybourneSuggestion
+Recording: 008M_honeybourneSuggestion. Background: back_citypark.
+Miss Honeybourne: Then again, you may prefer a CLEVER approach. For instance, Neptune's lover Seth is currently parking his Jaguar. He'll soon be fumbling for his keys with an armful of groceries. I'm sure he'll allow you entry if you figure out how to... make friends.
+Then goes to 009gainEntryPrompt.
+
+State: 008F_honeybourneSuggestion
+Recording: 008F_honeybourneSuggestion. Background: back_citypark.
+Miss Honeybourne: Then again, you may prefer a CLEVER approach. For instance, Neptune's lover Serena is currently parking her Jaguar. She'll soon be fumbling for her keys with an armful of groceries. I'm sure she'll allow you entry if you figure out how to... make friends.
+Then goes to 009gainEntryPrompt.
+
+State: 009gainEntryPrompt
+Recording: 009gainEntryPrompt. Background: back_citypark. Decision sound: decision_single.
+Alexander: So, do you want to proceed by being ATHLETIC, or CLEVER?
+Choice ATHLETIC leads to 010gainEntryPhysicalResponse.
+Choice CLEVER leads to 009gainEntryVariableSet.
+
+State: 010gainEntryPhysicalResponse
+Recording: 010gainEntryPhysicalResponse. Background: back_citypark.
+(ATHLETIC - Climb the building)
+Delphi: Perfect, I have just the thing for this climb. A grappling hook.
+(CLANK)
+Delphi: It clips to your belt. (CLICK) Right, like that.
+Director Matthews: (SIGH) I'm going over to yell at Phelps. Page me if you need anything.
+Delphi: Good luck, Agent.
+Raises Activeness by one.
+Sets inventory.m1e3_roseGadget to 0.
+Sets event.m1e3_entry to 1.
+Then goes to 013transitionToEntry.
+
+State: 009gainEntryVariableSet
+Background: back_citypark.
+Lowers Activeness by one.
+Sets event.m1e3_entry to 0.
+Then goes to 010gainEntryIntellectualResponse.
+
+State: 013transitionToEntry
+Recording: 013transitionToEntry.
+(TRANSITION MUSIC)
+Then goes to 001climbSplitter.
+
+State: 010gainEntryIntellectualResponse
+Recording: 010gainEntryIntellectualResponse. Background: back_citypark. Decision sound: decision_single.
+(CLEVER - Make friends)
+Delphi: Luckily, I came prepared.
+(RUMMAGING IN BAG)
+Delphi: Here is a pheromone-infused rose to help you, just in case. Bright red, so it is visually enticing as well.
+Miss Honeybourne: There's no need to accept this if you feel your CHARISMA is adequate. Will you require the pheromone infused rose? YES or NO?
+Choice YES leads to 011roseYes.
+Choice NO leads to 011roseNo.
+
+State: 001climbSplitter
+If event.m1e3_entry==1, goes to 002AclimbTowers; otherwise to 002BbumpIntoMark.
+
+State: 011roseYes
+Background: back_citypark.
+Sets inventory.m1e3_roseGadget to 1.
+Then goes to 012roseResponse.
+
+State: 011roseNo
+Background: back_citypark.
+Sets inventory.m1e3_roseGadget to 0.
+Then goes to 012roseResponse.
+
+State: 002AclimbTowers
+Recording: 002AclimbTowers. Background: back_wind. Decision sound: decision_single.
+Alexander: When you're ready to shoot the grappling hook, let me know by saying CONTINUE.
+Sets event.m1e3_sex to 0.
+Choice CONTINUE leads to 003AclimbingDecision.
+
+State: 002BbumpIntoMark
+Recording: 002BbumpIntoMark. Background: back_lobby_m1e3. Decision sound: decision_single.
+Scene: WATERFRONT TOWERS - LOBBY
+Miss Honeybourne: From your current position in the lobby, you'll have a perfect trajectory to 'accidentally' collide with your mark in three seconds. Get ready to MOVE. Three...two...one...MOVE!
+Sets event.m1e3_defeatGuards to 0.
+Choice MOVE leads to 003BbumpIntoMarkSplitter.
+
+State: 012roseResponse
+Recording: 012roseResponse. Background: back_citypark.
+Delphi: Very well. That's everything for now. (ZIPS BAG) Good luck, Agent.
+Then goes to 013transitionToEntry.
+
+State: 003AclimbingDecision
+Recording: 003AclimbingDecision. Background: back_wind. Decision sound: decision_single.
+Alexander: Good shot, Agent! You hooked the roof on the first try.
+(ROPE CREAKS, WIND, MOVEMENT)
+Alexander: Attention Agent, if you climb this trajectory you could be spotted by the tenants on the thirteenth floor. To be FOCUSED, cast the grappling hook again for a different trajectory. But if you think can get by with being IMPULSIVE, you should just go for it and save time. Which will you choose, Agent, FOCUSED or IMPULSIVE?
+Choice FOCUSED leads to 004AconventionalClimbingDecision.
+Choice IMPULSIVE leads to 004AimpulsiveClimbingDecision.
+
+State: 003BbumpIntoMarkSplitter
+Background: back_lobby_m1e3.
+If romance.m1_maleInterest==1, goes to 004BM_bumpIntoSethResponse; otherwise to 004BF_bumpIntoSerenaResponse.
+
+State: 004AconventionalClimbingDecision
+Recording: 004AconventionalClimbingDecision. Background: back_wind. Decision sound: decision_single.
+(FOCUSED - Cast the hook)
+Alexander: Very sensible, Agent. Go ahead, cast the grappling hook again.
+(SWISH, CLANK)
+Alexander: Wonderful. With that trajectory, you have a clear shot to the top - you should get up there as fast as you can. When you're ready, CLIMB.
+Raises Predictability by one.
+Choice CLIMB leads to 005AclimbingInterlude.
+
+State: 004AimpulsiveClimbingDecision
+Recording: 004AimpulsiveClimbingDecision. Background: back_wind. Decision sound: decision_single.
+(IMPULSIVE - Keep going)
+Alexander: Good plan, Agent. Many missions have been lost through hesitation. Get up there as fast as you can! When you're ready, CLIMB.
+Lowers Predictability by one.
+Choice CLIMB leads to 005AclimbingInterlude.
+
+State: 004BM_bumpIntoSethResponse
+Recording: 004BM_bumpIntoSethResponse. Background: back_lobby_m1e3.
+(FOOTSTEPS, KEYS JINGLE)
+(COLLIDE, ITEMS FALL, GLASS BREAKS)
+Seth: Ow! Oh great, dinner won't be cooked with olive oil tonight. Was, was that me?
+Then goes to 005BbumpBlamePrompt.
+
+State: 004BF_bumpIntoSerenaResponse
+Recording: 004BF_bumpIntoSerenaResponse. Background: back_lobby_m1e3.
+(FOOTSTEPS, KEYS JINGLE)
+(COLLIDE, ITEMS FALL, GLASS BREAKS)
+Serena: Oh great! Dinner won't be cooked with olive oil tonight. Was, was that me?
+Then goes to 005BbumpBlamePrompt.
+
+State: 005AclimbingInterlude
+Recording: 005AclimbingInterlude.
+(TRANSITION MUSIC)
+Then goes to 006AclimbingReachedTop.
+
+State: 005BbumpBlamePrompt
+Recording: 005BbumpBlamePrompt. Background: back_lobby_m1e3. Decision sound: decision_single.
+Miss Honeybourne: Well calculated, Agent. The fault is unclear. Be CHARISMATIC and apologize for the incident, or act HOSTILE and blame your mark. CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 006BbumpBlameCharismaticSplitter.
+Choice HOSTILE leads to 006BbumpBlameHostileSplitter.
+
+State: 006AclimbingReachedTop
+Recording: 006AclimbingReachedTop. Decision sound: decision_single.
+(WIND WHIPPING)
+Scene: WATERFRONT TOWERS- ROOFTOP
+Alexander: All right, Agent, you can slow down as you reach the top.
+(ROPE CREAKS)
+Alexander: My readings indicate two guards on the roof. To make out what they're saying, use the audio enhancer Delphi gave you. Turn the dial RIGHT.
+Choice RIGHT leads to 007AclimbingEavesdropGuards.
+
+State: 006BbumpBlameCharismaticSplitter
+Background: back_lobby_m1e3.
+Raises Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 007BM_bumpCharismaticSethResponse; otherwise to 007BF_bumpCharismaticSerenaResponse.
+
+State: 006BbumpBlameHostileSplitter
+Background: back_lobby_m1e3.
+Lowers Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 007BM_bumpHostileSethResponse; otherwise to 007BF_bumpHostileSerenaResponse.
+
+State: 007AclimbingEavesdropGuards
+Background: back_roof.
+If romance.m1_maleInterest==1, goes to 008AM_fishtankTalk; otherwise to 008AF_fishtankTalk.
+
+State: 007BM_bumpCharismaticSethResponse
+Recording: 007BM_bumpCharismaticSethResponse. Background: back_lobby_m1e3.
+(CHARISMATIC - Apologize)
+Seth: It's okay, apology accepted. And thank you for the help with this mess.
+(BAG CRINKLES, GLASS SHIFTS)
+Seth: Well, I think the olive oil is a lost cause... how about you buy me a drink to make up for it?
+Then goes to 008BcharismaticAcceptDrinkFromMark.
+
+State: 007BF_bumpCharismaticSerenaResponse
+Recording: 007BF_bumpCharismaticSerenaResponse. Background: back_lobby_m1e3.
+(CHARISMATIC - Apologize)
+Serena: It's okay, apology accepted. And thank you for the help with this mess.
+(BAG CRINKLES, GLASS SHIFTS)
+Serena: Well, the olive oil is a lost cause... how about you buy me a drink to make up for it?
+Then goes to 008BcharismaticAcceptDrinkFromMark.
+
+State: 007BM_bumpHostileSethResponse
+Recording: 007BM_bumpHostileSethResponse. Background: back_lobby_m1e3.
+(HOSTILE - Blame Seth)
+Seth: Ugh, I'm so sorry. I can't believe I didn't see you--oh, and the sauce got all over you--I'm really sorry. Why, why don't we go to the Waterfront Bar up on 13th? We can get some soda water and...and I could buy you a drink to make up for this. I'm Seth.
+Then goes to 008BhostileAcceptDrinkFromMark.
+
+State: 007BF_bumpHostileSerenaResponse
+Recording: 007BF_bumpHostileSerenaResponse. Background: back_lobby_m1e3.
+(HOSTILE - Blame Serena)
+Serena: Ugh, I'm so sorry. I can't believe I didn't see you--oh, and the sauce got all over you--I'm really sorry. Why,why don't we go up to the Waterfront Bar up on the 13th floor? We can get some soda water and...and I could buy you a drink to make up for it. I'm Serena.
+Then goes to 008BhostileAcceptDrinkFromMark.
+
+State: 008AM_fishtankTalk
+Recording: 008AM_fishtankTalk. Background: back_roof.
+(HIGH FAINT TONES AS AUDIO ENHANCER POWERS UP)
+(BURST OF STATIC)
+Guard 1: ...yeah, but at least it's quiet tonight.
+Guard 2: Boring, yes sir.
+Guard 1: Yeah, well, enjoy it while it lasts, kid. Mr. Seth likes the high life - flashy parties, all kinds of drunk people half-drowning themselves in this here pool. Or if you're really lucky, trying to off themselves in the fishtank. (CHUCKLES)
+Guard 2: Off themselves, sir? In the fishtank?
+Guard 1: Oh, ain't you taken a good look at it yet? Thanks to Neptune, he's got the biggest tank in the state besides the aquarium. All kinds of crazy stuff in it from all over the place. Hey, don't never, EVER put your hand in. Not even if George dares you. That's what got the guy you replaced.
+Then goes to 009AfishTankWarnings.
+
+State: 008AF_fishtankTalk
+Recording: 008AF_fishtankTalk. Background: back_roof.
+(HIGH FAINT TONES AS AUDIO ENHANCER POWERS UP)
+(BURST OF STATIC)
+Guard 1: ...yeah, but at least it's quiet tonight.
+Guard 2: Boring, yes sir.
+Guard 1: Yeah, well, enjoy it while it lasts, kid. Miss Serena likes the high life - flashy parties, all kinds of drunk people half-drowning themselves in this here pool. Or if you're really lucky, trying to off themselves in the fishtank. (CHUCKLES)
+Guard 2: Off themselves, sir? In the fishtank?
+Guard 1: Oh, ain't you taken a good look at it yet? Thanks to Neptune, she's got the biggest tank in the state besides the aquarium. All kinds of crazy stuff in it from all over the place. Hey, don't never, EVER put your hand in. Not even if George dares you. That's what got the guy you replaced.
+Then goes to 009AfishTankWarnings.
+
+State: 008BcharismaticAcceptDrinkFromMark
+Recording: 008BcharismaticAcceptDrinkFromMark. Background: back_lobby_m1e3. Decision sound: decision_single.
+Miss Honeybourne: Wonderful, Agent! When you're ready, accept with a YES.
+Choice YES leads to 009BgainEntrySeduction.
+
+State: 008BhostileAcceptDrinkFromMark
+Recording: 008BhostileAcceptDrinkFromMark. Background: back_lobby_m1e3. Decision sound: decision_single.
+Miss Honeybourne: Nice tactic, Agent! You're in. When you're ready, accept with a HELLO.
+Choice HELLO leads to 009BgainEntrySeduction.
+
+State: 009AfishTankWarnings
+Recording: 009AfishTankWarnings. Background: back_roof.
+Guard 2: But, I thought he quit.
+Guard 1: (LAUGHS) Oh, no, you're a hoot, kid. Nah. He was done in by the orange one with the beady little eyes and the sharp teeth. And I hear it's hungry for more.
+Guard 2: Understood, sir. Can we... can we not talk about those... things?
+Guard 1: Uh, you got it, kid. But if you're afraid of sea creatures, maybe TRIDENT's not for you.
+Then goes to 010AdealWithGuardsPrompt.
+
+State: 009BgainEntrySeduction
+Recording: 009BgainEntrySeduction. Background: back_bar_m1e3.
+(TRANSITION MUSIC)
+Scene: WATERFRONT TOWER - BAR ON 13TH FLOOR
+(CORK POPS, WINE POURS, GLASSES CLINK)
+If romance.m1_maleInterest==1, goes to 010BM_sayYes; otherwise to 010BF_sayYes.
+
+State: 010AdealWithGuardsPrompt
+Recording: 010AdealWithGuardsPrompt. Background: back_roof. Decision sound: decision_single.
+Alexander: Wonderful, the guards are facing away. You can be SECRETIVE and sneak past them. Or you can be BOLD and neutralize them now so they're out of the picture. What will it be, SECRETIVE or BOLD?
+Choice SECRETIVE leads to 011AslipPastGuardsResponse.
+Choice BOLD leads to 011AdefeatGuardsResponse.
+
+State: 010BM_sayYes
+Recording: 010BM_sayYes. Background: back_bar_m1e3. Decision sound: decision_single.
+Seth: My lover's not even here half the time. We have an interesting arrangement. He gives me full rein of the penthouse and I... stick around. I have to be cautious, but I do have friends. Like you. We can be friends, can't we?
+Honeybourne: I believe the operative word here is YES.
+Choice YES leads to 011BM_kissMark.
+
+State: 010BF_sayYes
+Recording: 010BF_sayYes. Background: back_bar_m1e3. Decision sound: decision_single.
+Serena: You know, my lover's not even here half the time. We have an interesting arrangement. He gives me full rein of the penthouse and I... stick around. I have to be cautious, but I do have friends. Like you. We can be friends, can't we?
+Miss Honeybourne: I believe the operative word here is YES.
+Choice YES leads to 011BF_kissMark.
+
+State: 011AslipPastGuardsResponse
+Recording: 011AslipPastGuardsResponse. Background: back_roof. Decision sound: decision_single.
+(SECRETIVE - Sneak past guards)
+Alexander: You slipped by like the wind - they never noticed a thing. The grate to the duct work is just to your right. If the blueprints are correct, you can ease it off and crawl in to get around. When you're ready, just OPEN it.
+Sets event.m1e3_defeatGuards to 0.
+Lowers Openness by one.
+Choice OPEN leads to 019crawlingThroughDucts.
+
+State: 011AdefeatGuardsResponse
+Recording: 011AdefeatGuardsResponse. Background: back_roof. Decision sound: decision_single.
+(BOLD - Neutralize guards)
+(THUMP)
+Guard 2: Hey, what are you -
+(HIT, FALL)
+Alexander: Nice work, Agent. They won't bother you now. Head for the duct work to your right, where the grate is. If the blueprints are correct, you can ease it off and crawl in to get around. When you're ready, just OPEN it.
+Sets event.m1e3_defeatGuards to 1.
+Raises Openness by one.
+Choice OPEN leads to 019crawlingThroughDucts.
+
+State: 011BM_kissMark
+Recording: 011BM_kissMark. Background: back_bar_m1e3. Decision sound: decision_single.
+Seth: Unfortunately, he's in town now or I'd invite you up to see the famous fish tank. It spans all three floors of the penthouse, but what do you expect from someone who goes by "Neptune." And you have to be careful around it. Some of the creatures in that thing are dangerous. I throw these little get-togethers, and one time... Well, let's just say that everyone calls him lefty now. Oh, if only I had the place to myself tonight... the things I could show you.
+Miss Honeybourne: I think this is the moment you've been waiting for, Agent. It's time for a KISS.
+Choice KISS leads to 012BM_markInvitesUpstairs.
+
+State: 011BF_kissMark
+Recording: 011BF_kissMark. Background: back_bar_m1e3. Decision sound: decision_single.
+Serena: He's in town right now or I'd invite you up to see the famous fish tank. Spans all three floors of the penthouse, but what do you expect from someone who goes by "Neptune." And you have to be careful around it. Some of the creatures in that thing are dangerous. I throw these get-togethers, and one time... Well, let's just say that everyone calls him lefty now. Oh, if only I had the place to myself tonight. The things I could show you...
+Miss Honeybourne: I think this is the moment you've been waiting for, Agent. It's time for a KISS.
+Choice KISS leads to 012BF_markInvitesUpstairs.
+
+State: 019crawlingThroughDucts
+Recording: 019crawlingThroughDucts. Background: back_duct.
+Scene: WATERFRONT TOWERS - NEPTUNE'S LAIR - VENTS
+(METAL CREAKS)
+Alexander: Okay, up ahead the duct work comes to a T. When you reach the junction, turn LEFT.
+Choice LEFT leads to 020listenInDucts.
+
+State: 012BM_markInvitesUpstairs
+Recording: 012BM_markInvitesUpstairs. Background: back_bar_m1e3.
+(KISS)
+Seth: This is- This is too much, isn't it? I think, if we're careful... the penthouse is three full floors. But we can't get caught. He's... capable of things. Things that most men aren't. Freaks me out a little. But we'll stay around the second kitchen. He and his guards never go near there when he works. Come with me, if you're feeling adventurous...
+Then goes to 013BgetBusyPrompt.
+
+State: 012BF_markInvitesUpstairs
+Recording: 012BF_markInvitesUpstairs. Background: back_bar_m1e3.
+(KISS)
+Serena: Oh, This is- This is too much, isn't it? I think, if we're careful... But we can't get caught. He's... capable of things. Things that most men aren't. It frightens me sometimes. But we'll stay around the second kitchen. He and his guards never go near there when he works. Come with me, if you're feeling adventurous...
+Then goes to 013BgetBusyPrompt.
+
+State: 020listenInDucts
+Recording: 020listenInDucts. Background: back_duct.
+(WATER RUSHES THROUGH PIPES)
+Alexander: You're passing by Neptune's master bath now.
+(WATER BUBBLING)
+Alexander: And that must be the three-story tank.
+If romance.m1_maleInterest==1, goes to 021M_femaleSharkTeeth; otherwise to 021F_maleSharkTeeth.
+
+State: 013BgetBusyPrompt
+Recording: 013BgetBusyPrompt. Decision sound: decision_single.
+(FOOTESTPS, ELEVATOR OPENS AND CLOSES. KEYPAD BEEPS, ELEVATOR MOVES)
+Miss Honeybourne: And you're in! The FOCUSED choice would be to sneak off straightaway and do your best to evade the guards. However, if you're feeling IMPULSIVE you can 'satisfy' the mark and conduct your search at a later hour. FOCUSED or IMPULSIVE?
+Choice FOCUSED leads to 014BnoSexSplitter.
+Choice IMPULSIVE leads to 014ByesSexSplitter.
+
+State: 021M_femaleSharkTeeth
+Recording: 021M_femaleSharkTeeth. Background: back_duct.
+(SCREECHING, GRINDING)
+Alexander: That can only be The Shark. I think she's sharpening her teeth.
+Then goes to 022listenToNeptune.
+
+State: 021F_maleSharkTeeth
+Recording: 021F_maleSharkTeeth. Background: back_duct.
+(SCREECHING, GRINDING)
+Alexander: That can only be The Shark. I think he's sharpening his teeth.
+Then goes to 022listenToNeptune.
+
+State: 014BnoSexSplitter
+Background: back_apt.
+Sets event.m1e3_sex to 0.
+Raises Predictability by one.
+If romance.m1_maleInterest==1, goes to 015BM_noSexResponse; otherwise to 015BF_noSexResponse.
+
+State: 014ByesSexSplitter
+Background: back_apt.
+Sets event.m1e3_sex to 1.
+Raises Predictability by one.
+If romance.m1_maleInterest==1, goes to 015BM_yesSexResponse; otherwise to 015BF_yesSexResponse.
+
+State: 022listenToNeptune
+Recording: 022listentoNeptune. Background: back_duct. Decision sound: decision_single.
+(INDISTINCT VOICES)
+Alexander: I think that's Neptune! To hear what he's saying, use the audio enhancer Delphi gave you. Turn the dial RIGHT.
+Choice RIGHT leads to 023listenToNeptune2.
+
+State: 015BM_noSexResponse
+Recording: 015BM_noSexResponse. Background: back_apt.
+(ELEVATOR DOOR OPENS)
+Seth: If you'll just pardon me for a moment, I'll make sure that the coast is clear.
+(FOOTSTEPS FADE AWAY)
+Then goes to 016BnoSexIntoDuct.
+
+State: 015BF_noSexResponse
+Recording: 015BF_noSexResponse. Background: back_apt.
+(ELEVATOR DOOR OPENS)
+Serena: If you'll just pardon me for a moment, I'll make sure that the coast is clear.
+(FOOTSTEPS FADE AWAY)
+Then goes to 016BnoSexIntoDuct.
+
+State: 015BM_yesSexResponse
+Recording: 015BM_yesSexResponse. Background: back_apt.
+Seth: I've seen that look before. I think we can skip that drink. Here, follow me.
+Then goes to achievement_seduceNeptunesLover.
+
+State: 015BF_yesSexResponse
+Recording: 015BF_yesSexResponse. Background: back_apt.
+Serena: I've seen that look before. I think we can skip that drink. Here, follow me.
+Then goes to achievement_seduceNeptunesLover.
+
+State: 023listenToNeptune2
+Recording: 023listentoNeptune2. Background: back_apt.
+(HIGH FAINT TONES AS AUDIO ENHANCER POWERS UP)
+(BURST OF STATIC)
+Neptune: I take offense... I take great offense. No... You will listen to me. It will be morning in Geneva in less than two hours. At that time, a vote will be called on resolution 64-905. France has threatened to veto this resolution and leave the planet's oceans unprotected. I find this... unacceptable. As the leader of TRIDENT, I say to you now that if this resolution does not stand, your embassy will not stand either. And that is my final word.
+(CELL PHONE BEEPS)
+If romance.m1_maleInterest==1, goes to 024M_neptuneCallsFemaleShark; otherwise to 024F_neptuneCallsMaleShark.
+
+State: 016BnoSexIntoDuct
+Recording: 016BnoSexIntoDuct. Background: back_apt. Decision sound: decision_single.
+Miss Honeybourne: Now that you're alone, slip into the duct work at the vent to your left. Yes, right there. Assuming the blueprints are correct, you can open it and crawl in to make your way around. When you're ready, just OPEN it.
+Choice OPEN leads to 018transferToAlex.
+
+State: achievement_seduceNeptunesLover
+Background: back_apt.
+Earns the achievement m1e3_sex_1.
+Then goes to 016yesSexInterlude.
+
+State: 024M_neptuneCallsFemaleShark
+Recording: 024M_neptuneCallsFemaleShark. Background: back_apt. Decision sound: decision_single.
+(INTERCOM CLICKS)
+Neptune: Tell the Shark that I require--
+(DOOR OPENS)
+The Shark: Right here, boss. Are they folding?
+Neptune: They will. We must be patient
+(VOICES START BREAKING UP)
+The Shark: Is it time for you to give me the code?
+Neptune: Yes. Come this way.
+Alexander: They're moving out of range! Quick, Agent, use the audio enhancer. Turn the dial further RIGHT.
+Choice RIGHT leads to 025M_femaleSharkEnters.
+
+State: 024F_neptuneCallsMaleShark
+Recording: 024F_neptuneCallsMaleShark. Background: back_apt. Decision sound: decision_single.
+(INTERCOM CLICK)
+Neptune: Tell the Shark that I require his presence.
+(CLICK)
+(DOOR OPENS)
+The Shark: Right here, boss. Are they folding?
+Neptune: They will. We must be patient
+(VOICES START BREAKING UP)
+The Shark: Is it time for you to give me the code?
+Neptune: Yes. Come this way.
+Alexander: They're moving out of range! Quick, Agent, use the audio enhancer. Turn the dial further RIGHT.
+Choice RIGHT leads to 025F_maleSharkEnters.
+
+State: 018transferToAlex
+Recording: 018transfertoAlex. Decision sound: decision_single.
+Scene: WATERFRONT TOWERS - NEPTUNE'S LAIR - VENTS
+(GRATE SCRAPES, AC NOISE, METAL CREAKS)
+Alexander: Great work with the agent, Honeybourne. I'll take it from here.
+Miss Honeybourne: Thank you, Alex. Be sure to mention me to Director Matthews. In the report, I mean, of course.
+Alexander: Sure. I'll see what I can do.
+Miss Honeybourne: Good luck, Agent.
+Alexander: When you reach the junction, Agent, turn LEFT.
+Choice LEFT leads to 020listenInDucts.
+
+State: 016yesSexInterlude
+Recording: 016yesSexInterlude.
+(RACY MUSIC)
+Then goes to 017yesSexIntoDuct.
+
+State: 025M_femaleSharkEnters
+Recording: 025M_femaleSharkEnters. Background: back_apt.
+Neptune: I have decided on a classic approach. Twenty three, twenty two--
+The Shark: What's wrong, boss?
+Neptune: Hush! It seems we have an uninvited guest.
+Alexander: Don't panic, Agent.
+Neptune: There, on the security camera feed. That foolish little artist! You said he hadn't tailed you.
+The Shark: I didn't think he had!
+Neptune: We need to end this ridiculous charade now. Come with me.
+(DOOR CLOSES)
+Then goes to 026M_noteAboutNick.
+
+State: 025F_maleSharkEnters
+Recording: 025F_maleSharkEnters. Background: back_apt.
+Neptune: I have decided on a classic approach. Twenty three, twenty two--
+The Shark: What's wrong, boss?
+Neptune: Hush! It seems we have an uninvited guest.
+Alexander: Don't panic, Agent.
+Neptune: There, on the security camera feed. That foolish little artist! You said she hadn't tailed you.
+The Shark: I didn't think she had!
+Neptune: We need to end this ridiculous charade now. Come with me.
+(DOOR CLOSES)
+Then goes to 026F_noteAboutNica.
+
+State: 017yesSexIntoDuct
+Recording: 017yesSexIntoDuct. Decision sound: decision_single.
+Scene: WATERFRONT TOWERS- NEPTUNE'S LAIR
+Miss Honeybourne: Well done, Agent. If you arise very quietly you won't wake the mark.
+(SHEETS RUSTLE)
+Miss Honeybourne: Next, enter the bathroom - just to your right. You'll need to enter the duct work. Assuming the blueprints are correct, you can open it and crawl in to make your way around. When you're ready, just OPEN it.
+Choice OPEN leads to 018transferToAlex.
+
+State: 026M_noteAboutNick
+Recording: 026M_noteAboutNick. Background: back_apt.
+Alexander: It appears their guard caught that Nick fellow. You can't help him now, Agent, but you can still learn the rest of the code.
+Then goes to 027enterStudy.
+
+State: 026F_noteAboutNica
+Recording: 026F_noteAboutNica. Background: back_apt.
+Alexander: It appears their guard caught Panonica. You can't help her now, Agent, but you can still learn the rest of the code.
+Then goes to 027enterStudy.
+
+State: 027enterStudy
+Recording: 027enterStudy. Background: back_apt. Decision sound: decision_single.
+Alexander: Neptune said "twenty three, twenty two," but I'm sure there's more to it. You can use this opportunity to slip into Neptune's study and look for clues. There's a vent to your right. Open it, and JUMP.
+Choice JUMP leads to m1e2a2p2_fix.
+
+State: m1e2a2p2_fix
+Background: back_apt.
+Then goes to 028searchStudyPrompt.
+
+State: 028searchStudyPrompt
+Recording: 028searchStudyPrompt. Background: back_apt. Decision sound: decision_single.
+Scene: NEPTUNE'S LAIR - STUDY
+(LAND, SCRAPE VENT)
+Alexander: Great work, Agent, you're in. To search for clues, be CLEVER and examine Neptune's computer, or you can be ATHLETIC and search the room. ATHLETIC or CLEVER?
+Choice CLEVER leads to 029intellectualSearchStudyResponse.
+Choice ATHLETIC leads to 029physicalSearchStudyResponse.
+
+State: 029intellectualSearchStudyResponse
+Recording: 029intellectualSearchStudyResponse. Background: back_apt.
+(KEYBOARD CLACKING)
+Alexander: His browser history... That's smart, Agent! Let's see if anything jumps out.
+Alex: Book cipher.. He was searching for information on book ciphers! Well done, Agent. Matthews, we need you to patch in!
+Lowers Activeness by one.
+Then goes to 030bookCypherInfo.
+
+State: 029physicalSearchStudyResponse
+Recording: 029physicalSearchStudy. Background: back_apt.
+(DRAWERS OPEN AND CLOSE, PAPERS RUSTLE)
+Alexander: Good choice, Agent. There's no substitute for searching through physical traces. Rub some pencil over that blotter to see what he was writing.
+(PENCIL SCRIBBLES)
+Alexander: Transposition... Caesar shift... monoalphabetic... book cipher! They're all types of codes, and they're all crossed out except book cipher! Matthews, you need to patch in.
+Raises Activeness by one.
+Then goes to 030bookCypherInfo.
+
+State: 030bookCypherInfo
+Recording: 030bookCypherInfo. Background: back_apt.
+Director Matthews: Ah, the classic book cipher. Did your training even cover those, Agent? It works like this. You and your contact have a copy of the same book, and then you send messages with two numbers - the first number is the page or the chapter and the second number is the word.
+Alexander: Neptune said twenty-three, twenty-two... but what book?
+If romance.m1_maleInterest==1, goes to 031M_bookCypherMemory; otherwise to 031F_bookCypherMemory.
+
+State: 031M_bookCypherMemory
+Recording: 031M_bookCypherMemory.
+(FLASHBACK MUSIC)
+Nick: Neptune doesn't like parties or art openings much. He'd rather stay home. Probably there now reading 20,000 Leagues Under the Sea.
+(FLASHBACK MUSIC ENDS)
+(DOOR OPENS)
+Alexander: Quick, Agent, turn around--
+(THUMP)
+The Shark: Boss is gonna love this...
+Alexander: ...Agent!.... are you there?
+Then goes to m1e3_a2p2joiner.
+
+State: 031F_bookCypherMemory
+Recording: 031F_bookCypherMemory.
+(FLASHBACK MUSIC)
+Nica: Neptune doesn't like parties or art openings much. He'd rather stay home. Probably there now reading 20,000 Leagues Under the Sea.
+(FLASHBACK MUSIC ENDS)
+(DOOR OPENS)
+Alexander: Quick, Agent, turn around--
+(THUMP)
+The Shark: Boss is gonna love this...
+Alexander: ...Agent!.... are you there?
+Then goes to m1e3_a2p2joiner.
+
+State: m1e3_a2p2joiner
+Then goes to 001theFishtankSpeech.
+
+State: 001theFishtankSpeech
+Recording: 001theFishtankSpeech. Background: back_tank.
+(WATER LAPPING, METAL CREAKS)
+Scene: WATERFRONT TOWERS - FISH TANK
+Neptune: The Oceanic Whitetipped Shark is often blamed for unprovoked attacks against humans. Ah, but why? Certainly, it is aggressive by nature. Yet, when we examine the animal kingdom, isn't aggression, in fact, a defining quality of that which we call nature? I think Darwin said it best. "Nothing is easier than to admit in words the truth of the universal struggle for life, or more difficult-- at least I have found it so --than constantly to bear this conclusion in mind." He was the greatest observer of nature. I believe that if we were to examine every attack of the Whitetipped Shark we would find human provocation in each and every instance. What would you do? How would you react? Fishermen poking at you. Hunting you.
+(OMINOUS MUSIC)
+Neptune: Their puny spears reaching out, piercing your skin. Their nets trying to grab at you and choke you. If they wanted your skin and bones, what then? Who would answer your cries for justice? No one. That is not TRIDENT'S way. We like to turn the tides.
+(SPLASH, CHAINS RATTLES)
+Neptune: There is no point in attempting to escape. That crane is quite strong enough to hold your weight. Trust me. I have done this before...
+(SERVO RUNS, CHAIN MOVEMENT)
+Neptune: See? Very easy to lower you down so that you can get a closer look at my friends and companions. What's wrong? Don't you want a closer look?
+Then goes to 002bargainWithNeptune.
+
+State: 002bargainWithNeptune
+Recording: 002bargainWithNeptune. Background: back_tank. Decision sound: decision_single.
+Miss Honeybourne: I'm with you, Agent. Alex is dashing for reinforcements now. All you need to do is bargain for time. You could be CHARISMATIC with some sympathy for sea creatures, or you could demand to know in a HOSTILE manner precisely what he thinks he's doing. CHARISMATIC or HOSTILE?
+Choice CHARISMATIC leads to 003charismaticBargainWithNeptuneSplit.
+Choice HOSTILE leads to 003hostileBargainWithNeptuneSplit.
+
+State: 003charismaticBargainWithNeptuneSplit
+Background: back_tank.
+Raises Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 004M_failedNeptuneBargain; otherwise to 004F_failedNeptuneBargain.
+
+State: 003hostileBargainWithNeptuneSplit
+Background: back_tank.
+Lowers Diplomacy by one.
+If romance.m1_maleInterest==1, goes to 004M_failedNeptuneBargain; otherwise to 004F_failedNeptuneBargain.
+
+State: 004M_failedNeptuneBargain
+Recording: 004M_failedNeptuneBargain. Background: back_tank.
+Neptune: Ha! Oh, that was an admirable attempt. A much better play for time than that annoying little boy Nick. Oh how the boys and girls love to play spy games. As we speak, he is traveling with The Shark on the way to the embassy. And if the diplomats need a demonstration of our willingness to get our hands dirty...
+Then goes to 005sharkTankCliffhanger.
+
+State: 004F_failedNeptuneBargain
+Recording: 004F_failedNeptuneBargain. Background: back_tank.
+Neptune: Ha! Oh, that was an admirable attempt. A much better play for time than that annoying little girl Panonica. Oh how the boys and girls love to play spy games. As we speak, she is traveling with The Shark on the way to the embassy. And if the diplomats need a demonstration of our willingness to get our hands dirty...
+Then goes to 005sharkTankCliffhanger.
+
+State: 005sharkTankCliffhanger
+Recording: 005sharkTankCliffhanger.
+Neptune: But you, Agent - to you I pay a compliment. You I consider far too dangerous to keep alive. You must now go to sleep with my fishes. Night-night, Agent...
+(SERVO RUNS, CHAINS MOVE, WATER RISES OVER HEAD)
+Miss Honeybourne: Agent! Agent, can you answer?
+Then goes to m1e3_conclusionMusic.
+
+State: m1e3_conclusionMusic
+Recording: m1e3_conclusionMusic.
+(CONCLUDING MUSIC)
+Sets completion.m1e3_neptunesLair to 2.
+Then goes to m1e3_end.
+
+State: m1e3_end
+End of the episode.
+
+When the episode is finished, the game says:
+You have the book cipher that can stop the bomb, but how will you escape from Neptune in order stop the plan and save the hostages in time? Find out what happens next in the Consulate or listen to a Preview in the Episodes Menu.
+
+Preview of the next episode, played after this one.
+
+State: m1e4_teaser
+Recording: m1e4_teaser.
+Then goes to m1e3_end.
+
+Credits
+VOICE ACTORS
+Neptune: Logan Cunningham
+Director Matthews: Brian Moyer
+Panonica: Jennifer Bean
+Nick M.: Emery Westlake
+Alexander: Matthew Finn
+Agent Delphi: Rachel Baum
+Craig: Kristopher Moreau
+Callie: Khadeja Merenkov
+Miss Honeybourne: Sarah Elmaleh
+Serena: Eleza Kort Moyer
+Seth: Jacob Sommer
+Guard 1: Ian Hamilton
+Guard 2: David McHorney
+The Shark: Bridget O'Flynn
+Eric Hunn
+ADDITIONAL VOICES
+Marleigh Norton: Greg Nugent
+Chelsea Spear: Jason Wiser
+PRODUCTION
+Story: Jonathon Myers &
+Heather Albano
+Lead Writing: Heather Albano
+Add'l Writing: Jonathon Myers
+Sound: Shannon Daly
+Music: Xiao'an Li
+Text Editing: Christian Erali
