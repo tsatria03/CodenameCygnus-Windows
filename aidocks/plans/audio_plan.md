@@ -35,7 +35,12 @@ The 10 files in `other/misc/` no state names (`00000Push`, `1930Radio A` to `D`,
 - **The decision sound loops until the player chooses** (the dev, 2026-10-17, from playing the original: "It deffenatly looped. The user was able to tap/speak there choice."). It stops when a choice is made or a timed choice runs out.
 - **The decision sound starts once the question's recording has finished, and the background keeps playing under it** (the dev, 2026-10-17: "It played after the recording asked you the question, then the backround ambience would play along with the decision loop sound. Same with holiday party."). So while a choice waits, two layers play: the background and the decision loop. Holiday Party's timed choices work the same way.
 
+- **Background changes crossfade over about a second.** The dev did not remember whether the original cut off or faded (2026-10-17: "I don't remember if it fully stopped it"), so this is the port's own choice, made so that a scene change sounds deliberate rather than abrupt:
+  - a state with the same background lets it carry on untouched
+  - a state with a different background fades the old one out as the new one fades in
+  - a state with a voice but no background fades the background out
+  - a state that plays nothing at all, such as one that only sets story flags, leaves the background running
+
 ## Open questions
 
-- What happens to the background when the next state lists none, or a different one: stop, fade or cut over.
 - The volume keys: one overall volume, or separate ones for voice, background and decision.
