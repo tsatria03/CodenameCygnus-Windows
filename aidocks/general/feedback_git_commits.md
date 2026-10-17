@@ -8,7 +8,7 @@ metadata:
 
 **"Commit" means commit only; "commit/push" means commit and push.** Commits pile up locally by default, because the dev tests batches before pushing. A push waits for the dev to say "push" or "commit/push".
 
-**Commit without asking; ask before pushing** (the dev, 2026-10-17: "For commits, you don't have to ask me if I want it done. You can always commit, but still ask if I want it pushed"). When a change is done, commit it straight away. Never push until the dev says "push" or "commit/push"; after committing, say how many commits are waiting and ask whether to push.
+**Commit without asking; ask before pushing** (the dev, 2026-10-17: "For commits, you don't have to ask me if I want it done. You can always commit, but still ask if I want it pushed"). When a change is done, commit it straight away. Never push until the dev says "push" or "commit/push"; after committing, ask whether to push. Say how many commits are waiting only once there are 10 or more unpushed (the dev, 2026-10-17: "if it reaches grater than or equal to 10, you can count them"); below 10, leave the count out.
 
 **Make multiple commits when possible** (the dev, 2026-10-17: "Make multiple commits when possible"). When the dev asks to commit a batch of work, split it into one commit per logical change rather than one large commit.
 
