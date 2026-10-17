@@ -42,10 +42,10 @@ Agreed on 2026-10-17 (the dev: "I completely agree with that"):
 - **It is remembered for good,** in the save, across every replay and restart of an episode ([[saves_plan]]). Replaying to try other choices is how the game is played, and every episode's opening is the same each time, so forgetting would make S useless exactly when it helps most.
 - **On a recording not heard yet, S says "Not heard yet" and does nothing**, so a stray press never skips new story, which a listener cannot glance back at.
 - **Debug mode's own skip never counts a recording as heard**, so testing a branch does not mark story the dev never listened to.
+- **S skips across every heard recording in a row to the next choice** (the dev, 2026-10-17: "I like the skip across option"), following the automatic transitions as play would. If it reaches a recording not heard yet, it stops there and plays it from the start. Every state passed on the way still does what it does, setting traits and story flags and taking its conditions, so skipping never changes how the story turns out.
 
 ## Open questions
 
-- Whether S passes over several automatic states in a row to the next choice, or only the current recording.
 - Which of the two automatic transitions `3_AAB008transition_m1e7` takes.
 - How the script is used: whether the scene headings and the `#a,b#` pacing marks matter to a screen reader player.
 - The debug keys.
