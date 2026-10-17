@@ -15,6 +15,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Finished
 
+- The original's final story, missions and resources are exported as checked JSON in `game/data/text/` by `tools/export_story.py` (2026-10-17).
 - The ambiences and decision sounds are out of the repository and its history, on GitHub too, kept under the gitignored `game/data/audio/missions/`; only the eight menu sounds remain (2026-10-17).
 - The whole story is written as plain text in `analysis/script/`, one file per episode, by `tools/script_text.py` (2026-10-17).
 - The voiced episode previews are out of the repository and its history, ignored in `game/data/audio/other/teasers/` (2026-10-17).

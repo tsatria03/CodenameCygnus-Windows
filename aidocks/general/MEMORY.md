@@ -7,12 +7,10 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Windows only](project_windows_only.md): the port is strictly for Windows; the build and release scripts, when adapted, drop the GitHub workflow, its CI steps, and Linux and macOS.
 - [Developer tasks](project_dev_tasks.md): the repository, tool, test, build and docs tasks, open and finished, kept out of the players' todo list.
 - [Python only](project_python_only.md): the port is written entirely in Python, in `codenamecygnus/`, with pygame and Prism; the recordings are played as MP3 through pygame, converted from .m4a by the dev; no OpenAL.
-- [Speech recognition](project_speech_recognition.md): the port keeps spoken choices behind an on/off setting, as the original's voice button did; the keyboard always works; recogniser and defaults still to plan.
+- [Speech recognition](project_speech_recognition.md): the port keeps spoken choices behind an on/off setting, as the original's voice button did; the keyboard always works; the details are in the speech recognition plan.
 - [Story data source](project_story_data_source.md): the v53 story graph in the sqlite DB is authoritative, not the bundled v1 JSON; the port starts from scratch with no save import.
 
 ## Plans (aidocks/plans/, planned or being built)
-- [Story export plan](../plans/story_export_plan.md): plan 1 of 8. A standard-library tool decodes the DB's story v53, missions v18 and resources v11 once into missions.json, resources.json and states.json in game/data/text/, reading a copy of the DB and checking the result first; built 2026-10-17 as tools/export_story.py, not yet confirmed.
-
 - [Foundation plan](../plans/foundation_plan.md): plan 2 of 8. The name Codename Cygnus (CodenameCygnus.py, CodenameCygnus.exe, %APPDATA%\CodenameCygnus), the package layout, speech, timers, settings files, logs and the screen loop adapted from user/, a debug mode with a Settings row, window text, five command-line options and the interruption rules; planned, ready to build.
 - [Audio plan](../plans/audio_plan.md): plan 3 of 8. Voice streamed through pygame.mixer.music (seekable), background and decision sounds as Sound objects; the background carries on between states and cuts hard on a change or when a state has none, as the original's code does; the decision loop starts after the question and loops until a choice; files found by story name; three volumes (Shift+Home/End master, Page Up/Down ambience, Shift+Page Up/Down decision); planned, ready to build.
 - [Story engine plan](../plans/story_engine_plan.md): plan 4 of 8. Playing the story graph; the episode keys are agreed (arrows, Enter and 1 to 9 for choices, Space, R, Left/Right, S to skip across heard recordings, H for the scene heading, V, Escape), debug keys F2 to F4, the van escape fix and 16 local achievements; planned, ready to build.
@@ -22,7 +20,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Build and release plan](../plans/build_release_plan.md): plan 8 of 8. compiler.py builds CodenameCygnus.exe with PyInstaller, releaser.py versions, zips, tags and uploads from the dev's machine; Windows only, no workflow; the recordings ship separately as an AES-encrypted m1.dat on a fixed mission-1 release, which the game downloads into %APPDATA%\CodenameCygnus\missions; the compiler's nine-choice menu and the releaser's nine-row menu; planned, ready to build.
 
 ## Completed projects (aidocks/plans/, marked finished)
-- None yet.
+- [Story export plan](../plans/story_export_plan.md): FINISHED 2026-10-17, confirmed by the dev. tools/export_story.py decodes the DB's story v53, missions v18 and resources v11 from a copy of the DB, fixes the van escape bug, checks every episode, link, condition and recording, and writes missions.json, resources.json and states.json in game/data/text/; --check writes nothing. The readable script in analysis/script/ was finished the same day.
 
 ## Feedback: how the dev wants you to work
 - [Memory in aidocks](feedback_memory_in_aidocks.md): all memory goes in aidocks/, plans in plans/, everything else in general/, with this index; CLAUDE.md is a lean dispatcher under 40,000 characters.
