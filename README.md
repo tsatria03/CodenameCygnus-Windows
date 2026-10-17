@@ -66,19 +66,47 @@ The port will need 64-bit Python 3.12 or newer on Windows 10 or later, and two p
 `vendor/nvda/nvdaControllerClient64.dll` ships with the repository, so NVDA speaks through
 its own client.
 
+## Running it
+
+From the repository's folder:
+
+    python CodenameCygnus.py
+
+For now it opens on a stand-in main menu, Settings and Quit, which speaks through your
+screen reader; the story itself does not play yet. F1 opens the key bindings from anywhere.
+
+- `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
+  row turns it on for good.
+- `--episode ID` and `--state NAME`: start an episode, or in debug mode any story state.
+  They wait for the story engine.
+- `-v`: a more detailed log.
+- `--exit-after SECONDS`: quit by itself.
+
+Every run writes `logs\log.txt` in `%APPDATA%\CodenameCygnus`, keeping the run before as
+`log.old.txt`. An error that stops the game writes `logs\crash.txt` and is spoken.
+
+## Tests
+
+    python tests\suite.py
+
+runs every test in `tests\case`, several at once, writing the results to `tests\results`.
+Any one file runs on its own too, such as `python tests\case\keymap.py`. The tests never
+speak, never play a sound, never open a window, and never touch your save.
+
 ## Layout
 
 ```
 game/                    the original app bundle (see below)
 vendor/nvda/             NVDA's controller client, with its license
-codenamecygnus/          the port's Python package (still to be written)
+CodenameCygnus.py        the entry script
+codenamecygnus/          the port's Python package
 docks/                   readme.txt, changelog.txt and todo list.txt, for players
 aidocks/general/         the notes for AI-assisted work (see CLAUDE.md)
 aidocks/plans/           every plan for a feature or fix, planned or finished
 analysis/                notes and data read out of the original app
 tools/                   the tools that read the original's data
 tests/case/              the tests, one plain script each
-tests/interact/          tools to check the game by ear
+tests/suite.py           runs them all
 requirements.txt         the two packages it needs
 VERSION                  the version, as year, month, day and that day's number
 ```

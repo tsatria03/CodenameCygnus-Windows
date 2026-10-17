@@ -1,12 +1,22 @@
 ---
 name: foundation_plan
-description: "Plan 2 of 8: the codenamecygnus package, the CodenameCygnus.py entry script and screen loop, save-folder paths, logging and crash files, screen reader speech and the timer loop, with a debug mode, five command-line options and the speech interruption rules. Status: planned, ready to build."
+description: "Plan 2 of 8: the codenamecygnus package, the CodenameCygnus.py entry script and screen loop, save-folder paths, logging and crash files, screen reader speech and the timer loop, with a debug mode, five command-line options and the speech interruption rules. Status: built, not yet confirmed."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, ready to build.** Every question is answered; nothing is built.
+**Status: built, not yet confirmed by the dev.** Built 2026-10-17 (the dev: "Yes"). Until [[menus_plan]] is built, the game opens on a small stand-in main menu, Settings and Quit (`codenamecygnus/game/stand_in_menu.py`), so its speech, keys and window can be tried by ear; the menus plan replaces it. `--episode` and `--state` are read but wait for [[story_engine_plan]]; until then the log says they are ignored.
+
+**What was built:**
+- `CodenameCygnus.py`: the options, `logs/log.txt` and `log.old.txt`, and `logs/crash.txt` with the error spoken.
+- `codenamecygnus/paths.py`: the game's data, the NVDA client, and the save folder, `%APPDATA%\CodenameCygnus` or `CYGNUS_USER_DIR`.
+- `codenamecygnus/app.py`: the 60-frame main loop, keys to the top screen, F1 from anywhere with the timers held, focus loss passed to the top screen, and the window's text.
+- `codenamecygnus/platform/`: `speech.py` (NVDA, then Prism, then a Windows voice; `CYGNUS_SILENT` for tests), `runloop.py` (`after`, `every`, `hold`, `resume`, `remaining`), `files.py` (the safe JSON file), `settings.py` (`config/settings.json`, every setting written from the first start, bad values put back) and `keymap.py` (the agreed keys, a binding being one key with exact modifiers, `config/keys.json`).
+- `codenamecygnus/ui/`: `screens.py` (the screen stack), `menu.py` (the spoken menu), `keybind_screen.py` (F1) and `settings_screen.py` (the Debug mode row, source runs only).
+- `tests/case/`: 59 tests in 8 files, all passing on 2026-10-17, each importing `_quiet.py` first; `tests/suite.py` runs them all, writing `tests/results/` (gitignored).
+- **The key map is simpler than the reference material's:** this game has no held-key chords, only modifiers, so a key fires the moment it is pressed, with no wait to tell a chord apart.
+- **Master volume:** Shift+Home raises it and Shift+End lowers it, Home being the upper of the two keys.
 
 Plan 2 of 8 ([[story_export_plan]] lists the order). Everything else stands on this: [[audio_plan]], [[story_engine_plan]], [[menus_plan]], [[saves_plan]] and [[speech_recognition_plan]] all use its paths, speech, timers and screen loop.
 

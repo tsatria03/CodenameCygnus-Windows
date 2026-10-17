@@ -13,17 +13,18 @@ A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.
 - **Python only**, in the `codenamecygnus/` package, with pygame and Prism ([[project_python_only]]).
 - **Developer tasks**, open and finished, are in [[project_dev_tasks]].
 - **The game is data-driven.** Each episode is a graph of states (voice, background and decision audio, a script) joined by manual choices, automatic transitions, conditions and timed choices. The story is built from the v53 graph in the app's database, not the bundled v1 JSON, and every player starts from scratch ([[project_story_data_source]]).
-- **Status:** studied and laid out; no game code yet.
+- **Status:** the story is exported and the foundation is built; the story itself does not play yet.
 
 ## Layout
 
 - **`game/`**: the original app bundle, never written to. `game/data/text/` holds the three bundled descriptors (missions, resources, states v1), and beside them the game's own `missions.json`, `resources.json` and `states.json`, the final data exported by `tools/export_story.py` ([[story_export_plan]]); the game reads only those. `game/CodenameCygnus.sqlite` with its `-wal` holds the story v53. `game/data/audio/missions/m1/` holds `episodes/e1` to `e8` (the 756 voice recordings), `sources/` (the 52 backgrounds and decision sounds) and `teasers/` (the six previews, `m1e2.mp3` to `m1e7.mp3`). All of `missions/` is gitignored, since even some ambiences carry voices. `game/data/audio/others/menu/` holds the eight interface sounds and is the only audio in git. Every recording is MP3, converted by the dev from the original AAC `.m4a`; the story data still says `.m4a` ([[project_python_only]]). Don't move, rename, convert or delete sound files unless the dev asks.
-- **`codenamecygnus/`**: the port's Python package, still empty.
+- **`CodenameCygnus.py`**: the entry script, with the options, the logs and the crash file.
+- **`codenamecygnus/`**: the port's Python package ([[foundation_plan]]): `paths.py`, `app.py` (the main loop), `platform/` (speech, timers, safe JSON files, settings, the key map), `ui/` (the screen stack, the spoken menu, the F1 screen, Settings) and `game/` (so far only the stand-in main menu).
+- **`tests/case/`**: plain test scripts, each importing `_quiet.py` first, which keeps it silent and off the real save. `tests/suite.py` runs them all, into the gitignored `tests/results/`. Run only the files covering what changed, in the background; the full suite only when the dev asks ([[feedback_dont_run_or_build]]).
 - **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license.
 - **`docks/`**: the documents a player reads: `readme.txt`, `changelog.txt` and `todo list.txt` ([[feedback_changelog]], [[feedback_todo_list_format]]).
 - **`analysis/`**: data exported from the original for reference. `analysis/script/` holds the whole story as plain text, one file per episode, written by `tools/script_text.py`; search a file for a state's name to follow a choice.
 - **`tools/`**: scripts for reading the original, described in `tools/README.md`. `macho64.py` reads the arm64 slice of `game/Cygnus` (not encrypted) and `dis64.py` disassembles its methods with capstone, naming selectors. `cygnus_db.py` reads the story v53, episodes v18 and resources v11 from a temporary copy of the database, `export_story.py` writes the game's JSON after checking it, and `script_text.py` writes the readable script. Plans cite the original's code by those virtual addresses.
-- **`tests/case/`** and **`tests/interact/`**: the tests, and the tools played by ear. Empty so far.
 - **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games kept in it, in any of this repo's files ([[feedback_no_other_games]]).
 - **`New File*.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
 
