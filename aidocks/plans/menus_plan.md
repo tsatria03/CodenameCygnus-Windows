@@ -43,10 +43,14 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   5. **Credits:** Reactive Studios' company credits, as on the original's Info screen, and a line for the port. Each episode's own credits play at the end of that episode, as in the original.
   6. **Quit** closes the game, as Escape on the main menu does.
 
+- **The opening follows the original, kept short** (the dev, 2026-10-17: "I agree"):
+  1. As the game starts, the screen reader says "Codename Cygnus" and one of the original's eight loading messages, picked at random, while the game loads: "Counting Stars...", "Reticulating Splines...", "Almost There...", "Folding Papers...", "Adjusting Mainframe...", "Baking Bagels...", "Measuring Squares..." or "Calculating Distance..." (all from `en.lproj/Localizable.strings`).
+  2. The first time only, the headphones notice: "Headphones recommended. The acoustic experience of Codename Cygnus is best with the use of a high quality headset." Enter continues, and the game remembers it has been shown, as the original's `kHeadphonesKey` did ([[saves_plan]]).
+  3. Then the main menu.
+
 ## Open questions
 
 - The episode list's exact rows and wording.
-- The opening: the loading messages, and the headphones screen.
 - The agent name: whether players set one, and what it is for.
 - How the trait scales and the dominant trait are spoken.
 - The end-of-episode screen and the preview.
