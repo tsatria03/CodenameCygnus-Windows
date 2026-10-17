@@ -1,0 +1,44 @@
+---
+name: story_export_plan
+description: "Plan 1 of 8: a tool that decodes the newest story (v53), mission (v18) and resource (v11) data from the original's database once, and writes plain JSON for the game to read. Status: planned, questions open."
+metadata:
+  node_type: memory
+  type: project
+---
+
+**Status: planned, questions open.** Nothing is built.
+
+This is the first of eight plans, written before any porting starts (the dev, 2026-10-17: "Let's write some plans first, and I'll answer any questions you may have before we start the actual porting process"). The order:
+1. story export (this plan)
+2. foundation
+3. audio
+4. story engine
+5. menus and screens
+6. saves
+7. speech recognition
+8. Windows build and release
+
+## Goal
+
+The game reads the original's final data, not the older files bundled with the app ([[project_story_data_source]]). The database is an iOS Core Data store, and the story is an `NSKeyedArchiver` plist inside it. So a tool decodes it once and writes plain JSON. The game itself never opens the database.
+
+## Sources, all in `game/CodenameCygnus.sqlite` with its `-wal` file
+
+- **Story, v53:** `ZCCGAMEDATA.ZSTATESJSON`, an `NSKeyedArchiver` binary plist. Decoded on 2026-10-17 with `plistlib`, resolving `UID` references: 967 states and 1089 transitions.
+- **Missions, v18:** `ZCCMISSION`, `ZCCEPISODE`, `ZCCEPISODELOCK` and `ZCCCREDIT`. The company credits are the `ZCCCREDIT` rows with no episode.
+- **Resources, v11:** `ZCCRESOURCECOLLECTION` and `ZCCRESOURCE`.
+
+## Decided
+
+- **Holiday Party is open from the start** (the dev, 2026-10-17: "Yes. It should be open."), as the v18 data says.
+- **The tool lives in `tools/` and needs only the standard library:** `sqlite3`, `plistlib` and `json`.
+- **It reads a copy of the database, never the original.** SQLite can fold the `-wal` file into the main file when a connection closes, which would change `game/`. So the tool copies the three files to a temporary folder first and opens the copy.
+- **It cleans up the types the archive left as strings:** numbers such as a timeout's `"7"` and a variable's `"-1"` become numbers, and `render` becomes `true` or `false`.
+- **The JSON keeps the bundled files' own key names and shape**, so a reader of the old files can read the new ones.
+- **The game reads no progress or saves from the database** ([[project_story_data_source]]).
+
+## Open questions
+
+- Where the JSON goes and what it is called, and whether the bundled v1 files stay.
+- Whether a copy also goes in `analysis/` for reading.
+- Whether the tool also checks the result: every episode reaching its end, and every recording on disk under its MP3 name.

@@ -10,6 +10,9 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Speech recognition](project_speech_recognition.md): the port keeps spoken choices behind an on/off setting, as the original's voice button did; the keyboard always works; recogniser and defaults still to plan.
 - [Story data source](project_story_data_source.md): the v53 story graph in the sqlite DB is authoritative, not the bundled v1 JSON; the port starts from scratch with no save import.
 
+## Plans (aidocks/plans/, planned or being built)
+- [Story export plan](../plans/story_export_plan.md): plan 1 of 8. A standard-library tool decodes the DB's story v53, missions v18 and resources v11 once into plain JSON, reading a copy of the DB; planned, questions open.
+
 ## Completed projects (aidocks/plans/, marked finished)
 - None yet.
 
