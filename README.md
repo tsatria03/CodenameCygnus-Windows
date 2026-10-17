@@ -98,8 +98,11 @@ included. The port will never write to it.
 - `game/data/audio/other/` holds 66 shared recordings: the background sounds, the decision
   sounds and the episode previews.
 - `game/data/audio/missions/` holds the 756 recordings of the episodes themselves, one
-  folder per episode and part. **They are not in the repository**, being around 200 MB of
+  folder per episode and part. **They are not in the repository**, being over 400 MB of
   the original's voice acting. They belong in that folder on your own machine.
+- Every recording is MP3, converted from the original's AAC `.m4a` files so pygame can play
+  them. The story data still names them `.m4a`; the port will find each one by the same name
+  with `.mp3` in its place.
 - `game/AcousticModelEnglish.bundle` is the speech recognition model the original used to
   hear spoken choices. The port does not use it.
 
