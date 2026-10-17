@@ -14,7 +14,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 
 ## Feedback: how the dev wants you to work
 - [Memory in aidocks](feedback_memory_in_aidocks.md): all memory goes in aidocks/, plans in plans/, everything else in general/, with this index; CLAUDE.md is a lean dispatcher under 40,000 characters.
-- [Git commits and pushes](feedback_git_commits.md): one commit per fix, split into multiple commits when possible; commit without asking, but ask before pushing; add, commit and fetch run without approval. "Commit" means commit only, "commit/push" means both. Force pushes and history rewrites need an explicit go-ahead. Use `git commit -F` with a message file, from PowerShell, and never hide git's errors.
+- [Git commits and pushes](feedback_git_commits.md): one commit per fix, split into multiple commits when possible; commit without asking; bring up pushing only at 10 or more unpushed commits, with the count; add, commit and fetch run without approval. "Commit" means commit only, "commit/push" means both. Force pushes and history rewrites need an explicit go-ahead. Use `git commit -F` with a message file, from PowerShell, and never hide git's errors.
 - [GitHub usernames, not real names](feedback_use_github_usernames.md): name people by GitHub username (tsatria03) in commits and committed notes.
 - [No other games](feedback_no_other_games.md): never name the dev's other game from user/ in this repo's files, even when adapting from it.
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told; ask before running the game or anything that speaks or plays sound; tests must be silent and off the real save.
