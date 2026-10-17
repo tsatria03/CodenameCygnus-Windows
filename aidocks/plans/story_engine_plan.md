@@ -33,7 +33,10 @@ Agreed on 2026-10-17 (the dev: "I like all of it"). They follow the original's g
 - **F1** opens the key bindings screen.
 - **Shift with Home and End** set the master volume, **Page Up and Page Down** the ambience, and **Shift with Page Up and Page Down** the decision loop ([[audio_plan]]).
 
-**In debug mode only** ([[foundation_plan]]): skip the current recording whether heard or not, jump to any state by name, and hear the trait scores and story flags. Their keys are still to be chosen.
+**In debug mode only** ([[foundation_plan]]), on function keys so they never clash with the story keys (the dev, 2026-10-17: "I agree with the function keys"):
+- **F2** skips the current recording, heard or not, and never marks it as heard.
+- **F3** jumps to any state: type part of its name and press Enter, and pick from a short spoken list when several match. The names are the ones in `analysis/script/`, so a state found there can be jumped to at once.
+- **F4** says the current state's name, the four trait scores and every story flag that is set.
 
 ## What "heard before" means for S
 
@@ -65,4 +68,4 @@ Each state's `script` is the text of what its recording says, in three kinds of 
 
 ## Open questions
 
-- The debug keys.
+- What happens at the 23 states that earn an achievement, now that there is no Game Center.
