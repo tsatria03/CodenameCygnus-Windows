@@ -98,8 +98,8 @@ included. The port will never write to it.
   will never read progress or saves from it: every player starts from scratch.
 - `game/data/audio/other/misc/` holds 60 shared recordings: the background sounds, the
   decision sounds and the interface sounds.
-- `game/data/audio/other/teasers/` holds the six voiced episode previews, `e2.mp3` to
-  `e7.mp3`.
+- `game/data/audio/other/teasers/` holds the six voiced episode previews, `m1e2.mp3` to
+  `m1e7.mp3`.
 - `game/data/audio/missions/` holds the 756 recordings of the episodes themselves, one
   folder per episode and part.
 - **The previews and the episode recordings are not in the repository**, being the
