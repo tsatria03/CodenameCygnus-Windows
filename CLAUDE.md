@@ -21,8 +21,8 @@ A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.
 - **`codenamecygnus/`**: the port's Python package, still empty.
 - **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license.
 - **`docks/`**: the documents a player reads: `readme.txt`, `changelog.txt` and `todo list.txt` ([[feedback_changelog]], [[feedback_todo_list_format]]).
-- **`analysis/`**: data exported from the original for reference. Empty so far.
-- **`tools/`**: scripts for reading the original, described in `tools/README.md`. `macho64.py` reads the arm64 slice of `game/Cygnus` (not encrypted) and `dis64.py` disassembles its methods with capstone, naming selectors. Plans cite the original's code by those virtual addresses.
+- **`analysis/`**: data exported from the original for reference. `analysis/script/` holds the whole story as plain text, one file per episode, written by `tools/script_text.py`; search a file for a state's name to follow a choice.
+- **`tools/`**: scripts for reading the original, described in `tools/README.md`. `macho64.py` reads the arm64 slice of `game/Cygnus` (not encrypted) and `dis64.py` disassembles its methods with capstone, naming selectors. `cygnus_db.py` reads the story v53 and episodes v18 from a temporary copy of the database, and `script_text.py` writes the readable script. Plans cite the original's code by those virtual addresses.
 - **`tests/case/`** and **`tests/interact/`**: the tests, and the tools played by ear. Empty so far.
 - **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games kept in it, in any of this repo's files ([[feedback_no_other_games]]).
 - **`New File*.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.

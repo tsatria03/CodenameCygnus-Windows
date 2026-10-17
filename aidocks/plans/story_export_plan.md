@@ -54,7 +54,7 @@ The game reads the original's final data, not the older files bundled with the a
 
 ## The readable script
 
-Added 2026-10-17 (the dev: "Yes please. I'd love to see how the entire story was written"), and built ahead of the rest, since it is a tool and not part of the game:
+Added 2026-10-17 (the dev: "Yes please. I'd love to see how the entire story was written"), and built ahead of the rest, since it is a tool and not part of the game. **Built 2026-10-17, not yet confirmed by the dev:** eight files, all 967 states placed, no pacing marks left, and the database unchanged after reading it.
 - **`tools/script_text.py` writes the whole story as plain text into `analysis/script/`,** one file per episode, such as `m1e2 Art Show.txt`, for reading the story and for checking the port against it.
 - **It reads the v53 story and the v18 episodes through `tools/cygnus_db.py`,** which decodes the database from a temporary copy. The export tool will use the same module.
 - **Each file starts with the episode's title and description, then gives every state once**, in the order play reaches them from the episode's start. Each state block is headed by its name, so any choice can be followed by searching for the name it leads to.
