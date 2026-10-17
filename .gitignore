@@ -7,6 +7,9 @@ New File*.txt
 #downloaded episodes
 game/data/audio/missions/
 
+#voiced episode previews
+game/data/audio/other/teasers/
+
 # What PyInstaller leaves behind
 build/
 dist/
