@@ -50,10 +50,19 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
 
 - **No agent name** (the dev, 2026-10-17: "What's the point of customizing the name? I recommend keeping it as agent"). The original's name belonged to the player's online account, checked by its server ("Please try again with different name"), and the story never uses it: the recordings always say "Agent". So the profile has no name row, and the player is simply "Agent".
 
+- **Traits and the dominant trait, read from the original** (the `Extensions` category's `dominantTrait`, 0x1000337cc, and `dominantValue`, 0x100033c0c, and `traitsFromProfile:accessible:`):
+  - Each trait is one number in the save's variables (`Openness`, `Predictability`, `Diplomacy`, `Activeness`). A choice word at one end raises it, its opposite lowers it.
+  - The dominant trait is the one furthest from 0 either way. Above 0 it is named by the high end (Bold, Focused, Charismatic, Athletic), below 0 by the low end (Secretive, Impulsive, Hostile, Clever). With every trait at 0 it was "none".
+  - On a tie it kept whichever it met first in an unordered dictionary, so ties came out arbitrarily.
+  - The scales were sliders placed relative to the dominant trait's strength, and their VoiceOver text was only the trait and its number, such as "Openness: 2", which does not say which way it leans.
+- **The port speaks them clearly** (the dev, 2026-10-17: "I like what you recommend. I want it announced clearly"):
+  - "Dominant trait: Charismatic." Before any choice moves a trait, "Dominant trait: none yet."
+  - A tie goes to the first in the original's own order, Openness, Predictability, Diplomacy, Activeness, so it is the same every time.
+  - Each scale says which way it leans and how far, such as "Diplomacy: Charismatic, 3" or "Openness: Secretive, 2". At 0, "Activeness: balanced".
+
 ## Open questions
 
 - The episode list's exact rows and wording.
-- How the trait scales and the dominant trait are spoken.
 - The end-of-episode screen and the preview.
 - The pause menu's rows.
 - Whether the menus use the original's interface sounds in `other/misc/`.
