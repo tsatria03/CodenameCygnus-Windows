@@ -13,6 +13,8 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 ## Plans (aidocks/plans/, planned or being built)
 - [Story export plan](../plans/story_export_plan.md): plan 1 of 8. A standard-library tool decodes the DB's story v53, missions v18 and resources v11 once into missions.json, resources.json and states.json in game/data/text/, reading a copy of the DB and checking the result first; planned, ready to build.
 
+- [Foundation plan](../plans/foundation_plan.md): plan 2 of 8. The name Codename Cygnus (CodenameCygnus.py, CodenameCygnus.exe, %APPDATA%\CodenameCygnus), the package layout, and speech, timers, settings files, logs and the screen loop adapted from user/; planned, questions open.
+
 ## Completed projects (aidocks/plans/, marked finished)
 - None yet.
 
