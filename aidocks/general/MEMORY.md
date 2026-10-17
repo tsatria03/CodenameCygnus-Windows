@@ -18,6 +18,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Story engine plan](../plans/story_engine_plan.md): plan 4 of 8. Playing the story graph; the episode keys are agreed (arrows, Enter and 1 to 9 for choices, Space, R, Left/Right, S to skip across heard recordings, H for the scene heading, V, Escape), debug keys F2 to F4, the van escape fix and 16 local achievements; planned, ready to build.
 - [Menus plan](../plans/menus_plan.md): plan 5 of 8. The original's screens read from the binary (opening, side menu, episode list, agent profile with four trait scales, end of episode, info); main menu of six rows, the opening, no agent name, traits spoken clearly, end-of-episode and pause menus, episode list with descriptions behind Enter, interface sounds; Store and Downloads left out; planned, ready to build.
 - [Saves plan](../plans/saves_plan.md): plan 6 of 8. Story variables carry between episodes (Signum Cygni checks choices from every earlier one); progress, heard recordings, achievements, settings and keys in short files in %APPDATA%\CodenameCygnus; Restart locks later episodes again behind the original's warning; saved on every new state; planned, ready to build.
+- [Speech recognition plan](../plans/speech_recognition_plan.md): plan 7 of 8. Spoken choices behind a setting, listening only while a choice waits and only for its words; nothing recorded; planned, questions open.
 
 ## Completed projects (aidocks/plans/, marked finished)
 - None yet.
