@@ -1,12 +1,12 @@
 ---
 name: saves_plan
-description: "Plan 6 of 8: what the game remembers and where: progress per episode with the story variables carried between episodes, the place to continue from, heard recordings, achievements, settings and keys, all in %APPDATA%\\CodenameCygnus. Status: planned, questions open."
+description: "Plan 6 of 8: what the game remembers and where: progress per episode with the story variables carried between episodes, the place to continue from, heard recordings, achievements, settings and keys, all in %APPDATA%\\CodenameCygnus, with the original's restart warning and a save on every new state. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built.
+**Status: planned, ready to build.** Every question is answered; nothing is built.
 
 Plan 6 of 8 ([[story_export_plan]] lists the order). Every player starts from scratch; nothing is read from the original's database ([[project_story_data_source]]).
 
@@ -43,6 +43,8 @@ The four traits also run through the whole mission. Holiday Party uses none of t
   - Heard recordings, achievements and settings are kept: they belong to the player, not to one playthrough.
   - Holiday Party is never affected by restarting another episode, since it uses none of their variables.
 
+- **The place to continue from is saved periodically, by itself** (the dev, 2026-10-17: "I want it saving periodicly"): every time the story moves to a new state, which is about every 15 seconds in play (the median recording), and again on Return to menu and on closing the game. A crash or a power cut loses at most the recording the player was in. A fixed timer would save nothing more useful, since Continue always goes back to the start of a recording. The files are small and written safely, so saving this often costs nothing noticeable.
+
 ## Open questions
 
-- When the place to continue from is saved: on every new state, or only on leaving.
+None. Ready to build once the dev says so.
