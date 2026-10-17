@@ -9,7 +9,8 @@ the story goes.
 
 The original was played by voice: you spoke your choice aloud, and the game listened. This
 port is being built for the keyboard and for screen readers, so the whole game can be
-played without sight.
+played without sight. Speaking your choices will stay possible too, behind a setting that
+turns speech recognition on or off.
 
 **Headphones are recommended.** The original says so itself, as it starts: "The acoustic
 experience of Codename Cygnus is best with the use of a high quality headset."
@@ -108,7 +109,7 @@ included. The port will never write to it.
   them. The story data still names them `.m4a`; the port will find each one by the same name
   with `.mp3` in its place.
 - `game/AcousticModelEnglish.bundle` is the speech recognition model the original used to
-  hear spoken choices. The port does not use it.
+  hear spoken choices.
 
 ## Version numbers
 

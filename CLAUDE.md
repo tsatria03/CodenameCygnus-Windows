@@ -6,7 +6,7 @@ This file guides Claude Code when it works in this repository. **It is a lean di
 
 ## What this is
 
-A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.2, Reactive Studios), an iOS interactive radio drama no longer on the App Store. Each episode is a voiced spy story, and the player's choices shape their agent's personality and the story. The original took choices by voice; the port is for the keyboard and screen readers.
+A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.2, Reactive Studios), an iOS interactive radio drama no longer on the App Store. Each episode is a voiced spy story, and the player's choices shape their agent's personality and the story. The original took choices by voice; the port is for the keyboard and screen readers, and keeps spoken choices behind an on/off setting ([[project_speech_recognition]]).
 
 - **A solo project.** tsatria03 makes it alone, with no contributors, until the dev says otherwise ([[project_solo]]).
 - **Windows only.** No Linux or macOS, and no GitHub Actions release workflow ([[project_windows_only]]).
