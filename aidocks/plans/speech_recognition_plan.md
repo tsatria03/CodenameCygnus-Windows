@@ -19,10 +19,16 @@ Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and 
 - **Nothing is ever recorded or kept,** and nothing leaves the computer.
 - **The recogniser is PocketSphinx** (the dev, 2026-10-17: "I don't want open dictation, so I think the first one will do"), the `pocketsphinx` package from pip, with the English model it ships. It is the same family as the original's OpenEars, works offline and adds no large download. Each time a choice waits, it is limited to that choice's words, never open dictation. If testing finds it too unreliable, only the recogniser would change (Vosk being the fallback), not the rest of the game. The package joins `requirements.txt` when this is built.
 
+- **It listens for 15 seconds a time** (the dev, 2026-10-17: "I like the 15 seconds"), using the original's own words for starting and stopping:
+  - When a choice comes up, the screen reader reads the choices, then says "Listening."
+  - After 15 seconds with nothing recognised, it says "No longer listening." The choice stays open, the decision loop keeps playing, and the keys still choose.
+  - C reads the choices again and listens for another 15 seconds.
+  - Speech heard but matching no choice gets "Sorry, I did not catch that", and listening carries on for the rest of the 15 seconds.
+  - Holiday Party's timed choices listen for their whole 7 seconds.
+
 ## Open questions
 
 - How the microphone is opened.
 - The setting's default.
-- What is spoken when listening starts and stops, and when no microphone is found.
-- How long it waits for the player to speak before it times out (the dev, 2026-10-17: "we need to discuss how long it should wait for the user to speak before timing out").
+- What is spoken when no microphone is found.
 - Keeping the story audio out of the microphone, on speakers rather than headphones.
