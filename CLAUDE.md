@@ -17,7 +17,7 @@ A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.
 
 ## Layout
 
-- **`game/`**: the original app bundle, never written to. `game/data/text/` holds the three bundled descriptors (missions, resources, states v1). `game/CodenameCygnus.sqlite` with its `-wal` holds the story v53. `game/data/audio/other/` holds 66 shared recordings, and `game/data/audio/missions/` the 756 episode recordings, which are gitignored and were removed from history on 2026-10-17. Every recording is MP3, converted by the dev from the original AAC `.m4a`; the story data still says `.m4a` ([[project_python_only]]). Don't move, rename, convert or delete sound files unless the dev asks.
+- **`game/`**: the original app bundle, never written to. `game/data/text/` holds the three bundled descriptors (missions, resources, states v1). `game/CodenameCygnus.sqlite` with its `-wal` holds the story v53. `game/data/audio/other/misc/` holds 60 shared recordings (ambiences, decision and interface sounds). `game/data/audio/other/teasers/` holds the six voiced previews as `e2.mp3` to `e7.mp3`, and `game/data/audio/missions/` the 756 episode recordings. Both voiced folders are gitignored, and the missions were removed from history on 2026-10-17. Every recording is MP3, converted by the dev from the original AAC `.m4a`; the story data still says `.m4a` ([[project_python_only]]). Don't move, rename, convert or delete sound files unless the dev asks.
 - **`codenamecygnus/`**: the port's Python package, still empty.
 - **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license.
 - **`docks/`**: the documents a player reads: `readme.txt`, `changelog.txt` and `todo list.txt` ([[feedback_changelog]], [[feedback_todo_list_format]]).
