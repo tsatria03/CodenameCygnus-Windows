@@ -1,12 +1,12 @@
 ---
 name: foundation_plan
-description: "Plan 2 of 8: the codenamecygnus package, the CodenameCygnus.py entry script and screen loop, save-folder paths, logging and crash files, screen reader speech and the timer loop. Status: planned, questions open."
+description: "Plan 2 of 8: the codenamecygnus package, the CodenameCygnus.py entry script and screen loop, save-folder paths, logging and crash files, screen reader speech and the timer loop, with a debug mode, five command-line options and the speech interruption rules. Status: planned, ready to build."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, questions open.** Nothing is built.
+**Status: planned, ready to build.** Every question is answered; nothing is built.
 
 Plan 2 of 8 ([[story_export_plan]] lists the order). Everything else stands on this: [[audio_plan]], [[story_engine_plan]], [[menus_plan]], [[saves_plan]] and [[speech_recognition_plan]] all use its paths, speech, timers and screen loop.
 
@@ -37,8 +37,14 @@ Plan 2 of 8 ([[story_export_plan]] lists the order). Everything else stands on t
   - `--state NAME` starts at any story state, in debug mode only, to check one branch.
   - `-v` writes a more detailed log.
   - `--exit-after SECONDS` quits by itself after that many seconds, so the build test can start a built game silently and check it runs.
+- **What interrupts what** (the dev, 2026-10-17: "Yes, agreed with all of that"):
+  - Each move in a menu or through the choices cuts off what was being said, so fast arrowing never builds a backlog.
+  - Choices are read once, after the recording that asks the question has finished.
+  - A key the player presses, such as H, C or a volume change, speaks at once, cutting off earlier speech but never the story audio, which keeps playing underneath.
+  - Important messages, such as "Episode complete", an error or "No microphone found", are never cut off by background events, only by the player pressing a key.
+  - Speech never pauses the story. Only Space and Escape do.
 - **Tests stay silent and off the real save** ([[feedback_dont_run_or_build]]): environment variables point the save at a throwaway folder and turn speech off, and every test imports the module that sets them.
 
 ## Open questions
 
-- The speech interruption rules: what cuts off what.
+None. Ready to build once the dev says so.
