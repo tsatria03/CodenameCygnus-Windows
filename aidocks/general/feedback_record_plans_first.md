@@ -16,5 +16,5 @@ metadata:
 - A plan big enough to need questions answered gets a note before its first edit. A one-line fix does not need one.
 - If the plan changes while it is being built, update the note first, then the code.
 - Update the note as each part lands, and say which parts are built and which are waiting.
-- **Commit the plan first, on its own, and never push it until the whole thing is built and tested.** The code follows as a separate commit; then both are pushed together.
+- **Commit the plan first, on its own, and never push it until the whole thing is built and tested.** The code follows as a separate commit; then both are pushed together. The dev can choose otherwise: the first eight plans were pushed as soon as all of them were written (the dev, 2026-10-17: "Now that the plans are completely written, you can push").
 - A finished plan stays in `aidocks/plans/` as a record ([[feedback_completed_projects]]).
