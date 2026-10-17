@@ -54,7 +54,15 @@ Agreed on 2026-10-17 (the dev: "I completely agree with that"):
 - **The port fixes it** (the dev, 2026-10-17: "This bug needs to be fixed"): GRAB IT leads to the Matthews ending and HANG ON to the Alex ending, as the scenes and the writers' state names say. The fix is made in the data by [[story_export_plan]], so the engine needs no special case.
 - **The engine's rule stays the original's:** the first automatic exit wins. In the exported data the transitions keep the file's order, so "first" is always the same one.
 
+## The script
+
+Each state's `script` is the text of what its recording says, in three kinds of line: `SPEECH` with a character's name, `PARENTHETICAL` for sounds such as "(GUNSHOT)", and `HEADING` for a scene, such as "CONSULATE - BOMB ROOM" (63 in all).
+
+- **The screen reader does not read the dialogue,** since every line is voiced.
+- **Scene headings are spoken only when the player presses H** (the dev, 2026-10-17: "Only when you press H"). An automatic heading would talk over the scene's first words. H says the latest heading reached.
+- **The window shows the script as it plays**, headings included ([[foundation_plan]]).
+- **The `#a,b#` marks only pace the on-screen text.** `-[CCScrollingTextView presentScript:]` (0x1000280a8) splits each line at `#` and each mark at `,` into reveal steps it calls ticks, which `tick` (0x100028d1c) steps through as the recording plays. The second number is how long to wait before the next piece appears (`insertTicks:toArray:`, 0x100028c80, pads empty steps for the wait), and the first says whether to clear the text so far first (`tickClears`). Speech drops them, and the window may use them or show each line whole.
+
 ## Open questions
 
-- How the script is used: whether the scene headings and the `#a,b#` pacing marks matter to a screen reader player.
 - The debug keys.
