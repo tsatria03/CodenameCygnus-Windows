@@ -1,0 +1,911 @@
+{
+    "general": {
+        "version": 1
+    },
+    "missions": [{
+        "mission_id": 1,
+        "description": "Five premium episodes, 15-25 minutes each, including Neptune's Lair through Signum Cygni.",
+        "episodes": [{
+            "episode_id": "1.1.1",
+            "title": "Prologue",
+            "episode_lock": {
+                "is_locked": false
+            },
+            "description": "Extract yourself from the Krasnoff Mission.",
+            "completion_text": "Well done, agent! Are you ready to save the hostages in the first episode of Mission One? Find out what happens next in Art Show or listen to a Preview in the Episodes Menu under Prologue.",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Miss Honeybourne",
+                "credit": "Sarah Elmaleh"
+            }, {
+                "title": "Vassi M. Krasnoff",
+                "credit": "Chris Rando"
+            }, {
+                "title": "Armano Tomassi",
+                "credit": "Chris Ciulla"
+            }, {
+                "title": "Lisette Schafer",
+                "credit": "Laurie Fisher"
+            }, {
+                "title": "Dealer",
+                "credit": "Khadeja Merenkov"
+            }, {
+                "title": "Alexander",
+                "credit": "Matthew Finn"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story & Writing",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Additional Writing",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "",
+                "credit": ""
+            }],
+            "initial_state_name": "m1e1_start",
+            "end_state_name": "m1e1_end",
+            "preview_state_name": "m1e2_teaser",
+            "preview_episode_id": "1.2.1",
+            "resource_names": [
+                "1.1_other",
+                "1.1_prologue"
+            ]
+        }, {
+            "episode_id": "1.2.1",
+            "title": "Art Show",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.1.1"
+            },
+            "description": "Gain information on Neptune and the hostages.",
+            "completion_text": "You now know the location of Neptune and you're closer to rescuing the hostages, but how will you deal with the poison? Find out what happens next in Neptune's Lair or listen to a Preview in the Episodes Menu.",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Alexander",
+                "credit": "Matthew Finn"
+            }, {
+                "title": "Director Matthews",
+                "credit": "Brian Moyer"
+            }, {
+                "title": "The Shark",
+                "credit": "Bridget O'Flynn"
+            }, {
+                "title": "",
+                "credit": "Eric Hunn"
+            }, {
+                "title": "Panonica",
+                "credit": "Jennifer Bean"
+            }, {
+                "title": "Nick M.",
+                "credit": "Emery Westlake"
+            }, {
+                "title": "Armano Tomassi",
+                "credit": "Chris Ciulla"
+            }, {
+                "title": "Dance Partner",
+                "credit": "Anne Colpitts"
+            }, {
+                "title": "",
+                "credit": "Chris Rando"
+            }, {
+                "title": "Art Patron 1",
+                "credit": "Rachel Baum"
+            }, {
+                "title": "Art Patron 2",
+                "credit": "Chris Rando"
+            }, {
+                "title": "Wait-Staff",
+                "credit": "Emma Joyce"
+            }, {
+                "title": "Agent Delphi",
+                "credit": "Rachel Baum"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "ADDITIONAL VOICES"
+            }, {
+                "title": "Kristopher Moreau",
+                "credit": "Marleigh Norton"
+            }, {
+                "title": "Chelsea Spear",
+                "credit": "Jason Wiser"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story",
+                "credit": "Jonathon Myers &"
+            }, {
+                "title": "",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Lead Writing",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Add'l Writing",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "Text Editing",
+                "credit": "Christian Erali"
+            }, {
+                "title": "",
+                "credit": ""
+            }],
+            "initial_state_name": "m1e2_start",
+            "end_state_name": "m1e2_end",
+            "preview_state_name": "m1e3_teaser",
+            "preview_episode_id": "1.3.1",
+            "resource_names": [
+                "1.2_1",
+                "1.2_2.1",
+                "1.2_2.2",
+                "1.2_2.3",
+                "1.2_3",
+                "1.2_other"
+            ]
+        }, {
+            "episode_id": "1.3.1",
+            "title": "Neptune's Lair",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.2.1"
+            },
+            "description": "Infiltrate the Waterfront Towers to eavesdrop on Neptune.",
+            "completion_text": "You have the book cipher that can stop the bomb, but how will you escape from Neptune in order stop the plan and save the hostages in time? Find out what happens next in the Consulate or listen to a Preview in the Episodes Menu.",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Neptune",
+                "credit": "Logan Cunningham"
+            }, {
+                "title": "Director Matthews",
+                "credit": "Brian Moyer"
+            }, {
+                "title": "Panonica",
+                "credit": "Jennifer Bean"
+            }, {
+                "title": "Nick M.",
+                "credit": "Emery Westlake"
+            }, {
+                "title": "Alexander",
+                "credit": "Matthew Finn"
+            }, {
+                "title": "Agent Delphi",
+                "credit": "Rachel Baum"
+            }, {
+                "title": "Craig",
+                "credit": "Kristopher Moreau"
+            }, {
+                "title": "Callie",
+                "credit": "Khadeja Merenkov"
+            }, {
+                "title": "Miss Honeybourne",
+                "credit": "Sarah Elmaleh"
+            }, {
+                "title": "Serena",
+                "credit": "Eleza Kort Moyer"
+            }, {
+                "title": "Seth",
+                "credit": "Jacob Sommer"
+            }, {
+                "title": "Guard 1",
+                "credit": "Ian Hamilton"
+            }, {
+                "title": "Guard 2",
+                "credit": "David McHorney"
+            }, {
+                "title": "The Shark",
+                "credit": "Bridget O'Flynn"
+            }, {
+                "title": "",
+                "credit": "Eric Hunn"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "ADDITIONAL VOICES"
+            }, {
+                "title": "Marleigh Norton",
+                "credit": "Greg Nugent"
+            }, {
+                "title": "Chelsea Spear",
+                "credit": "Jason Wiser"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story",
+                "credit": "Jonathon Myers &"
+            }, {
+                "title": "",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Lead Writing",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Add'l Writing",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "Text Editing",
+                "credit": "Christian Erali"
+            }, {
+                "title": "",
+                "credit": ""
+            }],
+            "initial_state_name": "m1e3_start",
+            "end_state_name": "m1e3_end",
+            "preview_state_name": "m1e4_teaser",
+            "preview_episode_id": "1.4.1",
+            "resource_names": [
+                "1.3_1",
+                "1.3_2.1",
+                "1.3_2.2",
+                "1.3_3",
+                "1.3_other"
+            ]
+        }, {
+            "episode_id": "1.4.1",
+            "title": "Consulate",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.3.1"
+            },
+            "description": "Stop TRIDENT to save the hostages.",
+            "completion_text": "What will happen now that Alex has turned traitor? Will Director Matthews be able to hold Cygnus together? Play the remaining Mission One episodes to find out.",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Neptune",
+                "credit": "Logan Cunningham"
+            }, {
+                "title": "Director Matthews",
+                "credit": "Brian Moyer"
+            }, {
+                "title": "Miss Honeybourne",
+                "credit": "Sarah Elmaleh"
+            }, {
+                "title": "Alexander",
+                "credit": "Matthew Finn"
+            }, {
+                "title": "Serena",
+                "credit": "Eleza Kort Moyer"
+            }, {
+                "title": "Seth",
+                "credit": "Jacob Sommer"
+            }, {
+                "title": "Friend",
+                "credit": "Kite Tales"
+            }, {
+                "title": "Guard 1",
+                "credit": "Ian Hamilton"
+            }, {
+                "title": "Guard 2",
+                "credit": "David McHorney"
+            }, {
+                "title": "Agent Myra",
+                "credit": "Laurie Fisher"
+            }, {
+                "title": "The Shark",
+                "credit": "Bridget O'Flynn"
+            }, {
+                "title": "",
+                "credit": "Eric Hunn"
+            }, {
+                "title": "Panonica",
+                "credit": "Jennifer Bean"
+            }, {
+                "title": "Nick M.",
+                "credit": "Emery Westlake"
+            }, {
+                "title": "Add'l Guards",
+                "credit": "David McHorney"
+            }, {
+                "title": "",
+                "credit": "Greg Nugent"
+            }, {
+                "title": "",
+                "credit": "Jason Wiser"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story",
+                "credit": "Jonathon Myers &"
+            }, {
+                "title": "",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Lead Writing",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Add'l Writing",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "Text Editing",
+                "credit": "Christian Erali"
+            }, {
+                "title": "",
+                "credit": ""
+            }],
+            "initial_state_name": "m1e4_start",
+            "end_state_name": "m1e4_end",
+            "preview_state_name": "m1e5_teaser",
+            "preview_episode_id": "1.5.1",
+            "resource_names": [
+                "1.4_1",
+                "1.4_2.1",
+                "1.4_2.2",
+                "1.4_2.3",
+                "1.4_3",
+                "1.4_other"
+            ]
+        }, {
+            "episode_id": "1.5.1",
+            "title": "Lazarus Awakens",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.4.1"
+            },
+            "description": "Discover the origin of Lazarus.",
+            "completion_text": "You've met Lazarus of the Lotus Conglomerate, but what's in store next for the weakened Cygnus? Try the episode Neptune's Gift to find out.",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Lazarus",
+                "credit": "Rob Wiethoff"
+            }, {
+                "title": "Miss Honeybourne",
+                "credit": "Sarah Elmaleh"
+            }, {
+                "title": "Director Matthews",
+                "credit": "Brian Moyer"
+            }, {
+                "title": "Panonica",
+                "credit": "Jennifer Bean"
+            }, {
+                "title": "Nick M.",
+                "credit": "Emery Westlake"
+            }, {
+                "title": "Brett/Bartender",
+                "credit": "Ian Hamilton"
+            }, {
+                "title": "Lily O'Donnell",
+                "credit": "Elizabeth Bean"
+            }, {
+                "title": "Angry Sox Fan",
+                "credit": "Ziba Scott"
+            }, {
+                "title": "Burnout",
+                "credit": "Caroline Murphy"
+            }, {
+                "title": "Annoying Patron",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Female Patron",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story",
+                "credit": "Jonathon Myers &"
+            }, {
+                "title": "",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Lead Writing",
+                "credit": "Heather Albano"
+            }, {
+                "title": "Add'l Writing",
+                "credit": "Steve Williams &"
+            }, {
+                "title": "",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "Text Editing",
+                "credit": "Christian Erali &"
+            }, {
+                "title": "",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "",
+                "credit": ""
+            }],
+            "initial_state_name": "m1e5_start",
+            "end_state_name": "m1e5_end",
+            "preview_state_name": "m1e6_teaser",
+            "preview_episode_id": "1.6.1",
+            "resource_names": [
+                "1.5_1",
+                "1.5_2.1",
+                "1.5_2.2",
+                "1.5_2.3",
+                "1.5_3",
+                "1.5_other"
+            ]
+        }, {
+            "episode_id": "1.6.1",
+            "title": "Neptune's Gift",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.5.1"
+            },
+            "description": "Learn more about Neptune's motivations.",
+            "completion_text": "What can Cygnus do to heed Neptune's warnings about Alexander? Will you be ready to face him? Learn more in Signum Cygni!",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Neptune",
+                "credit": "Logan Cunningham"
+            }, {
+                "title": "Miss Honeybourne",
+                "credit": "Sarah Elmaleh"
+            }, {
+                "title": "Director Matthews",
+                "credit": "Brian Moyer"
+            }, {
+                "title": "Prison Guard",
+                "credit": "David Olsen"
+            }, {
+                "title": "Thugs",
+                "credit": "Ian Hamilton"
+            }, {
+                "title": "",
+                "credit": "Khadeja Merenkov"
+            }, {
+                "title": "",
+                "credit": "Ziba Scott"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story & Writing",
+                "credit": "Chris Dahlen"
+            }, {
+                "title": "Add'l Writing",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "Text Editing",
+                "credit": "Christian Erali &"
+            }, {
+                "title": "",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "",
+                "credit": ""
+            }],
+            "initial_state_name": "m1e6_start",
+            "end_state_name": "m1e6_end",
+            "preview_state_name": "m1e7_teaser",
+            "preview_episode_id": "1.7.1",
+            "resource_names": [
+                "1.6_1",
+                "1.6_2",
+                "1.6_3",
+                "1.6_other"
+            ]
+        }, {
+            "episode_id": "1.7.1",
+            "title": "Signum Cygni",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.6.1"
+            },
+            "description": "Escape a perilous situation as a former threat resurfaces.",
+            "completion_text": "Who will survive the crash? Who can you trust now that Alexander's reawakening has divided Cygnus? Stay tuned for Mission Two!",
+            "credits": [{
+                "title": "",
+                "credit": "VOICE ACTORS"
+            }, {
+                "title": "Hot Dog Vendor",
+                "credit": "Greg Nugent"
+            }, {
+                "title": "Agent Rhodes",
+                "credit": "Billy Nichols"
+            }, {
+                "title": "Agent Larissa",
+                "credit": "Kathryn Perez"
+            }, {
+                "title": "Alexander",
+                "credit": "Matthew Finn"
+            }, {
+                "title": "",
+                "credit": ""
+            }, {
+                "title": "",
+                "credit": "PRODUCTION"
+            }, {
+                "title": "Story",
+                "credit": "Jonathon Myers"
+            }, {
+                "title": "Lead Writing",
+                "credit": "Alex Kain"
+            }, {
+                "title": "Writing",
+                "credit": "Christian Erali"
+            }, {
+                "title": "Sound",
+                "credit": "Shannon Daly"
+            }, {
+                "title": "Music",
+                "credit": "Xiao'an Li"
+            }, {
+                "title": "Text Editing",
+                "credit": "Christian Erali"
+            }],
+            "initial_state_name": "m1e7_start",
+            "end_state_name": "m1e7_end",
+            "resource_names": [
+                "1.7",
+                "1.7_other"
+            ]
+        }, {
+            "episode_id": "1.8.1",
+            "title": "Holiday Party",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.1.1"
+            },
+            "description": "Coming this month... Fondly recall last year's holiday party with Cygnus.",
+            "completion_text": "",
+            "credits": [{
+                "title": "",
+                "credit": "FEATURING"
+            }, {
+                "title": "Story & Writing",
+                "credit": "Dave Grossman"
+            }, {
+                "title": "Miss Honeybourne",
+                "credit": "Sarah Elmaleh"
+            }, {
+                "title": "Director Matthews",
+                "credit": "Brian Moyer"
+            }, {
+                "title": "Alexander",
+                "credit": "Matthew Finn"
+            }, {
+                "title": "Agent Myra",
+                "credit": "Laurie Fisher"
+            }, {
+                "title": "Agent Delphi",
+                "credit": "Rachel Baum"
+            }, {
+                "title": "Agent Rhodes",
+                "credit": "Billy Nichols"
+            }],
+            "initial_state_name": "",
+            "end_state_name": "",
+            "resource_names": []
+        }]
+    }, {
+        "mission_id": 2,
+        "description": "Coming soon...",
+        "episodes": [{
+            "episode_id": "2.1.1",
+            "title": "The Dutch Diamond",
+            "episode_lock": {
+                "is_locked": true,
+                "locked_by_id": "1.7.1"
+            },
+            "description": "Coming soon...",
+            "completion_text": "",
+            "credits": [{
+                "title": "",
+                "credit": "FEATURING"
+            }, {
+                "title": "Vassi M. Krasnoff",
+                "credit": "Chris Rando"
+            }],
+            "initial_state_name": "",
+            "end_state_name": "",
+            "resource_names": []
+        }]
+    }],
+    "company_credits": {
+        "episode_id": 1000,
+        "title": "Reactive Studios",
+        "episode_lock": {
+            "is_locked": false
+        },
+        "description": "",
+        "completion_text": "",
+        "credits": [{
+        }, {
+            "title": "CEO",
+            "credit": "Jonathon Myers"
+        }, {
+            "title": "VP Operations",
+            "credit": "Brian Oickle"
+        }, {
+            "title": "CCO",
+            "credit": "David Grossman"
+        }, {
+            "title": "CTO",
+            "credit": "Darko Cerdic"
+        }, {
+            "title": "Principal Architect",
+            "credit": "Bruno Batarelo"
+        }, {
+            "title": "Project Manager",
+            "credit": "Bob Kelly"
+        }, {
+            "title": "Content Producer",
+            "credit": "Eddy Webb"
+        }, {
+            "title": "Sound Designer",
+            "credit": "Shannon Daly"
+        }, {
+            "title": "iOS Developer",
+            "credit": "@kviksilver"
+        }, {
+            "title": "Android Developer",
+            "credit": "Twingo"
+        }, {
+            "title": "Lead Artist",
+            "credit": "Aaron Artessa"
+        }, {
+            "title": "Lead Writer",
+            "credit": "Heather Albano"
+        }, {
+            "title": "Editor",
+            "credit": "Christian Erali"
+        }, {
+            "title": "Composer",
+            "credit": "Xiao'an Li"
+        }, {
+            "title": "Quality Assurance",
+            "credit": "Branka Domic"
+        }, {
+            "title": "Web Developer",
+            "credit": "Helena Krog"
+        }, {
+            "title": "Community Manager",
+            "credit": "Nick Mudry"
+        }, {
+            "title": "Co-founder & Advisor",
+            "credit": "Matt Albrecht"
+        }, {
+            "title": "Creative Advisor",
+            "credit": "Brian Moriarty"
+        }, {
+            "title": "Advisor",
+            "credit": "Monty Sharma"
+        }, {
+            "title": "Advisor",
+            "credit": "Chris Allen"
+        }, {
+            "title": "Advisor",
+            "credit": "Jerry Wolosenko"
+        }, {
+            "title": "",
+            "credit": ""
+        }, {
+            "title": "",
+            "credit": "CONSULTANTS"
+        }, {
+            "title": "Front-End Engineer",
+            "credit": "Don Mitchell, Jr."
+        }, {
+            "title": "UI Artist",
+            "credit": "Xue Ao Zhang"
+        }, {
+            "title": "Narrative Consultant",
+            "credit": "Chris Dahlen"
+        }, {
+            "title": "Community Assistance",
+            "credit": "Eric Chon"
+        }, {
+            "title": "Add'l Development",
+            "credit": "Jason McIntosh"
+        }, {
+            "title": "Add'l Sound Design",
+            "credit": "Brett Apitz"
+        }, {
+            "title": "Add'l Design",
+            "credit": "Jonathan Munoz"
+        }, {
+            "title": "Add'l Narrative Design",
+            "credit": "Steve Williams"
+        }, {
+            "title": "Add'l Writing",
+            "credit": "Nick Blahunka"
+        }, {
+            "title": "Add'l Writing",
+            "credit": "Christian Erali"
+        }, {
+            "title": "Add'l Writing",
+            "credit": "Alex Kain"
+        }, {
+            "title": "Add'l Art",
+            "credit": "Amir Astiani"
+        }, {
+            "title": "Add'l QA",
+            "credit": "Nick Troy"
+        }, {
+            "title": "",
+            "credit": ""
+        }, {
+            "title": "",
+            "credit": "ASSOCIATE PRODUCERS"
+        }, {
+            "title": "",
+            "credit": "Franklin Rodeheaver"
+        }, {
+            "title": "",
+            "credit": "Donovan Pruitt"
+        }, {
+            "title": "",
+            "credit": "Brett Bozeman"
+        }, {
+            "title": "",
+            "credit": ""
+        }, {
+            "title": "",
+            "credit": "SPECIAL THANKS"
+        }, {
+            "title": "Aaaron Artessa",
+            "credit": "Adriel Calder"
+        }, {
+            "title": "Arshan Gailus",
+            "credit": "Bert Snow"
+        }, {
+            "title": "Boston Indies",
+            "credit": "Chris Allen"
+        }, {
+            "title": "Dave Bisceglia",
+            "credit": "Eitan Glinert"
+        }, {
+            "title": "Erik Asmussen",
+            "credit": "Elliott Mitchell"
+        }, {
+            "title": "Fiona Cherbak",
+            "credit": "Ichiro Lambe"
+        }, {
+            "title": "Indie Collective",
+            "credit": "Indie Megabooth"
+        }, {
+            "title": "InkleWriter",
+            "credit": "Jeff Goodsill"
+        }, {
+            "title": "Jenna Hoffstein",
+            "credit": "Jerry Wolosenko"
+        }, {
+            "title": "Jon Ingold",
+            "credit": "Jonathan Mintz"
+        }, {
+            "title": "Kai Rosenkrantz",
+            "credit": "Kapil Patel"
+        }, {
+            "title": "Kelly Wallick",
+            "credit": "Marco Mereu"
+        }, {
+            "title": "Mass DiGI",
+            "credit": "Monty Sharma"
+        }, {
+            "title": "Naomi Alderman",
+            "credit": "Nevigo Ghmb"
+        }, {
+            "title": "Oleg Brodskiy",
+            "credit": "Paul Marzagalli"
+        }, {
+            "title": "Paul Neurath",
+            "credit": "PMRP"
+        }, {
+            "title": "Scott MacMillan",
+            "credit": "Michael Myers"
+        }, {
+            "title": "Seth Sivak",
+            "credit": "Tim Loew"
+        }, {
+            "title": "Trevor Stricker",
+            "credit": "Zoe Quinn"
+        }, {
+            "title": "",
+            "credit": ""
+        }, {
+            "title": "",
+            "credit": "KICKSTARTER SUPPORTERS"
+        }, {
+            "title": "",
+            "credit": "http://www.codenamecygnus.com/kickstarter"
+        }, {
+            "title": "",
+            "credit": ""
+        }, {
+            "title": "",
+            "credit": "LICENSE"
+        }, {
+            "title": "",
+            "credit": "Codename Cygnus uses the CMU Pocketsphinx"
+        }, {
+            "title": "",
+            "credit": "library, the CMU Flite library, and the"
+        }, {
+            "title": "",
+            "credit": "CMU CMUCMLTK library (http://cmusphinx."
+        }, {
+            "title": "",
+            "credit": "sourceforge.net). Politepix's OpenEars"
+        }, {
+            "title": "",
+            "credit": "(http://www.politepix.com/openears) is"
+        }, {
+            "title": "",
+            "credit": "implemented in the iOS version."
+        }, {
+            "title": "",
+            "credit": ""
+        }],
+        "initial_state_name": "",
+        "end_state_name": "",
+        "resource_names": []
+    }
+}
