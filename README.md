@@ -44,9 +44,9 @@ Mission 1 has eight episodes:
 - **Signum Cygni:** escape a perilous situation as a former threat resurfaces.
 - **Holiday Party:** fondly recall last year's holiday party with Cygnus.
 
-A new game starts with only the Prologue open. Finishing it opens Art Show and Holiday
-Party, and each episode after Art Show opens when the one before it is finished. Holiday
-Party is the only episode with timed choices: if you do not choose within seven seconds,
+A new game starts with the Prologue and Holiday Party open, as in the original's final
+data. Each of the other episodes opens when the one before it is finished. Holiday Party
+is the only episode with timed choices: if you do not choose within seven seconds,
 the story moves on without you.
 
 Mission 2, "The Dutch Diamond", was announced but never released. Nothing of it exists in

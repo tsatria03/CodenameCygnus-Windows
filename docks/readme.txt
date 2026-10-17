@@ -26,8 +26,8 @@ Lazarus Awakens: discover the origin of Lazarus.
 Neptune's Gift: learn more about Neptune's motivations.
 Signum Cygni: escape a perilous situation as a former threat resurfaces.
 Holiday Party: fondly recall last year's holiday party with Cygnus.
-A new game starts with only the Prologue open.
-Finishing the Prologue opens Art Show and Holiday Party, and each episode after Art Show opens when you finish the one before it.
+A new game starts with the Prologue and Holiday Party open.
+Each of the other episodes opens when you finish the one before it.
 Holiday Party has timed choices: if you do not choose within seven seconds, the story moves on without you.
 
 Credits
