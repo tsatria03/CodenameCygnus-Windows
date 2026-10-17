@@ -36,7 +36,13 @@ The four traits also run through the whole mission. Holiday Party uses none of t
 - **An episode starts with the variables the one before it ended with,** so every choice reaches the episodes that check it. The Prologue and Holiday Party start from nothing.
 - **Continue goes back to the start of the recording the player left in,** with the variables as they were when that state began ([[menus_plan]]).
 
+- **Restart works as the original's warning says** (the dev, 2026-10-17: "I like the original's warnings"):
+  - Before restarting, the game asks with the original's own words, "Restart Episode?" and "If you restart this episode, all saved progress beyond this episode will be erased.", answered Yes or No.
+  - Restarting an episode starts it again with the variables it began with.
+  - Every episode after it goes back to locked and not played, since its story followed the old choices. Its saved variables and place to continue from are erased.
+  - Heard recordings, achievements and settings are kept: they belong to the player, not to one playthrough.
+  - Holiday Party is never affected by restarting another episode, since it uses none of their variables.
+
 ## Open questions
 
-- What Restart does to the episodes after it.
 - When the place to continue from is saved: on every new state, or only on leaving.
