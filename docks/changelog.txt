@@ -1,25 +1,25 @@
 unrelease:
-Mission 1's recordings download by themselves, about 469 megabytes, from an episode's screen or Continue, so the game's own download stays small; the game checks them once they arrive and keeps them for every later version.
-A locked episode's screen has Start, as a new one does, which says you need to complete the previous episode first.
-Speech recognition: with it on, say a choice aloud, as in the original. The game says "Listening." after the first choice, listens for 15 seconds or a timed choice's whole seven, and V turns it on or off. Nothing it hears is recorded.
-The Agent profile in the main menu says your dominant trait, the furthest episode you have reached, how many you have completed, your four trait scales and which way each leans, and all 16 achievements, earned or not.
-P opens the pause menu, as Escape does, in an episode and in a preview.
-A finished episode's screen starts with what was said at its end, and Continue and Replay say "Continuing" and "Replaying" and the episode's name.
+Mission 1's recordings download by themselves the first time an episode needs them, about 469 megabytes, so the game's own download stays small; they are checked once they arrive and kept for every later version.
+Speech recognition: with it on, say a choice aloud, as in the original. The game says "Listening." after the first choice and listens for 15 seconds, or for a timed choice's whole seven, and V turns it on or off. Nothing it hears is recorded.
+The Agent profile in the main menu says your dominant trait, the furthest episode you have reached, how many episodes you have completed, your four trait scales and which way each leans, and all 16 achievements, earned or not.
+The game has 16 achievements of its own, kept on your computer in place of the original's online Game Center ones; each is announced the first time you earn it, at the next choice or at the end of the episode, never over the story.
 Your progress is saved as you play, at every new part of the story, and Continue in the main menu takes you back to where you left off.
 Each episode carries on the choices and traits of the one before it, as the original did, so Signum Cygni remembers what you did in every earlier episode.
-Episodes now says whether each episode is in progress, completed or locked, and opens the next one only once you finish the one before.
-An episode in progress offers Continue and Restart, and a finished one Replay and a preview of the next, each restart asking first with the original's warning.
+Episodes lists all eight episodes and says whether each is in progress, completed or locked; each episode opens once you finish the one before it.
+Each episode's own screen has its description and Start. One in progress has Continue and Restart episode, a finished one says what was said at its end and has Replay episode and a preview of the next, and a locked one's Start says why it cannot be played yet.
+Restarting or replaying an episode asks first, with the original's warning, and Continue, Replay and Restart say what they are doing, such as "Continuing Art Show."
 When an episode ends, a menu offers the next episode, a preview of it, and the episode's own credits, as the original's end of episode did.
-Each episode in Episodes can play the preview of the episode after it, and Escape pauses a preview with Resume, Restart and Return to menu.
-Episodes has a Back row at the top.
-Settings has the master, background ambience and decision loop volumes, each with its levels from 100 percent down to 0 to choose from, a switch for speech recognition, and the key bindings.
-The game opens as the original did, with a loading message and, the first time, its headphones notice, then a main menu of Episodes, Settings, Credits and Quit, with the original's interface sounds.
-Episodes lists all eight episodes, and each says its description before you start it.
+A preview of the next episode can be played from its episode's screen and from the end of an episode, and Escape or P pauses it, with Resume, Restart and Return to menu.
+The game opens as the original did, with a loading message and, the first time, its headphones notice, then the main menu, with the original's interface sounds.
+Settings has the master, background ambience and decision loop volumes, each with its levels from 100 percent down to 0, a switch for speech recognition, and the key bindings.
+Every menu has Back as its first row, and opens on it.
 Credits lists Reactive Studios' team, as the original's Info screen did.
-The game has 16 achievements of its own, kept on your computer in place of the original's online Game Center ones; each is announced the first time you earn it, at the next choice or at the end of the episode, never over the story.
-The choices now come in the order the characters say them, such as BOLD before SECRETIVE in Delphi's briefing in Art Show; 20 questions across the episodes had them the other way round.
+The choices come in the order the characters say them, such as BOLD before SECRETIVE in Delphi's briefing in Art Show, where the original could show them in any order.
+The van escape in Signum Cygni ends the way your choice leads, GRAB IT or HANG ON, instead of either ending at random as in the original.
 S skips straight on to the next choice across everything you have heard before, and says "Not heard yet" on a part you have not, so new story is never skipped by mistake.
 Holding Left or Right skips on through the recording, and holding a volume key keeps turning it up or down.
-The pause menu can restart the episode from its beginning, after asking first.
-Left, Right, Home and End also move through the choices, once the question has been asked.
-Episodes can now be played from start to end: the choices are read after each question, and you choose with the arrows and Enter or the number keys, pause with Escape, replay with R, skip 5 seconds with Left and Right, and hear where you are with H.
+Every episode can be played from start to end. After each question the first choice is read; the arrows, Home and End move through the choices, Enter or the number keys choose, and C reads them all again.
+While the story plays, R plays the recording again, Left and Right skip 5 seconds back or forward, and H says where you are.
+Escape or P pauses the story, with Resume, Restart episode, Settings and Return to menu.
+F1 opens the key bindings from anywhere, where the episode keys can be changed; Escape, F1 and the number keys always stay as they are.
+The game speaks through NVDA, through another screen reader, or through a Windows voice when no screen reader is running.
