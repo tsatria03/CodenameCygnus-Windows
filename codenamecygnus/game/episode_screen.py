@@ -1,0 +1,381 @@
+"""Playing an episode: section 2 of aidocks/plans/story_engine_plan.md.
+
+The screen walks a ``Playthrough`` (game/story.py) state by state through the audio
+(aidocks/plans/audio_plan.md):
+
+1. **A state starts:** the decision loop stops, the background carries on or cuts over,
+   and the voice plays. A state with no voice ends at once, on the next frame.
+2. **Its voice ends:** if the state waits for a choice, the decision loop starts and the
+   choices are read, each by its word alone; a timed one starts its clock. Otherwise the
+   story goes on by itself to the next state.
+3. **The episode's end state's voice ends:** "Episode complete!" and the completion text,
+   then Enter or Escape goes back to the menu.
+
+    Up and Down     move through the choices, wrapping round
+    Enter           choose the one you are on
+    1 to 9          choose by number
+    C               say the choices again
+    Space           pause and resume
+    R               the recording again from its start, then the choices again
+    Left and Right  5 seconds back or forward
+    H               the scene heading
+    the volumes     Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
+    Escape          the pause menu: Resume, Settings, Return to menu
+
+Every key but Escape and the numbers comes from the key map, so F1 can rebind it.
+
+The story pauses by itself while another screen covers it (the pause menu, F1) and while
+the window has lost the keyboard, and carries on when it comes back, unless the player
+had paused it with Space. A timed choice keeps the seconds it had left.
+"""
+from __future__ import annotations
+
+import logging
+import re
+
+from ..platform.audio import SKIP_SECONDS
+from ..ui.menu import Menu, Row
+from ..ui.screens import Screen
+from ..ui.settings_screen import SettingsScreen
+from .recordings import Recordings
+from .story import Playthrough, Story
+
+log = logging.getLogger('episode')
+
+#: The script's pacing marks, such as ``#0,9#``, which speech and the window leave out.
+TICKS = re.compile(r'#\d+,\d+#')
+
+#: Volume actions: (the setting, which way).
+VOLUME_KEYS = {
+    'master_up': ('master_volume', 1), 'master_down': ('master_volume', -1),
+    'ambience_up': ('ambience_volume', 1), 'ambience_down': ('ambience_volume', -1),
+    'decision_up': ('decision_volume', 1), 'decision_down': ('decision_volume', -1),
+}
+
+#: Why the story is paused: the player pressed Space or Escape, or it paused by itself.
+BY_PLAYER, BY_COVER, BY_FOCUS = 'player', 'cover', 'focus'
+
+
+def heading_text(heading):
+    """A scene heading as it is spoken: "CONSULATE - BOMB ROOM" as "Consulate, bomb room"."""
+    parts = [p.strip().lower() for p in heading.split(' - ') if p.strip()]
+    text = ', '.join(parts)
+    return text[:1].upper() + text[1:]
+
+
+def choices_text(choices):
+    """The choices read together: "Charismatic or Hostile", "Bold, Clever or Athletic"."""
+    words = [c.spoken for c in choices]
+    if len(words) < 2:
+        return ''.join(words) + '.'
+    return '%s or %s.' % (', '.join(words[:-1]), words[-1])
+
+
+def script_line(line):
+    """One script line for the window, without its pacing marks."""
+    text = ' '.join(TICKS.sub(' ', line.get('text', '')).split())
+    if line.get('type') == 'SPEECH' and line.get('character'):
+        return '%s: %s' % (line['character'].title(), text)
+    return text
+
+
+class EpisodeScreen(Screen):
+    name = 'episode'
+    holds_time = True
+
+    def __init__(self, app, episode, story=None, recordings=None, variables=None):
+        super().__init__(app)
+        self.story = story or Story.shared()
+        self.recordings = recordings or Recordings.shared()
+        self.episode = episode
+        self.run = Playthrough(self.story, episode, variables)
+        self.started = False
+        self.offered = []           # the choices waiting, once the question has been asked
+        self.index = None           # the choice moved to, or None before any move
+        self.heading = None         # the last scene heading reached
+        self.complete = False       # the end state's voice has finished
+        self.paused = None          # None, or why: BY_PLAYER, BY_COVER or BY_FOCUS
+        self.timer = None           # the timed choice's call
+        self.timer_left = None      # its seconds left, while paused
+
+    @property
+    def audio(self):
+        return self.app.audio
+
+    @property
+    def loop(self):
+        return self.app.loop
+
+    # ---- the screen's life ---------------------------------------------
+    def opened(self):
+        if not self.started:
+            self.started = True
+            log.info('episode %s, %s, starts', self.episode.id, self.episode.title)
+            self.play(self.run.start())
+        elif self.paused in (BY_COVER, BY_FOCUS):
+            self.resume()
+
+    def covered(self):
+        self.pause(BY_COVER)
+
+    def closed(self):
+        self.cancel_timer()
+        self.audio.stop_all()
+
+    def focus_lost(self):
+        self.pause(BY_FOCUS)
+
+    def focus_gained(self):
+        if self.paused == BY_FOCUS:
+            self.resume()
+
+    # ---- playing --------------------------------------------------------
+    def find(self, file_name):
+        return self.recordings.find(file_name) if file_name else None
+
+    def play(self, state):
+        """Play a state just entered."""
+        log.debug('state %s', state.name)
+        self.offered = []
+        self.index = None
+        self.cancel_timer()
+        if state.heading:
+            self.heading = state.heading
+        self.audio.stop_decision()
+        self.audio.set_background(self.find(state.background))
+        # No voice, or one not on disk, ends on the next frame, so the story never waits
+        # on silence and a run of empty states never piles up in one call.
+        self.audio.play_voice(self.find(state.voice), on_end=self.voice_ended)
+
+    def voice_ended(self):
+        if self.run.finished:
+            self.finish()
+        elif self.run.waiting:
+            self.offer()
+        else:
+            state = self.run.after_voice()
+            if state is None:
+                log.error('%s leads nowhere, so the episode stops', self.run.current.name)
+                self.finish()
+            else:
+                self.play(state)
+
+    def offer(self):
+        """The question has been asked: the decision loop, the choices and any clock."""
+        state = self.run.current
+        self.offered = self.run.choices()
+        self.audio.start_decision(self.find(state.decision))
+        # Read by the game itself, so it waits behind whatever the player made it say.
+        self.say(choices_text(self.offered), interrupt=False)
+        timeout = self.run.timeout()
+        if timeout is not None:
+            self.start_timer(timeout[0])
+
+    def choose(self, choice):
+        if self.paused:
+            self.resume()
+        log.info('chose %s at %s', choice.text, self.run.current.name)
+        self.say(choice.spoken)
+        self.play(self.run.choose(choice))
+
+    def timed_out(self):
+        self.timer = None
+        log.info('the choice at %s timed out', self.run.current.name)
+        state = self.run.time_out()
+        if state is not None:
+            self.play(state)
+
+    def finish(self):
+        self.complete = True
+        self.offered = []
+        self.cancel_timer()
+        self.audio.stop_decision()
+        log.info('episode %s complete', self.episode.id)
+        text = 'Episode complete! ' + self.episode.completion_text.strip()
+        self.say(text.strip(), interrupt=False)
+        self.say('Press Enter to return to the menu.', interrupt=False)
+
+    def leave(self):
+        """Back to the menu below."""
+        self.stack.pop()
+
+    # ---- the timed choice's clock ---------------------------------------
+    def start_timer(self, seconds):
+        self.cancel_timer()
+        if self.paused:
+            self.timer_left = seconds
+        else:
+            self.timer = self.loop.after(seconds, self.timed_out)
+
+    def cancel_timer(self):
+        if self.timer is not None:
+            self.timer.cancel()
+        self.timer = None
+        self.timer_left = None
+
+    # ---- pausing --------------------------------------------------------
+    def pause(self, why):
+        if self.paused:
+            return False
+        self.paused = why
+        self.audio.pause()
+        if self.timer is not None:
+            self.timer_left = self.loop.remaining(self.timer)
+            self.timer.cancel()
+            self.timer = None
+        return True
+
+    def resume(self):
+        if not self.paused:
+            return False
+        self.paused = None
+        self.audio.resume()
+        if self.timer_left is not None:
+            self.timer = self.loop.after(self.timer_left, self.timed_out)
+            self.timer_left = None
+        return True
+
+    def open_pause_menu(self):
+        self.pause(BY_PLAYER)
+        self.stack.push(PauseMenu(self.app, self))
+
+    # ---- keys -----------------------------------------------------------
+    def handle_key(self, key, mods):
+        if self.complete:
+            if key in ('return', 'enter', 'escape') and not mods:
+                self.leave()
+            else:
+                self.say('Episode complete. Press Enter to return to the menu.')
+            return True
+        if key == 'escape' and not mods:
+            self.open_pause_menu()
+            return True
+        if not mods and len(key) == 1 and key in '123456789':
+            self.choose_number(int(key))
+            return True
+        action = self.app.keymap.action_for(key, mods)
+        if action is None:
+            return False
+        handler = getattr(self, 'do_' + action, None)
+        if handler is not None:
+            handler()
+        elif action in VOLUME_KEYS:
+            setting, step = VOLUME_KEYS[action]
+            self.say(self.audio.step_volume(setting, step))
+        return True
+
+    def no_choices_yet(self):
+        self.say('No choices yet.')
+
+    def move(self, step):
+        if not self.offered:
+            return self.no_choices_yet()
+        if self.index is None:
+            self.index = 0 if step > 0 else len(self.offered) - 1
+        else:
+            self.index = (self.index + step) % len(self.offered)
+        self.say(self.offered[self.index].spoken)
+
+    def do_previous_choice(self):
+        self.move(-1)
+
+    def do_next_choice(self):
+        self.move(1)
+
+    def do_choose(self):
+        if not self.offered:
+            return self.no_choices_yet()
+        if self.index is None:
+            # Nothing moved to yet: say what there is, rather than guess.
+            return self.do_repeat_choices()
+        self.choose(self.offered[self.index])
+
+    def choose_number(self, n):
+        if not self.offered:
+            return self.no_choices_yet()
+        if n > len(self.offered):
+            return self.say('There %s only %d.' % ('is' if len(self.offered) == 1 else 'are',
+                                                  len(self.offered)))
+        self.choose(self.offered[n - 1])
+
+    def do_repeat_choices(self):
+        if not self.offered:
+            return self.no_choices_yet()
+        self.say(choices_text(self.offered))
+
+    def do_pause(self):
+        if self.paused:
+            self.resume()
+            self.say('Resumed.')
+        else:
+            self.pause(BY_PLAYER)
+            self.say('Paused.')
+
+    def do_replay(self):
+        state = self.run.current
+        if self.offered:
+            # The question again: the choices are offered once more after it, and a timed
+            # choice's clock waits until then.
+            self.offered = []
+            self.index = None
+            self.cancel_timer()
+            self.audio.stop_decision()
+            self.audio.play_voice(self.find(state.voice), on_end=self.voice_ended)
+        else:
+            self.audio.replay()
+
+    def do_back(self):
+        self.audio.seek(-SKIP_SECONDS)
+
+    def do_forward(self):
+        self.audio.seek(SKIP_SECONDS)
+
+    def do_heading(self):
+        self.say(heading_text(self.heading) if self.heading else 'No scene heading yet.')
+
+    def do_speech_recognition(self):
+        self.say('Speech recognition is not ready yet.')
+
+    # ---- the window -----------------------------------------------------
+    def lines(self):
+        out = ['Episode %d: %s' % (self.episode.number, self.episode.title)]
+        if self.heading:
+            out.append(self.heading)
+        if self.paused == BY_PLAYER:
+            out.append('(paused)')
+        out.append('')
+        if self.run.current is not None:
+            out += [script_line(line) for line in self.run.current.script
+                    if line.get('type') != 'HEADING']
+        if self.offered:
+            out.append('')
+            for i, c in enumerate(self.offered):
+                out.append('%s %d. %s' % ('>' if i == self.index else ' ', i + 1, c.spoken))
+        if self.complete:
+            out += ['', 'Episode complete!', self.episode.completion_text.strip()]
+        return out
+
+
+class PauseMenu(Menu):
+    """Escape during an episode: the story waits underneath, paused."""
+
+    name = 'pause menu'
+    title = 'Paused.'
+
+    def __init__(self, app, episode_screen):
+        super().__init__(app)
+        self.episode_screen = episode_screen
+
+    def rows(self):
+        return [Row('Resume', self.back),
+                Row('Settings', lambda: self.stack.push(SettingsScreen(self.app))),
+                Row('Return to menu', self.return_to_menu)]
+
+    def back(self):
+        """Resume, or Escape: the story carries on where it paused."""
+        self.stack.pop()
+        self.episode_screen.resume()
+
+    def return_to_menu(self):
+        self.stack.pop()
+        self.episode_screen.leave()

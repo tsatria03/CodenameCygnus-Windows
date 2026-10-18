@@ -90,6 +90,19 @@ def say_why(speech, text):
         pass
 
 
+def episode_from_options(app, options):
+    """The episode ``--episode`` names, ready to play, or None."""
+    if not options.episode:
+        return None
+    from codenamecygnus.game.episode_screen import EpisodeScreen
+    from codenamecygnus.game.story import Story
+    episode = Story.shared().episodes.get(options.episode)
+    if episode is None or not episode.playable:
+        log.warning('there is no episode %s to play, so the menu opens instead', options.episode)
+        return None
+    return EpisodeScreen(app, episode)
+
+
 def main(argv=None):
     options = parse_args(argv)
     start_log(options.verbose)
@@ -102,10 +115,10 @@ def main(argv=None):
         from codenamecygnus.game.stand_in_menu import StandInMainMenu
         if options.state and not options.debug:
             log.warning('--state works only in debug mode, so it is ignored')
-        if options.episode or options.state:
-            log.warning('--episode and --state wait for the story engine, so they are ignored for now')
+        elif options.state:
+            log.warning('--state waits for debug mode in the story engine, so it is ignored for now')
         app = App(options, speech=speech)
-        app.run(StandInMainMenu(app), pygame)
+        app.run(StandInMainMenu(app), pygame, on_top=episode_from_options(app, options))
         log.info('Codename Cygnus closed')
         return 0
     except SystemExit as stop:
