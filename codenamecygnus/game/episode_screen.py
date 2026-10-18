@@ -12,17 +12,23 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
    then Enter or Escape goes back to the menu.
 
     Up and Down     move through the choices, wrapping round
+    Left and Right  the same, while a choice waits
+    Home and End    the first choice and the last
     Enter           choose the one you are on
     1 to 9          choose by number
     C               say the choices again
     Space           pause and resume
     R               the recording again from its start, then the choices again
-    Left and Right  5 seconds back or forward
+    Left and Right  5 seconds back or forward, while the story plays
     H               the scene heading
     the volumes     Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
-    Escape          the pause menu: Resume, Settings, Return to menu
+    Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
 
-Every key but Escape and the numbers comes from the key map, so F1 can rebind it.
+Every key but Escape, Home, End and the numbers comes from the key map, so F1 can rebind
+it. While a choice waits, its recording has ended and there is nothing to skip through,
+so Left and Right move through the choices as they do in a menu (the dev, 2026-10-17:
+"left/right/home/end navigation in the choices list"). Holding a skip or a volume key
+repeats it (app.py); a choice key never repeats.
 
 The story pauses by itself while another screen covers it (the pause menu, F1) and while
 the window has lost the keyboard, and carries on when it comes back, unless the player
@@ -88,6 +94,7 @@ class EpisodeScreen(Screen):
         self.story = story or Story.shared()
         self.recordings = recordings or Recordings.shared()
         self.episode = episode
+        self.start_variables = dict(variables or {})
         self.run = Playthrough(self.story, episode, variables)
         self.started = False
         self.offered = []           # the choices waiting, once the question has been asked
@@ -199,6 +206,15 @@ class EpisodeScreen(Screen):
         """Back to the menu below."""
         self.stack.pop()
 
+    def restart(self):
+        """The episode again from its start, with the variables it began with."""
+        log.info('episode %s restarts', self.episode.id)
+        self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
+                                         recordings=self.recordings,
+                                         variables=self.start_variables))
+        # Cuts off the pause menu, which spoke as it came back on its way out.
+        self.say('Restarting %s.' % self.episode.title)
+
     # ---- the timed choice's clock ---------------------------------------
     def start_timer(self, seconds):
         self.cancel_timer()
@@ -253,6 +269,10 @@ class EpisodeScreen(Screen):
         if not mods and len(key) == 1 and key in '123456789':
             self.choose_number(int(key))
             return True
+        if not mods and key in ('home', 'end') and self.offered:
+            self.index = 0 if key == 'home' else len(self.offered) - 1
+            self.say(self.offered[self.index].spoken)
+            return True
         action = self.app.keymap.action_for(key, mods)
         if action is None:
             return False
@@ -263,6 +283,15 @@ class EpisodeScreen(Screen):
             setting, step = VOLUME_KEYS[action]
             self.say(self.audio.step_volume(setting, step))
         return True
+
+    def repeats(self, key, mods):
+        """Holding a key repeats it for the skips, while the story plays, and the volumes."""
+        if self.complete:
+            return False
+        action = self.app.keymap.action_for(key, mods)
+        if action in VOLUME_KEYS:
+            return True
+        return action in ('back', 'forward') and not self.offered
 
     def no_choices_yet(self):
         self.say('No choices yet.')
@@ -325,10 +354,16 @@ class EpisodeScreen(Screen):
             self.audio.replay()
 
     def do_back(self):
-        self.audio.seek(-SKIP_SECONDS)
+        if self.offered:
+            self.move(-1)
+        else:
+            self.audio.seek(-SKIP_SECONDS)
 
     def do_forward(self):
-        self.audio.seek(SKIP_SECONDS)
+        if self.offered:
+            self.move(1)
+        else:
+            self.audio.seek(SKIP_SECONDS)
 
     def do_heading(self):
         self.say(heading_text(self.heading) if self.heading else 'No scene heading yet.')
@@ -368,6 +403,7 @@ class PauseMenu(Menu):
 
     def rows(self):
         return [Row('Resume', self.back),
+                Row('Restart episode', lambda: self.stack.push(RestartQuestion(self.app, self))),
                 Row('Settings', lambda: self.stack.push(SettingsScreen(self.app))),
                 Row('Return to menu', self.return_to_menu)]
 
@@ -376,6 +412,30 @@ class PauseMenu(Menu):
         self.stack.pop()
         self.episode_screen.resume()
 
+    def restart(self):
+        self.stack.pop()
+        self.episode_screen.restart()
+
     def return_to_menu(self):
         self.stack.pop()
         self.episode_screen.leave()
+
+
+class RestartQuestion(Menu):
+    """Restart episode, from the pause menu: asked first, No first, so a stray Enter keeps
+    the place. Escape is No. aidocks/plans/saves_plan.md adds the original's warning about
+    saved progress once there is any."""
+
+    name = 'restart question'
+    title = 'Restart episode?'
+
+    def __init__(self, app, pause_menu):
+        super().__init__(app)
+        self.pause_menu = pause_menu
+
+    def rows(self):
+        return [Row('No', self.back), Row('Yes', self.restart)]
+
+    def restart(self):
+        self.stack.pop()
+        self.pause_menu.restart()

@@ -324,8 +324,7 @@ def test_escape_in_the_pause_menu_resumes_too():
 def test_return_to_menu_stops_the_story_and_opens_the_menu():
     app, screen = start()
     key(app, 'escape')
-    key(app, 'down')
-    key(app, 'down')
+    key(app, 'end')
     assert app.speech.said[-1] == 'Return to menu'
     key(app, 'return')
     assert isinstance(app.stack.top, StandInMainMenu)
@@ -337,6 +336,8 @@ def test_settings_from_the_pause_menu_keeps_the_story_paused():
     app, screen = start()
     key(app, 'escape')
     key(app, 'down')
+    key(app, 'down')
+    assert app.speech.said[-1] == 'Settings'
     key(app, 'return')
     assert app.stack.top.name == 'settings' and app.audio.paused
     key(app, 'escape')
@@ -399,6 +400,123 @@ def test_the_window_shows_the_script_without_its_pacing_marks():
     until_choices(app, screen)
     text = '\n'.join(screen.lines())
     assert '#' not in text and 'Episode 1: Prologue' in text and '1. Two cards' in text
+
+
+def test_left_right_home_and_end_move_through_a_waiting_choice():
+    app, screen = start('1.8.1')
+    jump(app, screen, '027myraTacticPrompt_m1e8')
+    end_voice(app)
+    words = [c.spoken for c in screen.offered]
+    key(app, 'right')
+    key(app, 'right')
+    key(app, 'left')
+    key(app, 'end')
+    key(app, 'home')
+    assert app.speech.said[-5:] == [words[0], words[1], words[0], words[-1], words[0]]
+    assert app.audio.seeks == [], 'a choice key skipped through a recording'
+
+
+def test_left_and_right_still_skip_while_the_story_plays():
+    app, screen = start()
+    before = len(app.speech.said)
+    key(app, 'right')
+    key(app, 'home')                                # nothing to move through yet
+    assert app.audio.seeks == [5.0] and len(app.speech.said) == before
+
+
+def test_the_pause_menu_has_restart_after_resume():
+    app, screen = start()
+    key(app, 'escape')
+    assert [r.text for r in app.stack.top.rows()] == ['Resume', 'Restart episode', 'Settings',
+                                                      'Return to menu']
+
+
+def test_restart_asks_first_and_no_keeps_the_place():
+    app, screen = start()
+    until_choices(app, screen)
+    key(app, 'escape')
+    key(app, 'down')
+    key(app, 'return')
+    assert app.speech.said[-2:] == ['Restart episode?', 'No']
+    key(app, 'return')                              # No
+    assert isinstance(app.stack.top, PauseMenu)
+    key(app, 'down')
+    key(app, 'return')
+    key(app, 'escape')                              # Escape is No too
+    assert isinstance(app.stack.top, PauseMenu)
+    key(app, 'escape')
+    assert app.stack.top is screen and screen.offered
+
+
+def test_yes_restarts_the_episode_from_its_start():
+    app, screen = start()
+    screen.run.variables['event.m1e1_cardsWin'] = 1     # as if the cards had been won
+    jump(app, screen, '012introRejectPrompt')
+    key(app, 'escape')
+    key(app, 'down')
+    key(app, 'return')
+    key(app, 'down')
+    key(app, 'return')                              # Yes
+    again = app.stack.top
+    assert isinstance(again, EpisodeScreen) and again is not screen
+    assert again.run.current.name == '001introOpen'
+    assert 'event.m1e1_cardsWin' not in again.run.variables
+    assert not app.audio.paused and app.audio.voice == STORY.state('001introOpen').voice
+    assert app.speech.said[-1] == 'Restarting Prologue.'
+    key(app, 'escape')
+    key(app, 'end')
+    key(app, 'return')                              # Return to menu still goes to the menu
+    assert isinstance(app.stack.top, StandInMainMenu)
+
+
+def test_holding_a_skip_key_repeats_it_until_it_is_let_go():
+    app, screen = start()
+    t = runloop.clock()
+    app.key_down('right', [], now=t)
+    app.repeat_keys(now=t + 0.2)                    # not held long enough yet
+    app.repeat_keys(now=t + 0.45)
+    app.repeat_keys(now=t + 0.5)                    # too soon after the last
+    app.repeat_keys(now=t + 0.65)
+    assert app.audio.seeks == [5.0, 5.0, 5.0]
+    app.key_up('right')
+    app.repeat_keys(now=t + 2)
+    assert app.audio.seeks == [5.0, 5.0, 5.0]
+
+
+def test_holding_a_volume_key_repeats_it_with_its_modifier():
+    app, screen = start()
+    before = len(app.speech.said)
+    t = runloop.clock()
+    app.key_down('home', ['shift'], now=t)
+    app.repeat_keys(now=t + 0.45)
+    assert app.speech.said[before:] == ['master_volume +1'] * 2
+    app.key_up('left shift')                        # letting go of Shift stops it
+    app.repeat_keys(now=t + 2)
+    assert len(app.speech.said) == before + 2
+
+
+def test_space_enter_and_the_choice_keys_never_repeat():
+    app, screen = start()
+    before = len(app.speech.said)
+    t = runloop.clock()
+    app.key_down('space', [], now=t)
+    app.repeat_keys(now=t + 2)
+    assert app.speech.said[before:] == ['Paused.']
+    key(app, 'space')
+    jump(app, screen, '012introRejectPrompt')
+    end_voice(app)
+    for name in ('right', 'down', 'return'):
+        app.key_down(name, [], now=t)
+        assert app.held is None, name
+
+
+def test_a_held_skip_stops_repeating_when_a_choice_comes():
+    app, screen = start()
+    t = runloop.clock()
+    app.key_down('right', [], now=t)
+    until_choices(app, screen)
+    app.repeat_keys(now=t + 1)
+    assert app.audio.seeks == [5.0] and app.held is None
 
 
 def entry():

@@ -7,14 +7,15 @@ starts the one you are on, and Escape quits. During the episode the game's own k
 (aidocks/plans/story_engine_plan.md), and Return to menu in the pause menu, or Enter at
 the end of the episode, comes back to the list.
 
-    Up and Down     the choices, once they are read
+    the arrows      the choices, once they are read; Home and End the first and last
     Enter, 1 to 9   choose
     C               the choices again
     Space           pause and resume
     R               the recording again
-    Left and Right  5 seconds back or forward
+    Left and Right  5 seconds back or forward while the story plays; hold to keep going
     H               the scene heading
-    Escape          the pause menu
+    the volumes     Shift+Home and End, Page Up and Down, Shift+Page Up and Down; hold them
+    Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
     F1              the key bindings
 
 It keeps its own save, in %APPDATA%\\CodenameCygnus\\episode_check, so your volumes and
