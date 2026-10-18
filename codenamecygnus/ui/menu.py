@@ -1,6 +1,6 @@
 """A spoken menu: the shape of every menu screen in the game.
 
-    Up and Down     move, each row spoken with its place: "Settings, 1 of 2"
+    Up and Down     move, each row spoken by its text alone, such as "Settings"
     Home and End    the first row and the last
     Enter           choose the row
     Escape          go back
@@ -8,7 +8,8 @@
 
 Each move cuts off what was being said, so fast arrowing never builds a backlog. Opening
 the menu says its title, then its row without cutting the title off
-(aidocks/plans/foundation_plan.md).
+(aidocks/plans/foundation_plan.md). Rows are not read with their place, such as "1 of 2"
+(the dev, 2026-10-17: "The menu position readouts should be disabled").
 """
 from __future__ import annotations
 
@@ -44,7 +45,7 @@ class Menu(Screen):
         if not rows:
             return 'Nothing here.'
         i = self.index if i is None else i
-        return '%s, %d of %d' % (rows[i].text, i + 1, len(rows))
+        return rows[i].text
 
     def opened(self):
         self._clamp()

@@ -49,7 +49,7 @@ def test_the_game_runs_and_quits_by_itself_after_exit_after():
               keymap=KeyMap(paths.user_path('a', 'keys.json')), loop=RunLoop())
     app.run(StandInMainMenu(app), pygame)
     assert not app.running
-    assert app.speech.said[:2] == ['Codename Cygnus. Main menu.', 'Settings, 1 of 2']
+    assert app.speech.said[:2] == ['Codename Cygnus. Main menu.', 'Settings']
 
 
 def test_quit_on_the_stand_in_menu_ends_the_game():

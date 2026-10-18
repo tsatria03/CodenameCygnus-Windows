@@ -64,8 +64,8 @@ def test_the_tests_never_reach_the_players_screen_reader():
 def test_nvda_speaks_first_when_it_is_running():
     nvda, prism = FakeNvda(True), FakePrism(reader='JAWS')
     s = Speech(nvda=nvda, prism=prism)
-    assert s.speak('Settings, 1 of 2')
-    assert nvda.said == ['Settings, 1 of 2'] and prism.said == []
+    assert s.speak('Settings')
+    assert nvda.said == ['Settings'] and prism.said == []
 
 
 def test_another_screen_reader_speaks_when_nvda_is_not_running():

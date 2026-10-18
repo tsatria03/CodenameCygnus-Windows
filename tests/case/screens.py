@@ -54,10 +54,10 @@ class TwoRows(Menu):
 def test_a_menu_says_its_title_then_its_row_without_cutting_the_title_off():
     app = make_app()
     app.stack.push(TwoRows(app))
-    assert app.speech.heard == [('Test menu.', True), ('First, 1 of 2', False)]
+    assert app.speech.heard == [('Test menu.', True), ('First', False)]
 
 
-def test_moving_says_each_row_with_its_place_and_cuts_off():
+def test_moving_says_each_row_without_its_place_and_cuts_off():
     app = make_app()
     menu = TwoRows(app)
     app.stack.push(menu)
@@ -65,8 +65,8 @@ def test_moving_says_each_row_with_its_place_and_cuts_off():
     menu.handle_key('down', [])                     # wraps round
     menu.handle_key('end', [])
     menu.handle_key('home', [])
-    assert app.speech.heard[2:] == [('Second, 2 of 2', True), ('First, 1 of 2', True),
-                                    ('Second, 2 of 2', True), ('First, 1 of 2', True)]
+    assert app.speech.heard[2:] == [('Second', True), ('First', True),
+                                    ('Second', True), ('First', True)]
 
 
 def test_enter_chooses_and_escape_goes_back():
@@ -86,7 +86,7 @@ def test_any_other_key_says_the_row_again():
     menu = TwoRows(app)
     app.stack.push(menu)
     menu.handle_key('x', [])
-    assert app.speech.said[-1] == 'First, 1 of 2'
+    assert app.speech.said[-1] == 'First'
 
 
 def test_f1_opens_the_key_bindings_and_holds_the_timers_until_it_closes():
@@ -141,10 +141,10 @@ def test_the_settings_screen_turns_debug_mode_on_and_remembers_it():
     settings = SettingsScreen(app)
     app.stack.push(settings)
     settings.handle_key('down', [])
-    assert app.speech.said[-1] == 'Debug mode, currently off, 2 of 2'
+    assert app.speech.said[-1] == 'Debug mode, currently off'
     settings.handle_key('return', [])
     assert app.debug and app.keymap.debug and app.settings.get('debug') is True
-    assert app.speech.said[-1] == 'Debug mode, currently on, 2 of 2'
+    assert app.speech.said[-1] == 'Debug mode, currently on'
 
 
 def test_debug_mode_is_never_on_in_a_built_game():
