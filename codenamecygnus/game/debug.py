@@ -142,7 +142,7 @@ class MatchMenu(Menu):
         self.title = '%d states match.' % len(names)
 
     def rows(self):
-        return [Row(n, lambda n=n: self.jump(n)) for n in self.names]
+        return [Row('Back', self.back)] + [Row(n, lambda n=n: self.jump(n)) for n in self.names]
 
     def jump(self, name):
         self.stack.pop()                    # this list

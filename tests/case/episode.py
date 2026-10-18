@@ -743,7 +743,8 @@ def test_f3_lists_several_matches_to_choose_from():
     key(app, 'return')
     menu = app.stack.top
     assert isinstance(menu, MatchMenu) and len(menu.names) > 1
-    assert app.speech.said[-2] == '%d states match.' % len(menu.names)
+    assert app.speech.said[-2:] == ['%d states match.' % len(menu.names), 'Back']
+    key(app, 'down')
     key(app, 'return')                              # the first, 015contactMark, in Art Show
     assert isinstance(app.stack.top, EpisodeScreen)
     assert app.stack.top.run.current.name == menu.names[0]

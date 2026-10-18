@@ -128,8 +128,9 @@ class EpisodeList(Menu):
         self.story = story
 
     def rows(self):
-        # Back at the top (the dev, 2026-10-18: "There should also bee a back button in the
-        # episode list, at the top of the screen").
+        # Back at the top, as in every menu (the dev, 2026-10-18: "There should also bee a
+        # back button in the episode list, at the top of the screen", and "The back button
+        # should always appear first in any menu").
         return [Row('Back', self.back)] + [
             Row(episode_name(e), lambda e=e: self.open(EpisodeMenu(self.app, self.story, e)))
             for e in self.story.playable_episodes()]
@@ -147,7 +148,7 @@ class EpisodeMenu(Menu):
         self.title = '%s. %s' % (episode_name(episode), episode.description.strip())
 
     def rows(self):
-        return [Row('Start', self.start)]
+        return [Row('Back', self.back), Row('Start', self.start)]
 
     def start(self):
         """The episode in this screen's place, so leaving it comes back to the list."""
@@ -180,4 +181,5 @@ class CreditsScreen(Menu):
         self.story = story
 
     def rows(self):
-        return [Row(line) for line in credit_lines(self.story.company_credits) + [PORT_CREDIT]]
+        return [Row('Back', self.back)] + [
+            Row(line) for line in credit_lines(self.story.company_credits) + [PORT_CREDIT]]

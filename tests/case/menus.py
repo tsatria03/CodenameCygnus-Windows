@@ -100,7 +100,8 @@ def test_an_episode_says_its_description_then_offers_start():
     screen = app.stack.top
     assert isinstance(screen, EpisodeMenu)
     assert app.speech.said[-2:] == ['Episode 2, Art Show. %s' % STORY.episodes['1.2.1'].description,
-                                    'Start']
+                                    'Back']
+    assert [r.text for r in screen.rows()] == ['Back', 'Start']
     assert sounds(app)[-1] == 'sound a'
 
 
@@ -110,6 +111,7 @@ def test_start_plays_the_episode_and_leaving_it_comes_back_to_the_list():
     key(app, 'return')
     key(app, 'down')
     key(app, 'return')                              # the Prologue
+    key(app, 'down')
     key(app, 'return')                              # Start
     playing = app.stack.top
     assert isinstance(playing, EpisodeScreen) and playing.episode.title == 'Prologue'
@@ -140,7 +142,7 @@ def test_credits_lists_reactive_studios_and_the_port():
     credits = app.stack.top
     assert isinstance(credits, CreditsScreen) and sounds(app) == ['1930radio c']
     rows = [r.text for r in credits.rows()]
-    assert 'CEO: Jonathon Myers' in rows and rows[-1] == PORT_CREDIT
+    assert rows[0] == 'Back' and 'CEO: Jonathon Myers' in rows and rows[-1] == PORT_CREDIT
     assert '' not in rows
 
 

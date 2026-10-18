@@ -3,8 +3,8 @@
 Each row says what it is and what it is set to, and the game remembers it in
 ``config/settings.json``:
 
-    Debug mode, currently off       source runs only, first (the dev, 2026-10-18)
-    Back
+    Back                            first, as in every menu
+    Debug mode, currently off       source runs only, the first option
     Master volume, 100 percent      Enter opens its levels
     Background ambience volume, 100 percent
     Decision loop volume, 100 percent
@@ -38,12 +38,12 @@ class SettingsScreen(Menu):
     title = 'Settings.'
 
     def rows(self):
-        rows = []
+        # Back first, as in every menu, then Debug mode as the first option (the dev,
+        # 2026-10-18: "The back button should always appear first in any menu").
+        rows = [Row('Back', self.back)]
         if not paths.FROZEN:
-            # First (the dev, 2026-10-18: "The debug mode should be the first option").
             rows.append(Row(lambda: 'Debug mode, currently %s' % self.on_off('debug'),
                             self.toggle_debug))
-        rows.append(Row('Back', self.back))
         for key in VOLUMES:
             rows.append(Row(lambda key=key: volume_text(self.app, key),
                             lambda key=key: self.open(VolumeLevels(self.app, key))))
@@ -75,11 +75,12 @@ class VolumeLevels(Menu):
         self.key = key
         self.title = '%s.' % VOLUME_LABELS[key]
         now = app.settings.get(key)
-        self.index = self.LEVELS.index(now) if now in self.LEVELS else 0
+        # Back is row 0, so the levels start at row 1.
+        self.index = 1 + (self.LEVELS.index(now) if now in self.LEVELS else 0)
 
     def rows(self):
-        return [Row('%d percent' % level, lambda level=level: self.set(level))
-                for level in self.LEVELS]
+        return [Row('Back', self.back)] + [
+            Row('%d percent' % level, lambda level=level: self.set(level)) for level in self.LEVELS]
 
     def set(self, level):
         self.app.settings.set(self.key, level)

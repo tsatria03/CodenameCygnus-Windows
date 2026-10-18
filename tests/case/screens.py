@@ -170,7 +170,9 @@ def test_the_settings_screen_turns_debug_mode_on_and_remembers_it():
     app = make_app()
     settings = SettingsScreen(app)
     app.stack.push(settings)
-    assert app.speech.said[-1] == 'Debug mode, currently off', 'Debug mode is not first'
+    assert app.speech.said[-1] == 'Back', 'Back is not first'
+    settings.handle_key('down', [])
+    assert app.speech.said[-1] == 'Debug mode, currently off', 'Debug mode is not the first option'
     settings.handle_key('return', [])
     assert app.debug and app.keymap.debug and app.settings.get('debug') is True
     assert app.speech.said[-1] == 'Debug mode, currently on'
@@ -180,7 +182,7 @@ def test_the_settings_rows_say_what_each_is_set_to():
     app = make_app()
     app.settings.set('ambience_volume', 60)
     assert [r.text for r in SettingsScreen(app).rows()] == [
-        'Debug mode, currently off', 'Back', 'Master volume, 100 percent',
+        'Back', 'Debug mode, currently off', 'Master volume, 100 percent',
         'Background ambience volume, 60 percent', 'Decision loop volume, 100 percent',
         'Speech recognition, currently off', 'Key bindings']
 
@@ -200,6 +202,8 @@ def test_a_volume_opens_its_levels_on_the_one_it_is_at_and_enter_sets_it():
     levels.handle_key('down', [])
     assert app.speech.said[-1] == '40 percent'
     levels.handle_key('home', [])
+    assert app.speech.said[-1] == 'Back', 'Back is not first'
+    levels.handle_key('down', [])
     assert app.speech.said[-1] == '100 percent'
     levels.handle_key('end', [])
     levels.handle_key('up', [])
