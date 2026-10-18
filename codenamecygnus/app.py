@@ -9,6 +9,13 @@
 
 F1 opens the key bindings screen from anywhere, and the timers are held while it is open,
 so a timed choice keeps the seconds it had (aidocks/plans/foundation_plan.md).
+
+Holding a key down presses it again and again, but only where the top screen says that
+key repeats (``Screen.repeats``), such as the 5-second skips and the volume keys during an
+episode (the dev, 2026-10-17: "make it so you can hold left/right/page up/down/shift
+home/end in the main story for seaking and volume changes"). Every other key fires once
+however long it is held. The repeat is the game's own, not pygame's, which would repeat
+every key.
 """
 from __future__ import annotations
 
@@ -17,7 +24,8 @@ import os
 
 from . import paths
 from .platform.audio import Audio
-from .platform.keymap import KeyMap, mods_from_pygame
+from .platform import runloop
+from .platform.keymap import MODIFIER_KEYS, KeyMap, mods_from_pygame
 from .platform.runloop import RunLoop
 from .platform.settings import Settings
 from .platform.speech import Speech
@@ -31,6 +39,9 @@ WINDOW_SIZE = (800, 500)
 FPS = 60
 #: The window's text, in lines from the top; the rest is cut.
 MAX_LINES = 22
+#: Seconds a key is held before it starts repeating, and between repeats.
+REPEAT_DELAY = 0.4
+REPEAT_EVERY = 0.15
 
 
 class App:
@@ -44,6 +55,7 @@ class App:
         self.audio = audio or Audio(self.settings)
         self.stack = ScreenStack()
         self.running = True
+        self.held = None            # [key, mods, when it next repeats] for a key that repeats
         self.debug = False
         # Debug mode is for source runs only: --debug turns it on for one run, and the
         # Settings row turns it on or off for good.
@@ -69,7 +81,10 @@ class App:
         self.loop.hold()
         self.stack.push(KeyBindScreen(self))
 
-    def key_down(self, key, mods):
+    def key_down(self, key, mods, now=None):
+        if key in MODIFIER_KEYS:
+            return                          # Shift and the rest only go with another key
+        self.held = None
         top = self.stack.top
         if key == 'f1' and not mods and not isinstance(top, KeyBindScreen):
             self.open_key_bindings()
@@ -78,6 +93,30 @@ class App:
             top.handle_key(key, mods)
             if top is not self.stack.top and isinstance(top, KeyBindScreen):
                 self.loop.resume()          # the F1 screen just closed
+        top = self.stack.top
+        if top is not None and top.repeats(key, mods):
+            now = runloop.clock() if now is None else now
+            self.held = [key, list(mods), now + REPEAT_DELAY]
+
+    def key_up(self, key):
+        """A key let go: it stops repeating, as it does when a modifier held with it is."""
+        if self.held is not None and (key == self.held[0] or key in MODIFIER_KEYS):
+            self.held = None
+
+    def repeat_keys(self, now=None):
+        """Called once a frame: press the held key again when it is due."""
+        if self.held is None:
+            return
+        now = runloop.clock() if now is None else now
+        key, mods, due = self.held
+        if now < due:
+            return
+        top = self.stack.top
+        if top is None or not top.repeats(key, mods):
+            self.held = None                # the story moved on, say to a choice
+            return
+        self.held[2] = now + REPEAT_EVERY
+        top.handle_key(key, mods)
 
     def run(self, first_screen, pygame, on_top=None):
         """The main loop. Returns when the game quits or the last screen closes.
@@ -105,6 +144,7 @@ class App:
             while self.running and not self.stack.empty:
                 for event in pygame.event.get():
                     self.handle_event(event, pygame)
+                self.repeat_keys()
                 if self.stack.top is not None:
                     self.stack.top.update()
                 self.audio.update()
@@ -120,6 +160,7 @@ class App:
         if event.type == pygame.QUIT:
             self.quit()
         elif event.type == getattr(pygame, 'WINDOWFOCUSLOST', None):
+            self.held = None                # its key-up will go to another window
             if self.stack.top is not None:
                 self.stack.top.focus_lost()
         elif event.type == getattr(pygame, 'WINDOWFOCUSGAINED', None):
@@ -127,6 +168,8 @@ class App:
                 self.stack.top.focus_gained()
         elif event.type == pygame.KEYDOWN:
             self.key_down(pygame.key.name(event.key), mods_from_pygame(event.mod, pygame))
+        elif event.type == pygame.KEYUP:
+            self.key_up(pygame.key.name(event.key))
 
     def draw(self, screen, font, pygame):
         screen.fill((0, 0, 0))
