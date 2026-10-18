@@ -8,8 +8,8 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
 2. **Its voice ends:** if the state waits for a choice, the decision loop starts and the
    first choice is the one you are on, said by its word alone; a timed one starts its
    clock. Otherwise the story goes on by itself to the next state.
-3. **The episode's end state's voice ends:** "Episode complete!", the completion text and
-   any achievements, then the end menu (game/episode_end.py).
+3. **The episode's end state's voice ends:** "Episode complete!" and any achievements,
+   then the end menu (game/episode_end.py), with the completion text as its own row.
 
     Up and Down     move through the choices from the first, wrapping round
     Left and Right  the same, while a choice waits
@@ -266,8 +266,10 @@ class EpisodeScreen(Screen):
         self.audio.stop_decision()
         log.info('episode %s complete', self.episode.id)
         self.progress.complete(self.episode, self.run.variables)
-        text = 'Episode complete! ' + self.episode.completion_text.strip()
-        self.say(text.strip(), interrupt=False)
+        # "Episode complete!" alone; the completion text is the end menu's row after Back
+        # (the dev, 2026-10-18: "I should only here, episode complete, not the description
+        # added to it").
+        self.say('Episode complete!', interrupt=False)
         self.announce()
         from .episode_end import EndMenu       # it starts episodes, so it imports this module
         self.stack.push(EndMenu(self.app, self))

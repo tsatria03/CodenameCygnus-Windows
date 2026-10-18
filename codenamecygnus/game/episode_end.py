@@ -1,10 +1,12 @@
 """The end of an episode, its credits, and the previews: section 3 of
 aidocks/plans/menus_plan.md.
 
-When an episode's end state has played, the episode screen says "Episode complete!", the
-episode's completion text and any achievements earned, then opens ``EndMenu``:
+When an episode's end state has played, the episode screen says "Episode complete!" and
+any achievements earned, then opens ``EndMenu``:
 
     Back                    to the menu the episode was started from
+    Well done, agent! ...   the episode's completion text, a row of its own, as on the
+                            screen of a finished episode
     Next episode, Art Show  the episode this one opens, the story so far carried on
     Preview next episode    the next episode's teaser, as the original's PREVIEW NEXT
     Credits                 this episode's credits, one row each
@@ -178,8 +180,8 @@ class EndMenu(Menu):
 
     def opened(self):
         if self.first:
-            # Behind the completion text and the achievements, which nothing cuts off but
-            # a key the player presses.
+            # Behind "Episode complete!" and the achievements, which nothing cuts off but a
+            # key the player presses.
             self.first = False
             self.say(self.row_text(), interrupt=False)
         else:
@@ -187,6 +189,9 @@ class EndMenu(Menu):
 
     def rows(self):
         rows = [Row('Back', self.back)]
+        completion = self.episode.completion_text.strip()
+        if completion:
+            rows.append(Row(completion, lambda: self.say(self.row_text())))
         if self.next is not None:
             rows.append(Row('Next episode, %s' % self.next.title, self.next_episode))
         if self.episode.preview and self.episode.preview in self.story.states:
@@ -211,4 +216,4 @@ class EndMenu(Menu):
         self.episode_screen.start_next(self.next)
 
     def lines(self):
-        return ['Episode complete!', self.episode.completion_text.strip(), ''] + super().lines()[2:]
+        return ['Episode complete!', ''] + super().lines()[2:]

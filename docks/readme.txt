@@ -75,8 +75,8 @@ Holding a volume key keeps turning it.
 Escape or P pauses the story and opens the pause menu: Resume, Restart episode, Settings and Return to menu.
 Switching away from the game's window pauses it too, and it carries on when you come back.
 
-When an episode ends, you hear what it says at its end and any achievements you earned.
-Then a menu offers the next episode, a preview of it, and the episode's credits.
+When an episode ends, you hear "Episode complete!" and any achievements you earned.
+Then a menu has what the episode says at its end, the next episode, a preview of it, and the episode's credits.
 Escape or P during a preview pauses it, with Resume, Restart and Return to menu.
 
 Saving
