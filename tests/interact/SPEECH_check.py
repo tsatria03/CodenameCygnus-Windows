@@ -1,6 +1,6 @@
 """Speak the story's choices and hear what speech recognition makes of them. Not a test.
 
-    python tests/interact/voice_check.py
+    python tests/interact/SPEECH_check.py
 
 It opens on a list: the microphone's name first, then Every choice word, which listens
 for all 98 at once, then the eight episodes. An episode opens its questions, Back first,
@@ -8,12 +8,12 @@ each one its choices, such as "Charismatic or Hostile", with any hidden ones aft
 as "Delphi's or My own, also Mine or Her drink". Up and Down move, Enter opens, Escape
 goes back, and Escape on the first list quits.
 
-A question listens for 15 seconds, as the game does at a choice, and says each thing
-heard while it listens:
+A question listens for 15 seconds, as the game does at a choice, until it hears one:
 
-    "Heard Hostile."                                    a choice
+    "Heard Hostile."                                    a choice, and listening stops
     "Sorry, I did not catch that. It sounded like um."  speech that is no choice, with
-                                                        the word the recogniser picked
+                                                        the word the recogniser picked;
+                                                        listening goes on
     "No longer listening."                              15 seconds are up
 
     Enter or C      listen again, for another 15 seconds
@@ -168,14 +168,17 @@ class ListenScreen(Screen):
 
     def update(self):
         for phrase, words in self.listener.poll():
-            if phrase is not None:
-                note = phrase.capitalize()
-                self.say('Heard %s.' % note)
-            else:
-                note = 'no choice: %s' % (words or 'nothing')
-                self.say('%s. It sounded like %s.' % (NOT_CAUGHT, words or 'nothing'))
+            note = phrase.capitalize() if phrase is not None else 'no choice: %s' % (words or 'nothing')
             self.history.append(note)
             self.counts[note] = self.counts.get(note, 0) + 1
+            if phrase is not None:
+                # A choice heard stops listening, as it does in the game (the dev,
+                # 2026-10-18: "as soon as it heres the correct word, it should stop
+                # listening").
+                self.stop()
+                self.say('Heard %s.' % note)
+                return
+            self.say('%s. It sounded like %s.' % (NOT_CAUGHT, words or 'nothing'))
 
     def handle_key(self, key, mods):
         if mods:

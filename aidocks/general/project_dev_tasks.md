@@ -10,7 +10,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
-- Add speech recognition for choices, with a setting to turn it on or off, when the port is built ([[project_speech_recognition]]). Built in [[speech_recognition_plan]] on 2026-10-18, with `tests/interact/voice_check.py` to try it by ear; waiting for the dev's word.
+- Add speech recognition for choices, with a setting to turn it on or off, when the port is built ([[project_speech_recognition]]). Built in [[speech_recognition_plan]] on 2026-10-18, with `tests/interact/SPEECH_check.py` to try it by ear; waiting for the dev's word.
 - Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Planned in [[build_release_plan]].
 
 ## Finished
