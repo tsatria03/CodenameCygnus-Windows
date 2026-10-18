@@ -3,11 +3,12 @@
 The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/general/<name>.md`, beside this index, or, for a plan, planned or complete, to `aidocks/plans/<name>.md` (no `project_` prefix). Add a one-line pointer here for every new note. "Memory" or "memories" always means this folder, never the `~/.claude` store.
 
 ## Project: what the port is and how to work on it
-- [Solo project](project_solo.md): tsatria03 makes the port alone, with no contributors or co-authors, until the dev says otherwise.
+- [Solo project](project_solo.md): tsatria03 makes the port alone, with no code contributors or co-authors; theblindgamer50 is credited for recovering the 1.3.2 episodes, and no one else, until the dev says otherwise.
 - [Windows only](project_windows_only.md): the port is strictly for Windows; the build and release scripts, when adapted, drop the GitHub workflow, its CI steps, and Linux and macOS.
 - [Developer tasks](project_dev_tasks.md): the repository, tool, test, build and docs tasks, open and finished, kept out of the players' todo list.
 - [Python only](project_python_only.md): the port is written entirely in Python, in `codenamecygnus/`, with pygame and Prism; the recordings are played as MP3 through pygame, converted from .m4a by the dev; no OpenAL.
 - [Speech recognition](project_speech_recognition.md): the port keeps spoken choices behind an on/off setting, as the original's voice button did; the keyboard always works; the details are in the speech recognition plan.
+- [The original's status](project_original_status.md): researched 2026-10-18 with sources; the iOS app is off the App Store, Reactive Studios became Earplay, which relaunched the story on Alexa and Google Assistant; what is and is not confirmed.
 - [Story data source](project_story_data_source.md): the v53 story graph in the sqlite DB is authoritative, not the bundled v1 JSON; the port starts from scratch with no save import.
 
 ## Plans (aidocks/plans/, planned or being built)
