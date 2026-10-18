@@ -10,11 +10,15 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
+- Build the agent profile, the last part of the menus, as section 2 of [[saves_plan]].
 - Add speech recognition for choices, with a setting to turn it on or off, when the port is built ([[project_speech_recognition]]). Planned in [[speech_recognition_plan]].
 - Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Planned in [[build_release_plan]].
 
 ## Finished
 
+- Progress is saved in `saves/progress.json` at every new state, with Continue, the episodes' states and locks, the story carried from episode to episode, and Restart and Replay erasing what came after (2026-10-18).
+- The menus around the story are built: the opening, the main menu, the episode list and each episode's own screen, Settings with the three volumes, Credits, the end of an episode and the previews, with the original's interface sounds and Back first in every menu (2026-10-18).
+- Debug mode's F3 prompt has cut, copy and paste through the Windows clipboard (2026-10-18).
 - The story engine plays every episode: the choices in spoken order, the episode keys, S across heard recordings, debug mode's F2 to F4 and `--state`, and the 16 local achievements; `tests/interact/episode_check.py` plays any episode by ear (2026-10-18).
 - The audio plays a story state's voice, background and decision loop, with pausing, skipping and the three volumes, and `tests/interact/audio_check.py` lets it be heard by ear (2026-10-17).
 - The foundation is built: the entry script, speech, timers, settings and keys files, the F1 screen, logs and the silent tests (2026-10-17).

@@ -8,21 +8,33 @@ or HOSTILE, BOLD or SECRETIVE. Your choices shape your agent's personality and c
 the story goes.
 
 The original was played by voice: you spoke your choice aloud, and the game listened. This
-port is being built for the keyboard and for screen readers, so the whole game can be
-played without sight. Speaking your choices will stay possible too, behind a setting that
-turns speech recognition on or off.
+port is for the keyboard and for screen readers, so the whole game can be played without
+sight. Speaking your choices will be possible too, behind a setting that turns speech
+recognition on or off.
 
 **Headphones are recommended.** The original says so itself, as it starts: "The acoustic
 experience of Codename Cygnus is best with the use of a high quality headset."
 
 ## Status
 
-**The port is being built.** The original app has been studied and its story data
-recovered and checked. Speech, the keys, the settings and the sound are built, and an
-episode can be played from start to end with `--episode`. The menus, saving, achievements
-and speech recognition are still to come.
+**The port is being built, and every episode can be played from start to end.** Built so
+far:
 
-What has been found so far:
+- speech through your screen reader, the keys (every one rebindable with F1), the settings
+  and the three volumes;
+- the original's audio: the voice, the background ambience and the decision loop, with
+  the original's hard cut between scenes;
+- the whole story, with its choices in the order the characters say them, Holiday Party's
+  timed choices, and the van escape in Signum Cygni fixed;
+- the menus around it: the opening, the main menu, the episode list, each episode's own
+  screen, the end of an episode, previews and credits;
+- saving: progress at every new part of the story, Continue, the episodes' locks, and the
+  story carried from episode to episode;
+- 16 achievements of the game's own, kept on your computer.
+
+Still to come: the agent profile, speaking your choices aloud, and the built game.
+
+What was found in the original:
 
 - The game is driven almost entirely by data, not code. Every episode is a graph of story
   states, each with its voice recording, background sound and on-screen script, joined by
@@ -55,7 +67,7 @@ the app.
 
 ## Requirements
 
-The port will need 64-bit Python 3.12 or newer on Windows 10 or later, and two packages:
+The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and two packages:
 
     pip install -r requirements.txt
 
@@ -74,41 +86,58 @@ From the repository's folder:
     python CodenameCygnus.py
 
 It opens with a loading message, the first time with the original's headphones notice,
-then the main menu: Continue while an episode is in progress, Episodes, Settings, Credits
-and Quit, all spoken through your screen reader. Episodes lists the eight episodes with
-whether each is in progress, completed or locked; the Prologue and Holiday Party are open
-from the start, and each other episode opens when the one before it is finished. Enter on
-one says its description and offers Start, Continue and Restart, or Replay and a preview of
-the next episode. Your progress is saved in `saves\progress.json` at every new state. At the
-end of an episode, a menu offers the next episode, its preview and the episode's credits.
-Settings has the three volumes, a switch for
-speech recognition and the key bindings. An episode can also be started from the
-command line, such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue. F1
-opens the key bindings from anywhere.
+then the main menu, all spoken through your screen reader:
 
-During an episode, the arrows, Home and End move through the choices once they are read,
-Enter or 1 to 9 choose, C says them again, R replays the recording, Left and
-Right skip 5 seconds while the story plays, S skips on to the next choice across what you
-have heard before, H says the scene heading, and Escape or P pauses with
-the pause menu, where the episode can be restarted. Holding a skip or a volume key repeats it.
-The 16 achievements are announced the first time each is earned, at the next choice or at
-the end of the episode, and kept in `saves\achievements.json` in the save folder.
+- **Continue**, while an episode is in progress, goes back to where you left off.
+- **Episodes** lists the eight episodes and whether each is in progress, completed or
+  locked. The Prologue and Holiday Party are open from the start, and each other episode
+  opens when the one before it is finished. Enter on one opens its own screen: its
+  description, then Start; Continue and Restart episode while in progress; or, once
+  finished, what was said at its end, Replay episode and a preview of the next episode.
+- **Settings** has the three volumes, a switch for speech recognition, the key bindings,
+  and from source, Debug mode.
+- **Credits** lists Reactive Studios' team.
+- **Quit**, or Escape, closes the game.
+
+Back is the first row of every menu. F1 opens the key bindings from anywhere.
+
+During an episode:
+
+- the arrows, Home and End move through the choices once they are read, and Enter or 1
+  to 9 choose; C says them all again;
+- R replays the recording, and Left and Right skip 5 seconds while the story plays;
+- S skips on to the next choice across what you have heard before;
+- H says the scene heading;
+- Shift with Home and End, Page Up and Page Down, and Shift with Page Up and Page Down set
+  the master, background ambience and decision loop volumes;
+- Escape or P pauses, with the pause menu: Resume, Restart episode, Settings and Return to
+  menu.
+
+Holding a skip or a volume key repeats it. At the end of an episode, a menu offers the next
+episode, its preview and the episode's credits. Achievements are announced the first time
+each is earned, at the next choice or at the end of the episode.
+
+Everything the game keeps is in `%APPDATA%\CodenameCygnus`:
+
+- `saves\progress.json`: each episode's progress, saved at every new state;
+- `saves\heard.json`: every recording heard to its end, which S skips across;
+- `saves\achievements.json`: the achievements earned;
+- `config\settings.json` and `config\keys.json`: the settings and the key bindings;
+- `logs\log.txt`, with the run before as `log.old.txt`, and `logs\crash.txt` when an error
+  stops the game, which is spoken too.
+
+The options:
 
 - `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
-  row turns it on for good.
+  row turns it on for good. During an episode, F2 then skips the recording without noting
+  it as heard, F3 jumps to any state by typing or pasting part of its name, and F4 says the
+  state, the trait scores and the story flags.
 - `--episode ID`: start an episode straight away, from `1.1.1`, the Prologue, to `1.8.1`,
   Holiday Party, past the opening. Return to menu goes to the main menu.
 - `--state NAME`: start at any story state, in debug mode, in the episode it belongs to.
   The names are the ones in `analysis\script`.
-
-In debug mode, during an episode, F2 skips the recording without noting it as heard, F3
-jumps to any state by typing part of its name, and F4 says the state, the trait scores
-and the story flags.
 - `-v`: a more detailed log.
 - `--exit-after SECONDS`: quit by itself.
-
-Every run writes `logs\log.txt` in `%APPDATA%\CodenameCygnus`, keeping the run before as
-`log.old.txt`. An error that stops the game writes `logs\crash.txt` and is spoken.
 
 ## Tests
 
@@ -147,7 +176,7 @@ VERSION                  the version, as year, month, day and that day's number
 ### `game/`: the original's data
 
 `game/` holds the original app bundle as the App Store shipped it, the `Cygnus` binary
-included. The port will never write to it.
+included. The port never writes to it.
 
 - `game/data/text/` holds the three descriptors the app shipped with:
   - `mission_descriptor.json`: the missions and episodes, their unlocking and their
@@ -156,7 +185,7 @@ included. The port will never write to it.
   - `states_descriptor.json`: the story itself, in its older version 1.
 - `game/CodenameCygnus.sqlite`, with its `-wal` and `-shm` files, is the app's database.
   It holds the newer version 53 of the story, version 18 of the missions and version 11 of
-  the resources. The port will never read progress or saves from it: every player starts
+  the resources. The port never reads progress or saves from it: every player starts
   from scratch.
 - `game/data/text/` also holds what the port reads: `missions.json`, `resources.json` and
   `states.json`, that final data exported as plain JSON by `tools/export_story.py`, which
@@ -172,7 +201,7 @@ included. The port will never write to it.
   voice acting, over 400 MB of it; even some of the ambiences carry voices. It belongs in
   those folders on your own machine. Only the interface sounds are in the repository.
 - Every recording is MP3, converted from the original's AAC `.m4a` files so pygame can play
-  them. The story data still names them `.m4a`; the port will find each one by the same name
+  them. The story data still names them `.m4a`; the port finds each one by the same name
   with `.mp3` in its place.
 - `game/AcousticModelEnglish.bundle` is the speech recognition model the original used to
   hear spoken choices.

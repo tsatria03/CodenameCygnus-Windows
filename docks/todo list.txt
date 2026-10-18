@@ -1,5 +1,6 @@
 ##Unfinished.
 
+Add the agent profile, with your dominant trait, how far you have come, your four trait scales and your achievements.
 Add speech recognition, so you can speak your choices as in the original, with a setting to turn it on or off.
 
 ##Finished.

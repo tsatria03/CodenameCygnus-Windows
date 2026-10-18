@@ -7,13 +7,27 @@ Your choices shape your agent's personality and change how the story goes.
 The original is no longer on the App Store, and this is a port of it for Windows, played with the keyboard and your screen reader.
 In the original you spoke your choices aloud, and the port will let you do that too, with a setting to turn it on or off.
 
-The port is still being made, but every episode can already be played from start to end.
-This readme will grow as the game does.
+Every episode can be played from start to end.
+The port is still being made, and this readme grows as the game does.
 
 Headphones
 
 Headphones are recommended.
 The original says so itself: "The acoustic experience of Codename Cygnus is best with the use of a high quality headset."
+
+Starting the game
+
+The game says its name and a loading message, and the first time, the headphones notice.
+Then comes the main menu.
+Continue, while an episode is in progress, takes you back to where you left off.
+Episodes lists the eight episodes.
+Settings has the volumes, speech recognition and the key bindings.
+Credits lists the team who made Codename Cygnus.
+Quit, or Escape, closes the game.
+
+In every menu, Up and Down move, as do Left and Right, Home and End go to the first and last row, Enter chooses, and Escape goes back.
+Back is always the first row.
+Moving past either end of a menu wraps round to the other.
 
 The episodes
 
@@ -30,6 +44,58 @@ A new game starts with the Prologue and Holiday Party open.
 Each of the other episodes opens when you finish the one before it.
 Holiday Party has timed choices: if you do not choose within seven seconds, the story moves on without you.
 
+Episodes says whether each episode is in progress, completed or locked.
+Enter on an episode opens its own screen.
+An episode you have not started has its description and Start.
+One in progress has its description, Continue, and Restart episode.
+One you have finished has what was said at its end, Replay episode, and Preview next episode, which plays a short teaser of the episode after it.
+A locked one has its description and Locked, which tells you why it cannot be played yet.
+Restarting or replaying an episode asks first, with the original's warning: everything saved after that episode is erased, and the episodes after it are locked again.
+
+Playing an episode
+
+Each part of the story plays by itself, and when a question is asked, the choices come.
+The first choice is read, and Up and Down, or Left and Right, move through the others.
+Home and End go to the first and last choice.
+Enter chooses the one you are on, and the number keys 1 to 9 choose by number.
+C says every choice again.
+
+While the story plays:
+R plays the current part again from its start.
+Left and Right skip 5 seconds back or forward, and holding them keeps skipping.
+S skips straight on to the next choice, but only across parts you have heard to the end before; on a part you have not, it says "Not heard yet".
+H says where you are, the scene heading.
+
+At any time:
+Shift with Home and Shift with End turn the master volume up and down.
+Page Up and Page Down turn the background ambience up and down.
+Shift with Page Up and Shift with Page Down turn the decision loop up and down, the sound that plays while a choice waits.
+Holding a volume key keeps turning it.
+Escape or P pauses the story and opens the pause menu: Resume, Restart episode, Settings and Return to menu.
+Switching away from the game's window pauses it too, and it carries on when you come back.
+
+When an episode ends, you hear what it says at its end and any achievements you earned.
+Then a menu offers the next episode, a preview of it, and the episode's credits.
+Escape or P during a preview pauses it, with Resume, Restart and Return to menu.
+
+Saving
+
+The game saves your progress by itself, at every new part of the story, so you never need to save.
+Continue takes you back to the start of the part you were in.
+Each episode carries on the choices and traits of the one before it, as the original did, so the last episodes remember what you did in the first ones.
+Your progress, the parts you have heard and your achievements are kept in the CodenameCygnus folder in your AppData folder.
+
+Achievements
+
+The game has 16 achievements, kept on your computer in place of the original's online ones.
+Each is announced the first time you earn it, when the next choice comes or at the end of the episode, never over the story.
+
+Settings
+
+Each volume has its levels from 100 percent down to 0 to choose from: master, background ambience, and decision loop.
+Speech recognition can be turned on or off, though listening for spoken choices is not ready yet.
+Key bindings opens the key bindings screen.
+
 Key bindings
 
 Press F1 at any time, or choose Key bindings in Settings, to change the game's keys.
@@ -45,6 +111,7 @@ Escape, F1 and the number keys 1 to 9 can never be rebound.
 Credits
 
 Codename Cygnus is Reactive Studios' game, and its writers, voice actors, composer and team made everything you hear.
+The game's Credits list Reactive Studios' team, and each episode's own credits come at its end.
 tsatria03 makes the Windows port.
 
 Licenses
