@@ -3,13 +3,13 @@
 Each row says what it is and what it is set to, and the game remembers it in
 ``config/settings.json``:
 
+    Debug mode, currently off       source runs only, first (the dev, 2026-10-18)
     Back
     Master volume, 100 percent      Enter opens its levels
-    Ambience, 100 percent
-    Decision sound, 100 percent
+    Background ambience volume, 100 percent
+    Decision loop volume, 100 percent
     Speech recognition, currently off   Enter turns it on or off
     Key bindings                    the F1 screen
-    Debug mode, currently off       source runs only
 
 Enter on a volume opens its levels, 100 percent down to 0 percent in tens, on the one it
 is at, moved through with the usual menu keys (the dev, 2026-10-18: "With the volumes, you
@@ -29,7 +29,7 @@ from .menu import Menu, Row
 
 
 def volume_text(app, key):
-    """ "Ambience, 60 percent" """
+    """ "Background ambience volume, 60 percent" """
     return '%s, %d percent' % (VOLUME_LABELS[key], app.settings.get(key))
 
 
@@ -38,16 +38,18 @@ class SettingsScreen(Menu):
     title = 'Settings.'
 
     def rows(self):
-        rows = [Row('Back', self.back)]
+        rows = []
+        if not paths.FROZEN:
+            # First (the dev, 2026-10-18: "The debug mode should be the first option").
+            rows.append(Row(lambda: 'Debug mode, currently %s' % self.on_off('debug'),
+                            self.toggle_debug))
+        rows.append(Row('Back', self.back))
         for key in VOLUMES:
             rows.append(Row(lambda key=key: volume_text(self.app, key),
                             lambda key=key: self.open(VolumeLevels(self.app, key))))
         rows.append(Row(lambda: 'Speech recognition, currently %s' % self.on_off('speech_recognition'),
                         self.toggle_speech_recognition))
         rows.append(Row('Key bindings', self.app.open_key_bindings))
-        if not paths.FROZEN:
-            rows.append(Row(lambda: 'Debug mode, currently %s' % self.on_off('debug'),
-                            self.toggle_debug))
         return rows
 
     def on_off(self, key):

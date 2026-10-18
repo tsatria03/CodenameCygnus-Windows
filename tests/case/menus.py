@@ -75,15 +75,26 @@ def test_episodes_lists_the_eight_by_number_and_title_with_the_episodes_sound():
     key(app, 'return')
     listing = app.stack.top
     assert isinstance(listing, EpisodeList) and sounds(app) == ['1930radio a']
-    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue']
-    assert [r.text for r in listing.rows()][-1] == 'Episode 8, Holiday Party'
-    assert len(listing.rows()) == 8
+    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Back']
+    rows = [r.text for r in listing.rows()]
+    assert rows[1] == 'Episode 1, Prologue' and rows[-1] == 'Episode 8, Holiday Party'
+    assert len(rows) == 9
+
+
+def test_back_at_the_top_of_the_episode_list_goes_back():
+    app = make_app()
+    app.stack.push(MainMenu(app, STORY))
+    key(app, 'return')
+    key(app, 'return')                              # Back, the first row
+    assert isinstance(app.stack.top, MainMenu)
+    assert sounds(app) == ['1930radio a', '1930radio a']
 
 
 def test_an_episode_says_its_description_then_offers_start():
     app = make_app()
     app.stack.push(MainMenu(app, STORY))
     key(app, 'return')
+    key(app, 'down')
     key(app, 'down')
     key(app, 'return')                              # Art Show
     screen = app.stack.top
@@ -97,6 +108,7 @@ def test_start_plays_the_episode_and_leaving_it_comes_back_to_the_list():
     app = make_app()
     app.stack.push(MainMenu(app, STORY))
     key(app, 'return')
+    key(app, 'down')
     key(app, 'return')                              # the Prologue
     key(app, 'return')                              # Start
     playing = app.stack.top
@@ -108,7 +120,7 @@ def test_start_plays_the_episode_and_leaving_it_comes_back_to_the_list():
     key(app, 'end')
     key(app, 'return')                              # Return to menu
     assert isinstance(app.stack.top, EpisodeList)
-    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue']
+    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue'], 'not back on the episode'
 
 
 def test_escape_goes_back_with_the_back_sound():

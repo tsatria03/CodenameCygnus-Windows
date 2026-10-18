@@ -116,11 +116,11 @@ def test_the_decision_loop_starts_and_stops():
 
 def test_volumes_step_by_ten_say_their_level_and_stop_at_the_ends():
     audio = make()
-    assert audio.step_volume('ambience_volume', -1) == 'Ambience 90 percent'
+    assert audio.step_volume('ambience_volume', -1) == 'Background ambience volume 90 percent'
     assert audio.settings.get('ambience_volume') == 90
     for _ in range(12):
         audio.step_volume('ambience_volume', -1)
-    assert audio.step_volume('ambience_volume', -1) == 'Ambience 0 percent'
+    assert audio.step_volume('ambience_volume', -1) == 'Background ambience volume 0 percent'
     assert audio.step_volume('master_volume', 1) == 'Master volume 100 percent'
 
 

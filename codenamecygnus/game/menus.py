@@ -128,8 +128,11 @@ class EpisodeList(Menu):
         self.story = story
 
     def rows(self):
-        return [Row(episode_name(e), lambda e=e: self.open(EpisodeMenu(self.app, self.story, e)))
-                for e in self.story.playable_episodes()]
+        # Back at the top (the dev, 2026-10-18: "There should also bee a back button in the
+        # episode list, at the top of the screen").
+        return [Row('Back', self.back)] + [
+            Row(episode_name(e), lambda e=e: self.open(EpisodeMenu(self.app, self.story, e)))
+            for e in self.story.playable_episodes()]
 
 
 class EpisodeMenu(Menu):

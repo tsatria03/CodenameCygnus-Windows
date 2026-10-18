@@ -38,8 +38,11 @@ SKIP_SECONDS = 5.0
 #: Seconds after the voice starts before pygame's "not playing" is believed, since the
 #: stream can take a moment to begin.
 START_GRACE = 0.25
-VOLUME_LABELS = {'master_volume': 'Master volume', 'ambience_volume': 'Ambience',
-                 'decision_volume': 'Decision sound'}
+#: The volumes as they are spoken (the dev, 2026-10-18: "rename the following volume
+#: settings to this. Backround ambience volume, Decision loop volume").
+VOLUME_LABELS = {'master_volume': 'Master volume',
+                 'ambience_volume': 'Background ambience volume',
+                 'decision_volume': 'Decision loop volume'}
 
 _BITRATES = {1: (0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320),
              2: (0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160)}
@@ -164,7 +167,7 @@ class Audio:
 
     def step_volume(self, key, step):
         """Move a volume one step of ten up (1) or down (-1); what to say, such as
-        "Ambience 60 percent". At either end it stays, and says so."""
+        "Background ambience volume 60 percent". At either end it stays, and says so."""
         now = self.percent(key)
         new = max(0, min(100, now + 10 * step))
         if new != now:

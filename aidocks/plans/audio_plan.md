@@ -53,7 +53,7 @@ The 10 files no state names are the eight interface sounds of under a second in 
   - **Shift with Home and End:** the master volume, everything together, Shift+Home louder and Shift+End quieter. The voice follows it, so it stays the loudest thing the player controls.
   - **Page Up and Page Down:** the ambience, the `back_*` backgrounds.
   - **Shift with Page Up and Page Down:** the decision loop, the `decision_*` sounds.
-  - Each press says the new level, such as "Ambience 60 percent", and the game remembers all three ([[saves_plan]]).
+  - Each press says the new level, such as "Background ambience volume 60 percent", and the game remembers all three ([[saves_plan]]). The ambience and decision volumes were first called "Ambience" and "Decision sound", renamed by the dev on 2026-10-18 ([[menus_plan]]).
   - Plain Home and End stay free, so in menus they jump to the first and last row.
 
 ## Open questions
