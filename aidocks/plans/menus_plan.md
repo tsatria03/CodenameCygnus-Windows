@@ -118,7 +118,8 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   - `PushButton D`: `playSkipButton`. In the port: skipping with S.
   - `Sound A`: `playViewControllerSound`. In the port: opening any other screen, such as Settings or the pause menu.
   - `1930Radio D`: `playStoreVCSound`, opening the Store. In the port: choosing Download Mission 1, on an episode's screen or through Continue (the dev, 2026-10-18: "This should play if you click on the download button").
-  - Not used: `Buy` (`playBuySound`) belonged to the Store, and nothing in the code plays `00000Push`.
+  - `00000Push`: nothing in the original's code plays it. In the port: every 10 percent of the Mission 1 download, with the percentage (the dev, 2026-10-18: "The push sound should play when it downloades the mission, every 10 percent").
+  - Not used: `Buy` (`playBuySound`), which belonged to the Store.
   - Moving between rows plays nothing, as in the original, so no sound overlaps the screen reader. The sounds follow the master volume ([[audio_plan]]).
 
 - **The episode list** (the dev, 2026-10-17: "I think it should be like the original where you have to click on the episode to find the description of it"):

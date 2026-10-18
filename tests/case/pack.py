@@ -236,6 +236,28 @@ def test_the_download_screen_says_how_it_goes_and_loads_the_pack():
         Recordings._shared = READY
 
 
+def test_every_10_percent_plays_the_push_sound_and_says_how_far():
+    no_missions()
+    try:
+        _data, info, dest = served()
+        app = make_app()
+        kinds = []
+        app.play_sound = kinds.append
+        screen = DownloadScreen(app, info=info, dest=dest)
+        screen.download = Download(info, dest, Network(b''))   # never started
+        screen.said_state = downloads.DOWNLOADING
+        screen.download.got = screen.download.total * 35 // 100
+        screen.update()
+        screen.update()                             # still 30: nothing again
+        assert kinds == ['progress'] and app.speech.said == ['30 percent.']
+        screen.download.got = screen.download.total * 41 // 100
+        screen.update()
+        assert kinds == ['progress'] * 2 and app.speech.said[-1] == '40 percent.'
+        assert SOUNDS['progress'] == '00000Push'
+    finally:
+        Recordings._shared = READY
+
+
 def test_escape_cancels_the_download():
     no_missions()
     try:

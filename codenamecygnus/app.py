@@ -52,6 +52,10 @@ SOUNDS = {
     # Download Mission 1, in place of opening the Store (playStoreVCSound; the dev,
     # 2026-10-18: "This should play if you click on the download button").
     'download': '1930Radio D',
+    # Every 10 percent of that download, a sound the original shipped but never played
+    # (the dev, 2026-10-18: "The push sound should play when it downloades the mission,
+    # every 10 percent").
+    'progress': '00000Push',
     'open': 'Sound A',          # opening any other screen (playViewControllerSound)
 }
 #: Seconds a key is held before it starts repeating, and between repeats.

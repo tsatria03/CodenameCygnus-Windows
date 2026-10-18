@@ -1,4 +1,5 @@
 unrelease:
+The Mission 1 download plays a short push sound every 10 percent, as it says how far it has got.
 Choosing Download Mission 1 plays the original's Store sound.
 Agent profile in the main menu is now called Profile, as in the original.
 

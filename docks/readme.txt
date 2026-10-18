@@ -64,7 +64,7 @@ Downloading Mission 1
 
 The game's download is small, and Mission 1's recordings come separately, about 469 megabytes, as the original's episodes did.
 Until they are downloaded, each episode's screen has "Download Mission 1" in place of its buttons; Continue in the main menu downloads them first.
-The game says how far it has got every 10 percent, and Enter says it at any time; Escape cancels.
+The game plays a short sound and says how far it has got every 10 percent, and Enter says it at any time; Escape cancels.
 Once the download is whole, the game checks it, fetches it again if it arrived damaged, and then the episodes can be played.
 The recordings are kept in the missions folder of the game's save folder, so updating the game never downloads them again.
 
