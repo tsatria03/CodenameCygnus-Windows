@@ -6,7 +6,17 @@ metadata:
   type: project
 ---
 
-**Status: planned, ready to build.** Every question is answered; nothing is built. The keys were agreed first, while [[foundation_plan]] was being written.
+**Status: being built, in sections.** The keys were agreed first, while [[foundation_plan]] was being written.
+
+## Built in five sections
+
+The dev asked on 2026-10-17 for it to be done in sections ("This next part should be done in sections"), and agreed to these ("Yes"). Each section is built and tested, the dev tries it, and the next starts only once the dev says it works.
+
+1. **The story's rules, with no sound:** loading `states.json` and `missions.json`, the story variables (set, raised, lowered), the conditions, where each state goes next (the first automatic exit wins), the choices and the timed choices. Tests only, since there is nothing to hear. Status: building.
+2. **Playing an episode:** the episode screen playing the states through the audio ([[audio_plan]]), reading the choices after the question, Up, Down, Enter and 1 to 9 to choose, C, Space, R, Left and Right, H, the 7-second timed choices, `--episode` to start one, and a plain "Episode complete" at its end. Status: waiting.
+3. **Heard recordings and S:** `saves/heard.json` and S skipping across heard recordings to the next choice. Status: waiting.
+4. **Debug mode:** F2, F3, F4 and `--state`. Status: waiting.
+5. **Achievements:** the 16, announced at a quiet moment and saved in `saves/achievements.json`. Status: waiting.
 
 Plan 4 of 8 ([[story_export_plan]] lists the order).
 
