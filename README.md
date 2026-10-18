@@ -73,11 +73,12 @@ From the repository's folder:
 
     python CodenameCygnus.py
 
-For now it opens on a stand-in main menu, Settings and Quit, which speaks through your
-screen reader. Until the real menus come, an episode is started from the command line,
-such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue, or chosen from a
-list with `tests\interact\episode_check.py` (see Tests). F1 opens the key bindings from
-anywhere.
+It opens with a loading message, the first time with the original's headphones notice,
+then the main menu: Episodes, Settings, Credits and Quit, all spoken through your screen
+reader. Episodes lists the eight episodes, every one open until saving is built, and Enter
+on one says its description and offers Start. An episode can also be started from the
+command line, such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue. F1
+opens the key bindings from anywhere.
 
 During an episode, the arrows, Home and End move through the choices once they are read,
 Enter or 1 to 9 choose, C says them again, Space pauses, R replays the recording, Left and
@@ -90,7 +91,7 @@ the end of the episode, and kept in `saves\achievements.json` in the save folder
 - `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
   row turns it on for good.
 - `--episode ID`: start an episode straight away, from `1.1.1`, the Prologue, to `1.8.1`,
-  Holiday Party. Return to menu goes to the main menu.
+  Holiday Party, past the opening. Return to menu goes to the main menu.
 - `--state NAME`: start at any story state, in debug mode, in the episode it belongs to.
   The names are the ones in `analysis\script`.
 

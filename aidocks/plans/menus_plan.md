@@ -12,7 +12,14 @@ metadata:
 
 The parts that need saved progress wait for [[saves_plan]], which comes next: the Continue row, each episode's state (new, in progress, completed, locked), Restart in the episode list, and the agent profile's progress and traits. Until then every episode is open.
 
-1. **The opening, the main menu, the episode list and Credits, with the interface sounds.** The opening's loading message and the headphones notice the first time; the main menu in place of the stand-in, for now Episodes, Settings, Credits and Quit; the episode list, each episode's own screen with its description and Start; Credits; and the original's sounds at the original's moments. Status: building.
+1. **The opening, the main menu, the episode list and Credits, with the interface sounds.** The opening's loading message and the headphones notice the first time; the main menu in place of the stand-in, for now Episodes, Settings, Credits and Quit; the episode list, each episode's own screen with its description and Start; Credits; and the original's sounds at the original's moments. Status: built 2026-10-18, waiting for the dev to try it by ear.
+   - `codenamecygnus/game/menus.py` holds `Opening`, `HeadphonesNotice`, `MainMenu`, `EpisodeList`, `EpisodeMenu` and `CreditsScreen`; the stand-in main menu is gone.
+   - **The opening** says "Codename Cygnus." and a loading message picked at random, waits 2.5 seconds so it is heard, or goes on at any key, then gives the headphones notice the first time (Continue, or Escape, sets `headphones_notice_shown`) or goes straight to the main menu. `--episode` and `--state` skip it, the main menu waiting silently under the episode.
+   - **The main menu** says "Main menu." and offers Episodes, Settings, Credits and Quit; Escape quits.
+   - **Episodes** says "Episodes. Mission 1." and lists "Episode 1, Prologue" to "Episode 8, Holiday Party". Enter opens the episode's own screen, "Episode 2, Art Show." with its description, offering Start. Start puts the episode in that screen's place, so leaving the episode comes back to the list.
+   - **Credits** says "Credits. Codename Cygnus is a game by Reactive Studios." and lists the company credits as rows, "CEO: Jonathon Myers", a credit with no title as a heading in plain case, and last "Windows port: tsatria03".
+   - **The interface sounds** are played by purpose through `App.play_sound`, which `SOUNDS` in `app.py` maps to the files: Escape in any menu plays the back sound, `Menu.open` plays a screen's opening sound, Start plays `1930Radio A`, opening the pause menu `Sound A`, and Restart `1930Radio C`.
+   - `tests/case/menus.py` has 11 tests.
 2. **Settings:** the three volumes, speech recognition on or off, and the key bindings. Status: waiting.
 3. **The end of an episode and the previews:** "Episode complete!", then Next episode, Preview next episode, Credits and Return to menu, and Preview next in the episode list. Status: waiting.
 4. **With saves:** Continue, the episodes' states and locks, Restart in the list, and the agent profile with its traits and achievements, built with or after [[saves_plan]]. Status: waiting.

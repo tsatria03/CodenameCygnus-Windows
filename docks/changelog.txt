@@ -1,4 +1,7 @@
 unrelease:
+The game opens as the original did, with a loading message and, the first time, its headphones notice, then a main menu of Episodes, Settings, Credits and Quit, with the original's interface sounds.
+Episodes lists all eight episodes, and each says its description before you start it.
+Credits lists Reactive Studios' team, as the original's Info screen did.
 The game has 16 achievements of its own, kept on your computer in place of the original's online Game Center ones; each is announced the first time you earn it, at the next choice or at the end of the episode, never over the story.
 The choices now come in the order the characters say them, such as BOLD before SECRETIVE in Delphi's briefing in Art Show; 20 questions across the episodes had them the other way round.
 S skips straight on to the next choice across everything you have heard before, and says "Not heard yet" on a part you have not, so new story is never skipped by mistake.

@@ -7,7 +7,7 @@ Your choices shape your agent's personality and change how the story goes.
 The original is no longer on the App Store, and this is a port of it for Windows, played with the keyboard and your screen reader.
 In the original you spoke your choices aloud, and the port will let you do that too, with a setting to turn it on or off.
 
-The port is still being made, and there is nothing to play yet.
+The port is still being made, but every episode can already be played from start to end.
 This readme will grow as the game does.
 
 Headphones
