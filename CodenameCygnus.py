@@ -124,6 +124,8 @@ def main(argv=None):
     from codenamecygnus.platform.speech import Speech
     speech = Speech.shared()
     try:
+        # compiler.py --test looks for this line, to know a build found its data.
+        log.info('game data: %s', paths.game())
         import pygame
         from codenamecygnus.app import App
         from codenamecygnus.game.menus import MainMenu, Opening
