@@ -93,6 +93,11 @@ runs every test in `tests\case`, several at once, writing the results to `tests\
 Any one file runs on its own too, such as `python tests\case\keymap.py`. The tests never
 speak, never play a sound, never open a window, and never touch your save.
 
+`tests\interact` holds tools to hear the game by ear instead. `python
+tests\interact\audio_check.py` plays a story state the way the game will, background,
+voice and decision loop, from the Prologue's first scene or any state named after it; N
+moves on to the next state. It keeps its own save, so it never changes your volumes.
+
 ## Layout
 
 ```
@@ -107,6 +112,7 @@ analysis/                notes and data read out of the original app
 tools/                   the tools that read the original's data
 tests/case/              the tests, one plain script each
 tests/suite.py           runs them all
+tests/interact/          tools to hear the game by ear, such as audio_check.py
 requirements.txt         the two packages it needs
 VERSION                  the version, as year, month, day and that day's number
 ```
