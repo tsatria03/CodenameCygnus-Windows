@@ -13,7 +13,7 @@ A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.
 - **Python only**, in the `codenamecygnus/` package, with pygame and Prism ([[project_python_only]]).
 - **Developer tasks**, open and finished, are in [[project_dev_tasks]].
 - **The game is data-driven.** Each episode is a graph of states (voice, background and decision audio, a script) joined by manual choices, automatic transitions, conditions and timed choices. The story is built from the v53 graph in the app's database, not the bundled v1 JSON, and every player starts from scratch ([[project_story_data_source]]).
-- **Status:** the story is exported, and the foundation and the audio are built. An episode plays from start to end, chosen from the stand-in main menu's Episodes row or with `--episode`, while the story engine is built in sections ([[story_engine_plan]]).
+- **Status:** the story is exported, and the foundation and the audio are built. An episode plays from start to end with `--episode`, while the story engine is built in sections ([[story_engine_plan]]).
 
 ## Layout
 
