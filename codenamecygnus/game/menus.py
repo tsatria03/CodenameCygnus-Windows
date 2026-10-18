@@ -4,15 +4,14 @@
                      the first time only, the headphones notice
     the main menu    Continue while an episode is in progress, Episodes, Agent profile
                      (game/profile.py), Settings, Credits, Quit; Escape quits too
-    Episodes         Mission 1's episodes, each by its number and title; Enter opens its
-                     own screen, which says its description and offers Start and, where
-                     there is one, Preview next episode
+    Episodes         Mission 1's episodes, each by its number, title and state; Enter opens
+                     its own screen, its description, then its buttons by its state
+                     (EpisodeMenu below)
     Credits          Reactive Studios' company credits, and a line for the port
 
 Every one is a spoken menu (ui/menu.py), and each plays the original's interface sound at
-the original's moment (app.py's SOUNDS). Continue, the episodes' states and locks, Restart
-and the agent profile come with aidocks/plans/saves_plan.md; until then every episode is
-open.
+the original's moment (app.py's SOUNDS). Continue, the episodes' states and locks and
+Restart come from saved progress (game/progress.py, aidocks/plans/saves_plan.md).
 """
 from __future__ import annotations
 

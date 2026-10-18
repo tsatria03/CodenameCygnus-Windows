@@ -7,8 +7,15 @@ Your choices shape your agent's personality and change how the story goes.
 The original is no longer on the App Store, and this is a port of it for Windows, played with the keyboard and your screen reader.
 In the original you spoke your choices aloud, and the port lets you do that too, with a setting to turn it on or off.
 
-Every episode can be played from start to end.
-The port is still being made, and this readme grows as the game does.
+All of Mission 1, its eight episodes, can be played from start to end.
+
+Installing
+
+Extract the zip; it gives you a folder called CodenameCygnus-Windows.
+Run CodenameCygnus.exe in that folder.
+The first time you open an episode, choose Download Mission 1 to fetch its recordings.
+To update the game, extract the new version in place of the old folder.
+Your progress, settings, achievements and the downloaded recordings are kept in the CodenameCygnus folder in your AppData folder, never in the game's own folder, so an update keeps them all.
 
 Headphones
 

@@ -17,8 +17,8 @@ experience of Codename Cygnus is best with the use of a high quality headset."
 
 ## Status
 
-**The port is being built, and every episode can be played from start to end.** Built so
-far:
+**The port is complete: all of Mission 1 can be played from start to end, and the game is
+built and released for Windows.** It has:
 
 - speech through your screen reader, the keys (every one rebindable with F1), the settings
   and the three volumes;
@@ -32,9 +32,9 @@ far:
   story carried from episode to episode;
 - the agent profile, with the dominant trait and the four trait scales;
 - 16 achievements of the game's own, kept on your computer;
-- speaking your choices aloud, with speech recognition turned on.
-
-Still to come: the built game.
+- speaking your choices aloud, with speech recognition turned on;
+- a built game, `CodenameCygnus.exe`, whose recordings download separately, as the
+  encrypted mission pack `m1.dat`, so the game's own zip stays small.
 
 What was found in the original:
 
@@ -67,9 +67,17 @@ the story moves on without you.
 Mission 2, "The Dutch Diamond", was announced but never released. Nothing of it exists in
 the app.
 
+## Playing the built game
+
+Download the newest `CodenameCygnus-Win-<version>.zip` from the repository's Releases page
+and extract it. It gives a `CodenameCygnus-Windows` folder: run `CodenameCygnus.exe` in it.
+It needs nothing installed. The first time an episode is opened, Download Mission 1
+fetches its recordings, about 469 MB, into `%APPDATA%\CodenameCygnus\missions`, where every
+later version finds them. The player's own guide is `docks\readme.txt`, beside the exe.
+
 ## Requirements
 
-The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and five packages:
+To run it from source, the port needs 64-bit Python 3.12 or newer on Windows 10 or later, and five packages:
 
     pip install -r requirements.txt
 
@@ -204,7 +212,7 @@ docks/                   readme.txt, changelog.txt and todo list.txt, for player
 aidocks/general/         the notes for AI-assisted work (see CLAUDE.md)
 aidocks/plans/           every plan for a feature or fix, planned or finished
 analysis/                notes and data read out of the original app
-tools/                   the tools that read the original's data
+tools/                   the tools that read the original's data and pack its recordings
 tests/case/              the tests, one plain script each
 tests/suite.py           runs them all
 tests/interact/          tools to hear the game by ear, such as audio_check.py
@@ -265,6 +273,13 @@ The port's code is under the MIT License, in `LICENSE`. Everything under `game/`
 Reactive Studios' and is not covered by it.
 
 The third-party pieces keep their own licenses. NVDA's controller client's sits beside its
-DLL in `vendor/nvda/`, and can also be read online:
+DLL in `vendor/nvda/`; a build carries every one of them inside it, as `licenses\`. They
+can also be read online:
 
 - the NVDA controller client, LGPL 2.1: <https://github.com/nvaccess/nvda/blob/master/extras/controllerClient/license.txt>
+- Prism (`prismatoid`), MPL 2.0: <https://github.com/ethindp/prism>
+- pygame, LGPL 2.1: <https://github.com/pygame/pygame/blob/main/docs/LGPL.txt>
+- PocketSphinx, Carnegie Mellon University's BSD-style license: <https://github.com/cmusphinx/pocketsphinx/blob/master/LICENSE>
+- python-sounddevice, MIT: <https://github.com/spatialaudio/python-sounddevice/blob/master/LICENSE>, and PortAudio, MIT: <https://www.portaudio.com/license.html>
+- CFFI, MIT: <https://github.com/python-cffi/cffi/blob/main/LICENSE>
+- cryptography, Apache 2.0 or BSD 3-Clause: <https://github.com/pyca/cryptography/blob/main/LICENSE>

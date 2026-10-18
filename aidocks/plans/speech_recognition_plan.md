@@ -52,4 +52,4 @@ Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and 
 
 ## Open questions
 
-None. Ready to build once the dev says so.
+None.

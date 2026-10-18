@@ -58,4 +58,4 @@ The 10 files no state names are the eight interface sounds of under a second in 
 
 ## Open questions
 
-None. Ready to build once the dev says so.
+None.

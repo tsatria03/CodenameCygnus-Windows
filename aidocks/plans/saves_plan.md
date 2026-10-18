@@ -79,4 +79,4 @@ The four traits also run through the whole mission. Holiday Party uses none of t
 
 ## Open questions
 
-None. Ready to build once the dev says so.
+None.

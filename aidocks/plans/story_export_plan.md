@@ -65,4 +65,4 @@ Added 2026-10-17 (the dev: "Yes please. I'd love to see how the entire story was
 
 ## Open questions
 
-None. Ready to build once the dev says so.
+None.

@@ -129,4 +129,4 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
 
 ## Open questions
 
-None. Ready to build once the dev says so.
+None.
