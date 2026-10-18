@@ -1,4 +1,4 @@
-"""The agent profile: section 2 of aidocks/plans/saves_plan.md, from
+"""The profile: section 2 of aidocks/plans/saves_plan.md, from
 aidocks/plans/menus_plan.md.
 
 The original's Profile screen (``-[CCProfileDatasource createDatasource]``, 0x100017d68)
@@ -66,8 +66,10 @@ def scale_text(trait, value):
 
 
 class ProfileScreen(Menu):
-    name = 'agent profile'
-    title = 'Agent profile.'
+    name = 'profile'
+    # "Profile", as the original's screen was called (the dev, 2026-10-18: "Please rename
+    # agent profile to profile").
+    title = 'Profile.'
 
     def __init__(self, app, story, progress=None, achievements=None):
         super().__init__(app)

@@ -4,6 +4,6 @@
 
 Mission 1's recordings come as a download of their own, from Download Mission 1 on an episode's screen, so the game's own download stays small.
 Speech recognition lets you speak your choices as in the original, with a setting to turn it on or off.
-The agent profile shows your dominant trait, how far you have come, your four trait scales and your achievements.
+The profile shows your dominant trait, how far you have come, your four trait scales and your achievements.
 The van escape in Signum Cygni ends the way your choice leads, GRAB IT or HANG ON, instead of either ending at random as in the original.
 The game has achievements of its own, kept on your computer, in place of the original's online Game Center ones.

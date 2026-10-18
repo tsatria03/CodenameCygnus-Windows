@@ -2,7 +2,7 @@
 
     the opening      "Codename Cygnus" and one of the original's loading messages, then
                      the first time only, the headphones notice
-    the main menu    Continue while an episode is in progress, Episodes, Agent profile
+    the main menu    Continue while an episode is in progress, Episodes, Profile
                      (game/profile.py), Settings, Credits, Quit; Escape quits too
     Episodes         Mission 1's episodes, each by its number, title and state; Enter opens
                      its own screen, its description, then its buttons by its state
@@ -115,7 +115,9 @@ class MainMenu(Menu):
         return rows + [
             Row('Episodes', lambda: self.open(EpisodeList(self.app, self.story, self.progress),
                                               'episodes')),
-            Row('Agent profile', lambda: self.open(ProfileScreen(self.app, self.story,
+            # "Profile", as the original's tab was (the dev, 2026-10-18: "Please rename agent
+            # profile to profile").
+            Row('Profile', lambda: self.open(ProfileScreen(self.app, self.story,
                                                                  self.progress), 'profile')),
             Row('Settings', lambda: self.open(SettingsScreen(self.app))),
             Row('Credits', lambda: self.open(CreditsScreen(self.app, self.story), 'credits')),

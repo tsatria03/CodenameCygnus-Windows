@@ -13,7 +13,7 @@ A Windows port of **Codename Cygnus** (`net.reactivestudios.codenamecygnus` 1.3.
 - **Python only**, in the `codenamecygnus/` package, with pygame and Prism ([[project_python_only]]).
 - **Developer tasks**, open and finished, are in [[project_dev_tasks]].
 - **The game is data-driven.** Each episode is a graph of states (voice, background and decision audio, a script) joined by manual choices, automatic transitions, conditions and timed choices. The story is built from the v53 graph in the app's database, not the bundled v1 JSON, and every player starts from scratch ([[project_story_data_source]]).
-- **Status:** the story is exported, and the foundation, the audio and the story engine are built ([[story_engine_plan]]), with the menus around them ([[menus_plan]]) and saved progress ([[saves_plan]]): every episode plays from start to end from the main menu, with the agent profile. Choices can be spoken too, with speech recognition on ([[speech_recognition_plan]]). The game is built and released with `compiler.py` and `releaser.py`, and Mission 1's recordings download as the encrypted `m1.dat` ([[build_release_plan]]). All eight plans are finished.
+- **Status:** the story is exported, and the foundation, the audio and the story engine are built ([[story_engine_plan]]), with the menus around them ([[menus_plan]]) and saved progress ([[saves_plan]]): every episode plays from start to end from the main menu, with the profile. Choices can be spoken too, with speech recognition on ([[speech_recognition_plan]]). The game is built and released with `compiler.py` and `releaser.py`, and Mission 1's recordings download as the encrypted `m1.dat` ([[build_release_plan]]). All eight plans are finished.
 
 ## Layout
 

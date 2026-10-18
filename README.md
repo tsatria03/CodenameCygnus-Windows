@@ -30,7 +30,7 @@ built and released for Windows.** It has:
   screen, the end of an episode, previews and credits;
 - saving: progress at every new part of the story, Continue, the episodes' locks, and the
   story carried from episode to episode;
-- the agent profile, with the dominant trait and the four trait scales;
+- the profile, with the dominant trait and the four trait scales;
 - 16 achievements of the game's own, kept on your computer;
 - speaking your choices aloud, with speech recognition turned on;
 - a built game, `CodenameCygnus.exe`, whose recordings download separately, as the
@@ -114,7 +114,7 @@ then the main menu, all spoken through your screen reader:
   opens when the one before it is finished. Enter on one opens its own screen: its
   description, then Start; Continue and Restart episode while in progress; or, once
   finished, what was said at its end, Replay episode and a preview of the next episode.
-- **Agent profile** says your dominant trait, the furthest episode reached, the episodes
+- **Profile** says your dominant trait, the furthest episode reached, the episodes
   completed, your four trait scales, each with which way it leans, and the achievements.
 - **Settings** has the three volumes, a switch for speech recognition, the key bindings,
   and from source, Debug mode.

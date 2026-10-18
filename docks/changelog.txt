@@ -1,4 +1,5 @@
 unrelease:
+Agent profile in the main menu is now called Profile, as in the original.
 
 26.10.18-1:
 Mission 1's recordings come as a download of their own, about 469 megabytes, so the game's own download stays small: choose Download Mission 1 on an episode's screen, or Continue in the main menu, and the game fetches them, checks them once they arrive and keeps them for every later version.

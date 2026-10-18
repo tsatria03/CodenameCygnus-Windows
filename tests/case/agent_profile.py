@@ -71,9 +71,9 @@ def test_the_main_menu_opens_it_with_the_profile_sound_on_back():
     app = make_app()
     app.stack.push(MainMenu(app, STORY))
     key(app, 'down')
-    key(app, 'return')                              # Agent profile
+    key(app, 'return')                              # Profile
     assert isinstance(app.stack.top, ProfileScreen)
-    assert app.speech.said[-2:] == ['Agent profile.', 'Back']
+    assert app.speech.said[-2:] == ['Profile.', 'Back']
     assert getattr(app.audio.menu_sounds[-1], 'name', None) == '1930radio b'
     key(app, 'down')
     key(app, 'return')                              # Enter says a row again

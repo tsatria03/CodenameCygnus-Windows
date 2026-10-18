@@ -65,7 +65,7 @@ def test_the_main_menu_rows_and_escape_quits():
     app = make_app()
     menu = MainMenu(app, STORY)
     app.stack.push(menu)
-    assert [r.text for r in menu.rows()] == ['Episodes', 'Agent profile', 'Settings', 'Credits',
+    assert [r.text for r in menu.rows()] == ['Episodes', 'Profile', 'Settings', 'Credits',
                                              'Quit']
     key(app, 'escape')
     assert not app.running
