@@ -117,6 +117,7 @@ def test_an_episode_says_its_description_then_offers_start():
 
 def test_the_last_episodes_screens_have_no_preview():
     app = make_app()
+    progress().complete(STORY.episodes['1.6.1'], {})     # so Signum Cygni is open
     for episode_id in ('1.7.1', '1.8.1'):
         episode = STORY.episodes[episode_id]
         menu = EpisodeMenu(app, STORY, episode)
@@ -158,15 +159,22 @@ def test_the_list_says_each_episodes_state_and_which_are_locked():
                          "Episode 3, Neptune's Lair, locked"]
 
 
-def test_enter_on_a_locked_episode_says_why_as_the_original_did():
+def test_a_locked_episode_opens_on_back_its_description_and_locked():
     app = make_app()
     app.stack.push(MainMenu(app, STORY))
     key(app, 'return')
     key(app, 'down')
     key(app, 'down')
     key(app, 'return')                              # Art Show, locked
-    assert isinstance(app.stack.top, EpisodeList)
-    assert app.speech.said[-1] == '%s %s' % (STORY.episodes['1.2.1'].description, LOCKED)
+    screen = app.stack.top
+    assert isinstance(screen, EpisodeMenu)
+    assert app.speech.said[-2:] == ['Episode 2, Art Show.', 'Back']
+    assert [r.text for r in screen.rows()] == ['Back', STORY.episodes['1.2.1'].description, 'Locked']
+    key(app, 'end')
+    key(app, 'return')                              # Locked: why, as the original said it
+    assert app.speech.said[-1] == LOCKED == ('You need to complete the previous episode '
+                                             'before starting this one.')
+    assert app.stack.top is screen
 
 
 def test_an_episode_in_progress_offers_continue_and_restart():

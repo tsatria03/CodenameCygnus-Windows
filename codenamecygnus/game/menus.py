@@ -137,7 +137,8 @@ def episode_name(episode):
     return 'Episode %d, %s' % (episode.number, episode.title)
 
 
-LOCKED = 'Locked. You need to complete the previous episode before starting this one.'
+#: What the Locked row says when chosen, as the original's "Episode Locked" alert did.
+LOCKED = 'You need to complete the previous episode before starting this one.'
 
 
 class EpisodeList(Menu):
@@ -164,15 +165,9 @@ class EpisodeList(Menu):
         # back button in the episode list, at the top of the screen", and "The back button
         # should always appear first in any menu").
         return [Row('Back', self.back)] + [
-            Row(lambda e=e: self.row_name(e), lambda e=e: self.choose(e))
+            Row(lambda e=e: self.row_name(e),
+                lambda e=e: self.open(EpisodeMenu(self.app, self.story, e, self.progress)))
             for e in self.story.playable_episodes()]
-
-    def choose(self, episode):
-        if self.progress.locked(episode):
-            # As the original did: what it is about, and why it cannot be played yet.
-            self.say('%s %s' % (episode.description.strip(), LOCKED))
-        else:
-            self.open(EpisodeMenu(self.app, self.story, episode, self.progress))
 
 
 class EpisodeMenu(Menu):
@@ -183,6 +178,9 @@ class EpisodeMenu(Menu):
         not started   Start
         in progress   Continue, Restart episode
         completed     Replay episode, Preview next episode
+        locked        Locked, which says why when chosen (the dev, 2026-10-18: "For locked
+                      episodes, a similar menu should open with the back button,
+                      description, then the locked status after it")
     """
 
     name = 'episode menu'
@@ -200,7 +198,9 @@ class EpisodeMenu(Menu):
         if description:
             rows.append(Row(description, lambda: self.say(self.row_text())))
         state = self.progress.state_of(self.episode)
-        if state == NEW:
+        if self.progress.locked(self.episode):
+            rows.append(Row('Locked', lambda: self.say(LOCKED)))
+        elif state == NEW:
             rows.append(Row('Start', self.start))
         elif state == IN_PROGRESS:
             if self.progress.place(self.episode) is not None:
