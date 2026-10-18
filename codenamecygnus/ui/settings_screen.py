@@ -11,8 +11,8 @@ Each row says what it is and what it is set to, and the game remembers it in
     Speech recognition, currently off   Enter turns it on or off
     Key bindings                    the F1 screen
 
-Enter on a volume opens its levels, 100 percent down to 0 percent in tens, on the one it
-is at, moved through with the usual menu keys (the dev, 2026-10-18: "With the volumes, you
+Enter on a volume opens its levels, Back and then 100 percent down to 0 percent in tens,
+on Back, moved through with the usual menu keys (the dev, 2026-10-18: "With the volumes, you
 can click on it, and the normal menu keys will work, up/down/left/right/home/end"). Enter
 sets the level and comes back here; Escape keeps the old one. The same screen opens from
 the main menu and from the pause menu during an episode.
@@ -65,7 +65,7 @@ class SettingsScreen(Menu):
 
 
 class VolumeLevels(Menu):
-    """One volume's levels, loudest first, on the one it is at."""
+    """One volume's levels: Back, then 100 percent down to 0 percent, opening on Back."""
 
     name = 'volume levels'
     LEVELS = tuple(range(100, -1, -10))
@@ -74,9 +74,8 @@ class VolumeLevels(Menu):
         super().__init__(app)
         self.key = key
         self.title = '%s.' % VOLUME_LABELS[key]
-        now = app.settings.get(key)
-        # Back is row 0, so the levels start at row 1.
-        self.index = 1 + (self.LEVELS.index(now) if now in self.LEVELS else 0)
+        # It opens on Back, as every menu does (the dev, 2026-10-18: "I want it to open on
+        # the back button"); the Settings row has already said the level it is at.
 
     def rows(self):
         return [Row('Back', self.back)] + [

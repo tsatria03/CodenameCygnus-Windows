@@ -1,6 +1,6 @@
 ---
 name: feedback_back_first
-description: "Every menu with a way back has a Back row, and it is always the first row, before anything else, Settings included."
+description: "Every menu with a way back has a Back row, always the first row and the one it opens on, before anything else, Settings and the volume levels included."
 metadata:
   node_type: memory
   type: feedback
@@ -12,5 +12,5 @@ Every menu that can be left by going back has a **Back** row, and it is **always
 
 **How to apply:**
 - A new menu gets `Row('Back', self.back)` as its first row; `Menu.back` plays the back sound and closes it, as Escape does.
-- A menu that opens on another row, such as a volume's levels on the level it is at, still lists Back first and starts its index past it.
+- The menu opens on Back too, never on another row, even where landing on the current choice would save a key press: a volume's levels open on Back, not on the level it is at (the dev, 2026-10-18: "I want it to open on the back button").
 - Menus whose first row is already their way back keep it: the main menu (Quit), the pause menu (Resume), a yes-or-no question (No) and the headphones notice (Continue). See [[menus_plan]].

@@ -187,7 +187,7 @@ def test_the_settings_rows_say_what_each_is_set_to():
         'Speech recognition, currently off', 'Key bindings']
 
 
-def test_a_volume_opens_its_levels_on_the_one_it_is_at_and_enter_sets_it():
+def test_a_volume_opens_its_levels_on_back_and_enter_sets_one():
     app = make_app()
     app.settings.set('ambience_volume', 60)
     settings = SettingsScreen(app)
@@ -197,15 +197,14 @@ def test_a_volume_opens_its_levels_on_the_one_it_is_at_and_enter_sets_it():
     settings.handle_key('return', [])               # Background ambience volume
     levels = app.stack.top
     assert isinstance(levels, VolumeLevels)
-    assert app.speech.said[-2:] == ['Background ambience volume.', '60 percent']
+    assert app.speech.said[-2:] == ['Background ambience volume.', 'Back'], 'it did not open on Back'
     levels.handle_key('right', [])                  # the menu keys move: quieter
     levels.handle_key('down', [])
-    assert app.speech.said[-1] == '40 percent'
+    assert app.speech.said[-1] == '90 percent'
     levels.handle_key('home', [])
-    assert app.speech.said[-1] == 'Back', 'Back is not first'
-    levels.handle_key('down', [])
-    assert app.speech.said[-1] == '100 percent'
+    assert app.speech.said[-1] == 'Back'
     levels.handle_key('end', [])
+    assert app.speech.said[-1] == '0 percent'
     levels.handle_key('up', [])
     assert app.speech.said[-1] == '10 percent'
     levels.handle_key('return', [])
