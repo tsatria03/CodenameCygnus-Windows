@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: building,** started 2026-10-18 (the dev: "Yes please. Then make an interactive voice test for it.").
+**Status: building,** started 2026-10-18 (the dev: "Yes please. Then make an interactive voice test for it."). The speech check passed by ear the same day (the dev: "All voice tests past."), after it was made to stop listening at the first choice heard; playing a choice by voice in an episode is still to be confirmed.
 
 ## How it is built
 
