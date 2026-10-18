@@ -1,12 +1,29 @@
 ---
 name: saves_plan
-description: "Plan 6 of 8: what the game remembers and where: progress per episode with the story variables carried between episodes, the place to continue from, heard recordings, achievements, settings and keys, all in %APPDATA%\\CodenameCygnus, with the original's restart warning and a save on every new state. Status: planned, ready to build."
+description: "Plan 6 of 8: what the game remembers and where: progress per episode with the story variables carried between episodes, the place to continue from, heard recordings, achievements, settings and keys, all in %APPDATA%\\CodenameCygnus, with the original's restart warning and a save on every new state. Status: being built in sections, with the menus plan's section 4."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, ready to build.** Every question is answered; nothing is built.
+**Status: being built, in sections.** The dev said to start on 2026-10-18 ("Yes please."), with [[menus_plan]]'s section 4, the parts of the menus that need saved progress, built alongside it. Each section is built and tested, the dev tries it by ear, and the next starts once the dev says it works.
+
+## Built in sections
+
+1. **Progress, Continue and the episodes' states.** `saves/progress.json`; the story carried from episode to episode; the place to continue from, saved at every new state; Continue in the main menu; each episode's state and lock in the episode list; each episode's own buttons by its state; and Restart and Replay with the original's whole warning, erasing what came after. Status: building.
+2. **The agent profile** ([[menus_plan]]): the dominant trait, furthest episode, episodes completed, game progress, the four trait scales and the achievements. Status: waiting.
+
+## How section 1 works
+
+- **One place to continue from per episode in progress,** each its own state and the variables as they were before that state was entered, so Continue entering it again applies its variables once, not twice. The main menu's Continue goes to the one played most recently. (The plan below says "the place to continue from" as one; keeping one per episode lets an episode's own Continue work even after another episode was played since.)
+- **What an episode starts with:** the variables the episode that opens it ended with, so Art Show starts with the Prologue's; the Prologue and Holiday Party start from nothing.
+- **Each episode's own screen, by its state,** following the original's two buttons (`-[CCEpisodeTableCell setupLeftButton]` and `setupRightButton`, read 2026-10-18), each list Back first ([[feedback_back_first]]) and the description after it:
+  - not started: Start
+  - in progress: Continue, then Restart episode
+  - completed: Replay episode, then Preview next episode where there is one
+  - locked: no buttons; Enter on the episode in the list says its description and "Locked. You need to complete the previous episode before starting this one.", as the original did
+- **Replay is Restart under another name.** The original's `replayEpisode` (0x10002d18c) and `restartEpisode` (0x10002d64c) play the same restart sound and ask the same question, "Restart Episode?" and "If you restart this episode, all saved progress beyond this episode will be erased.", with Cancel and Restart. So both ask that, answered No or Yes, No first, and do the same: the episode starts again with the variables it began with, and every later episode of Mission 1 goes back to locked and not played. The pause menu's Restart episode does the same.
+- **The list says each episode's state:** "Episode 2, Art Show, in progress", "completed", "locked", or nothing more while new.
 
 Plan 6 of 8 ([[story_export_plan]] lists the order). Every player starts from scratch; nothing is read from the original's database ([[project_story_data_source]]).
 
