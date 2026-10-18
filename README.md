@@ -81,7 +81,8 @@ anywhere.
 
 During an episode, the arrows, Home and End move through the choices once they are read,
 Enter or 1 to 9 choose, C says them again, Space pauses, R replays the recording, Left and
-Right skip 5 seconds while the story plays, H says the scene heading, and Escape opens the
+Right skip 5 seconds while the story plays, S skips on to the next choice across what you
+have heard before, H says the scene heading, and Escape opens the
 pause menu, where the episode can be restarted. Holding a skip or a volume key repeats it.
 
 - `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
