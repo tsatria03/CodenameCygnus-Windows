@@ -1,12 +1,21 @@
 ---
 name: menus_plan
-description: "Plan 5 of 8: the screens around the story: the opening, the main menu, the episode list, the agent profile with its traits and achievements, settings, credits, the end of an episode, the pause menu and the original's interface sounds. Status: planned, ready to build."
+description: "Plan 5 of 8: the screens around the story: the opening, the main menu, the episode list, the agent profile with its traits and achievements, settings, credits, the end of an episode, the pause menu and the original's interface sounds. Status: being built in sections."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: planned, ready to build.** Every question is answered; nothing is built.
+**Status: being built, in sections.** The dev said to go on on 2026-10-18 ("yes, then continue"). As with [[story_engine_plan]], each section is built and tested, the dev tries it by ear, and the next starts once the dev says it works.
+
+## Built in sections
+
+The parts that need saved progress wait for [[saves_plan]], which comes next: the Continue row, each episode's state (new, in progress, completed, locked), Restart in the episode list, and the agent profile's progress and traits. Until then every episode is open.
+
+1. **The opening, the main menu, the episode list and Credits, with the interface sounds.** The opening's loading message and the headphones notice the first time; the main menu in place of the stand-in, for now Episodes, Settings, Credits and Quit; the episode list, each episode's own screen with its description and Start; Credits; and the original's sounds at the original's moments. Status: building.
+2. **Settings:** the three volumes, speech recognition on or off, and the key bindings. Status: waiting.
+3. **The end of an episode and the previews:** "Episode complete!", then Next episode, Preview next episode, Credits and Return to menu, and Preview next in the episode list. Status: waiting.
+4. **With saves:** Continue, the episodes' states and locks, Restart in the list, and the agent profile with its traits and achievements, built with or after [[saves_plan]]. Status: waiting.
 
 Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken menu in the screen loop of [[foundation_plan]]: Up and Down move, Enter chooses, Home and End jump to the first and last row, Escape goes back, and each row is spoken by its text alone, never with its place such as "1 of 2" (the dev, 2026-10-17: "The menu position readouts should be disabled"). Moving wraps round past either end, and Left and Right move as Up and Down do (the dev, 2026-10-17: "please enable menu wrapping, and left/right arrow navigation"); during an episode Left and Right stay the 5-second skips ([[story_engine_plan]]).
 
