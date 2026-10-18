@@ -16,6 +16,7 @@ import pygame
 from codenamecygnus.app import App
 from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choices_text,
                                                 heading_text, script_line)
+from codenamecygnus.game.achievements import ACHIEVEMENTS, Achievements, short_id
 from codenamecygnus.game.debug import JumpScreen, MatchMenu
 from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.stand_in_menu import StandInMainMenu
@@ -136,12 +137,18 @@ def make_app(debug=False, episode=None):
                audio=FakeAudio(settings))
 
 
-def start(episode_id='1.1.1', menu=True, heard=None, debug=False):
+def fresh_achievements():
+    return Achievements(os.path.join(tempfile.mkdtemp(dir=_quiet.FOLDER), 'achievements.json'))
+
+
+def start(episode_id='1.1.1', menu=True, heard=None, debug=False, achievements=None):
     app = make_app(debug=debug)
     if menu:
         app.stack.push(StandInMainMenu(app))
     screen = EpisodeScreen(app, STORY.episodes[episode_id], story=STORY, recordings=Names(),
-                           heard=heard if heard is not None else fresh_heard())
+                           heard=heard if heard is not None else fresh_heard(),
+                           achievements=achievements if achievements is not None
+                           else fresh_achievements())
     app.stack.push(screen)
     app.audio.update()
     return app, screen
@@ -739,6 +746,64 @@ def test_state_on_the_command_line_starts_there_in_debug_mode_only():
     plain = make_app()
     plain.options.state = '016F_contactMark'
     assert e.episode_from_options(plain, plain.options) is None
+
+
+def test_the_16_achievements_are_every_one_the_story_earns():
+    ids = {short_id(a) for s in STORY.states.values() for a in s.achievements}
+    assert len(ACHIEVEMENTS) == 16 and ids == {a[0] for a in ACHIEVEMENTS}
+    assert sum(len(s.achievements) for s in STORY.states.values()) == 23
+
+
+def test_an_achievement_is_said_at_the_next_choice_before_it():
+    kept = fresh_achievements()
+    app, screen = start(achievements=kept)
+    jump(app, screen, 'achievement_cardsWin')
+    assert 'event.m1e1_cardsWin' in kept
+    assert 'Achievement earned: Card Shark.' not in app.speech.said, 'said over the story'
+    until_choices(app, screen)
+    assert app.speech.heard[-2:] == [('Achievement earned: Card Shark.', False),
+                                     (screen.offered[0].spoken, False)]
+    assert 'event.m1e1_cardsWin' in Achievements(kept.file.path), 'not kept in the file'
+
+
+def test_an_achievement_is_said_only_the_first_time_ever():
+    kept = fresh_achievements()
+    for time in (1, 2):
+        app, screen = start(achievements=kept)
+        jump(app, screen, 'achievement_cardsWin')
+        until_choices(app, screen)
+        said = app.speech.said.count('Achievement earned: Card Shark.')
+        assert said == (1 if time == 1 else 0), (time, said)
+
+
+def test_an_achievement_at_the_end_is_said_after_episode_complete():
+    app, screen = start('1.7.1')
+    jump(app, screen, 'achievement_completeSignumCygni')
+    until_choices(app, screen)
+    assert screen.complete
+    said = app.speech.said
+    assert said[-3].startswith('Episode complete!')
+    assert said[-2:] == ['Achievement earned: Mission Complete.', 'Press Enter to return to the menu.']
+
+
+def test_an_achievement_passed_with_s_still_counts():
+    heard = fresh_heard()
+    kept = fresh_achievements()
+    app, screen = start(heard=heard, achievements=kept)
+    jump(app, screen, '002introOpenPrompt')
+    heard.add(STORY.state('002introOpenPrompt').voice)
+    raise_bet = next(c for c in STORY.choices('002introOpenPrompt') if c.text == 'IMPULSIVE')
+    screen.play(screen.run.enter(raise_bet.destination))
+    app.audio.update()
+    for _ in range(50):                             # hear everything on the way, but by S
+        state = screen.run.current
+        if screen.offered or screen.complete:
+            break
+        if state.voice:
+            heard.add(state.voice)
+        key(app, 's')
+    assert 'event.m1e1_cardsWin' in kept
+    assert 'Achievement earned: Card Shark.' in app.speech.said
 
 
 def entry():

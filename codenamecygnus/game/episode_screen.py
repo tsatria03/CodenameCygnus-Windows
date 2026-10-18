@@ -1,4 +1,4 @@
-"""Playing an episode: sections 2 and 3 of aidocks/plans/story_engine_plan.md.
+"""Playing an episode: sections 2 to 5 of aidocks/plans/story_engine_plan.md.
 
 The screen walks a ``Playthrough`` (game/story.py) state by state through the audio
 (aidocks/plans/audio_plan.md):
@@ -35,6 +35,10 @@ A recording reaching its end, played through or skipped to the end with Right, i
 as heard for good (game/heard.py), and S skips only across those, saying "Not heard yet"
 on a recording that is new, so a stray press never skips story the player has not heard.
 
+An achievement a state earns (game/achievements.py) is kept at once, and said at the next
+quiet moment, "Achievement earned: Card Shark.", before the choice that comes next or after
+"Episode complete!", never over the story; only the first time it is ever earned.
+
 The story pauses by itself while another screen covers it (the pause menu, F1) and while
 the window has lost the keyboard, and carries on when it comes back, unless the player
 had paused it with Space. A timed choice keeps the seconds it had left.
@@ -47,6 +51,7 @@ from ..platform.audio import SKIP_SECONDS
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
+from .achievements import Achievements, name_of
 from .debug import JumpScreen, state_report
 from .heard import Heard
 from .recordings import Recordings
@@ -93,9 +98,12 @@ class EpisodeScreen(Screen):
     holds_time = True
 
     def __init__(self, app, episode, story=None, recordings=None, variables=None, heard=None,
-                 at=None):
+                 at=None, achievements=None):
         super().__init__(app)
         self.at = at                # debug mode: the state to start at, or None for the start
+        self.achievements = achievements if achievements is not None else Achievements.shared()
+        self.earned_seen = 0        # how many of the run's earned ids have been looked at
+        self.to_announce = []       # names of achievements earned, waiting for a quiet moment
         self.story = story or Story.shared()
         self.recordings = recordings or Recordings.shared()
         self.heard = heard if heard is not None else Heard.shared()
@@ -156,9 +164,27 @@ class EpisodeScreen(Screen):
         self.cancel_timer()
         if state.heading:
             self.heading = state.heading
+        self.collect()
         self.audio.stop_decision()
         self.audio.set_background(self.find(state.background))
         self.start_voice(state)
+
+    # ---- achievements (game/achievements.py) -----------------------------
+    def collect(self):
+        """Note the achievements the states entered so far have earned, by play, S, F2 or a
+        jump alike; one earned for the first time ever waits to be announced."""
+        for a in self.run.earned[self.earned_seen:]:
+            if self.achievements.add(a):
+                self.to_announce.append(name_of(a))
+        self.earned_seen = len(self.run.earned)
+
+    def announce(self):
+        """At a quiet moment, a choice or the end, never over the story: each achievement
+        earned since the last one, waiting behind whatever was being said."""
+        self.collect()
+        for name in self.to_announce:
+            self.say('Achievement earned: %s.' % name, interrupt=False)
+        self.to_announce = []
 
     def start_voice(self, state):
         """Play a state's voice from its start. No voice, or one not on disk, ends on the
@@ -197,7 +223,8 @@ class EpisodeScreen(Screen):
         # The one you are on is said, as a menu says its row (the dev, 2026-10-17: "When
         # there are more than 1 choice on screen, it should auto focus to it and speak the
         # first one"); C says them all. Said by the game itself, so it waits behind
-        # whatever the player made it say.
+        # whatever the player made it say. An achievement earned on the way comes first.
+        self.announce()
         self.say(self.offered[0].spoken, interrupt=False)
         timeout = self.run.timeout()
         if timeout is not None:
@@ -225,6 +252,7 @@ class EpisodeScreen(Screen):
         log.info('episode %s complete', self.episode.id)
         text = 'Episode complete! ' + self.episode.completion_text.strip()
         self.say(text.strip(), interrupt=False)
+        self.announce()
         self.say('Press Enter to return to the menu.', interrupt=False)
 
     def leave(self):
@@ -236,7 +264,8 @@ class EpisodeScreen(Screen):
         log.info('episode %s restarts', self.episode.id)
         self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
                                          recordings=self.recordings,
-                                         variables=self.start_variables, heard=self.heard))
+                                         variables=self.start_variables, heard=self.heard,
+                                         achievements=self.achievements))
         # Cuts off the pause menu, which spoke as it came back on its way out.
         self.say('Restarting %s.' % self.episode.title)
 
@@ -448,7 +477,8 @@ class EpisodeScreen(Screen):
             self.stack.replace(EpisodeScreen(self.app, episode, story=self.story,
                                              recordings=self.recordings,
                                              variables=self.run.variables,
-                                             heard=self.heard, at=name))
+                                             heard=self.heard, at=name,
+                                             achievements=self.achievements))
         # Cuts off the screens that spoke as they closed on the way back here.
         self.say('Jumped to %s, in %s.' % (name, episode.title))
 
