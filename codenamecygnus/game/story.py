@@ -187,6 +187,7 @@ class Story:
                 self.episodes[episode.id] = episode
         self.company_credits = missions.get('company_credits', {}).get('credits', [])
         self._choices = {}          # a state's name -> its choices, in spoken order
+        self._choice_texts = None   # every choice's words, once asked for
         log.info('story loaded: %d states, %d episodes', len(self.states), len(self.episodes))
 
     def state(self, name):
@@ -251,6 +252,13 @@ class Story:
             out = spoken_order(self.states[name], out) if name in self.states else out
             self._choices[name] = out
         return list(out) if include_hidden else [c for c in out if not c.hidden]
+
+    def choice_texts(self):
+        """Every choice's words in the story, hidden ones too, such as 'TWO CARDS'."""
+        if self._choice_texts is None:
+            self._choice_texts = sorted({t['text'] for ways in self.ways_out.values()
+                                         for t in ways if t['type'] == 'manual'})
+        return list(self._choice_texts)
 
     def timeout(self, name):
         """(seconds, where it goes) for a choice that times out, or None."""

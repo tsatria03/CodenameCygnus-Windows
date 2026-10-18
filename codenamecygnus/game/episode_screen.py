@@ -21,7 +21,8 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
     Left and Right  5 seconds back or forward, while the story plays
     S               straight on to the next choice, across recordings heard before
     H               the scene heading
-    the volumes     Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
+    V               speech recognition on or off
+    the volumes    Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
     Escape or P     pause, with the pause menu: Resume, Restart episode, Settings,
                     Return to menu; Resume or Escape there carries on
 
@@ -44,12 +45,20 @@ the window has lost the keyboard, and carries on when it comes back. A timed cho
 the seconds it had left. There is no pause key of its own: Escape pauses, through the
 pause menu (the dev, 2026-10-18: "Can you remove space to pause? I feel like escape
 already does the job").
+
+With speech recognition on (aidocks/plans/speech_recognition_plan.md), a choice can be
+spoken too: after the first choice is said, "Listening.", and the microphone listens for
+the choices' words, hidden ones too, for 15 seconds, or for the rest of a timed choice's
+clock; then "No longer listening.", and the keys still choose. Words that are no choice
+get "Sorry, I did not catch that", and listening goes on. C listens again. Pausing stops
+listening and keeps the seconds left, for when the story resumes.
 """
 from __future__ import annotations
 
 import logging
 
 from ..platform.audio import SKIP_SECONDS
+from ..platform.listener import BLOCKED, MicrophoneError
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
@@ -71,6 +80,14 @@ VOLUME_KEYS = {
 
 #: Why the story is paused: the player pressed Escape, or it paused by itself.
 BY_PLAYER, BY_COVER, BY_FOCUS = 'player', 'cover', 'focus'
+
+#: Seconds speech recognition listens at a choice that has no clock of its own.
+LISTEN_SECONDS = 15
+#: The original's own words for listening and not catching a word.
+LISTENING, NOT_LISTENING = 'Listening.', 'No longer listening.'
+NOT_CAUGHT = 'Sorry, I did not catch that'
+NO_MICROPHONE_TEXT = 'No microphone found. Choose with the keys.'
+BLOCKED_TEXT = 'The microphone is blocked in Windows privacy settings.'
 
 
 def heading_text(heading):
@@ -124,6 +141,11 @@ class EpisodeScreen(Screen):
         self.paused = None          # None, or why: BY_PLAYER, BY_COVER or BY_FOCUS
         self.timer = None           # the timed choice's call
         self.timer_left = None      # its seconds left, while paused
+        self.listening = False      # the microphone listens for the choices' words
+        self.listen_timer = None    # the call ending 15 seconds of listening
+        self.listen_left = None     # its seconds left, while paused
+        self.was_listening = False  # listening when the story paused
+        self.listen_done = False    # listening ended at this choice: C or V listens again
 
     @property
     def audio(self):
@@ -152,6 +174,7 @@ class EpisodeScreen(Screen):
 
     def closed(self):
         self.cancel_timer()
+        self.stop_listening()
         self.audio.stop_all()
 
     def focus_lost(self):
@@ -171,6 +194,8 @@ class EpisodeScreen(Screen):
         self.offered = []
         self.index = None
         self.cancel_timer()
+        self.stop_listening()
+        self.listen_done = False
         if state.heading:
             self.heading = state.heading
         self.collect()
@@ -244,9 +269,12 @@ class EpisodeScreen(Screen):
         timeout = self.run.timeout()
         if timeout is not None:
             self.start_timer(timeout[0])
+        self.listen_done = False
+        self.start_listening()
 
     def choose(self, choice):
         if self.paused:
+            self.listen_done = True         # no listening on the way out of the choice
             self.resume()
         log.info('chose %s at %s', choice.text, self.run.current.name)
         self.say(choice.spoken)
@@ -263,6 +291,7 @@ class EpisodeScreen(Screen):
         self.complete = True
         self.offered = []
         self.cancel_timer()
+        self.stop_listening()
         self.audio.stop_decision()
         log.info('episode %s complete', self.episode.id)
         self.progress.complete(self.episode, self.run.variables)
@@ -316,6 +345,68 @@ class EpisodeScreen(Screen):
         self.timer = None
         self.timer_left = None
 
+    # ---- speech recognition (platform/listener.py) ----------------------
+    def speech_on(self):
+        return bool(self.app.settings.get('speech_recognition'))
+
+    def start_listening(self, seconds=None, announce=True):
+        """Listen for the waiting choice's words, saying "Listening." first: for
+        ``seconds``, 15 by default, or while a timed choice's clock runs."""
+        self.stop_listening()
+        if not (self.offered and self.speech_on()) or self.paused:
+            return
+        phrases = [c.text for c in self.run.all_choices()]
+        try:
+            if not self.app.listener.start(phrases, others=self.story.choice_texts()):
+                return
+        except MicrophoneError as error:
+            log.warning('cannot listen: %s', error)
+            self.listen_done = True
+            if not self.app.microphone_warned:
+                self.app.microphone_warned = True
+                self.say(BLOCKED_TEXT if error.kind == BLOCKED else NO_MICROPHONE_TEXT,
+                         interrupt=False)
+            return
+        except Exception:
+            log.exception('speech recognition failed to start')
+            self.listen_done = True
+            return
+        self.listening = True
+        if announce:
+            self.say(LISTENING, interrupt=False)
+        # A timed choice listens until its clock ends the choice.
+        if self.timer is None:
+            self.listen_timer = self.loop.after(seconds or LISTEN_SECONDS, self.listen_ended)
+        log.info('listening at %s', self.run.current.name)
+
+    def stop_listening(self):
+        if self.listen_timer is not None:
+            self.listen_timer.cancel()
+        self.listen_timer = None
+        self.listen_left = None
+        if self.listening:
+            self.listening = False
+            self.app.listener.stop()
+
+    def listen_ended(self):
+        """15 seconds with no choice heard; the keys still choose."""
+        self.listen_timer = None
+        self.stop_listening()
+        self.listen_done = True
+        self.say(NOT_LISTENING)
+
+    def update(self):
+        """Once a frame: anything said while listening."""
+        if not self.listening:
+            return
+        for phrase, words in self.app.listener.poll():
+            choice = next((c for c in self.run.all_choices() if c.text == phrase), None)
+            if choice is not None:
+                log.info('heard %r', words)
+                return self.choose(choice)
+            log.info('heard %r, no choice', words)
+            self.say(NOT_CAUGHT)
+
     # ---- pausing --------------------------------------------------------
     def pause(self, why):
         if self.paused:
@@ -326,6 +417,11 @@ class EpisodeScreen(Screen):
             self.timer_left = self.loop.remaining(self.timer)
             self.timer.cancel()
             self.timer = None
+        self.was_listening = self.listening
+        if self.listening:
+            left = self.loop.remaining(self.listen_timer) if self.listen_timer else None
+            self.stop_listening()
+            self.listen_left = left
         return True
 
     def resume(self):
@@ -336,6 +432,11 @@ class EpisodeScreen(Screen):
         if self.timer_left is not None:
             self.timer = self.loop.after(self.timer_left, self.timed_out)
             self.timer_left = None
+        # Listening goes on where it stopped, or starts if it was turned on meanwhile.
+        if self.offered and self.speech_on() and not self.listen_done:
+            self.start_listening(self.listen_left, announce=not self.was_listening)
+        self.was_listening = False
+        self.listen_left = None
         return True
 
     def open_pause_menu(self):
@@ -416,6 +517,10 @@ class EpisodeScreen(Screen):
         if not self.offered:
             return self.no_choices_yet()
         self.say(choices_text(self.offered))
+        # And listens again, for another 15 seconds.
+        if self.speech_on():
+            self.listen_done = False
+            self.start_listening()
 
     def do_pause_menu(self):
         """P, as Escape: pause, with the pause menu."""
@@ -429,6 +534,7 @@ class EpisodeScreen(Screen):
             self.offered = []
             self.index = None
             self.cancel_timer()
+            self.stop_listening()
             self.audio.stop_decision()
             self.start_voice(state)
         else:
@@ -531,7 +637,15 @@ class EpisodeScreen(Screen):
         self.say(heading_text(self.heading) if self.heading else 'No scene heading yet.')
 
     def do_speech_recognition(self):
-        self.say('Speech recognition is not ready yet.')
+        """V: speech recognition on or off, for good; at a waiting choice it starts or
+        stops listening at once."""
+        on = self.app.settings.toggle('speech_recognition')
+        self.say('Speech recognition %s.' % ('on' if on else 'off'))
+        if on and self.offered:
+            self.listen_done = False
+            self.start_listening()
+        elif not on:
+            self.stop_listening()
 
     # ---- the window -----------------------------------------------------
     def lines(self):
@@ -548,6 +662,8 @@ class EpisodeScreen(Screen):
             out.append('')
             for i, c in enumerate(self.offered):
                 out.append('%s %d. %s' % ('>' if i == self.index else ' ', i + 1, c.spoken))
+            if self.listening:
+                out.append('(listening)')
         if self.complete:
             out += ['', 'Episode complete!', self.episode.completion_text.strip()]
         return out

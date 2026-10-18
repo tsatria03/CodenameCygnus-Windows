@@ -57,8 +57,14 @@ REPEAT_EVERY = 0.15
 
 
 class App:
-    def __init__(self, options, speech=None, settings=None, keymap=None, loop=None, audio=None):
+    def __init__(self, options, speech=None, settings=None, keymap=None, loop=None, audio=None,
+                 listener=None):
         self.options = options
+        # Speech recognition's listener, made at the first choice listened for
+        # (aidocks/plans/speech_recognition_plan.md), and whether the microphone's trouble
+        # has been said this session.
+        self._listener = listener
+        self.microphone_warned = False
         self.speech = speech or Speech.shared()
         self.settings = settings or Settings.shared()
         self.keymap = keymap or KeyMap.shared()
@@ -82,6 +88,13 @@ class App:
         if remember and self.settings.get('debug') != on:
             self.settings.set('debug', on)
         log.info('debug mode %s', 'on' if on else 'off')
+
+    @property
+    def listener(self):
+        if self._listener is None:
+            from .platform.listener import Listener
+            self._listener = Listener()
+        return self._listener
 
     # ---- interface sounds -----------------------------------------------
     def play_sound(self, kind):
@@ -171,6 +184,8 @@ class App:
                 clock.tick(FPS)
         finally:
             self.stack.clear()
+            if self._listener is not None:
+                self._listener.stop()
             self.audio.close()
             pygame.display.quit()
 

@@ -17,8 +17,9 @@ can click on it, and the normal menu keys will work, up/down/left/right/home/end
 sets the level and comes back here; Escape keeps the old one. The same screen opens from
 the main menu and from the pause menu during an episode.
 
-Speech recognition is remembered now, and listened for once
-aidocks/plans/speech_recognition_plan.md is built.
+With speech recognition on, a choice in an episode can be spoken
+(aidocks/plans/speech_recognition_plan.md); turned on from the pause menu, it listens
+once the story resumes.
 """
 from __future__ import annotations
 
