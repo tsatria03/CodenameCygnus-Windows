@@ -170,9 +170,9 @@ def test_a_locked_episode_opens_on_back_its_description_and_locked():
     screen = app.stack.top
     assert isinstance(screen, EpisodeMenu)
     assert app.speech.said[-2:] == ['Episode 2, Art Show.', 'Back']
-    assert [r.text for r in screen.rows()] == ['Back', STORY.episodes['1.2.1'].description, 'Locked']
+    assert [r.text for r in screen.rows()] == ['Back', STORY.episodes['1.2.1'].description, 'Start']
     key(app, 'end')
-    key(app, 'return')                              # Locked: why, as the original said it
+    key(app, 'return')                              # Start: why not, as the original said it
     assert app.speech.said[-1] == LOCKED == ('You need to complete the previous episode '
                                              'before starting this one.')
     assert app.stack.top is screen

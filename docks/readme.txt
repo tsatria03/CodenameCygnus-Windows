@@ -50,7 +50,7 @@ Enter on an episode opens its own screen.
 An episode you have not started has its description and Start.
 One in progress has its description, Continue, and Restart episode.
 One you have finished has what was said at its end, Replay episode, and Preview next episode, which plays a short teaser of the episode after it.
-A locked one has its description and Locked, which tells you why it cannot be played yet.
+A locked one has its description and Start, which tells you why it cannot be played yet.
 Restarting or replaying an episode asks first, with the original's warning: everything saved after that episode is erased, and the episodes after it are locked again.
 
 Playing an episode

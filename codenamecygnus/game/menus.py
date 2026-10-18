@@ -150,7 +150,7 @@ def episode_name(episode):
     return 'Episode %d, %s' % (episode.number, episode.title)
 
 
-#: What the Locked row says when chosen, as the original's "Episode Locked" alert did.
+#: What a locked episode's Start row says when chosen, as the original's "Episode Locked" alert did.
 LOCKED = 'You need to complete the previous episode before starting this one.'
 
 
@@ -192,9 +192,10 @@ class EpisodeMenu(Menu):
         in progress   Continue, Restart episode
         completed     Replay episode, Preview next episode; and the completion text
                       straight after Back, in the description's place
-        locked        Locked, which says why when chosen (the dev, 2026-10-18: "For locked
-                      episodes, a similar menu should open with the back button,
-                      description, then the locked status after it")
+        locked        Start, which says why it cannot start yet (the dev, 2026-10-18: "For
+                      locked episodes, a similar menu should open with the back button,
+                      description, then the locked status after it"; the row was Locked
+                      at first)
     """
 
     name = 'episode menu'
@@ -221,7 +222,10 @@ class EpisodeMenu(Menu):
         elif description:
             rows.append(Row(description, said_again))
         if self.progress.locked(self.episode):
-            rows.append(Row('Locked', lambda: self.say(LOCKED)))
+            # Start, as on a new episode, but it only says why it cannot start yet (the
+            # dev, 2026-10-18: "please rename locked to say start in a locked episode's
+            # menu").
+            rows.append(Row('Start', lambda: self.say(LOCKED)))
         elif state == NEW:
             rows.append(Row('Start', self.start))
         elif state == IN_PROGRESS:
