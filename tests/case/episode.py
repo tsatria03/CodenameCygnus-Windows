@@ -16,7 +16,7 @@ import pygame
 from codenamecygnus.app import App
 from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choices_text,
                                                 heading_text, script_line)
-from codenamecygnus.game.stand_in_menu import StandInMainMenu
+from codenamecygnus.game.stand_in_menu import EpisodeChooser, StandInMainMenu
 from codenamecygnus.game.story import Story
 from codenamecygnus.platform import runloop
 from codenamecygnus.platform.keymap import KeyMap
@@ -399,6 +399,34 @@ def test_the_window_shows_the_script_without_its_pacing_marks():
     until_choices(app, screen)
     text = '\n'.join(screen.lines())
     assert '#' not in text and 'Episode 1: Prologue' in text and '1. Two cards' in text
+
+
+def test_the_episode_chooser_lists_all_eight_and_starts_one():
+    app = make_app()
+    app.stack.push(StandInMainMenu(app))
+    key(app, 'return')                              # Episodes
+    chooser = app.stack.top
+    assert isinstance(chooser, EpisodeChooser)
+    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue']
+    assert len(chooser.rows()) == 8 and chooser.rows()[-1].text == 'Episode 8, Holiday Party'
+    key(app, 'up')                                  # wraps to Holiday Party
+    key(app, 'return')
+    assert isinstance(app.stack.top, EpisodeScreen)
+    assert app.stack.top.episode.title == 'Holiday Party'
+
+
+def test_leaving_an_episode_comes_back_to_the_chooser():
+    app = make_app()
+    app.stack.push(StandInMainMenu(app))
+    key(app, 'return')
+    key(app, 'return')                              # the Prologue
+    key(app, 'escape')
+    key(app, 'end')
+    key(app, 'return')                              # Return to menu
+    assert isinstance(app.stack.top, EpisodeChooser)
+    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue']
+    key(app, 'escape')
+    assert isinstance(app.stack.top, StandInMainMenu)
 
 
 def entry():

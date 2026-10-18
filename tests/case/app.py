@@ -49,7 +49,7 @@ def test_the_game_runs_and_quits_by_itself_after_exit_after():
               keymap=KeyMap(paths.user_path('a', 'keys.json')), loop=RunLoop())
     app.run(StandInMainMenu(app), pygame)
     assert not app.running
-    assert app.speech.said[:2] == ['Codename Cygnus. Main menu.', 'Settings']
+    assert app.speech.said[:2] == ['Codename Cygnus. Main menu.', 'Episodes']
 
 
 def test_quit_on_the_stand_in_menu_ends_the_game():
@@ -58,7 +58,8 @@ def test_quit_on_the_stand_in_menu_ends_the_game():
               keymap=KeyMap(paths.user_path('b', 'keys.json')), loop=RunLoop())
     menu = StandInMainMenu(app)
     app.stack.push(menu)
-    menu.handle_key('down', [])
+    menu.handle_key('end', [])
+    assert app.speech.said[-1] == 'Quit'
     menu.handle_key('return', [])
     assert not app.running
 

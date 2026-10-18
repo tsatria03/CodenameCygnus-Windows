@@ -73,10 +73,9 @@ From the repository's folder:
 
     python CodenameCygnus.py
 
-For now it opens on a stand-in main menu, Settings and Quit, which speaks through your
-screen reader. An episode is started from the command line until the real menus come,
-such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue. F1 opens the key
-bindings from anywhere.
+For now it opens on a stand-in main menu, Episodes, Settings and Quit, which speaks
+through your screen reader. Episodes lists all eight episodes, every one open until saving
+is built, and Enter starts one. F1 opens the key bindings from anywhere.
 
 During an episode, Up and Down move through the choices once they are read, Enter or 1 to
 9 choose, C says them again, Space pauses, R replays the recording, Left and Right skip 5
