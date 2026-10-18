@@ -139,7 +139,9 @@ class EpisodeList(Menu):
 
 
 class EpisodeMenu(Menu):
-    """One episode's own screen: its description first, then what can be done with it."""
+    """One episode's own screen: Back, its description as a row of its own, then what can
+    be done with it (the dev, 2026-10-18: "put each episode's description before the start
+    button, not crammed into the menu option")."""
 
     name = 'episode menu'
 
@@ -147,10 +149,14 @@ class EpisodeMenu(Menu):
         super().__init__(app)
         self.story = story
         self.episode = episode
-        self.title = '%s. %s' % (episode_name(episode), episode.description.strip())
+        self.title = '%s.' % episode_name(episode)
 
     def rows(self):
-        rows = [Row('Back', self.back), Row('Start', self.start)]
+        rows = [Row('Back', self.back)]
+        description = self.episode.description.strip()
+        if description:
+            rows.append(Row(description, lambda: self.say(self.row_text())))
+        rows.append(Row('Start', self.start))
         # The original offered PREVIEW NEXT once the episode was finished; until
         # aidocks/plans/saves_plan.md knows that, it is offered whenever there is one.
         if self.episode.preview and self.episode.preview in self.story.states:
