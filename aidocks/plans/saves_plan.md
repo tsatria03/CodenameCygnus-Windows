@@ -1,12 +1,12 @@
 ---
 name: saves_plan
-description: "Plan 6 of 8: what the game remembers and where: progress per episode with the story variables carried between episodes, the place to continue from, heard recordings, achievements, settings and keys, all in %APPDATA%\\CodenameCygnus, with the original's restart warning and a save on every new state. Status: being built in sections, with the menus plan's section 4."
+description: "Plan 6 of 8: what the game remembers and where: progress per episode with the story variables carried between episodes, the place to continue from, heard recordings, achievements, settings and keys, all in %APPDATA%\\CodenameCygnus, with the original's restart warning and a save on every new state. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: being built, in sections.** The dev said to start on 2026-10-18 ("Yes please."), with [[menus_plan]]'s section 4, the parts of the menus that need saved progress, built alongside it. Each section is built and tested, the dev tries it by ear, and the next starts once the dev says it works.
+**Status: finished,** both sections confirmed by the dev by ear, the last on 2026-10-18 ("The episode texts look good, same for the agent profile."). Started that day ("Yes please."), with [[menus_plan]]'s section 4, the parts of the menus that need saved progress, built alongside it.
 
 ## Built in sections
 
@@ -20,7 +20,7 @@ metadata:
    - The main menu's first row is "Continue Art Show" while there is a place to go back to. The episode list adds ", in progress", ", completed" or ", locked" to each episode; a locked one opens its own screen too, with Back, its description and Locked. Each episode's own screen offers its buttons by its state, as above, and Restart episode and Replay episode both ask the original's question, "Restart episode? If you restart this episode, all saved progress beyond this episode will be erased.", then say "Restarting Prologue." The pause menu's Restart asks the same.
    - `--episode` starts with what the episode before it ended with, as Start does.
    - `tests/case/progress.py` has 10 tests and `tests/case/menus.py` 8 more; each test gets a fresh progress file.
-2. **The agent profile** ([[menus_plan]]): the dominant trait, furthest episode, episodes completed, game progress, the four trait scales and the achievements. Status: built 2026-10-18 (the dev: "update all docks where possible ... then continue with the implementation"), waiting for the dev to try it by ear.
+2. **The agent profile** ([[menus_plan]]): the dominant trait, furthest episode, episodes completed, game progress, the four trait scales and the achievements. Status: done, confirmed by the dev by ear on 2026-10-18 ("The episode texts look good, same for the agent profile."). Built the same day (the dev: "update all docks where possible ... then continue with the implementation").
    - `codenamecygnus/game/profile.py` holds `ProfileScreen` and `AchievementList`, with `dominant_trait` and `scale_text`; the main menu's "Agent profile", between Episodes and Settings, opens it with the original's profile sound, `1930Radio B`.
    - The rows: Back; "Dominant trait: Charismatic." or "none yet"; "Furthest episode: Episode 3, Neptune's Lair." or "none yet"; "Episodes completed: 2 of 8."; "Game progress: 25 percent.", the episodes completed out of eight; the four scales, such as "Diplomacy: Charismatic, 3" or "Activeness: balanced"; and "Achievements: 3 of 16". Enter on a row says it again.
    - **Whose traits:** the story of Mission 1 so far, from the furthest of its episodes started: where it was left, or how it ended once finished (`Progress.mission_variables`). Holiday Party is left out of the traits and the furthest episode, since it resets its own variables and uses none of the mission's; it counts among the episodes completed.

@@ -1,12 +1,12 @@
 ---
 name: menus_plan
-description: "Plan 5 of 8: the screens around the story: the opening, the main menu, the episode list, the agent profile with its traits and achievements, settings, credits, the end of an episode, the pause menu and the original's interface sounds. Status: being built in sections."
+description: "Plan 5 of 8: the screens around the story: the opening, the main menu, the episode list, the agent profile with its traits and achievements, settings, credits, the end of an episode, the pause menu and the original's interface sounds. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: being built, in sections.** The dev said to go on on 2026-10-18 ("yes, then continue"). As with [[story_engine_plan]], each section is built and tested, the dev tries it by ear, and the next starts once the dev says it works.
+**Status: finished,** every section confirmed by the dev by ear, the last, the agent profile, on 2026-10-18 ("same for the agent profile"). The dev said to go on on 2026-10-18 ("yes, then continue"). As with [[story_engine_plan]], each section is built and tested, the dev tries it by ear, and the next starts once the dev says it works.
 
 ## Built in sections
 
@@ -41,7 +41,7 @@ The parts that need saved progress wait for [[saves_plan]], which comes next: th
    - **Found while checking the original for this section** (`-[CCEpisodeTableCell setupLeftButton]` and `setupRightButton`, 0x10002bc64 and 0x10002c020): an episode not started had only START; one in progress (state 0x10) RESTART on the left and CONTINUE on the right (`resumeEpisode`); one completed (0x20) REPLAY on the left (`replayEpisode`, a different routine from `restartEpisode`) and PREVIEW NEXT on the right. How Replay differs from Restart is for section 4.
    - `tests/case/episode.py` has 6 tests for it and `tests/case/menus.py` one.
    - The episode description row, Credits' own opening row and the F1 screen's shorter opening were confirmed by the dev by ear on 2026-10-18 ("Everything checks out, including the description changes").
-4. **With saves:** Continue, the episodes' states and locks, Restart in the list, and the agent profile with its traits and achievements, built with or after [[saves_plan]]. Status: being built as [[saves_plan]]'s sections, where the details are.
+4. **With saves:** Continue, the episodes' states and locks, Restart in the list, and the agent profile with its traits and achievements, built with or after [[saves_plan]]. Status: done, built and confirmed as [[saves_plan]]'s two sections, where the details are.
 
 Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken menu in the screen loop of [[foundation_plan]]: Up and Down move, Enter chooses, Home and End jump to the first and last row, Escape goes back, and each row is spoken by its text alone, never with its place such as "1 of 2" (the dev, 2026-10-17: "The menu position readouts should be disabled"). Moving wraps round past either end, and Left and Right move as Up and Down do (the dev, 2026-10-17: "please enable menu wrapping, and left/right arrow navigation"); during an episode Left and Right stay the 5-second skips ([[story_engine_plan]]).
 
