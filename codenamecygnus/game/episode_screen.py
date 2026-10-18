@@ -1,4 +1,4 @@
-"""Playing an episode: section 2 of aidocks/plans/story_engine_plan.md.
+"""Playing an episode: sections 2 and 3 of aidocks/plans/story_engine_plan.md.
 
 The screen walks a ``Playthrough`` (game/story.py) state by state through the audio
 (aidocks/plans/audio_plan.md):
@@ -20,6 +20,7 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
     Space           pause and resume
     R               the recording again from its start, then the choices again
     Left and Right  5 seconds back or forward, while the story plays
+    S               straight on to the next choice, across recordings heard before
     H               the scene heading
     the volumes     Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
     Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
@@ -29,6 +30,10 @@ it. While a choice waits, its recording has ended and there is nothing to skip t
 so Left and Right move through the choices as they do in a menu (the dev, 2026-10-17:
 "left/right/home/end navigation in the choices list"). Holding a skip or a volume key
 repeats it (app.py); a choice key never repeats.
+
+A recording reaching its end, played through or skipped to the end with Right, is noted
+as heard for good (game/heard.py), and S skips only across those, saying "Not heard yet"
+on a recording that is new, so a stray press never skips story the player has not heard.
 
 The story pauses by itself while another screen covers it (the pause menu, F1) and while
 the window has lost the keyboard, and carries on when it comes back, unless the player
@@ -43,6 +48,7 @@ from ..platform.audio import SKIP_SECONDS
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
+from .heard import Heard
 from .recordings import Recordings
 from .story import Playthrough, Story
 
@@ -89,10 +95,12 @@ class EpisodeScreen(Screen):
     name = 'episode'
     holds_time = True
 
-    def __init__(self, app, episode, story=None, recordings=None, variables=None):
+    def __init__(self, app, episode, story=None, recordings=None, variables=None, heard=None):
         super().__init__(app)
         self.story = story or Story.shared()
         self.recordings = recordings or Recordings.shared()
+        self.heard = heard if heard is not None else Heard.shared()
+        self.voice_playing = None   # the story name of the voice playing, once found on disk
         self.episode = episode
         self.start_variables = dict(variables or {})
         self.run = Playthrough(self.story, episode, variables)
@@ -150,11 +158,22 @@ class EpisodeScreen(Screen):
             self.heading = state.heading
         self.audio.stop_decision()
         self.audio.set_background(self.find(state.background))
-        # No voice, or one not on disk, ends on the next frame, so the story never waits
-        # on silence and a run of empty states never piles up in one call.
-        self.audio.play_voice(self.find(state.voice), on_end=self.voice_ended)
+        self.start_voice(state)
+
+    def start_voice(self, state):
+        """Play a state's voice from its start. No voice, or one not on disk, ends on the
+        next frame, so the story never waits on silence and a run of empty states never
+        piles up in one call."""
+        recording = self.find(state.voice)
+        self.voice_playing = state.voice if recording is not None else None
+        self.audio.play_voice(recording, on_end=self.voice_ended)
 
     def voice_ended(self):
+        if self.voice_playing:
+            # Reached its end, played through or skipped there with Right: heard.
+            if self.heard.add(self.voice_playing):
+                log.debug('heard %s', self.voice_playing)
+            self.voice_playing = None
         if self.run.finished:
             self.finish()
         elif self.run.waiting:
@@ -211,7 +230,7 @@ class EpisodeScreen(Screen):
         log.info('episode %s restarts', self.episode.id)
         self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
                                          recordings=self.recordings,
-                                         variables=self.start_variables))
+                                         variables=self.start_variables, heard=self.heard))
         # Cuts off the pause menu, which spoke as it came back on its way out.
         self.say('Restarting %s.' % self.episode.title)
 
@@ -349,9 +368,50 @@ class EpisodeScreen(Screen):
             self.index = None
             self.cancel_timer()
             self.audio.stop_decision()
-            self.audio.play_voice(self.find(state.voice), on_end=self.voice_ended)
+            self.start_voice(state)
         else:
             self.audio.replay()
+
+    def is_heard(self, state):
+        """Whether S may skip this state's voice: heard to its end before, or none at all."""
+        return not state.voice or state.voice in self.heard
+
+    def do_skip(self):
+        """S: straight on to the next choice, across every recording heard before.
+
+        Each state passed is entered as play would enter it, setting its variables and
+        taking its conditions, so skipping never changes how the story turns out. A
+        recording not heard yet stops the skip, and plays from its start."""
+        if self.offered:
+            return self.say('Already at the choices.')
+        if not self.is_heard(self.run.current):
+            return self.say('Not heard yet.')
+        if self.paused:
+            self.resume()
+        self.audio.play_menu(self.recordings.menu_sound('PushButton D'))
+        start = self.run.current.name
+        # A guard only: no run of automatic states in the story comes near it.
+        for _ in range(10000):
+            if self.run.finished or self.run.waiting:
+                break
+            state = self.run.after_voice()
+            if state is None:
+                break
+            if state.heading:
+                self.heading = state.heading
+            if not self.is_heard(state):
+                log.info('skipped from %s to %s, not heard yet', start, state.name)
+                self.play(state)
+                return
+        log.info('skipped from %s to %s', start, self.run.current.name)
+        # At a choice or the end, its voice heard: as if that voice had just finished.
+        state = self.run.current
+        self.cancel_timer()
+        self.audio.stop_decision()
+        self.audio.set_background(self.find(state.background))
+        self.audio.stop_voice()
+        self.voice_playing = None
+        self.voice_ended()
 
     def do_back(self):
         if self.offered:

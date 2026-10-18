@@ -16,6 +16,7 @@ import pygame
 from codenamecygnus.app import App
 from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choices_text,
                                                 heading_text, script_line)
+from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.stand_in_menu import StandInMainMenu
 from codenamecygnus.game.story import Story
 from codenamecygnus.platform import runloop
@@ -52,6 +53,7 @@ class FakeAudio:
         self.on_end = None
         self.voices = []            # every voice started, replays included
         self.seeks = []
+        self.menu_sounds = []
 
     def open(self, pygame):
         pass
@@ -76,6 +78,12 @@ class FakeAudio:
 
     def replay(self):
         self.voices.append(self.voice)
+
+    def stop_voice(self):
+        self.voice = self.on_end = None
+
+    def play_menu(self, recording):
+        self.menu_sounds.append(recording)
 
     def seek(self, delta):
         self.seeks.append(delta)
@@ -109,6 +117,13 @@ class Names:
     def find(self, file_name):
         return file_name
 
+    def menu_sound(self, name):
+        return name
+
+
+def fresh_heard():
+    return Heard(os.path.join(tempfile.mkdtemp(dir=_quiet.FOLDER), 'heard.json'))
+
 
 def make_app(debug=False, episode=None):
     folder = tempfile.mkdtemp(dir=_quiet.FOLDER)
@@ -120,11 +135,12 @@ def make_app(debug=False, episode=None):
                audio=FakeAudio(settings))
 
 
-def start(episode_id='1.1.1', menu=True):
+def start(episode_id='1.1.1', menu=True, heard=None):
     app = make_app()
     if menu:
         app.stack.push(StandInMainMenu(app))
-    screen = EpisodeScreen(app, STORY.episodes[episode_id], story=STORY, recordings=Names())
+    screen = EpisodeScreen(app, STORY.episodes[episode_id], story=STORY, recordings=Names(),
+                           heard=heard if heard is not None else fresh_heard())
     app.stack.push(screen)
     app.audio.update()
     return app, screen
@@ -517,6 +533,78 @@ def test_a_held_skip_stops_repeating_when_a_choice_comes():
     until_choices(app, screen)
     app.repeat_keys(now=t + 1)
     assert app.audio.seeks == [5.0] and app.held is None
+
+
+def test_a_recording_heard_to_its_end_is_remembered_for_good():
+    heard = fresh_heard()
+    app, screen = start(heard=heard)
+    assert '001introOpen.m4a' not in heard, 'starting it was taken for hearing it'
+    until_choices(app, screen)
+    assert '001introOpen.m4a' in heard
+    assert '001INTROOPEN.mp3' in Heard(heard.file.path), 'not kept in the file by its name'
+
+
+def test_s_on_a_recording_not_heard_yet_does_nothing():
+    app, screen = start()
+    key(app, 's')
+    assert app.speech.said[-1] == 'Not heard yet.'
+    assert screen.run.current.name == '001introOpen' and not screen.offered
+    assert app.audio.menu_sounds == []
+
+
+def test_s_at_the_choices_says_so():
+    app, screen = start()
+    until_choices(app, screen)
+    key(app, 's')
+    assert app.speech.said[-1] == 'Already at the choices.'
+
+
+def test_s_skips_across_every_heard_recording_to_the_next_choice():
+    heard = fresh_heard()
+    first, first_screen = start(heard=heard)        # a first time through, heard in full
+    until_choices(first, first_screen)
+    key(first, '1')
+    until_choices(first, first_screen)
+    played = dict(first_screen.run.variables)
+    waiting_at = first_screen.run.current.name
+
+    app, screen = start(heard=heard)                # and again, skipping
+    key(app, 's')                                   # the question at the card table
+    assert screen.offered and screen.run.current.name == '001introOpen'
+    assert app.audio.menu_sounds == ['PushButton D']
+    key(app, '1')
+    key(app, 's')
+    assert screen.run.current.name == waiting_at and screen.offered
+    assert app.audio.voice is None and app.audio.decision == STORY.state(waiting_at).decision
+    assert app.audio.background == STORY.state(waiting_at).background
+    assert screen.run.variables == played, 'skipping changed how the story turned out'
+    assert app.speech.said[-1] == choices_text(screen.offered)
+
+
+def test_s_stops_at_a_recording_not_heard_yet_and_plays_it_from_its_start():
+    # In Art Show, the response to calling out the artist goes on by itself to the crowd
+    # dispersing, two recordings in a row.
+    first, then = STORY.state('021M_callouttheartistResponse'), STORY.state('022disperseCrowdAccomplished')
+    assert STORY.next_state(first.name, {}) == then.name and then.voice
+    heard = fresh_heard()
+    heard.add(first.voice)
+    app, screen = start('1.2.1', heard=heard)
+    jump(app, screen, first.name)
+    key(app, 's')
+    assert screen.run.current.name == then.name and not screen.offered
+    assert app.audio.voice == then.voice and app.audio.voices[-1] == then.voice
+
+
+def test_the_heard_recordings_last_through_a_restart():
+    heard = fresh_heard()
+    app, screen = start(heard=heard)
+    until_choices(app, screen)
+    screen.restart()
+    app.audio.update()
+    again = app.stack.top
+    assert again.heard is heard
+    key(app, 's')
+    assert again.offered
 
 
 def entry():

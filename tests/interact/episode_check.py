@@ -13,13 +13,16 @@ the end of the episode, comes back to the list.
     Space           pause and resume
     R               the recording again
     Left and Right  5 seconds back or forward while the story plays; hold to keep going
+    S               on to the next choice, across recordings heard to their end before
     H               the scene heading
     the volumes     Shift+Home and End, Page Up and Down, Shift+Page Up and Down; hold them
     Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
     F1              the key bindings
 
 It keeps its own save, in %APPDATA%\\CodenameCygnus\\episode_check, so your volumes and
-keys in the game are not changed; its log is logs\\log.txt there.
+keys in the game are not changed; its log is logs\\log.txt there. The recordings heard,
+which S skips across, are kept there too, in saves\\heard.json, so S knows only what was
+heard through this tool.
 """
 import logging
 import os
