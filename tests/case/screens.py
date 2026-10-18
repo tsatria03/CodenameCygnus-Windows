@@ -103,7 +103,7 @@ def test_the_f1_screen_opens_on_back_and_enter_there_goes_back():
     app = make_app()
     app.stack.push(TwoRows(app))
     app.key_down('f1', [])
-    assert app.speech.said[-1] == 'Back' and isinstance(app.stack.top, KeyBindScreen)
+    assert app.speech.said[-2:] == ['Key bindings.', 'Back'] and isinstance(app.stack.top, KeyBindScreen)
     app.key_down('return', [])
     assert isinstance(app.stack.top, TwoRows) and not app.loop.held
 

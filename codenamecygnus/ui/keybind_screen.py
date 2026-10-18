@@ -22,8 +22,10 @@ from .screens import Screen
 
 log = logging.getLogger('keybind')
 
-HELP = ('Key bindings. Up and Down to move, Enter to rebind, A to add a second key, '
-        'Delete to unbind, R twice to reset everything, Escape to go back.')
+#: Said as the screen opens. How to use it is in docks/readme.txt, not said every time
+#: (the dev, 2026-10-18: "For the key bindings, remove the description, and put it in one
+#: of the document files").
+HELP = 'Key bindings.'
 RESET_PROMPT = ('Reset every binding to the default? Press R again to do it, or any other '
                 'key to keep the bindings you have.')
 #: Keys that can never be given to an action.

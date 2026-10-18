@@ -30,6 +30,18 @@ A new game starts with the Prologue and Holiday Party open.
 Each of the other episodes opens when you finish the one before it.
 Holiday Party has timed choices: if you do not choose within seven seconds, the story moves on without you.
 
+Key bindings
+
+Press F1 at any time, or choose Key bindings in Settings, to change the game's keys.
+The screen opens on Back, and the actions follow it, each read with its keys.
+Up and Down move through them.
+Enter rebinds the action you are on: press the key you want, with Shift, Control or Alt if you like.
+A adds a second key for it instead of replacing the one it has.
+Delete unbinds it.
+R twice resets every binding to the default.
+Escape, F1 or Enter on Back goes back.
+Escape, F1 and the number keys 1 to 9 can never be rebound.
+
 Credits
 
 Codename Cygnus is Reactive Studios' game, and its writers, voice actors, composer and team made everything you hear.
