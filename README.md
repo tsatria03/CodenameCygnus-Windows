@@ -32,7 +32,7 @@ far:
   story carried from episode to episode;
 - the agent profile, with the dominant trait and the four trait scales;
 - 16 achievements of the game's own, kept on your computer;
-- speaking your choices aloud, with speech recognition turned on, being tried by ear.
+- speaking your choices aloud, with speech recognition turned on.
 
 Still to come: the built game.
 

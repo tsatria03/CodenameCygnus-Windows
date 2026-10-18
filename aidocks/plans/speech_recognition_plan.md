@@ -1,12 +1,12 @@
 ---
 name: speech_recognition_plan
-description: "Plan 7 of 8: speaking choices aloud, as in the original, behind an on/off setting: PocketSphinx limited to the current choice's words, the microphone through sounddevice, off by default, 15 seconds of listening, and what is spoken. Status: planned, ready to build."
+description: "Plan 7 of 8: speaking choices aloud, as in the original, behind an on/off setting: PocketSphinx limited to the current choice's words, the microphone through sounddevice, off by default, 15 seconds of listening, and what is spoken. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: building,** started 2026-10-18 (the dev: "Yes please. Then make an interactive voice test for it."). The speech check passed by ear the same day (the dev: "All voice tests past."), after it was made to stop listening at the first choice heard; playing a choice by voice in an episode is still to be confirmed.
+**Status: finished,** confirmed by the dev by ear on 2026-10-18, in the speech check ("All voice tests past.") and in the game ("It also works for the actual game as well, not just in the outside tests."). Started the same day (the dev: "Yes please. Then make an interactive voice test for it."); the speech check was made to stop listening at the first choice heard, as the game does.
 
 ## How it is built
 

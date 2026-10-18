@@ -10,11 +10,11 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
-- Add speech recognition for choices, with a setting to turn it on or off, when the port is built ([[project_speech_recognition]]). Built in [[speech_recognition_plan]] on 2026-10-18, with `tests/interact/SPEECH_check.py` to try it by ear; waiting for the dev's word.
 - Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Planned in [[build_release_plan]].
 
 ## Finished
 
+- Speech recognition for choices is built, behind its setting, with `tests/interact/SPEECH_check.py` to try it by ear, finishing [[speech_recognition_plan]] (2026-10-18).
 - The agent profile, the last part of the menus, is built, finishing the menus and saves plans (2026-10-18).
 - Progress is saved in `saves/progress.json` at every new state, with Continue, the episodes' states and locks, the story carried from episode to episode, and Restart and Replay erasing what came after (2026-10-18).
 - The menus around the story are built: the opening, the main menu, the episode list and each episode's own screen, Settings with the three volumes, Credits, the end of an episode and the previews, with the original's interface sounds and Back first in every menu (2026-10-18).
