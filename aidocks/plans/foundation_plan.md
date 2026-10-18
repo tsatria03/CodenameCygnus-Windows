@@ -16,7 +16,7 @@ metadata:
 - `codenamecygnus/ui/`: `screens.py` (the screen stack), `menu.py` (the spoken menu), `keybind_screen.py` (F1) and `settings_screen.py` (the Debug mode row, source runs only).
 - `tests/case/`: 59 tests in 8 files, all passing on 2026-10-17, each importing `_quiet.py` first; `tests/suite.py` runs them all, writing `tests/results/` (gitignored).
 - **The key map is simpler than the reference material's:** this game has no held-key chords, only modifiers, so a key fires the moment it is pressed, with no wait to tell a chord apart.
-- **Master volume:** Shift+Home raises it and Shift+End lowers it, Home being the upper of the two keys.
+- **Master volume:** Shift+Home raises it and Shift+End lowers it, Home sitting above End as Page Up sits above Page Down (the dev confirmed it, 2026-10-17: "Yes.").
 
 Plan 2 of 8 ([[story_export_plan]] lists the order). Everything else stands on this: [[audio_plan]], [[story_engine_plan]], [[menus_plan]], [[saves_plan]] and [[speech_recognition_plan]] all use its paths, speech, timers and screen loop.
 

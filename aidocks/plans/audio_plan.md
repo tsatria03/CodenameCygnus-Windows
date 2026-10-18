@@ -45,7 +45,7 @@ The 10 files no state names are the eight interface sounds of under a second in 
   - The earlier choice of a one-second crossfade, made before the code was read, is dropped.
 
 - **Three volumes, each from 0 to 100% in steps of 10** (the dev, 2026-10-17: "Home/end should be for master volume, and then page up/down for ambience volume", then "Shift page up/down. For master, do shift home/end"):
-  - **Shift with Home and End:** the master volume, everything together. The voice follows it, so it stays the loudest thing the player controls.
+  - **Shift with Home and End:** the master volume, everything together, Shift+Home louder and Shift+End quieter. The voice follows it, so it stays the loudest thing the player controls.
   - **Page Up and Page Down:** the ambience, the `back_*` backgrounds.
   - **Shift with Page Up and Page Down:** the decision loop, the `decision_*` sounds.
   - Each press says the new level, such as "Ambience 60 percent", and the game remembers all three ([[saves_plan]]).
