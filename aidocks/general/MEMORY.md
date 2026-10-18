@@ -8,7 +8,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Developer tasks](project_dev_tasks.md): the repository, tool, test, build and docs tasks, open and finished, kept out of the players' todo list.
 - [Python only](project_python_only.md): the port is written entirely in Python, in `codenamecygnus/`, with pygame and Prism; the recordings are played as MP3 through pygame, converted from .m4a by the dev; no OpenAL.
 - [Speech recognition](project_speech_recognition.md): the port keeps spoken choices behind an on/off setting, as the original's voice button did; the keyboard always works; the details are in the speech recognition plan.
-- [The original's status](project_original_status.md): researched 2026-10-18 with sources; the iOS app is off the App Store, Reactive Studios became Earplay, which relaunched the story on Alexa and Google Assistant; what is and is not confirmed.
+- [The original's status](project_original_status.md): researched 2026-10-18 with sources; the iOS app is off the App Store, Reactive Studios became Earplay, which relaunched the story on Alexa and Google Assistant; version 1.4.0 is Earplay's rewrite, with no story inside and no shop; what is and is not confirmed.
 - [Story data source](project_story_data_source.md): the v53 story graph in the sqlite DB is authoritative, not the bundled v1 JSON; the port starts from scratch with no save import.
 
 ## Plans (aidocks/plans/, planned or being built)
