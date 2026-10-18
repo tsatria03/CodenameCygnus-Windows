@@ -102,8 +102,9 @@ With speech recognition on, you can say a choice aloud instead of pressing a key
 It starts off; turn it on with V during an episode, or in Settings.
 When a choice comes, the first choice is read, then you hear "Listening."
 Say one of the choices, such as "Charismatic", and it is chosen, just as Enter would choose it.
-The game listens for 15 seconds, then says "No longer listening."; the keys still work, and C reads the choices and listens again.
-In Holiday Party's timed choices, it listens for the whole seven seconds.
+While it listens, a choice can only be spoken: Enter and the number keys say "Speak your choice.", though the arrows still read the choices.
+The game listens for 15 seconds, then says "No longer listening."; then the keys choose again, and C reads the choices and listens again.
+In Holiday Party's timed choices, it listens for the whole seven seconds, so with speech recognition on they can only be spoken, and if your word is not caught in time, the story moves on without you.
 If it hears something that is not a choice, it says "Sorry, I did not catch that", and goes on listening.
 It listens only for the words of the choice in front of you, only while that choice waits, and nothing it hears is recorded or leaves your computer.
 Headphones keep the story and your screen reader out of the microphone.

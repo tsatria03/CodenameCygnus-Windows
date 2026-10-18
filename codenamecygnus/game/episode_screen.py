@@ -51,7 +51,9 @@ spoken too: after the first choice is said, "Listening.", and the microphone lis
 the choices' words, hidden ones too, for 15 seconds, or for the rest of a timed choice's
 clock; then "No longer listening.", and the keys still choose. Words that are no choice
 get "Sorry, I did not catch that", and listening goes on. C listens again. Pausing stops
-listening and keeps the seconds left, for when the story resumes.
+listening and keeps the seconds left, for when the story resumes. While it listens, Enter
+and the number keys say "Speak your choice." and choose nothing; the arrows still read the
+choices.
 """
 from __future__ import annotations
 
@@ -86,6 +88,8 @@ LISTEN_SECONDS = 15
 #: The original's own words for listening and not catching a word.
 LISTENING, NOT_LISTENING = 'Listening.', 'No longer listening.'
 NOT_CAUGHT = 'Sorry, I did not catch that'
+#: Enter or a number key while it listens: the choice is to be spoken.
+SPEAK_INSTEAD = 'Speak your choice.'
 NO_MICROPHONE_TEXT = 'No microphone found. Choose with the keys.'
 BLOCKED_TEXT = 'The microphone is blocked in Windows privacy settings.'
 
@@ -500,14 +504,27 @@ class EpisodeScreen(Screen):
     def do_next_choice(self):
         self.move(1)
 
+    def speak_instead(self):
+        """While it listens, a choice can only be spoken (aidocks/plans/speech_recognition_plan.md;
+        the dev, 2026-10-18: "When it's listening, you should not be allowed to tap your
+        choices or pick from them"). True when the key was refused."""
+        if self.listening:
+            self.say(SPEAK_INSTEAD)
+            return True
+        return False
+
     def do_choose(self):
         if not self.offered:
             return self.no_choices_yet()
+        if self.speak_instead():
+            return
         self.choose(self.offered[self.index or 0])
 
     def choose_number(self, n):
         if not self.offered:
             return self.no_choices_yet()
+        if self.speak_instead():
+            return
         if n > len(self.offered):
             return self.say('There %s only %d.' % ('is' if len(self.offered) == 1 else 'are',
                                                   len(self.offered)))

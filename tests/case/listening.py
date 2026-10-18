@@ -6,7 +6,7 @@ import _quiet  # noqa: F401  first, before any of the game
 from episode import STORY, end_voice, jump, key, start
 
 from codenamecygnus.game.episode_screen import (BLOCKED_TEXT, LISTENING, NO_MICROPHONE_TEXT,
-                                                NOT_CAUGHT, NOT_LISTENING)
+                                                NOT_CAUGHT, NOT_LISTENING, SPEAK_INSTEAD)
 from codenamecygnus.platform import runloop
 from codenamecygnus.platform.listener import (BLOCKED, NO_MICROPHONE, Listener,
                                               MicrophoneError, Recogniser, words_of)
@@ -172,15 +172,51 @@ def test_v_while_the_story_plays_only_turns_it_on():
     assert app.speech.said[-1] == 'Speech recognition on.' and app._listener.starts == 0
 
 
-def test_r_and_the_keys_stop_listening():
+def test_r_stops_listening_until_the_choices_come_again():
     app, screen = listening()
     at(app, screen, '012introRejectPrompt')
     key(app, 'r')
     assert not app._listener.listening
     end_voice(app)
     assert app._listener.listening
+
+
+def test_while_listening_a_choice_can_only_be_spoken():
+    app, screen = listening()
+    at(app, screen, '012introRejectPrompt')
+    for k in ('return', '1', '2'):
+        key(app, k)
+        assert app.speech.said[-1] == SPEAK_INSTEAD, k
+    assert screen.run.current.name == '012introRejectPrompt' and app._listener.listening
+    key(app, 'down')                                # the arrows still read the choices
+    assert app.speech.said[-1] == 'Hostile'
+    key(app, 'c')
+    assert app.speech.said[-2:] == ['Charismatic or Hostile.', LISTENING]
+
+
+def test_once_listening_ends_the_keys_choose_again():
+    app, screen = listening()
+    at(app, screen, '012introRejectPrompt')
+    app.loop.pump(runloop.clock() + 15.5)
     key(app, 'return')
-    assert not app._listener.listening
+    first = STORY.choices('012introRejectPrompt')[0]
+    assert screen.run.current.name == first.destination
+
+
+def test_a_timed_choice_with_speech_on_can_only_be_spoken():
+    app, screen = listening('1.8.1')
+    at(app, screen, '009drinkPrompt_m1e8')
+    key(app, '1')
+    assert app.speech.said[-1] == SPEAK_INSTEAD
+    app.loop.pump(runloop.clock() + 7.5)
+    assert screen.run.current.name == '010Ctimeout_m1e8'
+
+
+def test_with_speech_off_the_keys_choose_as_ever():
+    app, screen = listening(on=False)
+    at(app, screen, '012introRejectPrompt')
+    key(app, 'return')
+    assert screen.run.current.name == STORY.choices('012introRejectPrompt')[0].destination
 
 
 def test_no_microphone_is_said_once_a_session():
