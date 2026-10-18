@@ -20,7 +20,12 @@ metadata:
    - The main menu's first row is "Continue Art Show" while there is a place to go back to. The episode list adds ", in progress", ", completed" or ", locked" to each episode; a locked one opens its own screen too, with Back, its description and Locked. Each episode's own screen offers its buttons by its state, as above, and Restart episode and Replay episode both ask the original's question, "Restart episode? If you restart this episode, all saved progress beyond this episode will be erased.", then say "Restarting Prologue." The pause menu's Restart asks the same.
    - `--episode` starts with what the episode before it ended with, as Start does.
    - `tests/case/progress.py` has 10 tests and `tests/case/menus.py` 8 more; each test gets a fresh progress file.
-2. **The agent profile** ([[menus_plan]]): the dominant trait, furthest episode, episodes completed, game progress, the four trait scales and the achievements. Status: next.
+2. **The agent profile** ([[menus_plan]]): the dominant trait, furthest episode, episodes completed, game progress, the four trait scales and the achievements. Status: built 2026-10-18 (the dev: "update all docks where possible ... then continue with the implementation"), waiting for the dev to try it by ear.
+   - `codenamecygnus/game/profile.py` holds `ProfileScreen` and `AchievementList`, with `dominant_trait` and `scale_text`; the main menu's "Agent profile", between Episodes and Settings, opens it with the original's profile sound, `1930Radio B`.
+   - The rows: Back; "Dominant trait: Charismatic." or "none yet"; "Furthest episode: Episode 3, Neptune's Lair." or "none yet"; "Episodes completed: 2 of 8."; "Game progress: 25 percent.", the episodes completed out of eight; the four scales, such as "Diplomacy: Charismatic, 3" or "Activeness: balanced"; and "Achievements: 3 of 16". Enter on a row says it again.
+   - **Whose traits:** the story of Mission 1 so far, from the furthest of its episodes started: where it was left, or how it ended once finished (`Progress.mission_variables`). Holiday Party is left out of the traits and the furthest episode, since it resets its own variables and uses none of the mission's; it counts among the episodes completed.
+   - **The achievements** are a list of their own, opened from the Achievements row: Back, then all 16, such as "Card Shark, earned. Raise the bet in the Prologue's card game, so that Krasnoff folds." or "Martini, not earned yet. Order the Martini at the hotel bar in Art Show."
+   - `tests/case/agent_profile.py` has 8 tests (not `profile.py`, which would hide Python's own `profile` module from the tests).
 
 ## How section 1 works
 

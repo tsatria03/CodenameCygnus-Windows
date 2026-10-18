@@ -21,6 +21,7 @@ The game says its name and a loading message, and the first time, the headphones
 Then comes the main menu.
 Continue, while an episode is in progress, takes you back to where you left off.
 Episodes lists the eight episodes.
+Agent profile says your dominant trait, how far you have come, your four trait scales and your achievements.
 Settings has the volumes, speech recognition and the key bindings.
 Credits lists the team who made Codename Cygnus.
 Quit, or Escape, closes the game.
@@ -89,6 +90,14 @@ Achievements
 
 The game has 16 achievements, kept on your computer in place of the original's online ones.
 Each is announced the first time you earn it, when the next choice comes or at the end of the episode, never over the story.
+The Agent profile lists all 16, each earned or not, with what earns it.
+
+Your agent
+
+The Agent profile in the main menu shows the agent your choices have made.
+Each of four traits leans one way or the other: Openness from secretive to bold, Predictability from impulsive to focused, Diplomacy from hostile to charismatic, and Activeness from clever to athletic.
+A choice word at one end moves its trait that way, and your dominant trait is the one you lean furthest.
+The profile also says the furthest episode you have reached, how many you have completed, and your achievements.
 
 Settings
 
