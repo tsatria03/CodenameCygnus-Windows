@@ -136,6 +136,13 @@ def test_the_episodes_are_the_eight_of_mission_1():
     assert STORY.episodes['1.2.1'].number == 2
 
 
+def test_each_state_knows_the_episode_it_is_played_in():
+    for episode in STORY.playable_episodes():
+        assert STORY.episode_of(episode.start) is episode and STORY.episode_of(episode.end) is episode
+    assert STORY.episode_of('016F_contactMark').title == 'Art Show'
+    assert STORY.episode_of('m1e2_teaser') is None          # a preview, played from no episode
+
+
 def play(episode, rng, limit=100000):
     """Play an episode through, choosing at random; the states it passed.
 

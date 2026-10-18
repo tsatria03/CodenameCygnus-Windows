@@ -192,6 +192,31 @@ class Story:
     def state(self, name):
         return self.states[name]
 
+    def leads_to(self, name):
+        """Every state ``name`` can go to next, by any way out."""
+        out = []
+        for t in self.ways_out.get(name, []):
+            if t.get('destination'):
+                out.append(t['destination'])
+            for c in t.get('conditions', []):
+                out += [c.get('destination_if'), c.get('destination_else')]
+        return [n for n in out if n in self.states]
+
+    def episode_of(self, name):
+        """The episode a state is played in, found from each episode's start, or None for
+        the few states nothing leads to. Debug mode's jumps use it."""
+        if not hasattr(self, '_episode_of'):
+            self._episode_of = {}
+            for episode in self.playable_episodes():
+                waiting = [episode.start]
+                while waiting:
+                    here = waiting.pop()
+                    if here in self._episode_of or here not in self.states:
+                        continue
+                    self._episode_of[here] = episode
+                    waiting += self.leads_to(here)
+        return self._episode_of.get(name)
+
     def playable_episodes(self):
         return [e for e in self.episodes.values() if e.playable]
 
@@ -260,8 +285,8 @@ class Playthrough:
         for a in state.achievements:
             if a not in self.earned:
                 self.earned.append(a)
-        if name == self.episode.end:
-            self.finished = True
+        # Decided afresh at every state, so a debug jump away from the end goes on playing.
+        self.finished = name == self.episode.end
         return state
 
     def after_voice(self):

@@ -16,6 +16,7 @@ import pygame
 from codenamecygnus.app import App
 from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choices_text,
                                                 heading_text, script_line)
+from codenamecygnus.game.debug import JumpScreen, MatchMenu
 from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.stand_in_menu import StandInMainMenu
 from codenamecygnus.game.story import Story
@@ -135,8 +136,8 @@ def make_app(debug=False, episode=None):
                audio=FakeAudio(settings))
 
 
-def start(episode_id='1.1.1', menu=True, heard=None):
-    app = make_app()
+def start(episode_id='1.1.1', menu=True, heard=None, debug=False):
+    app = make_app(debug=debug)
     if menu:
         app.stack.push(StandInMainMenu(app))
     screen = EpisodeScreen(app, STORY.episodes[episode_id], story=STORY, recordings=Names(),
@@ -614,6 +615,128 @@ def test_the_heard_recordings_last_through_a_restart():
     assert again.heard is heard
     key(app, 's')
     assert again.offered
+
+
+def type_text(app, text):
+    for ch in text:
+        if ch == '_':
+            key(app, '-', ['shift'])
+        elif ch.isupper():
+            key(app, ch.lower(), ['shift'])
+        else:
+            key(app, ch)
+
+
+def test_the_debug_keys_do_nothing_out_of_debug_mode():
+    app, screen = start()
+    before = len(app.speech.said)
+    for name in ('f2', 'f3', 'f4'):
+        key(app, name)
+    assert app.stack.top is screen and len(app.speech.said) == before
+    assert screen.run.current.name == '001introOpen'
+
+
+def test_f2_skips_a_recording_never_heard_without_noting_it():
+    heard = fresh_heard()
+    app, screen = start(heard=heard, debug=True)
+    key(app, 'f2')
+    assert screen.offered and screen.run.current.name == '001introOpen'
+    assert '001introOpen.m4a' not in heard
+    key(app, 'f2')
+    assert app.speech.said[-1] == 'Already at the choices.'
+
+
+def test_f4_says_the_state_the_traits_and_the_flags():
+    app, screen = start(debug=True)
+    key(app, 'f4')
+    said = app.speech.said[-1]
+    assert said.startswith('State 001introOpen. Openness 0, Predictability 0, Diplomacy 0, Activeness 0.')
+    assert 'npc_state.tomassi 1' in said
+
+
+def test_f3_jumps_to_a_state_typed_in_part():
+    app, screen = start(debug=True)
+    key(app, 'f3')
+    assert isinstance(app.stack.top, JumpScreen) and app.audio.paused
+    type_text(app, '012introRejectPromptX')
+    key(app, 'backspace')
+    assert app.speech.said[-1] == 'X' and app.stack.top.query == '012introRejectPrompt'
+    key(app, 'return')
+    assert app.stack.top is screen and not app.audio.paused
+    assert screen.run.current.name == '012introRejectPrompt'
+    assert app.speech.said[-1] == 'Jumped to 012introRejectPrompt, in Prologue.'
+
+
+def test_f3_types_underscores_with_shift_and_minus():
+    app, screen = start(debug=True)
+    key(app, 'f3')
+    type_text(app, 'card_')
+    assert app.stack.top.query == 'card_' and app.speech.said[-1] == '_'
+
+
+def test_f3_lists_several_matches_to_choose_from():
+    app, screen = start(debug=True)
+    key(app, 'f3')
+    type_text(app, 'contactMark')
+    key(app, 'return')
+    menu = app.stack.top
+    assert isinstance(menu, MatchMenu) and len(menu.names) > 1
+    assert app.speech.said[-2] == '%d states match.' % len(menu.names)
+    key(app, 'return')                              # the first, 015contactMark, in Art Show
+    assert isinstance(app.stack.top, EpisodeScreen)
+    assert app.stack.top.run.current.name == menu.names[0]
+
+
+def test_f3_says_when_nothing_or_too_much_matches():
+    app, screen = start(debug=True)
+    key(app, 'f3')
+    type_text(app, 'nosuchstate')
+    key(app, 'return')
+    assert app.speech.said[-1] == 'No state has nosuchstate in its name.'
+    for _ in range(len('nosuchstate')):
+        key(app, 'backspace')
+    type_text(app, 'm1e')
+    key(app, 'return')
+    assert app.speech.said[-1].endswith('states match. Type more of the name.')
+    key(app, 'escape')
+    assert app.stack.top is screen and not app.audio.paused
+
+
+def test_f3_to_a_state_in_another_episode_plays_that_episode():
+    app, screen = start(debug=True)
+    key(app, 'f3')
+    type_text(app, '009drinkPrompt_m1e8')
+    key(app, 'return')
+    there = app.stack.top
+    assert isinstance(there, EpisodeScreen) and there is not screen
+    assert there.episode.title == 'Holiday Party' and there.run.current.name == '009drinkPrompt_m1e8'
+    key(app, 'escape')
+    key(app, 'end')
+    key(app, 'return')                              # Return to menu
+    assert isinstance(app.stack.top, StandInMainMenu)
+
+
+def test_a_jump_away_from_the_end_goes_on_playing():
+    app, screen = start(debug=True)
+    episode = STORY.episodes['1.1.1']
+    screen.play(screen.run.enter(episode.end))      # before its next frame ends it
+    assert screen.run.finished
+    screen.jump('012introRejectPrompt')
+    app.audio.update()
+    assert not screen.run.finished
+    end_voice(app)
+    assert screen.offered and not screen.complete
+
+
+def test_state_on_the_command_line_starts_there_in_debug_mode_only():
+    e = entry()
+    app = make_app(debug=True)
+    app.options.state = '016F_contactMark'
+    screen = e.episode_from_options(app, app.options)
+    assert screen.episode.title == 'Art Show' and screen.at == '016F_contactMark'
+    plain = make_app()
+    plain.options.state = '016F_contactMark'
+    assert e.episode_from_options(plain, plain.options) is None
 
 
 def entry():

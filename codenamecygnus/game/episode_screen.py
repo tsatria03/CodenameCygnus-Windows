@@ -47,6 +47,7 @@ from ..platform.audio import SKIP_SECONDS
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
+from .debug import JumpScreen, state_report
 from .heard import Heard
 from .recordings import Recordings
 from .story import TICKS, Playthrough, Story
@@ -91,8 +92,10 @@ class EpisodeScreen(Screen):
     name = 'episode'
     holds_time = True
 
-    def __init__(self, app, episode, story=None, recordings=None, variables=None, heard=None):
+    def __init__(self, app, episode, story=None, recordings=None, variables=None, heard=None,
+                 at=None):
         super().__init__(app)
+        self.at = at                # debug mode: the state to start at, or None for the start
         self.story = story or Story.shared()
         self.recordings = recordings or Recordings.shared()
         self.heard = heard if heard is not None else Heard.shared()
@@ -121,8 +124,9 @@ class EpisodeScreen(Screen):
     def opened(self):
         if not self.started:
             self.started = True
-            log.info('episode %s, %s, starts', self.episode.id, self.episode.title)
-            self.play(self.run.start())
+            log.info('episode %s, %s, starts%s', self.episode.id, self.episode.title,
+                     ' at %s' % self.at if self.at else '')
+            self.play(self.run.start(self.at))
         elif self.paused in (BY_COVER, BY_FOCUS):
             self.resume()
 
@@ -411,6 +415,40 @@ class EpisodeScreen(Screen):
         self.audio.stop_voice()
         self.voice_playing = None
         self.voice_ended()
+
+    # ---- debug mode (game/debug.py) --------------------------------------
+    def do_debug_skip(self):
+        """F2: on past this recording, heard or not, and never noted as heard, so testing
+        a branch does not mark story the dev never listened to."""
+        if self.offered:
+            return self.say('Already at the choices.')
+        if self.paused:
+            self.resume()
+        log.info('debug: skipped %s', self.run.current.name)
+        self.voice_playing = None
+        self.audio.stop_voice()
+        self.voice_ended()
+
+    def do_debug_jump(self):
+        self.stack.push(JumpScreen(self.app, self))
+
+    def do_debug_state(self):
+        self.say(state_report(self.run))
+
+    def jump(self, name):
+        """Debug mode: play from any state. One in another episode starts that episode
+        there, so its end is the right one; the variables carry over either way."""
+        episode = self.story.episode_of(name) or self.episode
+        log.info('debug: jumped to %s, in %s', name, episode.title)
+        if episode is self.episode:
+            self.play(self.run.enter(name))
+        else:
+            self.stack.replace(EpisodeScreen(self.app, episode, story=self.story,
+                                             recordings=self.recordings,
+                                             variables=self.run.variables,
+                                             heard=self.heard, at=name))
+        # Cuts off the screens that spoke as they closed on the way back here.
+        self.say('Jumped to %s, in %s.' % (name, episode.title))
 
     def do_back(self):
         if self.offered:

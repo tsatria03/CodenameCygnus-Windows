@@ -91,12 +91,24 @@ def say_why(speech, text):
 
 
 def episode_from_options(app, options):
-    """The episode ``--episode`` names, ready to play, or None."""
-    if not options.episode:
-        return None
+    """The episode ``--episode`` names, or in debug mode the one ``--state`` is in, started
+    at that state, ready to play; or None."""
     from codenamecygnus.game.episode_screen import EpisodeScreen
     from codenamecygnus.game.story import Story
-    episode = Story.shared().episodes.get(options.episode)
+    story = Story.shared()
+    if options.state:
+        if not app.debug:
+            log.warning('--state works only in debug mode, so it is ignored')
+        elif options.state not in story.states:
+            log.warning('there is no state %s, so it is ignored', options.state)
+        else:
+            episode = story.episode_of(options.state) or story.episodes.get(options.episode or '')
+            if episode is not None:
+                return EpisodeScreen(app, episode, at=options.state)
+            log.warning('no episode plays %s; give one with --episode', options.state)
+    if not options.episode:
+        return None
+    episode = story.episodes.get(options.episode)
     if episode is None or not episode.playable:
         log.warning('there is no episode %s to play, so the menu opens instead', options.episode)
         return None
@@ -113,10 +125,6 @@ def main(argv=None):
         import pygame
         from codenamecygnus.app import App
         from codenamecygnus.game.stand_in_menu import StandInMainMenu
-        if options.state and not options.debug:
-            log.warning('--state works only in debug mode, so it is ignored')
-        elif options.state:
-            log.warning('--state waits for debug mode in the story engine, so it is ignored for now')
         app = App(options, speech=speech)
         app.run(StandInMainMenu(app), pygame, on_top=episode_from_options(app, options))
         log.info('Codename Cygnus closed')

@@ -19,6 +19,12 @@ the end of the episode, comes back to the list.
     Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
     F1              the key bindings
 
+Debug mode is always on here, so its keys work too:
+
+    F2              skip the recording, heard or not, without noting it as heard
+    F3              jump to any state: type part of its name, then Enter
+    F4              the state's name, the trait scores and the story flags
+
 It keeps its own save, in %APPDATA%\\CodenameCygnus\\episode_check, so your volumes and
 keys in the game are not changed; its log is logs\\log.txt there. The recordings heard,
 which S skips across, are kept there too, in saves\\heard.json, so S knows only what was
@@ -70,7 +76,8 @@ def main():
                                            '%H:%M:%S'))
     logging.getLogger().addHandler(handler)
     logging.getLogger().setLevel(logging.INFO)
-    options = types.SimpleNamespace(debug=False, episode=None, state=None, verbose=False,
+    # Debug mode is on, so F2, F3 and F4 work (aidocks/plans/story_engine_plan.md).
+    options = types.SimpleNamespace(debug=True, episode=None, state=None, verbose=False,
                                     exit_after=None)
     app = App(options)
     app.run(EpisodeChooser(app, Story.shared()), pygame)
