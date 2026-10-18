@@ -16,6 +16,7 @@ import logging
 import os
 
 from . import paths
+from .platform.audio import Audio
 from .platform.keymap import KeyMap, mods_from_pygame
 from .platform.runloop import RunLoop
 from .platform.settings import Settings
@@ -33,12 +34,14 @@ MAX_LINES = 22
 
 
 class App:
-    def __init__(self, options, speech=None, settings=None, keymap=None, loop=None):
+    def __init__(self, options, speech=None, settings=None, keymap=None, loop=None, audio=None):
         self.options = options
         self.speech = speech or Speech.shared()
         self.settings = settings or Settings.shared()
         self.keymap = keymap or KeyMap.shared()
         self.loop = loop or RunLoop.main()
+        # The sound device opens in run(), once pygame is started (aidocks/plans/audio_plan.md).
+        self.audio = audio or Audio(self.settings)
         self.stack = ScreenStack()
         self.running = True
         self.debug = False
@@ -85,6 +88,8 @@ class App:
         pygame.display.set_caption(TITLE)
         font = pygame.font.SysFont('consolas', 18) or pygame.font.Font(None, 22)
         clock = pygame.time.Clock()
+        if not self.audio.ok:
+            self.audio.open(pygame)
         if self.options.exit_after:
             self.loop.after(self.options.exit_after, self.quit)
             log.info('quitting by itself after %s seconds', self.options.exit_after)
@@ -95,11 +100,13 @@ class App:
                     self.handle_event(event, pygame)
                 if self.stack.top is not None:
                     self.stack.top.update()
+                self.audio.update()
                 self.loop.pump()
                 self.draw(screen, font, pygame)
                 clock.tick(FPS)
         finally:
             self.stack.clear()
+            self.audio.close()
             pygame.display.quit()
 
     def handle_event(self, event, pygame):
