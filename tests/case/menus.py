@@ -155,7 +155,9 @@ def test_credits_lists_reactive_studios_and_the_port():
     credits = app.stack.top
     assert isinstance(credits, CreditsScreen) and sounds(app) == ['1930radio c']
     rows = [r.text for r in credits.rows()]
-    assert rows[0] == 'Back' and 'CEO: Jonathon Myers' in rows and rows[-1] == PORT_CREDIT
+    assert app.speech.said[-2:] == ['Credits.', 'Back']
+    assert rows[:2] == ['Back', 'Codename Cygnus is a game by Reactive Studios.']
+    assert 'CEO: Jonathon Myers' in rows and rows[-1] == PORT_CREDIT
     assert '' not in rows
 
 

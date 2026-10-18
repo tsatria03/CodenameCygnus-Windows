@@ -175,12 +175,15 @@ class CreditsScreen(Menu):
     port's line. Each episode's own credits come at its end (game/episode_end.py)."""
 
     name = 'credits'
-    title = 'Credits. Codename Cygnus is a game by Reactive Studios.'
+    title = 'Credits.'
+    #: A row of its own after Back, as an episode's description is (the dev, 2026-10-18:
+    #: "Do the same with credits. Put the first part of that after the back button").
+    INTRO = 'Codename Cygnus is a game by Reactive Studios.'
 
     def __init__(self, app, story):
         super().__init__(app)
         self.story = story
 
     def rows(self):
-        return [Row('Back', self.back)] + [
+        return [Row('Back', self.back), Row(self.INTRO)] + [
             Row(line) for line in credit_lines(self.story.company_credits) + [PORT_CREDIT]]
