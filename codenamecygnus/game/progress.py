@@ -116,6 +116,38 @@ class Progress:
             return episode
         return None
 
+    # ---- for the agent profile (game/profile.py) ---------------------------
+    def mission_chain(self):
+        """Mission 1's episodes in story order, each opening the next: the Prologue to
+        Signum Cygni. Holiday Party stands apart."""
+        chain = []
+        episode = next((e for e in self.story.playable_episodes()
+                        if not e.locked_by and self.story.next_episode(e) is not None), None)
+        while episode is not None and episode not in chain:
+            chain.append(episode)
+            episode = self.story.next_episode(episode)
+        return chain
+
+    def furthest_episode(self):
+        """The furthest episode of the mission started or finished, or None."""
+        reached = [e for e in self.mission_chain() if self.state_of(e) != NEW]
+        return reached[-1] if reached else None
+
+    def completed_count(self):
+        return sum(1 for e in self.story.playable_episodes() if self.state_of(e) == COMPLETED)
+
+    def mission_variables(self):
+        """The story so far: where the furthest episode was left, or how it ended. Holiday
+        Party is left out, since it resets its own variables and uses none of the others'."""
+        episode = self.furthest_episode()
+        if episode is None:
+            return {}
+        entry = self.episodes[episode.id]
+        if entry['state'] == COMPLETED:
+            return dict(entry.get('ended_with', {}))
+        place = self.place(episode)
+        return place[1] if place else dict(entry['began_with'])
+
     # ---- writing ---------------------------------------------------------
     def begin(self, episode, variables):
         """A fresh start of the episode, from its beginning."""

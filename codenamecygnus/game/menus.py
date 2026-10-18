@@ -2,7 +2,8 @@
 
     the opening      "Codename Cygnus" and one of the original's loading messages, then
                      the first time only, the headphones notice
-    the main menu    Episodes, Settings, Credits, Quit; Escape quits too
+    the main menu    Continue while an episode is in progress, Episodes, Agent profile
+                     (game/profile.py), Settings, Credits, Quit; Escape quits too
     Episodes         Mission 1's episodes, each by its number and title; Enter opens its
                      own screen, which says its description and offers Start and, where
                      there is one, Preview next episode
@@ -23,6 +24,7 @@ from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
 from .episode_end import PreviewScreen, credit_lines
 from .episode_screen import EpisodeScreen, RestartQuestion
+from .profile import ProfileScreen
 from .progress import COMPLETED, IN_PROGRESS, NEW, Progress
 from .story import Story
 
@@ -113,6 +115,8 @@ class MainMenu(Menu):
         return rows + [
             Row('Episodes', lambda: self.open(EpisodeList(self.app, self.story, self.progress),
                                               'episodes')),
+            Row('Agent profile', lambda: self.open(ProfileScreen(self.app, self.story,
+                                                                 self.progress), 'profile')),
             Row('Settings', lambda: self.open(SettingsScreen(self.app))),
             Row('Credits', lambda: self.open(CreditsScreen(self.app, self.story), 'credits')),
             Row('Quit', self.app.quit)]

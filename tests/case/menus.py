@@ -65,7 +65,8 @@ def test_the_main_menu_rows_and_escape_quits():
     app = make_app()
     menu = MainMenu(app, STORY)
     app.stack.push(menu)
-    assert [r.text for r in menu.rows()] == ['Episodes', 'Settings', 'Credits', 'Quit']
+    assert [r.text for r in menu.rows()] == ['Episodes', 'Agent profile', 'Settings', 'Credits',
+                                             'Quit']
     key(app, 'escape')
     assert not app.running
 
@@ -256,8 +257,9 @@ def test_escape_goes_back_with_the_back_sound():
 def test_credits_lists_reactive_studios_and_the_port():
     app = make_app()
     app.stack.push(MainMenu(app, STORY))
-    key(app, 'down')
-    key(app, 'down')
+    for _ in range(3):
+        key(app, 'down')
+    assert app.speech.said[-1] == 'Credits'
     key(app, 'return')
     credits = app.stack.top
     assert isinstance(credits, CreditsScreen) and sounds(app) == ['1930radio c']
