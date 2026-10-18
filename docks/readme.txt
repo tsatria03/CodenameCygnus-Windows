@@ -84,7 +84,7 @@ S skips straight on to the next choice, but only across parts you have heard to 
 H says where you are, the scene heading.
 
 At any time:
-V turns speech recognition on or off.
+V turns speech recognition on or off, except while it is listening, as in the original; then V only says "Listening."
 Shift with Home and Shift with End turn the master volume up and down.
 Page Up and Page Down turn the background ambience up and down.
 Shift with Page Up and Shift with Page Down turn the decision loop up and down, the sound that plays while a choice waits.

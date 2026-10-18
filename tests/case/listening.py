@@ -150,15 +150,20 @@ def test_turned_on_in_the_pause_menus_settings_it_listens_on_resuming():
     assert app._listener.listening and app.speech.said[-1] == LISTENING
 
 
-def test_v_turns_it_on_and_off_at_a_waiting_choice():
+def test_v_turns_it_on_at_a_waiting_choice_and_cannot_turn_it_off_while_listening():
     app, screen = listening(on=False)
     at(app, screen, '012introRejectPrompt')
     key(app, 'v')
     assert app.settings.get('speech_recognition') is True
     assert app.speech.said[-2:] == ['Speech recognition on.', LISTENING]
     assert app._listener.listening
+    key(app, 'v')                                   # as the original's button, disabled
+    assert app.speech.said[-1] == LISTENING and app._listener.listening
+    assert app.settings.get('speech_recognition') is True
+    app.loop.pump(runloop.clock() + 15.5)           # listening over: V works again
     key(app, 'v')
-    assert app.speech.said[-1] == 'Speech recognition off.' and not app._listener.listening
+    assert app.speech.said[-1] == 'Speech recognition off.'
+    assert app.settings.get('speech_recognition') is False
 
 
 def test_v_while_the_story_plays_only_turns_it_on():

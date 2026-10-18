@@ -637,8 +637,14 @@ class EpisodeScreen(Screen):
         self.say(heading_text(self.heading) if self.heading else 'No scene heading yet.')
 
     def do_speech_recognition(self):
-        """V: speech recognition on or off, for good; at a waiting choice it starts or
-        stops listening at once."""
+        """V: speech recognition on or off, for good; turned on at a waiting choice, it
+        starts listening at once. While it listens, V does nothing but say so, as the
+        original's voice button was disabled while it listened (-[CCGameViewController
+        voiceRecognitionChangedStateToActive:], 0x100042174, setting setVoiceEnabled: to
+        the opposite of listening; the dev, 2026-10-18: "The V key should not disable
+        listening ... Match it to the original")."""
+        if self.listening:
+            return self.say(LISTENING)
         on = self.app.settings.toggle('speech_recognition')
         self.say('Speech recognition %s.' % ('on' if on else 'off'))
         if on and self.offered:

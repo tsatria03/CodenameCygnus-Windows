@@ -131,7 +131,8 @@ During an episode:
 - S skips on to the next choice across what you have heard before;
 - H says the scene heading;
 - V turns speech recognition on or off: with it on, "Listening." follows the first choice,
-  and saying a choice chooses it, for 15 seconds, or a timed choice's whole seven;
+  and saying a choice chooses it, for 15 seconds, or a timed choice's whole seven; while it
+  listens, V only says "Listening.", as the original's voice button was disabled then;
 - Shift with Home and End, Page Up and Page Down, and Shift with Page Up and Page Down set
   the master, background ambience and decision loop volumes;
 - Escape or P pauses, with the pause menu: Resume, Restart episode, Settings and Return to
