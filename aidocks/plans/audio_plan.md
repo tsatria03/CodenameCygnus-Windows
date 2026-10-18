@@ -1,12 +1,12 @@
 ---
 name: audio_plan
-description: "Plan 3 of 8: playing the story's three audio layers (voice, background, decision) through pygame's mixer, finding each MP3 by its story name, seeking, pausing, the decision loop, the original's hard background cuts and three volumes. Status: built, not yet confirmed."
+description: "Plan 3 of 8: playing the story's three audio layers (voice, background, decision) through pygame's mixer, finding each MP3 by its story name, seeking, pausing, the decision loop, the original's hard background cuts and three volumes. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: built, not yet confirmed by the dev.** Built 2026-10-17 (the dev: "Yes."):
+**Status: finished,** confirmed by the dev on 2026-10-17 after hearing it through `tests/interact/audio_check.py` ("The interactive test worked."). Built 2026-10-17 (the dev: "Yes."):
 - `codenamecygnus/platform/audio.py`: the voice through `pygame.mixer.music` (started partway with `play(start=)`, for Left, Right, R and S), the background on channel 0, the decision loop on channel 1 and the menu sounds on channel 2, pausing all together, and the three volumes as squared gains. pygame says a paused voice is not playing, so pausing is tracked by the module itself, and a voice is believed finished only after a quarter of a second of play. pygame cannot give a streamed MP3's length, so `mp3_length` reads it from the file's headers (a Xing, Info or VBRI frame count, or the bitrate). Only the background playing is kept decoded in memory. With no sound device, the game carries on silent.
 - `codenamecygnus/game/recordings.py`: a story file name found as its MP3 anywhere under `game/data/audio/`, in any letter case, the previews without `_teaser`. The pack `m1.dat` will feed the same `Recording` objects ([[build_release_plan]]).
 - `codenamecygnus/app.py` opens the sound device as the game starts, updates the audio every frame and closes it at the end.

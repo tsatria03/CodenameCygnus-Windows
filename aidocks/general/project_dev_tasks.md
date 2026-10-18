@@ -15,6 +15,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Finished
 
+- The audio plays a story state's voice, background and decision loop, with pausing, skipping and the three volumes, and `tests/interact/audio_check.py` lets it be heard by ear (2026-10-17).
 - The foundation is built: the entry script, speech, timers, settings and keys files, the F1 screen, logs and the silent tests (2026-10-17).
 - The original's final story, missions and resources are exported as checked JSON in `game/data/text/` by `tools/export_story.py` (2026-10-17).
 - The ambiences and decision sounds are out of the repository and its history, on GitHub too, kept under the gitignored `game/data/audio/missions/`; only the eight menu sounds remain (2026-10-17).
