@@ -6,8 +6,8 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
 1. **A state starts:** the decision loop stops, the background carries on or cuts over,
    and the voice plays. A state with no voice ends at once, on the next frame.
 2. **Its voice ends:** if the state waits for a choice, the decision loop starts and the
-   choices are read, each by its word alone; a timed one starts its clock. Otherwise the
-   story goes on by itself to the next state.
+   first choice is the one you are on, said by its word alone; a timed one starts its
+   clock. Otherwise the story goes on by itself to the next state.
 3. **The episode's end state's voice ends:** "Episode complete!" and the completion text,
    then Enter or Escape goes back to the menu.
 
@@ -16,7 +16,7 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
     Home and End    the first choice and the last
     Enter           choose the one you are on, the first until you move
     1 to 9          choose by number
-    C               say the choices again
+    C               say every choice, such as "Charismatic or Hostile."
     Space           pause and resume
     R               the recording again from its start, then the choices again
     Left and Right  5 seconds back or forward, while the story plays
@@ -194,8 +194,11 @@ class EpisodeScreen(Screen):
         # 2026-10-17: "pressing enter should activate the first focused option").
         self.index = 0
         self.audio.start_decision(self.find(state.decision))
-        # Read by the game itself, so it waits behind whatever the player made it say.
-        self.say(choices_text(self.offered), interrupt=False)
+        # The one you are on is said, as a menu says its row (the dev, 2026-10-17: "When
+        # there are more than 1 choice on screen, it should auto focus to it and speak the
+        # first one"); C says them all. Said by the game itself, so it waits behind
+        # whatever the player made it say.
+        self.say(self.offered[0].spoken, interrupt=False)
         timeout = self.run.timeout()
         if timeout is not None:
             self.start_timer(timeout[0])

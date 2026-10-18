@@ -184,7 +184,16 @@ def test_the_choices_come_after_the_question_with_the_decision_loop():
     until_choices(app, screen)
     assert screen.run.current.name == '001introOpen'
     assert app.audio.decision == STORY.state('001introOpen').decision
-    assert app.speech.heard[-1] == ('Two cards.', False)
+    assert app.speech.heard[-1] == ('Two cards', False)
+
+
+def test_with_several_choices_the_first_is_focused_and_said_and_c_says_them_all():
+    app, screen = start()
+    jump(app, screen, '012introRejectPrompt')
+    end_voice(app)
+    assert screen.index == 0 and app.speech.heard[-1] == ('Charismatic', False)
+    key(app, 'c')
+    assert app.speech.heard[-1] == ('Charismatic or Hostile.', True)
 
 
 def test_choices_are_read_together_by_their_words():
@@ -271,7 +280,7 @@ def test_r_at_a_choice_asks_the_question_again_then_offers_the_choices():
     assert app.audio.voice == STORY.state('012introRejectPrompt').voice
     end_voice(app)
     assert screen.offered and app.audio.decision is not None
-    assert app.speech.said[-1] == 'Charismatic or Hostile.'
+    assert app.speech.said[-1] == 'Charismatic'
 
 
 def test_h_says_the_scene_heading_in_plain_words():
@@ -578,7 +587,7 @@ def test_s_skips_across_every_heard_recording_to_the_next_choice():
     assert app.audio.voice is None and app.audio.decision == STORY.state(waiting_at).decision
     assert app.audio.background == STORY.state(waiting_at).background
     assert screen.run.variables == played, 'skipping changed how the story turned out'
-    assert app.speech.said[-1] == choices_text(screen.offered)
+    assert app.speech.said[-1] == screen.offered[0].spoken
 
 
 def test_s_stops_at_a_recording_not_heard_yet_and_plays_it_from_its_start():
