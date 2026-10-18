@@ -1,12 +1,12 @@
 ---
 name: foundation_plan
-description: "Plan 2 of 8: the codenamecygnus package, the CodenameCygnus.py entry script and screen loop, save-folder paths, logging and crash files, screen reader speech and the timer loop, with a debug mode, five command-line options and the speech interruption rules. Status: built, not yet confirmed."
+description: "Plan 2 of 8: the codenamecygnus package, the CodenameCygnus.py entry script and screen loop, save-folder paths, logging and crash files, screen reader speech and the timer loop, with a debug mode, five command-line options and the speech interruption rules. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: built, not yet confirmed by the dev.** Built 2026-10-17 (the dev: "Yes"). Until [[menus_plan]] is built, the game opens on a small stand-in main menu, Settings and Quit (`codenamecygnus/game/stand_in_menu.py`), so its speech, keys and window can be tried by ear; the menus plan replaces it. `--episode` and `--state` are read but wait for [[story_engine_plan]]; until then the log says they are ignored.
+**Status: finished,** confirmed by the dev on 2026-10-17 after trying it by ear ("It works. ... Also the keys are now saved correctly."). One change came of it: menu rows are no longer read with their place, such as "1 of 2" (the dev: "The menu position readouts should be disabled"). Built 2026-10-17 (the dev: "Yes"). Until [[menus_plan]] is built, the game opens on a small stand-in main menu, Settings and Quit (`codenamecygnus/game/stand_in_menu.py`), so its speech, keys and window can be tried by ear; the menus plan replaces it. `--episode` and `--state` are read but wait for [[story_engine_plan]]; until then the log says they are ignored.
 
 **What was built:**
 - `CodenameCygnus.py`: the options, `logs/log.txt` and `log.old.txt`, and `logs/crash.txt` with the error spoken.
