@@ -47,7 +47,7 @@ class Screen:
     def repeats(self, key, mods):
         """Whether holding this key down presses it again and again, such as a 5-second skip
         or a volume step. Only keys that are safe to press twice say yes, never Enter or
-        Space."""
+        a choice key."""
         return False
 
     def update(self):

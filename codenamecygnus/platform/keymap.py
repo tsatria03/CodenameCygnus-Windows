@@ -23,13 +23,15 @@ from .files import JsonFile
 log = logging.getLogger('keymap')
 
 #: (action, what the F1 screen calls it, default bindings). Debug actions work only in
-#: debug mode, and the F1 screen lists them only then.
+#: debug mode, and the F1 screen lists them only then. There is no pause key: Escape
+#: pauses the story and opens the pause menu (the dev, 2026-10-18: "Can you remove space to
+#: pause? I feel like escape already does the job"). A pause binding left in a keys file
+#: from before is dropped when the file is next written.
 ACTIONS = (
     ('previous_choice', 'Previous choice', ('up',)),
     ('next_choice', 'Next choice', ('down',)),
     ('choose', 'Choose', ('return', 'enter')),
     ('repeat_choices', 'Say the choices again', ('c',)),
-    ('pause', 'Pause and resume', ('space',)),
     ('replay', 'Replay the recording', ('r',)),
     ('back', 'Back 5 seconds', ('left',)),
     ('forward', 'Forward 5 seconds', ('right',)),

@@ -17,13 +17,13 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
     Enter           choose the one you are on, the first until you move
     1 to 9          choose by number
     C               say every choice, such as "Charismatic or Hostile."
-    Space           pause and resume
     R               the recording again from its start, then the choices again
     Left and Right  5 seconds back or forward, while the story plays
     S               straight on to the next choice, across recordings heard before
     H               the scene heading
     the volumes     Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
-    Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
+    Escape          pause, with the pause menu: Resume, Restart episode, Settings,
+                    Return to menu; Resume or Escape there carries on
 
 Every key but Escape, Home, End and the numbers comes from the key map, so F1 can rebind
 it. While a choice waits, its recording has ended and there is nothing to skip through,
@@ -40,8 +40,10 @@ quiet moment, "Achievement earned: Card Shark.", before the choice that comes ne
 "Episode complete!", never over the story; only the first time it is ever earned.
 
 The story pauses by itself while another screen covers it (the pause menu, F1) and while
-the window has lost the keyboard, and carries on when it comes back, unless the player
-had paused it with Space. A timed choice keeps the seconds it had left.
+the window has lost the keyboard, and carries on when it comes back. A timed choice keeps
+the seconds it had left. There is no pause key of its own: Escape pauses, through the
+pause menu (the dev, 2026-10-18: "Can you remove space to pause? I feel like escape
+already does the job").
 """
 from __future__ import annotations
 
@@ -67,7 +69,7 @@ VOLUME_KEYS = {
     'decision_up': ('decision_volume', 1), 'decision_down': ('decision_volume', -1),
 }
 
-#: Why the story is paused: the player pressed Space or Escape, or it paused by itself.
+#: Why the story is paused: the player pressed Escape, or it paused by itself.
 BY_PLAYER, BY_COVER, BY_FOCUS = 'player', 'cover', 'focus'
 
 
@@ -412,14 +414,6 @@ class EpisodeScreen(Screen):
         if not self.offered:
             return self.no_choices_yet()
         self.say(choices_text(self.offered))
-
-    def do_pause(self):
-        if self.paused:
-            self.resume()
-            self.say('Resumed.')
-        else:
-            self.pause(BY_PLAYER)
-            self.say('Paused.')
 
     def do_replay(self):
         state = self.run.current

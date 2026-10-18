@@ -266,12 +266,11 @@ def test_c_says_the_choices_again_and_choice_keys_wait_for_a_question():
     assert app.speech.heard[-1] == ('Two cards.', True)
 
 
-def test_space_pauses_and_resumes_and_says_so():
+def test_space_does_nothing_during_the_story():
     app, screen = start()
+    before = len(app.speech.said)
     key(app, 'space')
-    assert app.audio.paused and app.speech.said[-1] == 'Paused.'
-    key(app, 'space')
-    assert not app.audio.paused and app.speech.said[-1] == 'Resumed.'
+    assert not app.audio.paused and len(app.speech.said) == before and app.stack.top is screen
 
 
 def test_r_replays_and_left_and_right_skip_5_seconds():
@@ -324,10 +323,10 @@ def test_a_timed_choice_keeps_its_seconds_while_paused():
     app, screen = start('1.8.1')
     jump(app, screen, '009drinkPrompt_m1e8')
     end_voice(app)
-    key(app, 'space')
+    key(app, 'escape')                              # the pause menu
     app.loop.pump(runloop.clock() + 60)
     assert screen.run.current.name == '009drinkPrompt_m1e8', 'it ran out while paused'
-    key(app, 'space')
+    key(app, 'escape')                              # Resume
     app.loop.pump(runloop.clock() + 7.5)
     assert screen.run.current.name == '010Ctimeout_m1e8'
 
@@ -389,12 +388,12 @@ def test_f1_pauses_the_story_until_it_closes():
     assert app.stack.top is screen and not app.audio.paused
 
 
-def test_a_story_paused_with_space_stays_paused_after_f1():
+def test_f1_from_the_pause_menu_leaves_the_story_paused():
     app, screen = start()
-    key(app, 'space')
+    key(app, 'escape')                              # the pause menu
     key(app, 'f1')
     key(app, 'escape')
-    assert app.audio.paused
+    assert isinstance(app.stack.top, PauseMenu) and app.audio.paused
 
 
 def test_losing_the_window_pauses_and_coming_back_carries_on():
@@ -596,14 +595,13 @@ def test_holding_a_volume_key_repeats_it_with_its_modifier():
     assert len(app.speech.said) == before + 2
 
 
-def test_space_enter_and_the_choice_keys_never_repeat():
+def test_c_enter_and_the_choice_keys_never_repeat():
     app, screen = start()
     before = len(app.speech.said)
     t = runloop.clock()
-    app.key_down('space', [], now=t)
+    app.key_down('c', [], now=t)
     app.repeat_keys(now=t + 2)
-    assert app.speech.said[before:] == ['Paused.']
-    key(app, 'space')
+    assert app.speech.said[before:] == ['No choices yet.']
     jump(app, screen, '012introRejectPrompt')
     end_voice(app)
     for name in ('right', 'down', 'return'):

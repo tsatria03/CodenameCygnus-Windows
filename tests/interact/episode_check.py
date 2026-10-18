@@ -10,13 +10,13 @@ the end of the episode, comes back to the list.
     the arrows      the choices, once they are read; Home and End the first and last
     Enter, 1 to 9   choose
     C               the choices again
-    Space           pause and resume
     R               the recording again
     Left and Right  5 seconds back or forward while the story plays; hold to keep going
     S               on to the next choice, across recordings heard to their end before
     H               the scene heading
     the volumes     Shift+Home and End, Page Up and Down, Shift+Page Up and Down; hold them
-    Escape          the pause menu: Resume, Restart episode, Settings, Return to menu
+    Escape          pause, with the pause menu: Resume, Restart episode, Settings,
+                    Return to menu
     F1              the key bindings
 
 Debug mode is always on here, so its keys work too:

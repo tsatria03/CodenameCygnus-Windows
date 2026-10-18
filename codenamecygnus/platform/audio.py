@@ -13,7 +13,7 @@ interface sounds:
   question's recording has finished, and stops when a choice is made.
 * **The menu sounds** play once on channel 2.
 
-Space and Escape pause all of them together. pygame says a paused voice is not playing, so
+Escape's pause menu pauses all of them together. pygame says a paused voice is not playing, so
 this keeps its own note of pausing, and a pause is never taken for the voice ending.
 
 Three volumes, each 0 to 100 in tens, are kept in the settings: master moves everything,

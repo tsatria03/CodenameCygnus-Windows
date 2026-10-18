@@ -167,13 +167,13 @@ def test_reset_asks_first_and_r_again_does_it():
     app = make_app()
     app.key_down('f1', [])
     screen = app.stack.top
-    app.keymap.clear('pause')
+    app.keymap.clear('heading')
     screen.handle_key('r', [])
     screen.handle_key('x', [])
-    assert app.keymap.action_for('space') is None
+    assert app.keymap.action_for('h') is None
     screen.handle_key('r', [])
     screen.handle_key('r', [])
-    assert app.keymap.action_for('space') == 'pause'
+    assert app.keymap.action_for('h') == 'heading'
 
 
 def test_the_settings_screen_turns_debug_mode_on_and_remembers_it():

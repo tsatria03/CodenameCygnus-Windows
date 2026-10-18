@@ -16,4 +16,4 @@ S skips straight on to the next choice across everything you have heard before, 
 Holding Left or Right skips on through the recording, and holding a volume key keeps turning it up or down.
 The pause menu can restart the episode from its beginning, after asking first.
 Left, Right, Home and End also move through the choices, once the question has been asked.
-Episodes can now be played from start to end: the choices are read after each question, and you choose with the arrows and Enter or the number keys, pause with Space, replay with R, skip 5 seconds with Left and Right, and hear where you are with H.
+Episodes can now be played from start to end: the choices are read after each question, and you choose with the arrows and Enter or the number keys, pause with Escape, replay with R, skip 5 seconds with Left and Right, and hear where you are with H.

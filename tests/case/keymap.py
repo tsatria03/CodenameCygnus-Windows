@@ -16,7 +16,7 @@ def test_the_agreed_keys_are_the_defaults():
     k = KeyMap(path())
     expected = {
         'up': 'previous_choice', 'down': 'next_choice', 'return': 'choose', 'c': 'repeat_choices',
-        'space': 'pause', 'r': 'replay', 'left': 'back', 'right': 'forward', 's': 'skip',
+        'r': 'replay', 'left': 'back', 'right': 'forward', 's': 'skip',
         'h': 'heading', 'v': 'speech_recognition', 'page up': 'ambience_up',
         'page down': 'ambience_down',
     }
@@ -61,8 +61,8 @@ def test_rebinding_takes_the_key_off_whatever_had_it():
 
 def test_a_second_key_can_be_added():
     k = KeyMap(path())
-    k.set_binding('pause', 'p', replace=False)
-    assert k.action_for('p') == 'pause' and k.action_for('space') == 'pause'
+    k.set_binding('replay', 'p', replace=False)
+    assert k.action_for('p') == 'replay' and k.action_for('r') == 'replay'
 
 
 def test_every_action_is_in_the_keys_file_from_the_first_start():
@@ -74,9 +74,21 @@ def test_every_action_is_in_the_keys_file_from_the_first_start():
 
 def test_reset_puts_every_key_back():
     k = KeyMap(path())
-    k.clear('pause')
+    k.clear('replay')
     k.reset()
-    assert k.action_for('space') == 'pause'
+    assert k.action_for('r') == 'replay'
+
+
+def test_there_is_no_pause_key_and_an_old_one_is_dropped():
+    p = path()
+    os.makedirs(os.path.dirname(p))
+    with open(p, 'w', encoding='utf-8') as fh:
+        json.dump({'pause': ['space'], 'replay': ['r']}, fh)
+    k = KeyMap(p)
+    assert k.action_for('space') is None and 'pause' not in k.actions
+    k.save()
+    with open(p, encoding='utf-8') as fh:
+        assert 'pause' not in json.load(fh)
 
 
 def test_a_damaged_keys_file_falls_back_on_its_backup():
