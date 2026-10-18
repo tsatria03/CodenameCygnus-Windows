@@ -59,8 +59,9 @@ MIN_ENTRIES = 5
 PACK = 'm1.dat'
 PACK_TAG = 'mission-1'
 PACK_TITLE = 'Mission 1 recordings'
-PACK_NOTES = ("Mission 1's recordings, which Codename Cygnus downloads by itself the first "
-              'time an episode is opened. There is no need to download this file by hand.')
+PACK_NOTES = ("Mission 1's recordings. Codename Cygnus downloads this file when you choose "
+              "Download Mission 1 on an episode's screen, so there is no need to download it "
+              'by hand.')
 PACK_PATH = os.path.join(HERE, 'dist', PACK)
 
 #: Where the GitHub CLI's installer puts it, when it is not on the PATH.

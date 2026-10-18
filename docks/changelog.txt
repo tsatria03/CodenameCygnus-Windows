@@ -1,5 +1,5 @@
 unrelease:
-Mission 1's recordings download by themselves the first time an episode needs them, about 469 megabytes, so the game's own download stays small; they are checked once they arrive and kept for every later version.
+Mission 1's recordings come as a download of their own, about 469 megabytes, so the game's own download stays small: choose Download Mission 1 on an episode's screen, or Continue in the main menu, and the game fetches them, checks them once they arrive and keeps them for every later version.
 Speech recognition: with it on, say a choice aloud, as in the original. The game says "Listening." after the first choice and listens for 15 seconds, or for a timed choice's whole seven, and V turns it on or off. Nothing it hears is recorded.
 The Agent profile in the main menu says your dominant trait, the furthest episode you have reached, how many episodes you have completed, your four trait scales and which way each leans, and all 16 achievements, earned or not.
 The game has 16 achievements of its own, kept on your computer in place of the original's online Game Center ones; each is announced the first time you earn it, at the next choice or at the end of the episode, never over the story.
