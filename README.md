@@ -79,9 +79,10 @@ such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue, or chosen f
 list with `tests\interact\episode_check.py` (see Tests). F1 opens the key bindings from
 anywhere.
 
-During an episode, Up and Down move through the choices once they are read, Enter or 1 to
-9 choose, C says them again, Space pauses, R replays the recording, Left and Right skip 5
-seconds, H says the scene heading, and Escape opens the pause menu.
+During an episode, the arrows, Home and End move through the choices once they are read,
+Enter or 1 to 9 choose, C says them again, Space pauses, R replays the recording, Left and
+Right skip 5 seconds while the story plays, H says the scene heading, and Escape opens the
+pause menu, where the episode can be restarted. Holding a skip or a volume key repeats it.
 
 - `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
   row turns it on for good.

@@ -72,8 +72,8 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
 
 - **The pause menu** (the dev, 2026-10-17: "agreed"). Escape during an episode pauses every layer of the story ([[audio_plan]]) and opens:
   1. **Resume** carries on exactly where the story paused; Escape does the same.
-  2. **Settings** opens the same Settings screen as the main menu's, so a volume or speech recognition can be changed without leaving the episode.
-  3. **Restart episode** starts the episode again from its beginning, after asking to confirm, as the original did. What it does to the saved progress is for [[saves_plan]].
+  2. **Restart episode** starts the episode again from its beginning, after asking to confirm, as the original did. What it does to the saved progress is for [[saves_plan]]. It comes straight after Resume (the dev, 2026-10-17: "a restart button after resume"), and is built with [[story_engine_plan]]'s section 2.
+  3. **Settings** opens the same Settings screen as the main menu's, so a volume or speech recognition can be changed without leaving the episode.
   4. **Return to menu** saves the player's place and goes to the main menu, where Continue comes back to it. Since nothing is lost, it does not ask "Are you sure you want to stop this episode?" as the original did.
 
 - **The menus play the original's interface sounds at the original's moments** (the dev, 2026-10-17: "I agree"). They are in `game/data/audio/others/menu/`. The original played them from `CCStyleManager`'s class methods (0x100008e48 to 0x100008f20), found by searching the code for their names:
