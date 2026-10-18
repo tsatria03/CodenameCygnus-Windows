@@ -21,6 +21,8 @@ Researched on 2026-10-18, when the dev asked to confirm the original is no longe
 - **Not readable:** the main binary is still FairPlay-encrypted (`cryptid` 1), so its code, any leftover purchase code and its server's address cannot be read. Apple's `hasOrEverHasHadIAP` is true, but "ever" covers 1.x's sold episodes.
 - **So 1.3.2 is the version to port,** as the port does: 1.4.0 holds no story and depends on servers that may no longer run.
 
+**Where 1.3.2's episodes came from** (the dev, 2026-10-18): the 1.3.2 app shipped with the Prologue only. Its story data, the v53 graph in its database ([[project_story_data_source]]), covers every episode, but the other episodes' recordings were downloaded from Reactive Studios' server when bought, as the original's own downloads did. That server has since been taken down, so they could no longer be had by buying them in the iOS app. theblindgamer50 had downloaded them all before it went, and dumped them out of the app ([[project_solo]]). How is theirs to keep: never ask about it or record it.
+
 **Not confirmed:**
 - That 1.4.0's encrypted code sells nothing; its screens show no shop, but the code itself cannot be read.
 - Whether the Alexa or Google Assistant versions still run today. Earplay's pages still list them, and no source found says they were withdrawn. (Google ended Conversational Actions for Assistant in June 2023, so the Google version is very likely gone, but no source about Codename Cygnus itself says so.)
