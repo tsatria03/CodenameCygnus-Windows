@@ -6,7 +6,22 @@ metadata:
   type: project
 ---
 
-**Status: planned, ready to build.** Every question is answered; nothing is built.
+**Status: building,** started 2026-10-18 (the dev: "Yes please. Then make an interactive voice test for it.").
+
+## How it is built
+
+- **`codenamecygnus/platform/listener.py`** holds it all, apart from the episode screen:
+  - `Recogniser`: a PocketSphinx decoder with the English model and no language model, and its endpointer, which finds where speech starts and stops in the microphone's 30 ms blocks. At every choice it is given a JSGF grammar of the choice's phrases, hidden ones too, so it can only ever hear those.
+  - **Speech that is no choice:** a grammar always picks one of its phrases, even for a cough, so the grammar also holds other words for it to pick instead: every other choice word in the story and a few short ones such as "the", "um" and "okay", leaving out any word of the current choices. Hearing one of those is "Sorry, I did not catch that".
+  - Words are lowercased and lose their apostrophes. The dictionary knows every choice word but "Delphi's", which is added as "delphis", Delphi with a Z.
+  - `Listener`: opens the default microphone through sounddevice only while listening, 16 kHz, 16-bit, one channel, and closes it as soon as listening stops. The blocks wait in a queue and are decoded once a frame on the main thread, so nothing in the game is touched from another thread. Nothing is written anywhere.
+  - Before opening, it reads Windows' microphone privacy setting from the registry (`CapabilityAccessManager\ConsentStore\microphone`, the machine's, the user's and the desktop apps' `NonPackaged`); any of them set to Deny is "blocked". No input device, or one that will not open, is "no microphone".
+  - The recogniser is loaded at the first listen, about a third of a second.
+- **The episode screen** listens after offering a choice: the first choice, then "Listening.", for 15 seconds, or for the rest of a timed choice's clock. The 15 seconds are a run-loop timer, so F1 holds them as it holds a timed choice. Pausing stops listening and keeps the seconds left; resuming listens for the rest without saying "Listening." again. A choice, R, the end or leaving stops it.
+  - C says the choices, then listens for 15 seconds more. V says "Speech recognition on." or "off." and starts or stops listening at a waiting choice. Turning it on in Settings from the pause menu listens once the story resumes.
+  - The microphone's trouble is said once a session, and listening stops at that choice; C tries again.
+- **`tests/interact/voice_check.py`**, the dev's voice test (the dev, 2026-10-18: "make an interactive voice test for it"), described in its own docstring: choose a question from the story, or every choice word at once, and it listens and says what it heard, with what the recogniser picked when it was no choice, so its reliability can be judged by ear before playing.
+- **Tests:** `tests/case/listening.py` checks the episode screen with a stand-in listener, and the recogniser's grammar for every choice in the story, with no microphone.
 
 Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and the decision to keep it behind a setting, are in [[project_speech_recognition]].
 
@@ -20,7 +35,7 @@ Plan 7 of 8 ([[story_export_plan]] lists the order). What the original did, and 
 - **The recogniser is PocketSphinx** (the dev, 2026-10-17: "I don't want open dictation, so I think the first one will do"), the `pocketsphinx` package from pip, with the English model it ships. It is the same family as the original's OpenEars, works offline and adds no large download. Each time a choice waits, it is limited to that choice's words, never open dictation. If testing finds it too unreliable, only the recogniser would change (Vosk being the fallback), not the rest of the game. It is in `requirements.txt` as `pocketsphinx~=5.0.4` (installed 2026-10-18): 5.1.1, the newest, ships only as source and needs a C compiler on Windows, while 5.0.4 has a ready-made wheel for Python 3.12 on 64-bit Windows, with the English model inside it.
 
 - **It listens for 15 seconds a time** (the dev, 2026-10-17: "I like the 15 seconds"), using the original's own words for starting and stopping:
-  - When a choice comes up, the screen reader reads the choices, then says "Listening."
+  - When a choice comes up, the screen reader says the first choice, the one you are on ([[story_engine_plan]]), then "Listening."
   - After 15 seconds with nothing recognised, it says "No longer listening." The choice stays open, the decision loop keeps playing, and the keys still choose.
   - C reads the choices again and listens for another 15 seconds.
   - Speech heard but matching no choice gets "Sorry, I did not catch that", and listening carries on for the rest of the 15 seconds.
