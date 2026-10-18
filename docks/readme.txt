@@ -145,5 +145,6 @@ The NVDA controller client, which speaks through NVDA, uses the GNU Lesser Gener
 Prism, which speaks through other screen readers, uses the Mozilla Public License version 2.0, at https://github.com/ethindp/prism
 Pygame, which runs the window, the keyboard and the sound, uses the GNU Lesser General Public License version 2.1, at https://github.com/pygame/pygame/blob/main/docs/LGPL.txt
 PocketSphinx, which hears spoken choices, uses Carnegie Mellon University's BSD-style license, at https://github.com/cmusphinx/pocketsphinx/blob/master/LICENSE
+CFFI, which Prism and sounddevice use to reach their libraries, uses the MIT License, at https://github.com/python-cffi/cffi/blob/main/LICENSE
 The python-sounddevice package, which opens the microphone, uses the MIT License, at https://github.com/spatialaudio/python-sounddevice/blob/master/LICENSE, and the PortAudio library it uses, the MIT License too, at https://www.portaudio.com/license.html
 The game's recordings and story are Reactive Studios', and are not covered by those licenses.

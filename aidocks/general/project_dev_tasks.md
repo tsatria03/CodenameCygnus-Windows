@@ -10,7 +10,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
-- Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Planned in [[build_release_plan]].
+- Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Planned in [[build_release_plan]]; `compiler.py` and `releaser.py` are built (2026-10-18), and the mission pack is still to come.
 
 ## Finished
 

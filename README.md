@@ -166,6 +166,22 @@ back to the list. `python tests\interact\SPEECH_check.py` listens for any questi
 choices, or every choice word at once, and says what it heard, so speech recognition can
 be judged before playing. Each keeps its own save, so none changes your volumes or keys.
 
+## Building and releasing
+
+Both need PyInstaller (`pip install pyinstaller`), and the release the GitHub CLI, `gh`,
+signed in. Run either with nothing after it for a numbered menu.
+
+- `python compiler.py` builds `dist\CodenameCygnus-Windows`, around `CodenameCygnus.exe`:
+  the folder build, or with `--embed` a single exe; `--test` then starts it silently for a
+  few seconds to check it, and `--dry-run` says what a build would do. A build carries
+  only the game data it reads, the story files and the menu sounds, with `docks`,
+  `VERSION` and `license.txt` beside the exe and the third-party licenses inside it.
+- `python releaser.py` checks the repository and the changelog, sets `VERSION` to today's
+  date and number, such as `26.10.18-1`, files the changelog under it, builds, zips the
+  build into `dist\CodenameCygnus-Win-<version>.zip`, commits, tags `V<version>` and
+  uploads the release, asking Y or N before each step. Its last choice puts the mission
+  pack, `dist\m1.dat`, on its own `mission-1` release.
+
 ## Layout
 
 ```
@@ -181,6 +197,8 @@ tools/                   the tools that read the original's data
 tests/case/              the tests, one plain script each
 tests/suite.py           runs them all
 tests/interact/          tools to hear the game by ear, such as audio_check.py
+compiler.py              builds CodenameCygnus.exe with PyInstaller
+releaser.py              versions, builds, zips, tags and uploads a release
 requirements.txt         the four packages it needs
 VERSION                  the version, as year, month, day and that day's number
 ```
