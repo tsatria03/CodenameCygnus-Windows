@@ -1,6 +1,7 @@
 """The key bindings screen, opened with F1 from anywhere and read aloud.
 
-    Up and Down     move through the actions, each read with its keys
+    Up and Down     move through the actions, each read with its keys, wrapping round
+    Left and Right  the same as Up and Down
     Home and End    the first action and the last
     Enter           rebind: press the key you want, with Shift, Control or Alt if you like
     A               add a second key instead of replacing
@@ -92,9 +93,9 @@ class KeyBindScreen(Screen):
             return True
         if key in ('escape', 'f1'):
             self.stack.pop()
-        elif key == 'up':
+        elif key in ('up', 'left'):
             self.move_to(self.index - 1)
-        elif key == 'down':
+        elif key in ('down', 'right'):
             self.move_to(self.index + 1)
         elif key == 'home':
             self.move_to(0)

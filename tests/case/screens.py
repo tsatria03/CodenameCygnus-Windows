@@ -69,6 +69,36 @@ def test_moving_says_each_row_without_its_place_and_cuts_off():
                                     ('Second', True), ('First', True)]
 
 
+def test_left_and_right_move_as_up_and_down_do():
+    app = make_app()
+    menu = TwoRows(app)
+    app.stack.push(menu)
+    menu.handle_key('right', [])
+    assert menu.index == 1 and app.speech.said[-1] == 'Second'
+    menu.handle_key('left', [])
+    assert menu.index == 0 and app.speech.said[-1] == 'First'
+
+
+def test_moving_wraps_round_both_ways():
+    app = make_app()
+    menu = TwoRows(app)
+    app.stack.push(menu)
+    menu.handle_key('up', [])                       # past the first row: the last
+    assert menu.index == 1
+    menu.handle_key('down', [])                     # past the last row: the first
+    assert menu.index == 0
+
+
+def test_the_f1_screen_moves_with_left_and_right_and_wraps():
+    app = make_app()
+    app.key_down('f1', [])
+    screen = app.stack.top
+    screen.handle_key('left', [])
+    assert screen.index == len(app.keymap.actions) - 1
+    screen.handle_key('right', [])
+    assert screen.index == 0
+
+
 def test_enter_chooses_and_escape_goes_back():
     app = make_app()
     app.stack.push(TwoRows(app))

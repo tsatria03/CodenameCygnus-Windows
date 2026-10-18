@@ -1,6 +1,7 @@
 """A spoken menu: the shape of every menu screen in the game.
 
     Up and Down     move, each row spoken by its text alone, such as "Settings"
+    Left and Right  the same as Up and Down
     Home and End    the first row and the last
     Enter           choose the row
     Escape          go back
@@ -9,7 +10,10 @@
 Each move cuts off what was being said, so fast arrowing never builds a backlog. Opening
 the menu says its title, then its row without cutting the title off
 (aidocks/plans/foundation_plan.md). Rows are not read with their place, such as "1 of 2"
-(the dev, 2026-10-17: "The menu position readouts should be disabled").
+(the dev, 2026-10-17: "The menu position readouts should be disabled"). Moving past the
+last row wraps round to the first, and past the first to the last, and Left and Right move
+as Up and Down do (the dev, 2026-10-17: "please enable menu wrapping, and left/right arrow
+navigation").
 """
 from __future__ import annotations
 
@@ -74,9 +78,9 @@ class Menu(Screen):
         if mods:
             return False
         rows = self.rows()
-        if key == 'up':
+        if key in ('up', 'left'):
             self.move_to(self.index - 1)
-        elif key == 'down':
+        elif key in ('down', 'right'):
             self.move_to(self.index + 1)
         elif key == 'home':
             self.move_to(0)

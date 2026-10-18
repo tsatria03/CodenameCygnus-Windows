@@ -8,7 +8,7 @@ metadata:
 
 **Status: planned, ready to build.** Every question is answered; nothing is built.
 
-Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken menu in the screen loop of [[foundation_plan]]: Up and Down move, Enter chooses, Home and End jump to the first and last row, Escape goes back, and each row is spoken by its text alone, never with its place such as "1 of 2" (the dev, 2026-10-17: "The menu position readouts should be disabled").
+Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken menu in the screen loop of [[foundation_plan]]: Up and Down move, Enter chooses, Home and End jump to the first and last row, Escape goes back, and each row is spoken by its text alone, never with its place such as "1 of 2" (the dev, 2026-10-17: "The menu position readouts should be disabled"). Moving wraps round past either end, and Left and Right move as Up and Down do (the dev, 2026-10-17: "please enable menu wrapping, and left/right arrow navigation"); during an episode Left and Right stay the 5-second skips ([[story_engine_plan]]).
 
 ## What the original had (read from `game/Cygnus`, 2026-10-17)
 

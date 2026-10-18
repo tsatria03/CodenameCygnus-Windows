@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: finished,** confirmed by the dev on 2026-10-17 after trying it by ear ("It works. ... Also the keys are now saved correctly."). One change came of it: menu rows are no longer read with their place, such as "1 of 2" (the dev: "The menu position readouts should be disabled"). Built 2026-10-17 (the dev: "Yes"). Until [[menus_plan]] is built, the game opens on a small stand-in main menu, Settings and Quit (`codenamecygnus/game/stand_in_menu.py`), so its speech, keys and window can be tried by ear; the menus plan replaces it. `--episode` and `--state` are read but wait for [[story_engine_plan]]; until then the log says they are ignored.
+**Status: finished,** confirmed by the dev on 2026-10-17 after trying it by ear ("It works. ... Also the keys are now saved correctly."). Changes that came of it: menu rows are no longer read with their place, such as "1 of 2" (the dev: "The menu position readouts should be disabled"), and Left and Right move through a menu and the F1 screen as Up and Down do, both wrapping round (the dev: "please enable menu wrapping, and left/right arrow navigation"). Built 2026-10-17 (the dev: "Yes"). Until [[menus_plan]] is built, the game opens on a small stand-in main menu, Settings and Quit (`codenamecygnus/game/stand_in_menu.py`), so its speech, keys and window can be tried by ear; the menus plan replaces it. `--episode` and `--state` are read but wait for [[story_engine_plan]]; until then the log says they are ignored.
 
 **What was built:**
 - `CodenameCygnus.py`: the options, `logs/log.txt` and `log.old.txt`, and `logs/crash.txt` with the error spoken.

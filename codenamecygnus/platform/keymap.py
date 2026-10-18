@@ -56,7 +56,7 @@ DEFAULTS = {a[0]: list(a[2]) for a in ACTIONS}
 FIXED = {'escape': 'Back, pause or quit', 'f1': 'Key bindings'}
 #: Listed on the F1 screen beside the actions, but not rebindable either.
 FIXED_TEXT = (('1 to 9', 'Choose by number'),
-              ('Arrows, Enter, Home and End', 'Move and choose in a menu'))
+              ('Arrows, Enter, Home and End', 'Move and choose in a menu, Left and Right as Up and Down'))
 
 MODIFIERS = ('shift', 'ctrl', 'alt')
 #: pygame's names for the modifier keys themselves, which are never a binding on their own.
