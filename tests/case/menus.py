@@ -5,10 +5,11 @@ import random
 
 from episode import STORY, key, make_app
 
-from codenamecygnus.game.episode_screen import EpisodeScreen
-from codenamecygnus.game.menus import (HEADPHONES, LOADING, PORT_CREDIT, CreditsScreen,
+from codenamecygnus.game.episode_screen import RESTART_WARNING, EpisodeScreen
+from codenamecygnus.game.menus import (HEADPHONES, LOADING, LOCKED, PORT_CREDIT, CreditsScreen,
                                        EpisodeList, EpisodeMenu, HeadphonesNotice, MainMenu,
                                        Opening, credit_lines)
+from codenamecygnus.game.progress import Progress
 from codenamecygnus.platform import runloop
 
 
@@ -90,8 +91,13 @@ def test_back_at_the_top_of_the_episode_list_goes_back():
     assert sounds(app) == ['1930radio a', '1930radio a']
 
 
+def progress():
+    return Progress.shared()
+
+
 def test_an_episode_says_its_description_then_offers_start():
     app = make_app()
+    progress().complete(STORY.episodes['1.1.1'], {})     # so Art Show is open
     app.stack.push(MainMenu(app, STORY))
     key(app, 'return')
     key(app, 'down')
@@ -101,7 +107,7 @@ def test_an_episode_says_its_description_then_offers_start():
     assert isinstance(screen, EpisodeMenu)
     description = STORY.episodes['1.2.1'].description
     assert app.speech.said[-2:] == ['Episode 2, Art Show.', 'Back']
-    assert [r.text for r in screen.rows()] == ['Back', description, 'Start', 'Preview next episode']
+    assert [r.text for r in screen.rows()] == ['Back', description, 'Start']
     key(app, 'down')
     assert app.speech.said[-1] == description
     key(app, 'return')                              # Enter on it says it again
@@ -135,7 +141,94 @@ def test_start_plays_the_episode_and_leaving_it_comes_back_to_the_list():
     key(app, 'end')
     key(app, 'return')                              # Return to menu
     assert isinstance(app.stack.top, EpisodeList)
-    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue'], 'not back on the episode'
+    assert app.speech.said[-2:] == ['Episodes. Mission 1.', 'Episode 1, Prologue, in progress'], \
+        'not back on the episode'
+
+
+def test_the_list_says_each_episodes_state_and_which_are_locked():
+    app = make_app()
+    listing = EpisodeList(app, STORY)
+    rows = [r.text for r in listing.rows()]
+    assert rows[1:3] == ['Episode 1, Prologue', 'Episode 2, Art Show, locked']
+    assert rows[-1] == 'Episode 8, Holiday Party', 'Holiday Party is locked at first'
+    progress().complete(STORY.episodes['1.1.1'], {})
+    progress().begin(STORY.episodes['1.2.1'], {})
+    rows = [r.text for r in listing.rows()]
+    assert rows[1:4] == ['Episode 1, Prologue, completed', 'Episode 2, Art Show, in progress',
+                         "Episode 3, Neptune's Lair, locked"]
+
+
+def test_enter_on_a_locked_episode_says_why_as_the_original_did():
+    app = make_app()
+    app.stack.push(MainMenu(app, STORY))
+    key(app, 'return')
+    key(app, 'down')
+    key(app, 'down')
+    key(app, 'return')                              # Art Show, locked
+    assert isinstance(app.stack.top, EpisodeList)
+    assert app.speech.said[-1] == '%s %s' % (STORY.episodes['1.2.1'].description, LOCKED)
+
+
+def test_an_episode_in_progress_offers_continue_and_restart():
+    app = make_app()
+    prologue = STORY.episodes['1.1.1']
+    progress().begin(prologue, {})
+    progress().save_place(prologue, '012introRejectPrompt', {'Diplomacy': 1})
+    menu = EpisodeMenu(app, STORY, prologue)
+    assert [r.text for r in menu.rows()][2:] == ['Continue', 'Restart episode']
+    app.stack.push(menu)
+    key(app, 'down')
+    key(app, 'down')
+    key(app, 'return')                              # Continue
+    playing = app.stack.top
+    assert isinstance(playing, EpisodeScreen) and playing.run.current.name == '012introRejectPrompt'
+    assert playing.run.variables.get('Diplomacy') == 1
+
+
+def test_a_completed_episode_offers_replay_and_its_preview():
+    app = make_app()
+    progress().complete(STORY.episodes['1.1.1'], {})
+    menu = EpisodeMenu(app, STORY, STORY.episodes['1.1.1'])
+    assert [r.text for r in menu.rows()][2:] == ['Replay episode', 'Preview next episode']
+
+
+def test_replay_asks_with_the_originals_warning_and_locks_what_came_after():
+    app = make_app()
+    for e in ('1.1.1', '1.2.1'):
+        progress().complete(STORY.episodes[e], {'Openness': 2})
+    app.stack.push(EpisodeMenu(app, STORY, STORY.episodes['1.1.1']))
+    key(app, 'down')
+    key(app, 'down')
+    key(app, 'return')                              # Replay episode
+    assert app.speech.said[-2:] == [RESTART_WARNING, 'No']
+    key(app, 'escape')                              # No: nothing changes
+    assert progress().state_of(STORY.episodes['1.2.1']) == 'completed'
+    key(app, 'return')
+    key(app, 'down')
+    key(app, 'return')                              # Yes
+    assert isinstance(app.stack.top, EpisodeScreen) and app.speech.said[-1] == 'Restarting Prologue.'
+    assert progress().state_of(STORY.episodes['1.2.1']) == 'new'
+    assert progress().locked(STORY.episodes['1.2.1'])
+
+
+def test_continue_comes_first_in_the_main_menu_and_goes_back_to_the_place():
+    app = make_app()
+    art_show = STORY.episodes['1.2.1']
+    progress().complete(STORY.episodes['1.1.1'], {})
+    progress().begin(art_show, {})
+    progress().save_place(art_show, '016F_contactMark', {'Openness': 1})
+    menu = MainMenu(app, STORY)
+    app.stack.push(menu)
+    assert app.speech.said[-1] == 'Continue Art Show'
+    key(app, 'return')
+    playing = app.stack.top
+    assert isinstance(playing, EpisodeScreen) and playing.episode is art_show
+    assert playing.run.current.name == '016F_contactMark' and sounds(app)[-1] == '1930radio a'
+
+
+def test_there_is_no_continue_before_anything_is_played():
+    app = make_app()
+    assert [r.text for r in MainMenu(app, STORY).rows()][0] == 'Episodes'
 
 
 def test_escape_goes_back_with_the_back_sound():

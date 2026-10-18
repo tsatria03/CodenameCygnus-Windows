@@ -22,7 +22,8 @@ from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
 from .episode_end import PreviewScreen, credit_lines
-from .episode_screen import EpisodeScreen
+from .episode_screen import EpisodeScreen, RestartQuestion
+from .progress import IN_PROGRESS, NEW, Progress
 from .story import Story
 
 log = logging.getLogger('menus')
@@ -98,19 +99,37 @@ class MainMenu(Menu):
     name = 'main menu'
     title = 'Main menu.'
 
-    def __init__(self, app, story=None):
+    def __init__(self, app, story=None, progress=None):
         super().__init__(app)
         self.story = story or Story.shared()
+        self.progress = progress if progress is not None else Progress.shared(self.story)
 
     def rows(self):
-        return [Row('Episodes', lambda: self.open(EpisodeList(self.app, self.story), 'episodes')),
-                Row('Settings', lambda: self.open(SettingsScreen(self.app))),
-                Row('Credits', lambda: self.open(CreditsScreen(self.app, self.story), 'credits')),
-                Row('Quit', self.app.quit)]
+        rows = []
+        going = self.progress.continue_episode()
+        if going is not None:
+            # First, so one Enter after starting the game gets back into the story.
+            rows.append(Row('Continue %s' % going.title,
+                            lambda: self.app.stack.push(continue_screen(self.app, self.story,
+                                                                        self.progress, going))))
+        return rows + [
+            Row('Episodes', lambda: self.open(EpisodeList(self.app, self.story, self.progress),
+                                              'episodes')),
+            Row('Settings', lambda: self.open(SettingsScreen(self.app))),
+            Row('Credits', lambda: self.open(CreditsScreen(self.app, self.story), 'credits')),
+            Row('Quit', self.app.quit)]
 
     def back(self):
         """Escape on the main menu quits, as Quit does."""
         self.app.quit()
+
+
+def continue_screen(app, story, progress, episode):
+    """The episode, at the start of the state it was left in, with the variables then."""
+    app.play_sound('play')
+    state, variables = progress.place(episode)
+    return EpisodeScreen(app, episode, story=story, variables=variables, at=state,
+                         progress=progress)
 
 
 def episode_name(episode):
@@ -118,37 +137,61 @@ def episode_name(episode):
     return 'Episode %d, %s' % (episode.number, episode.title)
 
 
+LOCKED = 'Locked. You need to complete the previous episode before starting this one.'
+
+
 class EpisodeList(Menu):
-    """Mission 1's episodes. Its old description, written for selling episodes, and
-    Mission 2, never released, are left out."""
+    """Mission 1's episodes, each with its state. Its old description, written for selling
+    episodes, and Mission 2, never released, are left out."""
 
     name = 'episodes'
     title = 'Episodes. Mission 1.'
 
-    def __init__(self, app, story):
+    def __init__(self, app, story, progress=None):
         super().__init__(app)
         self.story = story
+        self.progress = progress if progress is not None else Progress.shared(story)
+
+    def row_name(self, episode):
+        """ "Episode 2, Art Show, in progress"; a new one by its name alone."""
+        if self.progress.locked(episode):
+            return '%s, locked' % episode_name(episode)
+        state = self.progress.state_of(episode)
+        return episode_name(episode) if state == NEW else '%s, %s' % (episode_name(episode), state)
 
     def rows(self):
         # Back at the top, as in every menu (the dev, 2026-10-18: "There should also bee a
         # back button in the episode list, at the top of the screen", and "The back button
         # should always appear first in any menu").
         return [Row('Back', self.back)] + [
-            Row(episode_name(e), lambda e=e: self.open(EpisodeMenu(self.app, self.story, e)))
+            Row(lambda e=e: self.row_name(e), lambda e=e: self.choose(e))
             for e in self.story.playable_episodes()]
+
+    def choose(self, episode):
+        if self.progress.locked(episode):
+            # As the original did: what it is about, and why it cannot be played yet.
+            self.say('%s %s' % (episode.description.strip(), LOCKED))
+        else:
+            self.open(EpisodeMenu(self.app, self.story, episode, self.progress))
 
 
 class EpisodeMenu(Menu):
     """One episode's own screen: Back, its description as a row of its own, then what can
-    be done with it (the dev, 2026-10-18: "put each episode's description before the start
-    button, not crammed into the menu option")."""
+    be done with it by its state, as the original's two buttons were
+    (aidocks/plans/saves_plan.md):
+
+        not started   Start
+        in progress   Continue, Restart episode
+        completed     Replay episode, Preview next episode
+    """
 
     name = 'episode menu'
 
-    def __init__(self, app, story, episode):
+    def __init__(self, app, story, episode, progress=None):
         super().__init__(app)
         self.story = story
         self.episode = episode
+        self.progress = progress if progress is not None else Progress.shared(story)
         self.title = '%s.' % episode_name(episode)
 
     def rows(self):
@@ -156,18 +199,42 @@ class EpisodeMenu(Menu):
         description = self.episode.description.strip()
         if description:
             rows.append(Row(description, lambda: self.say(self.row_text())))
-        rows.append(Row('Start', self.start))
-        # The original offered PREVIEW NEXT once the episode was finished; until
-        # aidocks/plans/saves_plan.md knows that, it is offered whenever there is one.
-        if self.episode.preview and self.episode.preview in self.story.states:
-            rows.append(Row('Preview next episode', lambda: self.open(
-                PreviewScreen(self.app, self.story, self.episode))))
+        state = self.progress.state_of(self.episode)
+        if state == NEW:
+            rows.append(Row('Start', self.start))
+        elif state == IN_PROGRESS:
+            if self.progress.place(self.episode) is not None:
+                rows.append(Row('Continue', self.go_on))
+            else:
+                rows.append(Row('Start', self.start))
+            rows.append(Row('Restart episode', self.ask_restart))
+        else:
+            rows.append(Row('Replay episode', self.ask_restart))
+            if self.episode.preview and self.episode.preview in self.story.states:
+                rows.append(Row('Preview next episode', lambda: self.open(
+                    PreviewScreen(self.app, self.story, self.episode))))
         return rows
 
     def start(self):
         """The episode in this screen's place, so leaving it comes back to the list."""
         self.app.play_sound('play')
-        self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story))
+        self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
+                                         variables=self.progress.start_variables(self.episode),
+                                         progress=self.progress))
+
+    def go_on(self):
+        self.stack.replace(continue_screen(self.app, self.story, self.progress, self.episode))
+
+    def ask_restart(self):
+        self.app.play_sound('restart')
+        self.stack.push(RestartQuestion(self.app, self.restart))
+
+    def restart(self):
+        """Restart or Replay: from the beginning, every later episode locked again."""
+        began = self.progress.restart(self.episode)
+        self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
+                                         variables=began, progress=self.progress))
+        self.say('Restarting %s.' % self.episode.title)
 
 
 class CreditsScreen(Menu):
