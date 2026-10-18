@@ -307,6 +307,7 @@ class EpisodeScreen(Screen):
 
     def open_pause_menu(self):
         self.pause(BY_PLAYER)
+        self.app.play_sound('open')
         self.stack.push(PauseMenu(self.app, self))
 
     # ---- keys -----------------------------------------------------------
@@ -532,20 +533,23 @@ class PauseMenu(Menu):
 
     def rows(self):
         return [Row('Resume', self.back),
-                Row('Restart episode', lambda: self.stack.push(RestartQuestion(self.app, self))),
-                Row('Settings', lambda: self.stack.push(SettingsScreen(self.app))),
+                Row('Restart episode', lambda: self.open(RestartQuestion(self.app, self))),
+                Row('Settings', lambda: self.open(SettingsScreen(self.app))),
                 Row('Return to menu', self.return_to_menu)]
 
     def back(self):
         """Resume, or Escape: the story carries on where it paused."""
+        self.app.play_sound('back')
         self.stack.pop()
         self.episode_screen.resume()
 
     def restart(self):
+        self.app.play_sound('restart')
         self.stack.pop()
         self.episode_screen.restart()
 
     def return_to_menu(self):
+        self.app.play_sound('back')
         self.stack.pop()
         self.episode_screen.leave()
 

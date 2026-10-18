@@ -9,7 +9,7 @@ import pygame
 
 from codenamecygnus import paths
 from codenamecygnus.app import App
-from codenamecygnus.game.stand_in_menu import StandInMainMenu
+from codenamecygnus.game.menus import MainMenu
 from codenamecygnus.platform.keymap import KeyMap
 from codenamecygnus.platform.runloop import RunLoop
 from codenamecygnus.platform.settings import Settings
@@ -47,18 +47,19 @@ def test_the_game_runs_and_quits_by_itself_after_exit_after():
                                     exit_after=0.3)
     app = App(options, speech=Ear(), settings=Settings(paths.user_path('a', 'settings.json')),
               keymap=KeyMap(paths.user_path('a', 'keys.json')), loop=RunLoop())
-    app.run(StandInMainMenu(app), pygame)
+    app.run(MainMenu(app), pygame)
     assert not app.running
-    assert app.speech.said[:2] == ['Codename Cygnus. Main menu.', 'Settings']
+    assert app.speech.said[:2] == ['Main menu.', 'Episodes']
 
 
-def test_quit_on_the_stand_in_menu_ends_the_game():
+def test_quit_on_the_main_menu_ends_the_game():
     options = types.SimpleNamespace(debug=False, episode=None, state=None, verbose=False, exit_after=None)
     app = App(options, speech=Ear(), settings=Settings(paths.user_path('b', 'settings.json')),
               keymap=KeyMap(paths.user_path('b', 'keys.json')), loop=RunLoop())
-    menu = StandInMainMenu(app)
+    menu = MainMenu(app)
     app.stack.push(menu)
-    menu.handle_key('down', [])
+    menu.handle_key('end', [])
+    assert app.speech.said[-1] == 'Quit'
     menu.handle_key('return', [])
     assert not app.running
 

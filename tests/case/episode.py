@@ -19,7 +19,7 @@ from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choice
 from codenamecygnus.game.achievements import ACHIEVEMENTS, Achievements, short_id
 from codenamecygnus.game.debug import JumpScreen, MatchMenu
 from codenamecygnus.game.heard import Heard
-from codenamecygnus.game.stand_in_menu import StandInMainMenu
+from codenamecygnus.game.menus import MainMenu
 from codenamecygnus.game.story import Story
 from codenamecygnus.platform import runloop
 from codenamecygnus.platform.keymap import KeyMap
@@ -144,7 +144,7 @@ def fresh_achievements():
 def start(episode_id='1.1.1', menu=True, heard=None, debug=False, achievements=None):
     app = make_app(debug=debug)
     if menu:
-        app.stack.push(StandInMainMenu(app))
+        app.stack.push(MainMenu(app))
     screen = EpisodeScreen(app, STORY.episodes[episode_id], story=STORY, recordings=Names(),
                            heard=heard if heard is not None else fresh_heard(),
                            achievements=achievements if achievements is not None
@@ -360,9 +360,9 @@ def test_return_to_menu_stops_the_story_and_opens_the_menu():
     key(app, 'end')
     assert app.speech.said[-1] == 'Return to menu'
     key(app, 'return')
-    assert isinstance(app.stack.top, StandInMainMenu)
+    assert isinstance(app.stack.top, MainMenu)
     assert app.audio.voice is None and app.audio.background is None
-    assert app.speech.said[-2] == 'Codename Cygnus. Main menu.'
+    assert app.speech.said[-2] == 'Main menu.'
 
 
 def test_settings_from_the_pause_menu_keeps_the_story_paused():
@@ -413,7 +413,7 @@ def test_the_end_says_episode_complete_and_enter_returns_to_the_menu():
     key(app, 'down')
     assert screen.run.current.name == episode.end
     key(app, 'return')
-    assert isinstance(app.stack.top, StandInMainMenu)
+    assert isinstance(app.stack.top, MainMenu)
 
 
 def test_the_prologue_plays_through_by_its_keys():
@@ -499,7 +499,7 @@ def test_yes_restarts_the_episode_from_its_start():
     key(app, 'escape')
     key(app, 'end')
     key(app, 'return')                              # Return to menu still goes to the menu
-    assert isinstance(app.stack.top, StandInMainMenu)
+    assert isinstance(app.stack.top, MainMenu)
 
 
 def test_holding_a_skip_key_repeats_it_until_it_is_let_go():
@@ -776,7 +776,7 @@ def test_f3_to_a_state_in_another_episode_plays_that_episode():
     key(app, 'escape')
     key(app, 'end')
     key(app, 'return')                              # Return to menu
-    assert isinstance(app.stack.top, StandInMainMenu)
+    assert isinstance(app.stack.top, MainMenu)
 
 
 def test_a_jump_away_from_the_end_goes_on_playing():
@@ -881,8 +881,8 @@ def test_the_menu_waits_silently_under_an_episode_started_at_once():
     app = make_app(episode='1.1.1')
     app.options.exit_after = 0.2
     screen = EpisodeScreen(app, STORY.episodes['1.1.1'], story=STORY, recordings=Names())
-    app.run(StandInMainMenu(app), pygame, on_top=screen)
-    assert 'Codename Cygnus. Main menu.' not in app.speech.said
+    app.run(MainMenu(app), pygame, on_top=screen)
+    assert 'Main menu.' not in app.speech.said
     assert app.audio.voices[0] == STORY.state('001introOpen').voice
 
 

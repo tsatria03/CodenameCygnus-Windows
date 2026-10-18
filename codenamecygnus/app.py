@@ -39,6 +39,18 @@ WINDOW_SIZE = (800, 500)
 FPS = 60
 #: The window's text, in lines from the top; the rest is cut.
 MAX_LINES = 22
+#: The interface sounds in game/data/audio/others/menu/, by when they play, as the original
+#: played them from CCStyleManager (aidocks/plans/menus_plan.md).
+SOUNDS = {
+    'play': '1930Radio A',      # starting or continuing an episode (playPlaySound)
+    'back': '1930Radio A',      # going back with Escape (playBackButton)
+    'episodes': '1930Radio A',  # opening Episodes (playMissionsVCSound)
+    'profile': '1930Radio B',   # opening the agent profile (playProfileVCSound)
+    'restart': '1930Radio C',   # restarting an episode (playRestartSound)
+    'credits': '1930Radio C',   # opening Credits, in place of Info (playInfoVCSound)
+    'skip': 'PushButton D',     # skipping with S (playSkipButton)
+    'open': 'Sound A',          # opening any other screen (playViewControllerSound)
+}
 #: Seconds a key is held before it starts repeating, and between repeats.
 REPEAT_DELAY = 0.4
 REPEAT_EVERY = 0.15
@@ -70,6 +82,12 @@ class App:
         if remember and self.settings.get('debug') != on:
             self.settings.set('debug', on)
         log.info('debug mode %s', 'on' if on else 'off')
+
+    # ---- interface sounds -----------------------------------------------
+    def play_sound(self, kind):
+        """One of the interface sounds, by when it plays, such as 'back' or 'open'."""
+        from .game.recordings import Recordings
+        self.audio.play_menu(Recordings.shared().menu_sound(SOUNDS[kind]))
 
     # ---- running --------------------------------------------------------
     def quit(self):

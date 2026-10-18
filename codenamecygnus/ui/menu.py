@@ -71,8 +71,14 @@ class Menu(Screen):
         self.say(self.row_text())
 
     def back(self):
-        """Escape: close this menu."""
+        """Escape: close this menu, with the original's back sound."""
+        self.app.play_sound('back')
         self.stack.pop()
+
+    def open(self, screen, sound='open'):
+        """Open another screen on top, with its interface sound."""
+        self.app.play_sound(sound)
+        self.stack.push(screen)
 
     def handle_key(self, key, mods):
         if mods:

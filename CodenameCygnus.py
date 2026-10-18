@@ -124,9 +124,14 @@ def main(argv=None):
     try:
         import pygame
         from codenamecygnus.app import App
-        from codenamecygnus.game.stand_in_menu import StandInMainMenu
+        from codenamecygnus.game.menus import MainMenu, Opening
         app = App(options, speech=speech)
-        app.run(StandInMainMenu(app), pygame, on_top=episode_from_options(app, options))
+        straight_in = episode_from_options(app, options)
+        if straight_in is not None:
+            # Past the opening: the main menu waits silently under the episode.
+            app.run(MainMenu(app), pygame, on_top=straight_in)
+        else:
+            app.run(Opening(app), pygame)
         log.info('Codename Cygnus closed')
         return 0
     except SystemExit as stop:
