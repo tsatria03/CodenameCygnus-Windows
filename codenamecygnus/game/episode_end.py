@@ -57,8 +57,8 @@ class PreviewScreen(Screen):
     """The next episode's teaser, heard alone. Escape pauses it and opens its pause menu,
     Resume, Restart and Return to menu, as the story's pause menu does (the dev, 2026-10-18:
     "Escape should open a pause menu for it that contains resume/restart/ return to menu,
-    just like the other pause screen has"). No other key does anything; Space no longer
-    pauses it."""
+    just like the other pause screen has"); P does the same, as in the story. No other key
+    does anything; Space no longer pauses it."""
 
     name = 'preview'
 
@@ -122,7 +122,7 @@ class PreviewScreen(Screen):
         self.resume()
 
     def handle_key(self, key, mods):
-        if key == 'escape' and not mods:
+        if (key == 'escape' and not mods) or self.app.keymap.action_for(key, mods) == 'pause_menu':
             self.pause('player')
             self.app.play_sound('open')
             self.stack.push(PreviewPauseMenu(self.app, self))

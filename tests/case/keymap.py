@@ -16,7 +16,7 @@ def test_the_agreed_keys_are_the_defaults():
     k = KeyMap(path())
     expected = {
         'up': 'previous_choice', 'down': 'next_choice', 'return': 'choose', 'c': 'repeat_choices',
-        'r': 'replay', 'left': 'back', 'right': 'forward', 's': 'skip',
+        'p': 'pause_menu', 'r': 'replay', 'left': 'back', 'right': 'forward', 's': 'skip',
         'h': 'heading', 'v': 'speech_recognition', 'page up': 'ambience_up',
         'page down': 'ambience_down',
     }
@@ -86,6 +86,7 @@ def test_there_is_no_pause_key_and_an_old_one_is_dropped():
         json.dump({'pause': ['space'], 'replay': ['r']}, fh)
     k = KeyMap(p)
     assert k.action_for('space') is None and 'pause' not in k.actions
+    assert k.action_for('p') == 'pause_menu', 'the new action took the old binding'
     k.save()
     with open(p, encoding='utf-8') as fh:
         assert 'pause' not in json.load(fh)

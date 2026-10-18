@@ -22,7 +22,7 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
     S               straight on to the next choice, across recordings heard before
     H               the scene heading
     the volumes     Shift+Home and Shift+End, Page Up and Page Down, Shift+Page Up and Down
-    Escape          pause, with the pause menu: Resume, Restart episode, Settings,
+    Escape or P     pause, with the pause menu: Resume, Restart episode, Settings,
                     Return to menu; Resume or Escape there carries on
 
 Every key but Escape, Home, End and the numbers comes from the key map, so F1 can rebind
@@ -414,6 +414,10 @@ class EpisodeScreen(Screen):
         if not self.offered:
             return self.no_choices_yet()
         self.say(choices_text(self.offered))
+
+    def do_pause_menu(self):
+        """P, as Escape: pause, with the pause menu."""
+        self.open_pause_menu()
 
     def do_replay(self):
         state = self.run.current

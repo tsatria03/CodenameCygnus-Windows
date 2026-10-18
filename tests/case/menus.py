@@ -191,13 +191,18 @@ def test_an_episode_in_progress_offers_continue_and_restart():
     playing = app.stack.top
     assert isinstance(playing, EpisodeScreen) and playing.run.current.name == '012introRejectPrompt'
     assert playing.run.variables.get('Diplomacy') == 1
+    assert app.speech.said[-1] == 'Continuing Prologue.'
 
 
 def test_a_completed_episode_offers_replay_and_its_preview():
     app = make_app()
     progress().complete(STORY.episodes['1.1.1'], {})
     menu = EpisodeMenu(app, STORY, STORY.episodes['1.1.1'])
-    assert [r.text for r in menu.rows()][2:] == ['Replay episode', 'Preview next episode']
+    prologue = STORY.episodes['1.1.1']
+    assert [r.text for r in menu.rows()] == ['Back', prologue.completion_text.strip(),
+                                             prologue.description, 'Replay episode',
+                                             'Preview next episode']
+    assert menu.rows()[1].text.startswith('Well done, agent!')
 
 
 def test_replay_asks_with_the_originals_warning_and_locks_what_came_after():
@@ -205,8 +210,9 @@ def test_replay_asks_with_the_originals_warning_and_locks_what_came_after():
     for e in ('1.1.1', '1.2.1'):
         progress().complete(STORY.episodes[e], {'Openness': 2})
     app.stack.push(EpisodeMenu(app, STORY, STORY.episodes['1.1.1']))
-    key(app, 'down')
-    key(app, 'down')
+    for _ in range(3):                              # past the completion text and description
+        key(app, 'down')
+    assert app.speech.said[-1] == 'Replay episode'
     key(app, 'return')                              # Replay episode
     assert app.speech.said[-2:] == [RESTART_WARNING, 'No']
     key(app, 'escape')                              # No: nothing changes
@@ -214,7 +220,7 @@ def test_replay_asks_with_the_originals_warning_and_locks_what_came_after():
     key(app, 'return')
     key(app, 'down')
     key(app, 'return')                              # Yes
-    assert isinstance(app.stack.top, EpisodeScreen) and app.speech.said[-1] == 'Restarting Prologue.'
+    assert isinstance(app.stack.top, EpisodeScreen) and app.speech.said[-1] == 'Replaying Prologue.'
     assert progress().state_of(STORY.episodes['1.2.1']) == 'new'
     assert progress().locked(STORY.episodes['1.2.1'])
 
@@ -232,6 +238,7 @@ def test_continue_comes_first_in_the_main_menu_and_goes_back_to_the_place():
     playing = app.stack.top
     assert isinstance(playing, EpisodeScreen) and playing.episode is art_show
     assert playing.run.current.name == '016F_contactMark' and sounds(app)[-1] == '1930radio a'
+    assert app.speech.said[-1] == 'Continuing Art Show.'
 
 
 def test_there_is_no_continue_before_anything_is_played():

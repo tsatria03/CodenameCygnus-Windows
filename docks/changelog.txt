@@ -1,4 +1,6 @@
 unrelease:
+P opens the pause menu, as Escape does, in an episode and in a preview.
+A finished episode's screen starts with what was said at its end, and Continue and Replay say "Continuing" and "Replaying" and the episode's name.
 Your progress is saved as you play, at every new part of the story, and Continue in the main menu takes you back to where you left off.
 Each episode carries on the choices and traits of the one before it, as the original did, so Signum Cygni remembers what you did in every earlier episode.
 Episodes now says whether each episode is in progress, completed or locked, and opens the next one only once you finish the one before.

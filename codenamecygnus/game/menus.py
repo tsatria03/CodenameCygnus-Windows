@@ -23,7 +23,7 @@ from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
 from .episode_end import PreviewScreen, credit_lines
 from .episode_screen import EpisodeScreen, RestartQuestion
-from .progress import IN_PROGRESS, NEW, Progress
+from .progress import COMPLETED, IN_PROGRESS, NEW, Progress
 from .story import Story
 
 log = logging.getLogger('menus')
@@ -109,9 +109,7 @@ class MainMenu(Menu):
         going = self.progress.continue_episode()
         if going is not None:
             # First, so one Enter after starting the game gets back into the story.
-            rows.append(Row('Continue %s' % going.title,
-                            lambda: self.app.stack.push(continue_screen(self.app, self.story,
-                                                                        self.progress, going))))
+            rows.append(Row('Continue %s' % going.title, lambda: self.go_on(going)))
         return rows + [
             Row('Episodes', lambda: self.open(EpisodeList(self.app, self.story, self.progress),
                                               'episodes')),
@@ -119,9 +117,20 @@ class MainMenu(Menu):
             Row('Credits', lambda: self.open(CreditsScreen(self.app, self.story), 'credits')),
             Row('Quit', self.app.quit)]
 
+    def go_on(self, episode):
+        self.stack.push(continue_screen(self.app, self.story, self.progress, episode))
+        self.say(CONTINUING % episode.title)
+
     def back(self):
         """Escape on the main menu quits, as Quit does."""
         self.app.quit()
+
+
+#: Said as an episode is picked up again or played again (the dev, 2026-10-18: "when you
+#: continue/replay an episode, it should say continuing/replaying x").
+CONTINUING = 'Continuing %s.'
+REPLAYING = 'Replaying %s.'
+RESTARTING = 'Restarting %s.'
 
 
 def continue_screen(app, story, progress, episode):
@@ -177,7 +186,8 @@ class EpisodeMenu(Menu):
 
         not started   Start
         in progress   Continue, Restart episode
-        completed     Replay episode, Preview next episode
+        completed     Replay episode, Preview next episode; and the completion text
+                      straight after Back
         locked        Locked, which says why when chosen (the dev, 2026-10-18: "For locked
                       episodes, a similar menu should open with the back button,
                       description, then the locked status after it")
@@ -194,10 +204,16 @@ class EpisodeMenu(Menu):
 
     def rows(self):
         rows = [Row('Back', self.back)]
+        state = self.progress.state_of(self.episode)
+        said_again = lambda: self.say(self.row_text())
+        completion = self.episode.completion_text.strip()
+        if state == COMPLETED and completion:
+            # Straight after Back once it is finished (the dev, 2026-10-18: "put the
+            # episode's completed description after the back button for each episode").
+            rows.append(Row(completion, said_again))
         description = self.episode.description.strip()
         if description:
-            rows.append(Row(description, lambda: self.say(self.row_text())))
-        state = self.progress.state_of(self.episode)
+            rows.append(Row(description, said_again))
         if self.progress.locked(self.episode):
             rows.append(Row('Locked', lambda: self.say(LOCKED)))
         elif state == NEW:
@@ -207,9 +223,9 @@ class EpisodeMenu(Menu):
                 rows.append(Row('Continue', self.go_on))
             else:
                 rows.append(Row('Start', self.start))
-            rows.append(Row('Restart episode', self.ask_restart))
+            rows.append(Row('Restart episode', lambda: self.ask_restart(RESTARTING)))
         else:
-            rows.append(Row('Replay episode', self.ask_restart))
+            rows.append(Row('Replay episode', lambda: self.ask_restart(REPLAYING)))
             if self.episode.preview and self.episode.preview in self.story.states:
                 rows.append(Row('Preview next episode', lambda: self.open(
                     PreviewScreen(self.app, self.story, self.episode))))
@@ -224,17 +240,18 @@ class EpisodeMenu(Menu):
 
     def go_on(self):
         self.stack.replace(continue_screen(self.app, self.story, self.progress, self.episode))
+        self.say(CONTINUING % self.episode.title)
 
-    def ask_restart(self):
+    def ask_restart(self, saying):
         self.app.play_sound('restart')
-        self.stack.push(RestartQuestion(self.app, self.restart))
+        self.stack.push(RestartQuestion(self.app, lambda: self.restart(saying)))
 
-    def restart(self):
+    def restart(self, saying=RESTARTING):
         """Restart or Replay: from the beginning, every later episode locked again."""
         began = self.progress.restart(self.episode)
         self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
                                          variables=began, progress=self.progress))
-        self.say('Restarting %s.' % self.episode.title)
+        self.say(saying % self.episode.title)
 
 
 class CreditsScreen(Menu):

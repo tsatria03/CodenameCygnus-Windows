@@ -350,6 +350,21 @@ def test_escape_opens_the_pause_menu_and_resume_carries_on():
     assert app.stack.top is screen and not app.audio.paused
 
 
+def test_p_opens_the_pause_menu_as_escape_does():
+    app, screen = start()
+    key(app, 'p')
+    assert isinstance(app.stack.top, PauseMenu) and app.audio.paused
+    assert app.speech.said[-2:] == ['Paused.', 'Resume']
+    key(app, 'escape')
+    assert app.stack.top is screen and not app.audio.paused
+
+
+def test_p_pauses_a_preview_too():
+    app, preview = open_preview()
+    key(app, 'p')
+    assert isinstance(app.stack.top, PreviewPauseMenu) and app.audio.paused
+
+
 def test_escape_in_the_pause_menu_resumes_too():
     app, screen = start()
     key(app, 'escape')
