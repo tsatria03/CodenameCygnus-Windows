@@ -8,6 +8,7 @@ import tempfile
 
 from episode import READY, STORY, key, make_app
 
+from codenamecygnus.app import SOUNDS
 from codenamecygnus.game import download as downloads
 from codenamecygnus.game import pack as packs
 from codenamecygnus.game.download import Download, DownloadScreen
@@ -195,6 +196,20 @@ def test_an_episode_offers_the_download_until_mission_1_is_there():
         assert rows[0] == 'Back' and rows[-1] == 'Download Mission 1'
         locked = EpisodeMenu(app, STORY, STORY.episodes['1.2.1'], Progress.shared(STORY))
         assert [r.text for r in locked.rows()][-1] == 'Start'
+    finally:
+        Recordings._shared = READY
+
+
+def test_the_download_row_plays_the_stores_sound():
+    no_missions()
+    try:
+        app = make_app()
+        screen = EpisodeMenu(app, STORY, STORY.episodes['1.1.1'], Progress.shared(STORY))
+        opened = []
+        screen.open = lambda opening, sound='open': opened.append((type(opening), sound))
+        screen.rows()[-1].action()                  # nothing downloads: open is a stand-in
+        assert opened == [(DownloadScreen, 'download')]
+        assert SOUNDS['download'] == '1930Radio D'
     finally:
         Recordings._shared = READY
 

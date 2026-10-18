@@ -126,7 +126,8 @@ class MainMenu(Menu):
     def go_on(self, episode):
         if not missions_ready():
             # The recordings first, then on into the episode.
-            return self.open(DownloadScreen(self.app, on_done=lambda: self.go_on(episode)))
+            return self.open(DownloadScreen(self.app, on_done=lambda: self.go_on(episode)),
+                             'download')
         self.stack.push(continue_screen(self.app, self.story, self.progress, episode))
         self.say(CONTINUING % episode.title)
 
@@ -236,7 +237,7 @@ class EpisodeMenu(Menu):
         elif not missions_ready():
             # No recordings yet: the download, in place of the buttons, as the original's
             # DOWNLOAD button was (aidocks/plans/build_release_plan.md).
-            rows.append(Row(OFFER, lambda: self.open(DownloadScreen(self.app))))
+            rows.append(Row(OFFER, lambda: self.open(DownloadScreen(self.app), 'download')))
         elif state == NEW:
             rows.append(Row('Start', self.start))
         elif state == IN_PROGRESS:

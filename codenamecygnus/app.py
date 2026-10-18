@@ -49,6 +49,9 @@ SOUNDS = {
     'restart': '1930Radio C',   # restarting an episode (playRestartSound)
     'credits': '1930Radio C',   # opening Credits, in place of Info (playInfoVCSound)
     'skip': 'PushButton D',     # skipping with S (playSkipButton)
+    # Download Mission 1, in place of opening the Store (playStoreVCSound; the dev,
+    # 2026-10-18: "This should play if you click on the download button").
+    'download': '1930Radio D',
     'open': 'Sound A',          # opening any other screen (playViewControllerSound)
 }
 #: Seconds a key is held before it starts repeating, and between repeats.
