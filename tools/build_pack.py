@@ -33,6 +33,8 @@ def say(text=''):
 def main():
     if not os.path.isdir(SOURCE):
         say('there are no loose recordings at %s, so there is nothing to pack.' % SOURCE)
+        say('if the missions folder was renamed to test the pack, give it back its name, '
+            'missions, first.')
         return 1
     say('packing the recordings under %s into %s ...' % (SOURCE, DEST))
     started = time.perf_counter()
@@ -53,5 +55,25 @@ def main():
     return 0
 
 
+def run():
+    """Double-clicked, or run on its own at a keyboard, the window waits at the end, so what
+    happened can be heard before it closes, an error included (tsatria03, 2026-10-18: "the
+    py file imideatly quits when I double click it")."""
+    try:
+        code = main()
+    except Exception:
+        import traceback
+        say('the pack could not be built:')
+        say(traceback.format_exc().rstrip())
+        code = 1
+    if sys.stdin.isatty():
+        say()
+        try:
+            input('Finished. Press Enter to close this window.')
+        except EOFError:
+            pass
+    return code
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(run())
