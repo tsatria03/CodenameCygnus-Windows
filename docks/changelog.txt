@@ -1,4 +1,5 @@
 unrelease:
+Settings has the three volumes, each with its levels from 100 percent down to 0 to choose from, a switch for speech recognition, and the key bindings.
 The game opens as the original did, with a loading message and, the first time, its headphones notice, then a main menu of Episodes, Settings, Credits and Quit, with the original's interface sounds.
 Episodes lists all eight episodes, and each says its description before you start it.
 Credits lists Reactive Studios' team, as the original's Info screen did.

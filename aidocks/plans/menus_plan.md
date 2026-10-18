@@ -20,7 +20,12 @@ The parts that need saved progress wait for [[saves_plan]], which comes next: th
    - **Credits** says "Credits. Codename Cygnus is a game by Reactive Studios." and lists the company credits as rows, "CEO: Jonathon Myers", a credit with no title as a heading in plain case, and last "Windows port: tsatria03".
    - **The interface sounds** are played by purpose through `App.play_sound`, which `SOUNDS` in `app.py` maps to the files: Escape in any menu plays the back sound, `Menu.open` plays a screen's opening sound, Start plays `1930Radio A`, opening the pause menu `Sound A`, and Restart `1930Radio C`.
    - `tests/case/menus.py` has 11 tests.
-2. **Settings:** the three volumes, speech recognition on or off, and the key bindings. Status: next.
+2. **Settings:** the three volumes, speech recognition on or off, and the key bindings. Status: built 2026-10-18, waiting for the dev to try it by ear.
+   - `codenamecygnus/ui/settings_screen.py`: Back; "Master volume, 100 percent", "Ambience, 100 percent" and "Decision sound, 100 percent"; "Speech recognition, currently off"; "Key bindings"; and "Debug mode, currently off" from source only. Back stays first, as the dev confirmed it with the foundation.
+   - **Enter on a volume** opens `VolumeLevels`, titled by the volume, "Ambience.", listing 100 percent down to 0 percent in tens and starting on the level it is at, so Down is quieter. The usual menu keys move through it (the dev, 2026-10-18: "With the volumes, you can click on it, and the normal menu keys will work, up/down/left/right/home/end"). Enter sets the level, comes back to Settings and says it, "Ambience 10 percent"; Escape keeps the old level.
+   - **Speech recognition** is switched and remembered now; [[speech_recognition_plan]] listens for it.
+   - **Key bindings** opens the F1 screen, the timers held as F1 holds them.
+   - The same screen opens from the main menu and the pause menu. `tests/case/screens.py` has 5 tests for it.
 3. **The end of an episode and the previews:** "Episode complete!", then Next episode, Preview next episode, Credits and Return to menu, and Preview next in the episode list. Status: waiting.
 4. **With saves:** Continue, the episodes' states and locks, Restart in the list, and the agent profile with its traits and achievements, built with or after [[saves_plan]]. Status: waiting.
 

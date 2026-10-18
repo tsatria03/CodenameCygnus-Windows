@@ -12,7 +12,7 @@ from codenamecygnus.platform.runloop import RunLoop
 from codenamecygnus.platform.settings import Settings
 from codenamecygnus.ui.keybind_screen import KeyBindScreen
 from codenamecygnus.ui.menu import Menu, Row
-from codenamecygnus.ui.settings_screen import SettingsScreen
+from codenamecygnus.ui.settings_screen import SettingsScreen, VolumeLevels
 
 
 class Ear:
@@ -170,11 +170,79 @@ def test_the_settings_screen_turns_debug_mode_on_and_remembers_it():
     app = make_app()
     settings = SettingsScreen(app)
     app.stack.push(settings)
-    settings.handle_key('down', [])
+    settings.handle_key('end', [])
     assert app.speech.said[-1] == 'Debug mode, currently off'
     settings.handle_key('return', [])
     assert app.debug and app.keymap.debug and app.settings.get('debug') is True
     assert app.speech.said[-1] == 'Debug mode, currently on'
+
+
+def test_the_settings_rows_say_what_each_is_set_to():
+    app = make_app()
+    app.settings.set('ambience_volume', 60)
+    assert [r.text for r in SettingsScreen(app).rows()] == [
+        'Back', 'Master volume, 100 percent', 'Ambience, 60 percent', 'Decision sound, 100 percent',
+        'Speech recognition, currently off', 'Key bindings', 'Debug mode, currently off']
+
+
+def test_a_volume_opens_its_levels_on_the_one_it_is_at_and_enter_sets_it():
+    app = make_app()
+    app.settings.set('ambience_volume', 60)
+    settings = SettingsScreen(app)
+    app.stack.push(settings)
+    settings.handle_key('down', [])
+    settings.handle_key('down', [])
+    settings.handle_key('return', [])               # Ambience
+    levels = app.stack.top
+    assert isinstance(levels, VolumeLevels)
+    assert app.speech.said[-2:] == ['Ambience.', '60 percent']
+    levels.handle_key('right', [])                  # the menu keys move: quieter
+    levels.handle_key('down', [])
+    assert app.speech.said[-1] == '40 percent'
+    levels.handle_key('home', [])
+    assert app.speech.said[-1] == '100 percent'
+    levels.handle_key('end', [])
+    levels.handle_key('up', [])
+    assert app.speech.said[-1] == '10 percent'
+    levels.handle_key('return', [])
+    assert app.stack.top is settings and app.settings.get('ambience_volume') == 10
+    assert app.speech.said[-1] == 'Ambience 10 percent'
+    assert settings.row_text() == 'Ambience, 10 percent'
+
+
+def test_escape_on_the_levels_keeps_the_volume():
+    app = make_app()
+    settings = SettingsScreen(app)
+    app.stack.push(settings)
+    settings.handle_key('down', [])
+    settings.handle_key('return', [])               # Master volume
+    app.stack.top.handle_key('end', [])
+    app.stack.top.handle_key('escape', [])
+    assert app.stack.top is settings and app.settings.get('master_volume') == 100
+
+
+def test_speech_recognition_turns_on_and_off_and_is_remembered():
+    app = make_app()
+    settings = SettingsScreen(app)
+    app.stack.push(settings)
+    for _ in range(4):
+        settings.handle_key('down', [])
+    settings.handle_key('return', [])
+    assert app.settings.get('speech_recognition') is True
+    assert app.speech.said[-1] == 'Speech recognition, currently on'
+
+
+def test_key_bindings_opens_the_f1_screen_from_settings():
+    app = make_app()
+    settings = SettingsScreen(app)
+    app.stack.push(settings)
+    for _ in range(5):
+        settings.handle_key('down', [])
+    assert app.speech.said[-1] == 'Key bindings'
+    app.key_down('return', [])
+    assert isinstance(app.stack.top, KeyBindScreen) and app.loop.held
+    app.key_down('escape', [])
+    assert app.stack.top is settings and not app.loop.held
 
 
 def test_debug_mode_is_never_on_in_a_built_game():
@@ -183,7 +251,7 @@ def test_debug_mode_is_never_on_in_a_built_game():
     try:
         app = make_app(debug=True)
         assert not app.debug and not app.keymap.debug
-        assert [r.text for r in SettingsScreen(app).rows()] == ['Back']
+        assert not any(r.text.startswith('Debug') for r in SettingsScreen(app).rows())
     finally:
         paths.FROZEN = frozen
 
