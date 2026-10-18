@@ -1,6 +1,6 @@
 ---
 name: story_engine_plan
-description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: being built in five sections; 1 to 4 done, 5 (achievements) next."
+description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: being built in five sections; 1 to 4 done, 5 (achievements) built."
 metadata:
   node_type: memory
   type: project
@@ -38,7 +38,13 @@ The dev asked on 2026-10-17 for it to be done in sections ("This next part shoul
    - `Playthrough.enter` decides afresh at every state whether the episode has reached its end, so a jump away from the end state goes on playing.
    - `tests/interact/episode_check.py` turns debug mode on, so the three keys work there.
    - `tests/case/episode.py` has 10 tests for it, and `tests/case/story.py` one for `episode_of`.
-5. **Achievements:** the 16, announced at a quiet moment and saved in `saves/achievements.json`. Status: waiting.
+5. **Achievements:** the 16, announced at a quiet moment and saved in `saves/achievements.json`. Status: built 2026-10-18 (the dev: "yes"), waiting for the dev to try it by ear.
+   - `codenamecygnus/game/achievements.py` holds the 16 with their approved names and descriptions (listed below), keyed by the original's id without `net.reactivestudios.codenamecygnus.`, and `Achievements`, the earned ones kept for good in `saves/achievements.json` and written when one is first earned. The data has exactly these 16 ids, at 23 states, which a test checks.
+   - The episode screen's `collect` notes what every state entered has earned, whether reached by play, S, F2 or a jump, and keeps it at once, so a crash never loses one. `announce` says "Achievement earned: Card Shark." at the next quiet moment: before the first choice is said, or after "Episode complete!" and the completion text, before "Press Enter to return to the menu." Each waits behind what was being said and is never said over the story.
+   - Only the first time an achievement is ever earned is it announced; earning it again in a replay is silent.
+   - Restart and a jump into another episode keep the same list.
+   - `tests/interact/episode_check.py` keeps its own `achievements.json` in its own save.
+   - `tests/case/episode.py` has 5 tests for it. The agent profile's list comes with [[menus_plan]].
 
 Plan 4 of 8 ([[story_export_plan]] lists the order).
 

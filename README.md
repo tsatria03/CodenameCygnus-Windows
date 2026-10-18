@@ -84,6 +84,8 @@ Enter or 1 to 9 choose, C says them again, Space pauses, R replays the recording
 Right skip 5 seconds while the story plays, S skips on to the next choice across what you
 have heard before, H says the scene heading, and Escape opens the
 pause menu, where the episode can be restarted. Holding a skip or a volume key repeats it.
+The 16 achievements are announced the first time each is earned, at the next choice or at
+the end of the episode, and kept in `saves\achievements.json` in the save folder.
 
 - `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
   row turns it on for good.
