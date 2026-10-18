@@ -4,8 +4,9 @@ user/
 #private scratchpad
 New File*.txt
 
-#mission recordings: voices, previews and ambiences
-game/data/audio/missions/
+#mission recordings: voices, previews and ambiences, and any copy of their folder renamed
+#aside, such as "missions off" while the pack is tried
+game/data/audio/missions*/
 
 #test results, written by tests/suite.py
 tests/results/
