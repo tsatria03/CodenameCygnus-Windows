@@ -213,7 +213,7 @@ def test_the_download_screen_says_how_it_goes_and_loads_the_pack():
         screen.download.thread.join(10)
         screen.update()
         assert app.stack.top is menu and done == [1]
-        assert any(s.startswith('Downloading Mission 1, about ') for s in app.speech.said)
+        assert 'Downloading Mission 1. Escape cancels.' in app.speech.said
         assert 'Mission 1 is downloaded.' in app.speech.said
         assert Recordings.shared().has_missions
         assert [r.text for r in menu.rows()][-1] == 'Start'

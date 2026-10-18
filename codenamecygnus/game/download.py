@@ -29,8 +29,6 @@ log = logging.getLogger('download')
 TRIES = 3
 CHUNK = 256 * 1024
 TIMEOUT = 30
-#: The pack's size when m1_pack.json cannot say, to round for the offer.
-ABOUT_BYTES = 491_000_000
 
 DOWNLOADING, CHECKING, DONE, FAILED, CANCELLED = 'downloading', 'checking', 'done', 'failed', 'cancelled'
 
@@ -38,11 +36,6 @@ DOWNLOADING, CHECKING, DONE, FAILED, CANCELLED = 'downloading', 'checking', 'don
 def missions_ready():
     """Whether Mission 1's recordings are here to play."""
     return Recordings.shared().has_missions
-
-
-def megabytes(info):
-    size = info['size'] if info else ABOUT_BYTES
-    return int(round(size / (1 << 20)))
 
 
 #: The row an episode's screen offers, without the size (the dev, 2026-10-18: "Please
@@ -163,7 +156,9 @@ class DownloadScreen(Screen):
             return
         self.download = Download(self.info, self.dest, self.fetch)
         self.said_tenth, self.said_state, self.said_attempt = 0, DOWNLOADING, 1
-        self.say('Downloading Mission 1, about %d megabytes. Escape cancels.' % megabytes(self.info))
+        # Without its size, as the row has none (the dev, 2026-10-18: "I want the size lable
+        # removed there as well").
+        self.say('Downloading Mission 1. Escape cancels.')
         self.download.start()
 
     def progress_text(self):
