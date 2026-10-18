@@ -89,6 +89,7 @@ Found by the dev on 2026-10-17: "some of the episodes present the choices in the
 - **The original had no order of its own.** A state's ways out were kept in an unordered set, and `-[CCDecisionChooser addButtons]` (0x100047058) laid out the buttons in whatever order `-[CCState manualTransitions]` (0x100012448) gave from it. Neither sorts. It is the same unordered set behind the van escape bug, so the file's order, which the export keeps, is arbitrary.
 - **The port offers them in the order the question says them.** Every question ends by saying its choices, such as "SECRETIVE or ATHLETIC." or Holiday Party's "take it, or leave it.", so `spoken_order` in `game/story.py` puts each choice where its words are last said, in any letter case. Delphi's briefing in Art Show (`008distractionGadgetPrompt`) now offers BOLD before SECRETIVE.
 - **Counted 2026-10-18:** of the 114 states with two or three choices, 20 were reordered, among them six in Signum Cygni and four in Lazarus Awakens. The 4 where a choice's words are never said, plain YES or NO questions and Holiday Party's "Delphi's, or your own?", keep the stored order, which already matches how they are asked.
+- Confirmed by the dev by ear on 2026-10-18: "Much better. All good here."
 - It is done when the story is loaded, not in the exported data, so `states.json` and `analysis/script/` keep the file's order. `tests/case/story.py` checks every state whose question says its choices.
 
 ## The script
