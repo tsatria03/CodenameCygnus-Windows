@@ -258,6 +258,30 @@ def test_every_10_percent_plays_the_push_sound_and_says_how_far():
         Recordings._shared = READY
 
 
+def test_out_of_the_window_the_percentages_are_not_spoken():
+    no_missions()
+    try:
+        _data, info, dest = served()
+        app = make_app()
+        kinds = []
+        app.play_sound = kinds.append
+        screen = DownloadScreen(app, info=info, dest=dest)
+        screen.download = Download(info, dest, Network(b''))   # never started
+        screen.said_state = downloads.DOWNLOADING
+        screen.focus_lost()
+        screen.download.got = screen.download.total * 25 // 100
+        screen.update()
+        assert kinds == ['progress'] and app.speech.said == []
+        screen.focus_gained()
+        screen.update()                             # still 20: nothing said for it later
+        assert app.speech.said == []
+        screen.download.got = screen.download.total * 31 // 100
+        screen.update()
+        assert app.speech.said == ['30 percent.']
+    finally:
+        Recordings._shared = READY
+
+
 def test_escape_cancels_the_download():
     no_missions()
     try:

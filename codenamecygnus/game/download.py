@@ -6,7 +6,8 @@ DOWNLOAD button did, and Continue in the main menu downloads first.
 
 The download runs on a thread of its own, with Python's own urllib, into m1.dat.part in
 the save folder's missions folder. The screen says how far it has got every 10 percent,
-with the push sound the original shipped but never played (app.py's SOUNDS),
+with the push sound the original shipped but never played (app.py's SOUNDS), the
+percentage left unspoken while the game's window does not have the keyboard,
 Enter says it at any time, and Escape cancels, deleting the part. Once it is whole it is
 checked against the fingerprint the game carries (game/pack.py's m1_pack.json), fetched
 again if it is damaged, up to three times in all, and only then renamed m1.dat, so a cut
@@ -137,6 +138,13 @@ class DownloadScreen(Screen):
         self.said_tenth = 0             # the last tenth said
         self.said_state = None
         self.said_attempt = 1
+        self.focused = True             # the game's window has the keyboard
+
+    def focus_lost(self):
+        self.focused = False
+
+    def focus_gained(self):
+        self.focused = True
 
     def opened(self):
         if self.download is None:
@@ -189,7 +197,11 @@ class DownloadScreen(Screen):
             if tenth > self.said_tenth and tenth < 10:
                 self.said_tenth = tenth
                 self.app.play_sound('progress')
-                self.say('%d percent.' % (tenth * 10), interrupt=False)
+                # Not spoken while the player is in another window (the dev, 2026-10-18:
+                # "When you are out of the window, the speech for the percentages should
+                # be suppressed"); the tenth still counts, so nothing piles up for later.
+                if self.focused:
+                    self.say('%d percent.' % (tenth * 10), interrupt=False)
         if d.state == self.said_state:
             return
         self.said_state = d.state
