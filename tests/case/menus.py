@@ -200,8 +200,7 @@ def test_a_completed_episode_offers_replay_and_its_preview():
     menu = EpisodeMenu(app, STORY, STORY.episodes['1.1.1'])
     prologue = STORY.episodes['1.1.1']
     assert [r.text for r in menu.rows()] == ['Back', prologue.completion_text.strip(),
-                                             prologue.description, 'Replay episode',
-                                             'Preview next episode']
+                                             'Replay episode', 'Preview next episode']
     assert menu.rows()[1].text.startswith('Well done, agent!')
 
 
@@ -210,7 +209,7 @@ def test_replay_asks_with_the_originals_warning_and_locks_what_came_after():
     for e in ('1.1.1', '1.2.1'):
         progress().complete(STORY.episodes[e], {'Openness': 2})
     app.stack.push(EpisodeMenu(app, STORY, STORY.episodes['1.1.1']))
-    for _ in range(3):                              # past the completion text and description
+    for _ in range(2):                              # past the completion text
         key(app, 'down')
     assert app.speech.said[-1] == 'Replay episode'
     key(app, 'return')                              # Replay episode

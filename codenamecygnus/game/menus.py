@@ -187,7 +187,7 @@ class EpisodeMenu(Menu):
         not started   Start
         in progress   Continue, Restart episode
         completed     Replay episode, Preview next episode; and the completion text
-                      straight after Back
+                      straight after Back, in the description's place
         locked        Locked, which says why when chosen (the dev, 2026-10-18: "For locked
                       episodes, a similar menu should open with the back button,
                       description, then the locked status after it")
@@ -207,12 +207,14 @@ class EpisodeMenu(Menu):
         state = self.progress.state_of(self.episode)
         said_again = lambda: self.say(self.row_text())
         completion = self.episode.completion_text.strip()
-        if state == COMPLETED and completion:
-            # Straight after Back once it is finished (the dev, 2026-10-18: "put the
-            # episode's completed description after the back button for each episode").
-            rows.append(Row(completion, said_again))
         description = self.episode.description.strip()
-        if description:
+        if state == COMPLETED and completion:
+            # Once it is finished, its completion text in the description's place (the dev,
+            # 2026-10-18: "put the episode's completed description after the back button
+            # for each episode", then "drop the description from the finished episode
+            # screen").
+            rows.append(Row(completion, said_again))
+        elif description:
             rows.append(Row(description, said_again))
         if self.progress.locked(self.episode):
             rows.append(Row('Locked', lambda: self.say(LOCKED)))
