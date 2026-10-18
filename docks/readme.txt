@@ -154,6 +154,8 @@ Credits
 Codename Cygnus is Reactive Studios' game, and its writers, voice actors, composer and team made everything you hear.
 The game's Credits list Reactive Studios' team, and each episode's own credits come at its end.
 tsatria03 makes the Windows port.
+theblindgamer50 helped recover all of the episodes from version 1.3.2 of the original, the version this port plays.
+Reactive Studios is now Earplay, and the original iPhone and iPad app is no longer on the App Store.
 
 Licenses
 

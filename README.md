@@ -266,8 +266,13 @@ of October 2026.
 
 **[tsatria03](https://github.com/tsatria03)** makes the port, on their own.
 
+**theblindgamer50** helped recover all of the episodes from version 1.3.2 of the original,
+the version the port plays.
+
 Codename Cygnus itself is Reactive Studios' game. Its writers, voice actors, composer and
 team are credited in full, episode by episode, in `game/data/text/mission_descriptor.json`.
+Reactive Studios has since become Earplay, which relaunched the story on Amazon Alexa and
+Google Assistant; the original iPhone and iPad app is no longer on the App Store.
 
 ## Licence
 

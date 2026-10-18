@@ -6,7 +6,8 @@ import random
 from episode import STORY, key, make_app
 
 from codenamecygnus.game.episode_screen import RESTART_WARNING, EpisodeScreen
-from codenamecygnus.game.menus import (HEADPHONES, LOADING, LOCKED, PORT_CREDIT, CreditsScreen,
+from codenamecygnus.game.menus import (HEADPHONES, LOADING, LOCKED, PORT_CREDIT,
+                                       RECOVERY_CREDIT, CreditsScreen,
                                        EpisodeList, EpisodeMenu, HeadphonesNotice, MainMenu,
                                        Opening, credit_lines)
 from codenamecygnus.game.progress import Progress
@@ -266,7 +267,9 @@ def test_credits_lists_reactive_studios_and_the_port():
     rows = [r.text for r in credits.rows()]
     assert app.speech.said[-2:] == ['Credits.', 'Back']
     assert rows[:2] == ['Back', 'Codename Cygnus is a game by Reactive Studios.']
-    assert 'CEO: Jonathon Myers' in rows and rows[-1] == PORT_CREDIT
+    assert rows[2] == CreditsScreen.STATUS and 'no longer on the App Store' in rows[2]
+    assert 'CEO: Jonathon Myers' in rows and rows[-2:] == [PORT_CREDIT, RECOVERY_CREDIT]
+    assert RECOVERY_CREDIT == 'Episodes recovered from version 1.3.2: theblindgamer50'
     assert '' not in rows
 
 

@@ -38,8 +38,11 @@ LOADING = ('Counting Stars...', 'Reticulating Splines...', 'Almost There...',
 OPENING_SECONDS = 2.5
 HEADPHONES = ('Headphones recommended. The acoustic experience of Codename Cygnus is best '
               'with the use of a high quality headset.')
-#: The port's own line in Credits.
+#: The port's own lines in Credits, after Reactive Studios' (the dev, 2026-10-18: "add
+#: theblindgamer50 to the credits as well. He's the one who helped me recover all of the
+#: episodes from 1.3.2 version of the game").
 PORT_CREDIT = 'Windows port: tsatria03'
+RECOVERY_CREDIT = 'Episodes recovered from version 1.3.2: theblindgamer50'
 
 
 class Opening(Screen):
@@ -285,11 +288,16 @@ class CreditsScreen(Menu):
     #: A row of its own after Back, as an episode's description is (the dev, 2026-10-18:
     #: "Do the same with credits. Put the first part of that after the back button").
     INTRO = 'Codename Cygnus is a game by Reactive Studios.'
+    #: Where the original stands, as found on 2026-10-18: Reactive Studios became Earplay,
+    #: and the iOS app is gone from the App Store (aidocks/general/project_original_status.md).
+    STATUS = ('Reactive Studios is now Earplay. The original iPhone and iPad app is no longer '
+              'on the App Store; this port plays version 1.3.2.')
 
     def __init__(self, app, story):
         super().__init__(app)
         self.story = story
 
     def rows(self):
-        return [Row('Back', self.back), Row(self.INTRO)] + [
-            Row(line) for line in credit_lines(self.story.company_credits) + [PORT_CREDIT]]
+        return [Row('Back', self.back), Row(self.INTRO), Row(self.STATUS)] + [
+            Row(line) for line in credit_lines(self.story.company_credits)
+            + [PORT_CREDIT, RECOVERY_CREDIT]]
