@@ -1,2 +1,4 @@
 pygame>=2.6.1
 prismatoid~=0.18.2
+pocketsphinx~=5.0.4
+sounddevice>=0.5.6
