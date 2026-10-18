@@ -11,10 +11,10 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
 3. **The episode's end state's voice ends:** "Episode complete!" and the completion text,
    then Enter or Escape goes back to the menu.
 
-    Up and Down     move through the choices, wrapping round
+    Up and Down     move through the choices from the first, wrapping round
     Left and Right  the same, while a choice waits
     Home and End    the first choice and the last
-    Enter           choose the one you are on
+    Enter           choose the one you are on, the first until you move
     1 to 9          choose by number
     C               say the choices again
     Space           pause and resume
@@ -106,7 +106,7 @@ class EpisodeScreen(Screen):
         self.run = Playthrough(self.story, episode, variables)
         self.started = False
         self.offered = []           # the choices waiting, once the question has been asked
-        self.index = None           # the choice moved to, or None before any move
+        self.index = None           # the choice you are on: the first, once they are offered
         self.heading = None         # the last scene heading reached
         self.complete = False       # the end state's voice has finished
         self.paused = None          # None, or why: BY_PLAYER, BY_COVER or BY_FOCUS
@@ -190,6 +190,9 @@ class EpisodeScreen(Screen):
         """The question has been asked: the decision loop, the choices and any clock."""
         state = self.run.current
         self.offered = self.run.choices()
+        # The first choice is the one you are on, so Enter at once chooses it (the dev,
+        # 2026-10-17: "pressing enter should activate the first focused option").
+        self.index = 0
         self.audio.start_decision(self.find(state.decision))
         # Read by the game itself, so it waits behind whatever the player made it say.
         self.say(choices_text(self.offered), interrupt=False)
@@ -333,10 +336,7 @@ class EpisodeScreen(Screen):
     def do_choose(self):
         if not self.offered:
             return self.no_choices_yet()
-        if self.index is None:
-            # Nothing moved to yet: say what there is, rather than guess.
-            return self.do_repeat_choices()
-        self.choose(self.offered[self.index])
+        self.choose(self.offered[self.index or 0])
 
     def choose_number(self, n):
         if not self.offered:

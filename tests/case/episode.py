@@ -196,18 +196,18 @@ def test_up_and_down_say_each_choice_without_its_place_and_wrap():
     app, screen = start()
     jump(app, screen, '012introRejectPrompt')
     end_voice(app)
-    key(app, 'down')
-    key(app, 'down')
-    key(app, 'down')
+    key(app, 'down')                                # from the first, Charismatic
+    key(app, 'down')                                # wraps round
     key(app, 'up')
-    assert app.speech.said[-4:] == ['Charismatic', 'Hostile', 'Charismatic', 'Hostile']
+    key(app, 'up')
+    assert app.speech.said[-4:] == ['Hostile', 'Charismatic', 'Hostile', 'Charismatic']
 
 
 def test_enter_chooses_the_one_moved_to_and_says_it():
     app, screen = start()
     jump(app, screen, '012introRejectPrompt')
     end_voice(app)
-    key(app, 'up')                                  # from nothing, Up is the last
+    key(app, 'up')                                  # from the first, Up wraps to the last
     key(app, 'return')
     assert app.speech.said[-1] == 'Hostile'
     hostile = next(c for c in STORY.choices('012introRejectPrompt') if c.text == 'HOSTILE')
@@ -215,13 +215,13 @@ def test_enter_chooses_the_one_moved_to_and_says_it():
     assert app.audio.decision is None and screen.offered == []
 
 
-def test_enter_before_moving_says_the_choices_rather_than_guessing():
+def test_enter_before_moving_chooses_the_first():
     app, screen = start()
     jump(app, screen, '012introRejectPrompt')
     end_voice(app)
     key(app, 'return')
-    assert screen.run.current.name == '012introRejectPrompt'
-    assert app.speech.heard[-1] == ('Charismatic or Hostile.', True)
+    first = STORY.choices('012introRejectPrompt')[0]
+    assert app.speech.said[-1] == 'Charismatic' and screen.run.current.name == first.destination
 
 
 def test_the_number_keys_choose_directly():
@@ -428,7 +428,7 @@ def test_left_right_home_and_end_move_through_a_waiting_choice():
     key(app, 'left')
     key(app, 'end')
     key(app, 'home')
-    assert app.speech.said[-5:] == [words[0], words[1], words[0], words[-1], words[0]]
+    assert app.speech.said[-5:] == [words[1], words[2], words[1], words[-1], words[0]]
     assert app.audio.seeks == [], 'a choice key skipped through a recording'
 
 
