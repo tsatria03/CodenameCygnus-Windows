@@ -82,6 +82,15 @@ Agreed on 2026-10-17 (the dev: "I completely agree with that"):
 - **The port fixes it** (the dev, 2026-10-17: "This bug needs to be fixed"): GRAB IT leads to the Matthews ending and HANG ON to the Alex ending, as the scenes and the writers' state names say. The fix is made in the data by [[story_export_plan]], so the engine needs no special case.
 - **The engine's rule stays the original's:** the first automatic exit wins. In the exported data the transitions keep the file's order, so "first" is always the same one.
 
+## The order of the choices
+
+Found by the dev on 2026-10-17: "some of the episodes present the choices in the wrong order. Example, in the art show, when you are with agent delfy ... the secretive choice appears before bold. This is a bug for a lot of the episodes".
+
+- **The original had no order of its own.** A state's ways out were kept in an unordered set, and `-[CCDecisionChooser addButtons]` (0x100047058) laid out the buttons in whatever order `-[CCState manualTransitions]` (0x100012448) gave from it. Neither sorts. It is the same unordered set behind the van escape bug, so the file's order, which the export keeps, is arbitrary.
+- **The port offers them in the order the question says them.** Every question ends by saying its choices, such as "SECRETIVE or ATHLETIC." or Holiday Party's "take it, or leave it.", so `spoken_order` in `game/story.py` puts each choice where its words are last said, in any letter case. Delphi's briefing in Art Show (`008distractionGadgetPrompt`) now offers BOLD before SECRETIVE.
+- **Counted 2026-10-18:** of the 114 states with two or three choices, 20 were reordered, among them six in Signum Cygni and four in Lazarus Awakens. The 4 where a choice's words are never said, plain YES or NO questions and Holiday Party's "Delphi's, or your own?", keep the stored order, which already matches how they are asked.
+- It is done when the story is loaded, not in the exported data, so `states.json` and `analysis/script/` keep the file's order. `tests/case/story.py` checks every state whose question says its choices.
+
 ## The script
 
 Each state's `script` is the text of what its recording says, in three kinds of line: `SPEECH` with a character's name, `PARENTHETICAL` for sounds such as "(GUNSHOT)", and `HEADING` for a scene, such as "CONSULATE - BOMB ROOM" (63 in all).

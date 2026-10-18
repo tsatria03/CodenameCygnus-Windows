@@ -1,4 +1,5 @@
 unrelease:
+The choices now come in the order the characters say them, such as BOLD before SECRETIVE in Delphi's briefing in Art Show; 20 questions across the episodes had them the other way round.
 S skips straight on to the next choice across everything you have heard before, and says "Not heard yet" on a part you have not, so new story is never skipped by mistake.
 Holding Left or Right skips on through the recording, and holding a volume key keeps turning it up or down.
 The pause menu can restart the episode from its beginning, after asking first.

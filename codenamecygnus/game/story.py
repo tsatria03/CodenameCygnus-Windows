@@ -13,7 +13,8 @@ The data is the exported ``states.json`` and ``missions.json`` (aidocks/plans/st
     The first automatic way out wins, as in the original's
     ``-[CCStateMachine performAutoTransition]`` (0x100049c00).
   - ``manual``: a choice, spoken or picked with a key. A hidden one (``render: false``)
-    can be said but is not offered.
+    can be said but is not offered. Choices are offered in the order the question says
+    them (``spoken_order``), not the file's, which is arbitrary.
   - ``auto-timeout``: where the story goes when a choice waits ``duration`` seconds.
 * **Variables** are whole numbers by name. A state's ``value`` sets one, ``++`` raises it
   by one and ``--`` lowers it. A variable never set counts as 0, as a missing value did in
@@ -32,6 +33,8 @@ log = logging.getLogger('story')
 
 EXPRESSION = re.compile(r'^\s*([A-Za-z_][A-Za-z0-9_.]*)\s*(==|>=|<=|>|<)\s*(-?\d+)\s*$')
 TRAITS = ('Openness', 'Predictability', 'Diplomacy', 'Activeness')
+#: The script's pacing marks, such as ``#0,9#``.
+TICKS = re.compile(r'#\d+,\d+#')
 
 
 def holds(expression, variables):
@@ -53,6 +56,32 @@ def _kind(file_name):
     if name.startswith('decision_'):
         return 'decision'
     return 'voice'
+
+
+def spoken_order(state, choices):
+    """The choices in the order the state's question says them.
+
+    The original kept a state's ways out in an unordered set, and laid out its choice
+    buttons in whatever order the set gave (``-[CCDecisionChooser addButtons]``,
+    0x100047058, through ``-[CCState manualTransitions]``, 0x100012448, neither sorting),
+    so the stored order is arbitrary: Delphi offers "BOLD agents" the explosive and then
+    "a more SECRETIVE type" the forged bill of sale, and the file had SECRETIVE first (the
+    dev, 2026-10-17: "some of the episodes present the choices in the wrong order"). The
+    questions end by saying the choices, such as "SECRETIVE or ATHLETIC." or "take it, or
+    leave it.", so each choice goes by where its words are last said, in any case. If any
+    choice's words are not said, as with a plain "Would you like a drink?" before YES or
+    NO, the stored order is kept."""
+    if len(choices) < 2:
+        return choices
+    text = ' '.join(TICKS.sub(' ', line.get('text', '')) for line in state.script).lower()
+    places = []
+    for c in choices:
+        word = r"(?<![\w'])%s(?![\w'])" % re.escape(c.text.lower())
+        found = [m.start() for m in re.finditer(word, text)]
+        if not found:
+            return choices
+        places.append(found[-1])
+    return [c for _place, c in sorted(zip(places, choices), key=lambda pair: pair[0])]
 
 
 class Choice:
@@ -157,6 +186,7 @@ class Story:
                 episode = Episode(e, mission['mission_id'])
                 self.episodes[episode.id] = episode
         self.company_credits = missions.get('company_credits', {}).get('credits', [])
+        self._choices = {}          # a state's name -> its choices, in spoken order
         log.info('story loaded: %d states, %d episodes', len(self.states), len(self.episodes))
 
     def state(self, name):
@@ -179,10 +209,15 @@ class Story:
         return None
 
     def choices(self, name, include_hidden=False):
-        """The choices ``name`` offers, in order; the hidden ones only when asked for."""
-        out = [Choice(t['text'], t['destination'], hidden=t.get('render') is False)
-               for t in self.ways_out.get(name, []) if t['type'] == 'manual']
-        return out if include_hidden else [c for c in out if not c.hidden]
+        """The choices ``name`` offers, in the order its question says them; the hidden ones
+        only when asked for."""
+        out = self._choices.get(name)
+        if out is None:
+            out = [Choice(t['text'], t['destination'], hidden=t.get('render') is False)
+                   for t in self.ways_out.get(name, []) if t['type'] == 'manual']
+            out = spoken_order(self.states[name], out) if name in self.states else out
+            self._choices[name] = out
+        return list(out) if include_hidden else [c for c in out if not c.hidden]
 
     def timeout(self, name):
         """(seconds, where it goes) for a choice that times out, or None."""

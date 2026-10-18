@@ -42,7 +42,6 @@ had paused it with Space. A timed choice keeps the seconds it had left.
 from __future__ import annotations
 
 import logging
-import re
 
 from ..platform.audio import SKIP_SECONDS
 from ..ui.menu import Menu, Row
@@ -50,12 +49,9 @@ from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
 from .heard import Heard
 from .recordings import Recordings
-from .story import Playthrough, Story
+from .story import TICKS, Playthrough, Story
 
 log = logging.getLogger('episode')
-
-#: The script's pacing marks, such as ``#0,9#``, which speech and the window leave out.
-TICKS = re.compile(r'#\d+,\d+#')
 
 #: Volume actions: (the setting, which way).
 VOLUME_KEYS = {

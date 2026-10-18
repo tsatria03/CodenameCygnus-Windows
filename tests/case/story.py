@@ -53,6 +53,35 @@ def test_hidden_choices_can_be_said_but_are_not_offered():
     assert 'OPEN' in every and 'NO' in every
 
 
+def test_choices_come_in_the_order_the_question_says_them():
+    # Delphi: "For BOLD agents, this device is a small explosive... Or, if you're a more
+    # SECRETIVE type of agent..."; the file had SECRETIVE first.
+    assert [c.text for c in STORY.choices('008distractionGadgetPrompt')] == ['BOLD', 'SECRETIVE']
+    assert [c.text for c in STORY.choices('018watchPrompt_m1e8')] == ['TAKE IT', 'LEAVE IT']
+    assert [c.text for c in STORY.choices('017whiteImpulsiveQuestionThree_m1e5')] == ['RUSSIA', 'SWITZERLAND']
+
+
+def test_choices_whose_words_are_not_said_keep_the_stored_order():
+    assert [c.text for c in STORY.choices('003matthewsDrinkPrompt_m1e8')] == ['YES', 'NO']
+    assert [c.text for c in STORY.choices('013drinkDruggedPrompt_m1e8')] == ["DELPHI'S", 'MY OWN']
+
+
+def test_every_question_that_says_its_choices_offers_them_in_that_order():
+    import re
+    from codenamecygnus.game.story import TICKS
+    for name, state in STORY.states.items():
+        offered = STORY.choices(name, include_hidden=True)
+        if len(offered) < 2:
+            continue
+        text = ' '.join(TICKS.sub(' ', l.get('text', '')) for l in state.script).lower()
+        places = []
+        for c in offered:
+            found = [m.start() for m in re.finditer(r"(?<![\w'])%s(?![\w'])" % re.escape(c.text.lower()), text)]
+            places.append(found[-1] if found else None)
+        if None not in places:
+            assert places == sorted(places), (name, [c.text for c in offered])
+
+
 def test_holiday_partys_choices_time_out_after_7_seconds():
     assert STORY.timeout('009drinkPrompt_m1e8') == (7.0, '010Ctimeout_m1e8')
     assert STORY.timeout('002introOpenPrompt') is None
