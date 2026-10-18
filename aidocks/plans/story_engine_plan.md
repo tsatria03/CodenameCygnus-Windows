@@ -95,6 +95,7 @@ Agreed on 2026-10-17 (the dev: "I completely agree with that"):
   - from `3_AAB007alexEscapePrompt_m1e7`, where Rhodes says the only way back to Alex is to make it look like you are dead, answered with HANG ON
 - Its two exits are the two endings: `4_AABA002alexAthleticRefuseMatthewsEND_m1e7`, a struggle for the gun and an escape out the back, and `4_AABB003alexAthleticRefuseAlexEND_m1e7`, where Rhodes says goodbye and jumps. So in the original, a player could say HANG ON and hear the struggle for the gun.
 - **The port fixes it** (the dev, 2026-10-17: "This bug needs to be fixed"): GRAB IT leads to the Matthews ending and HANG ON to the Alex ending, as the scenes and the writers' state names say. The fix is made in the data by [[story_export_plan]], so the engine needs no special case.
+- **Confirmed by the dev by ear on 2026-10-18** through `tests/interact/episode_check.py`, jumping to each prompt with F3 ("It's good now. Everything plays normally").
 - **The engine's rule stays the original's:** the first automatic exit wins. In the exported data the transitions keep the file's order, so "first" is always the same one.
 
 ## The order of the choices
