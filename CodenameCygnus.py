@@ -112,7 +112,9 @@ def episode_from_options(app, options):
     if episode is None or not episode.playable:
         log.warning('there is no episode %s to play, so the menu opens instead', options.episode)
         return None
-    return EpisodeScreen(app, episode)
+    from codenamecygnus.game.progress import Progress
+    # A fresh start, as Start in Episodes gives: what the episode before it ended with.
+    return EpisodeScreen(app, episode, variables=Progress.shared(story).start_variables(episode))
 
 
 def main(argv=None):

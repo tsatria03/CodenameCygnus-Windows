@@ -272,6 +272,7 @@ class Playthrough:
         self.episode = episode
         self.variables = dict(variables or {})
         self.current = None
+        self.entered_with = {}      # the variables before the current state was entered
         self.earned = []            # achievement ids earned so far in this run
         self.finished = False
 
@@ -282,6 +283,9 @@ class Playthrough:
         """Go to state ``name``: apply its variables, note its achievements, and return it."""
         state = self.story.state(name)
         self.current = state
+        # As they were before this state: what a save keeps, so continuing here enters it
+        # again and applies its variables once (aidocks/plans/saves_plan.md).
+        self.entered_with = dict(self.variables)
         for op in state.variables:
             key = op['name']
             if op.get('command') == '++':

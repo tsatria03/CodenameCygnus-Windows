@@ -14,13 +14,14 @@ import types
 import pygame
 
 from codenamecygnus.app import App
-from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choices_text,
-                                                heading_text, script_line)
+from codenamecygnus.game.episode_screen import (RESTART_WARNING, EpisodeScreen, PauseMenu,
+                                                choices_text, heading_text, script_line)
 from codenamecygnus.game.achievements import ACHIEVEMENTS, Achievements, short_id
 from codenamecygnus.game.debug import JumpScreen, MatchMenu
 from codenamecygnus.game.episode_end import EndMenu, PreviewScreen
 from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.menus import MainMenu
+from codenamecygnus.game.progress import Progress
 from codenamecygnus.game.story import Story
 from codenamecygnus.platform import runloop
 from codenamecygnus.platform.keymap import KeyMap
@@ -130,6 +131,8 @@ def fresh_heard():
 
 def make_app(debug=False, episode=None):
     folder = tempfile.mkdtemp(dir=_quiet.FOLDER)
+    # Each test its own progress, so one test's episodes never show in the next's menus.
+    Progress._shared = Progress(os.path.join(folder, 'progress.json'), story=STORY)
     settings = Settings(os.path.join(folder, 'settings.json'))
     options = types.SimpleNamespace(debug=debug, episode=episode, state=None, verbose=False,
                                     exit_after=None)
@@ -534,7 +537,8 @@ def test_restart_asks_first_and_no_keeps_the_place():
     key(app, 'escape')
     key(app, 'down')
     key(app, 'return')
-    assert app.speech.said[-2:] == ['Restart episode?', 'No']
+    assert app.speech.said[-2:] == [RESTART_WARNING, 'No']
+    assert RESTART_WARNING.endswith('all saved progress beyond this episode will be erased.')
     key(app, 'return')                              # No
     assert isinstance(app.stack.top, PauseMenu)
     key(app, 'down')

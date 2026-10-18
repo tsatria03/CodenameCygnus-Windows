@@ -54,6 +54,7 @@ from ..ui.settings_screen import SettingsScreen
 from .achievements import Achievements, name_of
 from .debug import JumpScreen, state_report
 from .heard import Heard
+from .progress import Progress
 from .recordings import Recordings
 from .story import TICKS, Playthrough, Story
 
@@ -98,13 +99,15 @@ class EpisodeScreen(Screen):
     holds_time = True
 
     def __init__(self, app, episode, story=None, recordings=None, variables=None, heard=None,
-                 at=None, achievements=None):
+                 at=None, achievements=None, progress=None):
         super().__init__(app)
-        self.at = at                # debug mode: the state to start at, or None for the start
+        # The state to start at, for Continue or a debug jump, or None for a fresh start.
+        self.at = at
         self.achievements = achievements if achievements is not None else Achievements.shared()
         self.earned_seen = 0        # how many of the run's earned ids have been looked at
         self.to_announce = []       # names of achievements earned, waiting for a quiet moment
         self.story = story or Story.shared()
+        self.progress = progress if progress is not None else Progress.shared(self.story)
         self.recordings = recordings or Recordings.shared()
         self.heard = heard if heard is not None else Heard.shared()
         self.voice_playing = None   # the story name of the voice playing, once found on disk
@@ -134,6 +137,8 @@ class EpisodeScreen(Screen):
             self.started = True
             log.info('episode %s, %s, starts%s', self.episode.id, self.episode.title,
                      ' at %s' % self.at if self.at else '')
+            if self.at is None:
+                self.progress.begin(self.episode, self.start_variables)
             self.play(self.run.start(self.at))
         elif self.paused in (BY_COVER, BY_FOCUS):
             self.resume()
@@ -167,9 +172,15 @@ class EpisodeScreen(Screen):
         if state.heading:
             self.heading = state.heading
         self.collect()
+        self.save_place()
         self.audio.stop_decision()
         self.audio.set_background(self.find(state.background))
         self.start_voice(state)
+
+    def save_place(self):
+        """Continue comes back to the start of this state (aidocks/plans/saves_plan.md)."""
+        if not self.run.finished:
+            self.progress.save_place(self.episode, self.run.current.name, self.run.entered_with)
 
     # ---- achievements (game/achievements.py) -----------------------------
     def collect(self):
@@ -252,6 +263,7 @@ class EpisodeScreen(Screen):
         self.cancel_timer()
         self.audio.stop_decision()
         log.info('episode %s complete', self.episode.id)
+        self.progress.complete(self.episode, self.run.variables)
         text = 'Episode complete! ' + self.episode.completion_text.strip()
         self.say(text.strip(), interrupt=False)
         self.announce()
@@ -270,15 +282,19 @@ class EpisodeScreen(Screen):
         self.stack.replace(EpisodeScreen(self.app, episode, story=self.story,
                                          recordings=self.recordings,
                                          variables=self.run.variables, heard=self.heard,
-                                         achievements=self.achievements))
+                                         achievements=self.achievements,
+                                         progress=self.progress))
 
     def restart(self):
-        """The episode again from its start, with the variables it began with."""
+        """The episode again from its start, with the variables it began with; every later
+        episode goes back to locked (game/progress.py)."""
         log.info('episode %s restarts', self.episode.id)
+        began = self.progress.restart(self.episode)
         self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story,
                                          recordings=self.recordings,
-                                         variables=self.start_variables, heard=self.heard,
-                                         achievements=self.achievements))
+                                         variables=began, heard=self.heard,
+                                         achievements=self.achievements,
+                                         progress=self.progress))
         # Cuts off the pause menu, which spoke as it came back on its way out.
         self.say('Restarting %s.' % self.episode.title)
 
@@ -452,6 +468,8 @@ class EpisodeScreen(Screen):
         log.info('skipped from %s to %s', start, self.run.current.name)
         # At a choice or the end, its voice heard: as if that voice had just finished.
         state = self.run.current
+        self.collect()
+        self.save_place()
         self.cancel_timer()
         self.audio.stop_decision()
         self.audio.set_background(self.find(state.background))
@@ -492,7 +510,8 @@ class EpisodeScreen(Screen):
                                              recordings=self.recordings,
                                              variables=self.run.variables,
                                              heard=self.heard, at=name,
-                                             achievements=self.achievements))
+                                             achievements=self.achievements,
+                                             progress=self.progress))
         # Cuts off the screens that spoke as they closed on the way back here.
         self.say('Jumped to %s, in %s.' % (name, episode.title))
 
@@ -546,7 +565,7 @@ class PauseMenu(Menu):
 
     def rows(self):
         return [Row('Resume', self.back),
-                Row('Restart episode', lambda: self.open(RestartQuestion(self.app, self))),
+                Row('Restart episode', lambda: self.open(RestartQuestion(self.app, self.restart))),
                 Row('Settings', lambda: self.open(SettingsScreen(self.app))),
                 Row('Return to menu', self.return_to_menu)]
 
@@ -567,21 +586,27 @@ class PauseMenu(Menu):
         self.episode_screen.leave()
 
 
+#: The original's own question, from -[CCEpisodeTableCell restartEpisode] and
+#: replayEpisode (aidocks/plans/saves_plan.md).
+RESTART_WARNING = ('Restart episode? If you restart this episode, all saved progress beyond '
+                   'this episode will be erased.')
+
+
 class RestartQuestion(Menu):
-    """Restart episode, from the pause menu: asked first, No first, so a stray Enter keeps
-    the place. Escape is No. aidocks/plans/saves_plan.md adds the original's warning about
-    saved progress once there is any."""
+    """Restart episode, Replay episode, or the pause menu's Restart episode: asked first
+    with the original's warning, No first, so a stray Enter keeps the place. Escape is No.
+    ``on_yes`` is called once the question has closed."""
 
     name = 'restart question'
-    title = 'Restart episode?'
+    title = RESTART_WARNING
 
-    def __init__(self, app, pause_menu):
+    def __init__(self, app, on_yes):
         super().__init__(app)
-        self.pause_menu = pause_menu
+        self.on_yes = on_yes
 
     def rows(self):
         return [Row('No', self.back), Row('Yes', self.restart)]
 
     def restart(self):
         self.stack.pop()
-        self.pause_menu.restart()
+        self.on_yes()
