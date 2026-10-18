@@ -15,7 +15,7 @@ Plan 4 of 8 ([[story_export_plan]] lists the order).
 Agreed on 2026-10-17 (the dev: "I like all of it"). They follow the original's game screen: its replay button, its slider for skipping back and forth through the current recording, its choice buttons and its voice button. Every key can be rebound on the F1 screen ([[foundation_plan]]).
 
 **While a choice is offered:**
-- **Up and Down** move through the choices, each spoken with its place, such as "Charismatic, 1 of 2".
+- **Up and Down** move through the choices, each spoken by its word alone, such as "Charismatic", never with its place (the dev, 2026-10-17: "The story choices should also ditch the menu positions as well"). They wrap round, as the menus do.
 - **Enter** chooses the one you are on.
 - **1 to 9** choose by number directly, which matters most for Holiday Party's 7-second choices.
 - **C** says the choices again.
