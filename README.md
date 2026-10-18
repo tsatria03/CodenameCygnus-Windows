@@ -9,8 +9,8 @@ the story goes.
 
 The original was played by voice: you spoke your choice aloud, and the game listened. This
 port is for the keyboard and for screen readers, so the whole game can be played without
-sight. Speaking your choices will be possible too, behind a setting that turns speech
-recognition on or off.
+sight. You can speak your choices too, behind a setting that turns speech recognition on
+or off.
 
 **Headphones are recommended.** The original says so itself, as it starts: "The acoustic
 experience of Codename Cygnus is best with the use of a high quality headset."
@@ -31,9 +31,10 @@ far:
 - saving: progress at every new part of the story, Continue, the episodes' locks, and the
   story carried from episode to episode;
 - the agent profile, with the dominant trait and the four trait scales;
-- 16 achievements of the game's own, kept on your computer.
+- 16 achievements of the game's own, kept on your computer;
+- speaking your choices aloud, with speech recognition turned on, being tried by ear.
 
-Still to come: speaking your choices aloud, and the built game.
+Still to come: the built game.
 
 What was found in the original:
 
@@ -68,7 +69,7 @@ the app.
 
 ## Requirements
 
-The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and two packages:
+The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and four packages:
 
     pip install -r requirements.txt
 
@@ -76,6 +77,10 @@ The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and two packa
   `pygame-ce`, because the two cannot be installed side by side.
 - `prismatoid`: Prism, which speaks through any screen reader other than NVDA, or through a
   Windows voice when none is running.
+- `pocketsphinx`: speech recognition, limited at each choice to that choice's words. It
+  is held at 5.0.4, the newest with a ready-made package for Windows; 5.1 needs a C
+  compiler to install.
+- `sounddevice`: the microphone, opened only while a choice is listened for.
 
 `vendor/nvda/nvdaControllerClient64.dll` ships with the repository, so NVDA speaks through
 its own client.
@@ -111,6 +116,8 @@ During an episode:
 - R replays the recording, and Left and Right skip 5 seconds while the story plays;
 - S skips on to the next choice across what you have heard before;
 - H says the scene heading;
+- V turns speech recognition on or off: with it on, "Listening." follows the first choice,
+  and saying a choice chooses it, for 15 seconds, or a timed choice's whole seven;
 - Shift with Home and End, Page Up and Page Down, and Shift with Page Up and Page Down set
   the master, background ambience and decision loop volumes;
 - Escape or P pauses, with the pause menu: Resume, Restart episode, Settings and Return to
@@ -155,7 +162,9 @@ tests\interact\audio_check.py` plays a story state the way the game will, backgr
 voice and decision loop, from the Prologue's first scene or any state named after it; N
 moves on to the next state. `python tests\interact\episode_check.py` lists the eight
 episodes, every one open, and Enter plays one with the game's own keys; leaving it comes
-back to the list. Each keeps its own save, so neither changes your volumes or keys.
+back to the list. `python tests\interact\voice_check.py` listens for any question's
+choices, or every choice word at once, and says what it heard, so speech recognition can
+be judged before playing. Each keeps its own save, so none changes your volumes or keys.
 
 ## Layout
 
@@ -172,7 +181,7 @@ tools/                   the tools that read the original's data
 tests/case/              the tests, one plain script each
 tests/suite.py           runs them all
 tests/interact/          tools to hear the game by ear, such as audio_check.py
-requirements.txt         the two packages it needs
+requirements.txt         the four packages it needs
 VERSION                  the version, as year, month, day and that day's number
 ```
 

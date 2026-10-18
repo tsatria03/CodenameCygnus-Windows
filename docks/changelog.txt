@@ -1,4 +1,5 @@
 unrelease:
+Speech recognition: with it on, say a choice aloud, as in the original. The game says "Listening." after the first choice, listens for 15 seconds or a timed choice's whole seven, and V turns it on or off. Nothing it hears is recorded.
 The Agent profile in the main menu says your dominant trait, the furthest episode you have reached, how many you have completed, your four trait scales and which way each leans, and all 16 achievements, earned or not.
 P opens the pause menu, as Escape does, in an episode and in a preview.
 A finished episode's screen starts with what was said at its end, and Continue and Replay say "Continuing" and "Replaying" and the episode's name.

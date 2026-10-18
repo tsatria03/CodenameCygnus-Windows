@@ -11,7 +11,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Story data source](project_story_data_source.md): the v53 story graph in the sqlite DB is authoritative, not the bundled v1 JSON; the port starts from scratch with no save import.
 
 ## Plans (aidocks/plans/, planned or being built)
-- [Speech recognition plan](../plans/speech_recognition_plan.md): plan 7 of 8. Spoken choices behind a setting, listening only while a choice waits and only for its words; PocketSphinx, sounddevice for the microphone, off by default, 15 seconds a time; nothing recorded; planned, ready to build.
+- [Speech recognition plan](../plans/speech_recognition_plan.md): plan 7 of 8. Spoken choices behind a setting, listening only while a choice waits and only for its words; PocketSphinx, sounddevice for the microphone, off by default, 15 seconds a time; nothing recorded; BUILT 2026-10-18 (platform/listener.py, the episode screen, tests/interact/voice_check.py), being tried by ear.
 - [Build and release plan](../plans/build_release_plan.md): plan 8 of 8. compiler.py builds CodenameCygnus.exe with PyInstaller, releaser.py versions, zips, tags and uploads from the dev's machine; Windows only, no workflow; the recordings ship separately as an AES-encrypted m1.dat on a fixed mission-1 release, which the game downloads into %APPDATA%\CodenameCygnus\missions; the compiler's nine-choice menu and the releaser's nine-row menu; planned, ready to build.
 
 ## Completed projects (aidocks/plans/, marked finished)

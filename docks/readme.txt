@@ -5,7 +5,7 @@ You are a secret agent of the Cygnus agency, and each episode is a fully voiced 
 At every turn you choose what your agent does, such as charismatic or hostile, bold or secretive.
 Your choices shape your agent's personality and change how the story goes.
 The original is no longer on the App Store, and this is a port of it for Windows, played with the keyboard and your screen reader.
-In the original you spoke your choices aloud, and the port will let you do that too, with a setting to turn it on or off.
+In the original you spoke your choices aloud, and the port lets you do that too, with a setting to turn it on or off.
 
 Every episode can be played from start to end.
 The port is still being made, and this readme grows as the game does.
@@ -68,6 +68,7 @@ S skips straight on to the next choice, but only across parts you have heard to 
 H says where you are, the scene heading.
 
 At any time:
+V turns speech recognition on or off.
 Shift with Home and Shift with End turn the master volume up and down.
 Page Up and Page Down turn the background ambience up and down.
 Shift with Page Up and Shift with Page Down turn the decision loop up and down, the sound that plays while a choice waits.
@@ -78,6 +79,20 @@ Switching away from the game's window pauses it too, and it carries on when you 
 When an episode ends, you hear "Episode complete!" and any achievements you earned.
 Then a menu has what the episode says at its end, the next episode, a preview of it, and the episode's credits.
 Escape or P during a preview pauses it, with Resume, Restart and Return to menu.
+
+Speaking your choices
+
+With speech recognition on, you can say a choice aloud instead of pressing a key, as in the original.
+It starts off; turn it on with V during an episode, or in Settings.
+When a choice comes, the first choice is read, then you hear "Listening."
+Say one of the choices, such as "Charismatic", and it is chosen, just as Enter would choose it.
+The game listens for 15 seconds, then says "No longer listening."; the keys still work, and C reads the choices and listens again.
+In Holiday Party's timed choices, it listens for the whole seven seconds.
+If it hears something that is not a choice, it says "Sorry, I did not catch that", and goes on listening.
+It listens only for the words of the choice in front of you, only while that choice waits, and nothing it hears is recorded or leaves your computer.
+Headphones keep the story and your screen reader out of the microphone.
+If there is no microphone, the game says "No microphone found. Choose with the keys."
+If Windows' privacy settings keep apps from the microphone, it says "The microphone is blocked in Windows privacy settings."; you can allow it in Windows Settings, under Privacy and security, Microphone, by turning on access for desktop apps.
 
 Saving
 
@@ -102,7 +117,7 @@ The profile also says the furthest episode you have reached, how many you have c
 Settings
 
 Each volume has its levels from 100 percent down to 0 to choose from: master, background ambience, and decision loop.
-Speech recognition can be turned on or off, though listening for spoken choices is not ready yet.
+Speech recognition turns spoken choices on or off.
 Key bindings opens the key bindings screen.
 
 Key bindings
@@ -129,4 +144,6 @@ The Windows port's own code uses the MIT License.
 The NVDA controller client, which speaks through NVDA, uses the GNU Lesser General Public License version 2.1, at https://github.com/nvaccess/nvda/blob/master/extras/controllerClient/license.txt
 Prism, which speaks through other screen readers, uses the Mozilla Public License version 2.0, at https://github.com/ethindp/prism
 Pygame, which runs the window, the keyboard and the sound, uses the GNU Lesser General Public License version 2.1, at https://github.com/pygame/pygame/blob/main/docs/LGPL.txt
+PocketSphinx, which hears spoken choices, uses Carnegie Mellon University's BSD-style license, at https://github.com/cmusphinx/pocketsphinx/blob/master/LICENSE
+The python-sounddevice package, which opens the microphone, uses the MIT License, at https://github.com/spatialaudio/python-sounddevice/blob/master/LICENSE, and the PortAudio library it uses, the MIT License too, at https://www.portaudio.com/license.html
 The game's recordings and story are Reactive Studios', and are not covered by those licenses.
