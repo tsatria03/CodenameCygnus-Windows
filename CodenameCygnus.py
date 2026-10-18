@@ -94,8 +94,12 @@ def episode_from_options(app, options):
     """The episode ``--episode`` names, or in debug mode the one ``--state`` is in, started
     at that state, ready to play; or None."""
     from codenamecygnus.game.episode_screen import EpisodeScreen
+    from codenamecygnus.game.recordings import Recordings
     from codenamecygnus.game.story import Story
     story = Story.shared()
+    if (options.state or options.episode) and not Recordings.shared().has_missions:
+        log.warning('Mission 1 is not downloaded yet, so the menu opens instead')
+        return None
     if options.state:
         if not app.debug:
             log.warning('--state works only in debug mode, so it is ignored')

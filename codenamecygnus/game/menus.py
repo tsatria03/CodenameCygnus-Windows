@@ -22,6 +22,7 @@ import random
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
+from .download import DownloadScreen, missions_ready, offer_text
 from .episode_end import PreviewScreen, credit_lines
 from .episode_screen import EpisodeScreen, RestartQuestion
 from .profile import ProfileScreen
@@ -122,6 +123,9 @@ class MainMenu(Menu):
             Row('Quit', self.app.quit)]
 
     def go_on(self, episode):
+        if not missions_ready():
+            # The recordings first, then on into the episode.
+            return self.open(DownloadScreen(self.app, on_done=lambda: self.go_on(episode)))
         self.stack.push(continue_screen(self.app, self.story, self.progress, episode))
         self.say(CONTINUING % episode.title)
 
@@ -196,6 +200,8 @@ class EpisodeMenu(Menu):
                       locked episodes, a similar menu should open with the back button,
                       description, then the locked status after it"; the row was Locked
                       at first)
+        no recordings "Download Mission 1, about 469 megabytes" in place of the buttons,
+                      until Mission 1 is downloaded (game/download.py)
     """
 
     name = 'episode menu'
@@ -226,6 +232,10 @@ class EpisodeMenu(Menu):
             # dev, 2026-10-18: "please rename locked to say start in a locked episode's
             # menu").
             rows.append(Row('Start', lambda: self.say(LOCKED)))
+        elif not missions_ready():
+            # No recordings yet: the download, in place of the buttons, as the original's
+            # DOWNLOAD button was (aidocks/plans/build_release_plan.md).
+            rows.append(Row(offer_text(), lambda: self.open(DownloadScreen(self.app))))
         elif state == NEW:
             rows.append(Row('Start', self.start))
         elif state == IN_PROGRESS:

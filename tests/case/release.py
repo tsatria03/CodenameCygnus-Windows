@@ -84,8 +84,11 @@ def test_the_build_carries_only_the_game_data_it_reads():
     text = sorted(n for n in names if n.endswith('.json'))
     assert text == [os.path.join('data', 'text', n)
                     for n in ('missions.json', 'resources.json', 'states.json')]
-    assert len(names) == 11 and compiler.missing_game_files(src) == []
-    assert compiler.data_summary(names) == '11 files: 3 story files and 8 menu sounds'
+    info = compiler.PACK_INFO in names                  # once tools/build_pack.py has run
+    assert len(names) == 11 + info and compiler.missing_game_files(src) == []
+    assert compiler.data_summary(names) == (
+        "12 files: 3 story files, 8 menu sounds and the mission pack's fingerprint" if info
+        else '11 files: 3 story files and 8 menu sounds')
     assert not any('missions' + os.sep in n or 'descriptor' in n for n in names)
 
 
@@ -94,7 +97,7 @@ def test_every_license_is_found():
     assert all(src and os.path.isfile(src) for _rel, src in found), \
         [rel for rel, src in found if not src or not os.path.isfile(src)]
     folders = {rel.split(os.sep)[0] for rel, _src in found}
-    assert folders == {'nvda-controller-client', 'prism', 'pocketsphinx', 'sounddevice', 'cffi', 'pygame'}
+    assert folders == {'nvda-controller-client', 'prism', 'pocketsphinx', 'sounddevice', 'cffi', 'cryptography', 'pygame'}
 
 
 def test_a_test_run_is_judged_by_its_log():

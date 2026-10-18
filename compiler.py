@@ -27,9 +27,9 @@ What a build carries:
   with a grammar), sounddevice with PortAudio's 64-bit DLL, and the third-party licenses as
   licenses\\;
 * the game's data, beside the exe in game\\, or inside it with --embed: only what the game
-  reads, the three exported story files in game\\data\\text and the eight menu sounds in
-  game\\data\\audio\\others\\menu. Nothing else of the original's app bundle, and never the
-  mission recordings, which the game downloads as m1.dat;
+  reads, the three exported story files and m1_pack.json in game\\data\\text and the eight
+  menu sounds in game\\data\\audio\\others\\menu. Nothing else of the original's app
+  bundle, and never the mission recordings, which the game downloads as m1.dat;
 * beside the exe, always: docks\\ (the readme, the changelog and the todo list), VERSION,
   and the license as license.txt.
 
@@ -60,12 +60,16 @@ FOLDER = NAME + '-Windows'
 
 #: What the game cannot run without: the module, and what pip calls it.
 PLAY_PACKAGES = (('pygame', 'pygame'), ('prism', 'prismatoid'),
-                 ('pocketsphinx', 'pocketsphinx'), ('sounddevice', 'sounddevice'))
+                 ('pocketsphinx', 'pocketsphinx'), ('sounddevice', 'sounddevice'),
+                 ('cryptography', 'cryptography'))
 #: The vendored DLL, and the folder it goes to inside the build (codenamecygnus/paths.py).
 BINARIES = (('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda'),)
 #: The game's data a build carries, inside game\: the files and folders the game reads.
 GAME_DATA = (('data/text', ('missions.json', 'resources.json', 'states.json')),
              ('data/audio/others/menu', None))          # None: every file in the folder
+#: The mission pack's size, fingerprint and address, written by tools/build_pack.py; a
+#: build without it cannot download its recordings, so it is warned about, not required.
+PACK_INFO = os.path.join('data', 'text', 'm1_pack.json')
 #: PocketSphinx's model files the game loads: the acoustic model and the dictionary.
 SPEECH_MODEL = (('en-us/en-us', None), ('en-us', ('cmudict-en-us.dict',)))
 #: PortAudio, as sounddevice looks for it on 64-bit Windows.
@@ -82,7 +86,8 @@ SIDE_FILES = ((os.path.join(DOCKS, 'readme.txt'), os.path.join(DOCKS, 'readme.tx
               ('LICENSE', 'license.txt'))
 #: The packages whose own licenses, from their installed copy, go inside the build.
 LICENSED_PACKAGES = (('prismatoid', 'prism'), ('pocketsphinx', 'pocketsphinx'),
-                     ('sounddevice', 'sounddevice'), ('cffi', 'cffi'))
+                     ('sounddevice', 'sounddevice'), ('cffi', 'cffi'),
+                     ('cryptography', 'cryptography'))
 
 #: Where a build gathers what PyInstaller takes as whole folders.
 STAGE = os.path.join(HERE, 'build', 'stage')
@@ -167,6 +172,9 @@ def release_warnings(changelog: str) -> list:
     found = []
     if not build_version():
         found.append('there is no VERSION file, so a release would have no version')
+    if not os.path.isfile(os.path.join(HERE, 'game', PACK_INFO)):
+        found.append('there is no game\\%s, so the build cannot download its recordings; '
+                     'run tools\\build_pack.py first' % PACK_INFO)
     try:
         with open(changelog, encoding='utf-8') as fh:
             first = fh.readline().strip()
@@ -248,6 +256,8 @@ def game_files(src: str) -> list:
     for folder, names in GAME_DATA:
         full = os.path.join(src, folder.replace('/', os.sep))
         found += [os.path.join(folder.replace('/', os.sep), n) for n in listed(full, names)]
+    if os.path.isfile(os.path.join(src, PACK_INFO)):
+        found.append(PACK_INFO)
     return found
 
 
@@ -265,9 +275,12 @@ def missing_game_files(src: str) -> list:
 
 
 def data_summary(names: list) -> str:
-    """'11 files: 3 story files and 8 menu sounds'."""
+    """'12 files: 3 story files, 8 menu sounds and the mission pack's fingerprint'."""
     sounds = sum(1 for n in names if n.lower().endswith('.mp3'))
-    return '%d files: %d story files and %d menu sounds' % (len(names), len(names) - sounds, sounds)
+    info = PACK_INFO in names
+    text = '%d files: %d story files%s %d menu sounds' % (
+        len(names), len(names) - sounds - info, ',' if info else ' and', sounds)
+    return text + (" and the mission pack's fingerprint" if info else '')
 
 
 def copy_game(src: str, dest_game: str) -> list:
@@ -324,7 +337,7 @@ def license_files() -> list:
     return found
 
 
-LICENSED = 'the NVDA client, Prism, PocketSphinx, sounddevice, cffi and pygame'
+LICENSED = 'the NVDA client, Prism, PocketSphinx, sounddevice, cffi, cryptography and pygame'
 
 
 def stage_licenses() -> int:
@@ -372,6 +385,8 @@ def command(args, embed_game=False) -> list:
     for src in prism_native_modules():
         cmd += ['--add-binary', src + os.pathsep + 'prism/_native']
     # Speech recognition is imported only when it is first used (platform/listener.py).
+    # The pack's cipher, too, imported when the first recording is read (game/pack.py).
+    cmd += ['--hidden-import', 'cryptography.hazmat.primitives.ciphers.aead']
     cmd += ['--hidden-import', 'pocketsphinx', '--hidden-import', 'sounddevice',
             '--hidden-import', '_sounddevice_data',
             '--add-data', MODEL_STAGE + os.pathsep + 'pocketsphinx/model']

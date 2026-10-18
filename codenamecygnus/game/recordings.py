@@ -9,9 +9,11 @@ so a name is looked up as:
 * a preview, ``m1eN_teaser``, as ``missions/m1/teasers/m1eN.mp3``, the name without
   ``_teaser``.
 
-From source the loose files are read; a built game will read the encrypted pack,
-``m1.dat``, instead (aidocks/plans/build_release_plan.md). A ``Recording`` is what either
-gives the audio: a path, or bytes and a name.
+Mission 1's recordings come from the loose files under ``game/data/audio/missions/`` when
+any are there, which only a source run has; otherwise from the encrypted pack, m1.dat
+(game/pack.py), the same in a build and in a source run whose missions folder was deleted
+(aidocks/plans/build_release_plan.md). The menu sounds are always loose files. A
+``Recording`` is what either gives the audio: a path, or bytes and a name.
 """
 from __future__ import annotations
 
@@ -21,6 +23,9 @@ import os
 from .. import paths
 
 log = logging.getLogger('recordings')
+
+#: The folder under game/data/audio that holds the mission recordings, loose.
+MISSIONS = 'missions'
 
 
 def story_key(file_name):
@@ -44,7 +49,8 @@ class Recording:
 
 
 class Recordings:
-    """Every MP3 under one folder, by its story key."""
+    """Every MP3 under one folder, by its story key, and the pack's when the folder has no
+    mission recordings of its own."""
 
     _shared = None
 
@@ -54,10 +60,12 @@ class Recordings:
             cls._shared = Recordings()
         return cls._shared
 
-    def __init__(self, folder=None):
+    def __init__(self, folder=None, pack='find'):
         self.folder = folder or paths.audio()
         self.index = {}
         self.twice = {}
+        self.loose_missions = 0
+        missions = os.path.join(self.folder, MISSIONS) + os.sep
         for root, dirs, files in os.walk(self.folder):
             dirs.sort()
             for f in sorted(files):
@@ -69,18 +77,45 @@ class Recordings:
                     self.twice.setdefault(key, [self.index[key]]).append(path)
                 else:
                     self.index[key] = path
+                    if path.startswith(missions):
+                        self.loose_missions += 1
         for key, where in self.twice.items():
             log.warning('the recording %s is on disk more than once; using %s', key, where[0])
         log.info('%d recordings found under %s', len(self.index), self.folder)
+        self.pack = None
+        if not self.loose_missions:
+            if pack == 'find':
+                from .pack import find_pack
+                pack = find_pack()
+            self.use_pack(pack)
+
+    @property
+    def has_missions(self):
+        """Whether Mission 1's recordings are here, loose or in the pack."""
+        return bool(self.loose_missions or self.pack is not None)
+
+    def use_pack(self, pack):
+        """Read the mission recordings from ``pack`` from now on, such as one just downloaded."""
+        self.pack = pack
+        if pack is not None:
+            log.info('mission recordings from the pack %s', pack.path)
+        elif not self.loose_missions:
+            log.info('no mission recordings: neither loose files nor a pack')
 
     def find(self, file_name):
         """The ``Recording`` for a story file name, or None when there is no such file."""
         key = story_key(file_name)
         path = self.index.get(key)
-        if path is None:
-            log.warning('no recording for %s', file_name)
-            return None
-        return Recording(key, path=path)
+        if path is not None:
+            return Recording(key, path=path)
+        if self.pack is not None and key in self.pack:
+            try:
+                return Recording(key, data=self.pack.read(key))
+            except Exception:
+                log.exception('could not read %s from the pack', key)
+                return None
+        log.warning('no recording for %s', file_name)
+        return None
 
     def menu_sound(self, name):
         """One of the interface sounds in ``others/menu``, such as ``1930Radio A``."""
