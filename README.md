@@ -69,7 +69,7 @@ the app.
 
 ## Requirements
 
-The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and four packages:
+The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and five packages:
 
     pip install -r requirements.txt
 
@@ -81,6 +81,12 @@ The port needs 64-bit Python 3.12 or newer on Windows 10 or later, and four pack
   is held at 5.0.4, the newest with a ready-made package for Windows; 5.1 needs a C
   compiler to install.
 - `sounddevice`: the microphone, opened only while a choice is listened for.
+- `cryptography`: reads each recording out of the encrypted mission pack, `m1.dat`.
+
+From source, the game plays the loose recordings under `game\data\audio\missions` when
+they are there. Without them, it plays the mission pack as a build does: the one it
+downloaded into `%APPDATA%\CodenameCygnus\missions`, or the one `tools\build_pack.py` left
+in `dist`, and offers to download it when there is neither.
 
 `vendor/nvda/nvdaControllerClient64.dll` ships with the repository, so NVDA speaks through
 its own client.
@@ -132,6 +138,8 @@ Everything the game keeps is in `%APPDATA%\CodenameCygnus`:
 - `saves\progress.json`: each episode's progress, saved at every new state;
 - `saves\heard.json`: every recording heard to its end, which S skips across;
 - `saves\achievements.json`: the achievements earned;
+- `missions\m1.dat`: Mission 1's recordings, downloaded the first time an episode needs
+  them, unless the loose recordings are in `game\data\audio\missions` (from source only);
 - `config\settings.json` and `config\keys.json`: the settings and the key bindings;
 - `logs\log.txt`, with the run before as `log.old.txt`, and `logs\crash.txt` when an error
   stops the game, which is spoken too.
@@ -181,6 +189,9 @@ signed in. Run either with nothing after it for a numbered menu.
   build into `dist\CodenameCygnus-Win-<version>.zip`, commits, tags `V<version>` and
   uploads the release, asking Y or N before each step. Its last choice puts the mission
   pack, `dist\m1.dat`, on its own `mission-1` release.
+- `python tools\build_pack.py` makes that pack from the loose recordings, and writes its
+  size and fingerprint into `game\data\text\m1_pack.json`, which a build carries to check
+  its download; commit that file.
 
 ## Layout
 
@@ -199,7 +210,7 @@ tests/suite.py           runs them all
 tests/interact/          tools to hear the game by ear, such as audio_check.py
 compiler.py              builds CodenameCygnus.exe with PyInstaller
 releaser.py              versions, builds, zips, tags and uploads a release
-requirements.txt         the four packages it needs
+requirements.txt         the five packages it needs
 VERSION                  the version, as year, month, day and that day's number
 ```
 

@@ -53,6 +53,14 @@ One you have finished has what was said at its end, Replay episode, and Preview 
 A locked one has its description and Start, which tells you why it cannot be played yet.
 Restarting or replaying an episode asks first, with the original's warning: everything saved after that episode is erased, and the episodes after it are locked again.
 
+Downloading Mission 1
+
+The game's download is small, and Mission 1's recordings come separately, about 469 megabytes, as the original's episodes did.
+Until they are downloaded, each episode's screen has "Download Mission 1, about 469 megabytes" in place of its buttons; Continue in the main menu downloads them first.
+The game says how far it has got every 10 percent, and Enter says it at any time; Escape cancels.
+Once the download is whole, the game checks it, fetches it again if it arrived damaged, and then the episodes can be played.
+The recordings are kept in the missions folder of the game's save folder, so updating the game never downloads them again.
+
 Playing an episode
 
 Each part of the story plays by itself, and when a question is asked, the choices come.
@@ -145,6 +153,7 @@ The NVDA controller client, which speaks through NVDA, uses the GNU Lesser Gener
 Prism, which speaks through other screen readers, uses the Mozilla Public License version 2.0, at https://github.com/ethindp/prism
 Pygame, which runs the window, the keyboard and the sound, uses the GNU Lesser General Public License version 2.1, at https://github.com/pygame/pygame/blob/main/docs/LGPL.txt
 PocketSphinx, which hears spoken choices, uses Carnegie Mellon University's BSD-style license, at https://github.com/cmusphinx/pocketsphinx/blob/master/LICENSE
+The cryptography package, which reads the recordings from their download, uses the Apache License 2.0 or the BSD 3-Clause License, at https://github.com/pyca/cryptography/blob/main/LICENSE
 CFFI, which Prism and sounddevice use to reach their libraries, uses the MIT License, at https://github.com/python-cffi/cffi/blob/main/LICENSE
 The python-sounddevice package, which opens the microphone, uses the MIT License, at https://github.com/spatialaudio/python-sounddevice/blob/master/LICENSE, and the PortAudio library it uses, the MIT License too, at https://www.portaudio.com/license.html
 The game's recordings and story are Reactive Studios', and are not covered by those licenses.
