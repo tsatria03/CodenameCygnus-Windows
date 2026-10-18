@@ -77,6 +77,13 @@ class ScreenStack:
         log.info('opened %s', screen.name)
         screen.opened()
 
+    def put_under(self, screen):
+        """Put ``screen`` at the bottom without opening it; it opens when the screens above
+        it close. ``--episode`` starts the story over a main menu this way, so the menu says
+        nothing until the episode is left."""
+        self.screens.insert(0, screen)
+        log.info('put %s underneath', screen.name)
+
     def pop(self):
         """Close the top screen and reopen the one below it."""
         if not self.screens:

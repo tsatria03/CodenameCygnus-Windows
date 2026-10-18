@@ -79,8 +79,11 @@ class App:
             if top is not self.stack.top and isinstance(top, KeyBindScreen):
                 self.loop.resume()          # the F1 screen just closed
 
-    def run(self, first_screen, pygame):
-        """The main loop. Returns when the game quits or the last screen closes."""
+    def run(self, first_screen, pygame, on_top=None):
+        """The main loop. Returns when the game quits or the last screen closes.
+
+        ``on_top``, such as an episode started with ``--episode``, opens instead of
+        ``first_screen``, which waits underneath until it closes."""
         os.environ.setdefault('PYGAME_HIDE_SUPPORT_PROMPT', '1')
         pygame.display.init()
         pygame.font.init()
@@ -93,7 +96,11 @@ class App:
         if self.options.exit_after:
             self.loop.after(self.options.exit_after, self.quit)
             log.info('quitting by itself after %s seconds', self.options.exit_after)
-        self.stack.push(first_screen)
+        if on_top is not None:
+            self.stack.put_under(first_screen)
+            self.stack.push(on_top)
+        else:
+            self.stack.push(first_screen)
         try:
             while self.running and not self.stack.empty:
                 for event in pygame.event.get():
