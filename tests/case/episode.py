@@ -682,6 +682,60 @@ def test_f3_types_underscores_with_shift_and_minus():
     assert app.stack.top.query == 'card_' and app.speech.said[-1] == '_'
 
 
+class FakeClipboard:
+    """Stands in for the Windows clipboard, so a test never touches the real one."""
+
+    def __init__(self, text=''):
+        self.text = text
+
+    def get_text(self):
+        return self.text
+
+    def set_text(self, text):
+        self.text = text
+        return True
+
+
+def open_jump(app, clipboard_text=''):
+    key(app, 'f3')
+    prompt = app.stack.top
+    prompt.clipboard = FakeClipboard(clipboard_text)
+    return prompt
+
+
+def test_f3_pastes_a_name_with_ctrl_v_and_jumps_to_it():
+    app, screen = start(debug=True)
+    prompt = open_jump(app, 'State: 012introRejectPrompt\r\n')     # as copied from the script
+    key(app, 'v', ['ctrl'])
+    assert prompt.query == '012introRejectPrompt'
+    assert app.speech.said[-1] == 'Pasted 012introRejectPrompt'
+    key(app, 'return')
+    assert screen.run.current.name == '012introRejectPrompt'
+
+
+def test_f3_copies_with_ctrl_c_and_cuts_with_ctrl_x():
+    app, screen = start(debug=True)
+    prompt = open_jump(app)
+    type_text(app, 'contact')
+    key(app, 'c', ['ctrl'])
+    assert prompt.clipboard.text == 'contact' and prompt.query == 'contact'
+    assert app.speech.said[-1] == 'Copied contact'
+    key(app, 'x', ['ctrl'])
+    assert prompt.clipboard.text == 'contact' and prompt.query == ''
+    assert app.speech.said[-1] == 'Cut contact'
+    key(app, 'c', ['ctrl'])
+    assert app.speech.said[-1] == 'Nothing typed yet.'
+    key(app, 'v', ['ctrl'])
+    assert prompt.query == 'contact'
+
+
+def test_f3_says_when_the_clipboard_has_no_text():
+    app, screen = start(debug=True)
+    prompt = open_jump(app, '   ')
+    key(app, 'v', ['ctrl'])
+    assert prompt.query == '' and app.speech.said[-1] == 'The clipboard has no text.'
+
+
 def test_f3_lists_several_matches_to_choose_from():
     app, screen = start(debug=True)
     key(app, 'f3')

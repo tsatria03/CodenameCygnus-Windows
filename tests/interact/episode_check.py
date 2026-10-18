@@ -22,7 +22,8 @@ the end of the episode, comes back to the list.
 Debug mode is always on here, so its keys work too:
 
     F2              skip the recording, heard or not, without noting it as heard
-    F3              jump to any state: type part of its name, then Enter
+    F3              jump to any state: type part of its name, then Enter; Ctrl+V pastes
+                    a name, Ctrl+C copies what is typed and Ctrl+X cuts it
     F4              the state's name, the trait scores and the story flags
 
 It keeps its own save, in %APPDATA%\\CodenameCygnus\\episode_check, so your volumes and

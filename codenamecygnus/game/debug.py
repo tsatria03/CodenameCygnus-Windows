@@ -4,13 +4,14 @@ Debug mode is for source runs only (aidocks/plans/foundation_plan.md), and its k
 on F2 to F4 so they never clash with the story's:
 
     F2  skip the recording, heard or not, never marking it heard (episode_screen.py)
-    F3  jump to any state: type part of its name, then Enter
+    F3  jump to any state: type or paste part of its name, then Enter
     F4  the state's name, the four trait scores and every story flag that is set
 
 F3's names are the ones in analysis/script/, so a state found there can be jumped to.
 """
 from __future__ import annotations
 
+from ..platform.clipboard import Clipboard
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from .story import TRAITS
@@ -38,13 +39,18 @@ def matches(story, query):
 
 
 class JumpScreen(Screen):
-    """F3: type part of a state's name, Enter to jump, Escape to go back to the story."""
+    """F3: type part of a state's name, Enter to jump, Escape to go back to the story.
+
+    Ctrl+V pastes a name, such as one copied from analysis/script/ or given to try; Ctrl+C
+    copies what is typed and Ctrl+X cuts it (the dev, 2026-10-18: "add the ability to
+    cut/copy/paste in the input prompt so I don't have to hand type the states")."""
 
     name = 'debug jump'
 
-    def __init__(self, app, episode_screen):
+    def __init__(self, app, episode_screen, clipboard=None):
         super().__init__(app)
         self.episode_screen = episode_screen
+        self.clipboard = clipboard if clipboard is not None else Clipboard()
         self.query = ''
 
     def opened(self):
@@ -63,6 +69,8 @@ class JumpScreen(Screen):
             if self.query:
                 gone, self.query = self.query[-1], self.query[:-1]
                 self.say(gone)
+        elif mods == ['ctrl'] and key in ('v', 'c', 'x'):
+            {'v': self.paste, 'c': self.copy, 'x': self.cut}[key]()
         elif key == '-' and mods == ['shift']:
             self.type('_')
         elif len(key) == 1 and key.isalnum() and mods in ([], ['shift']):
@@ -74,6 +82,35 @@ class JumpScreen(Screen):
     def type(self, char):
         self.query += char
         self.say(char)
+
+    def paste(self):
+        """Add the clipboard's text, its first line only and without spaces around it, so
+        a name copied with its line ending or a "State: " before it still matches."""
+        text = self.clipboard.get_text().strip().splitlines()
+        text = text[0].strip() if text else ''
+        if text.lower().startswith('state:'):
+            text = text[len('state:'):].strip()
+        if not text:
+            return self.say('The clipboard has no text.')
+        self.query += text
+        self.say('Pasted %s' % text)
+
+    def copy(self):
+        if not self.query:
+            return self.say('Nothing typed yet.')
+        if self.clipboard.set_text(self.query):
+            self.say('Copied %s' % self.query)
+        else:
+            self.say('Could not copy.')
+
+    def cut(self):
+        if not self.query:
+            return self.say('Nothing typed yet.')
+        if self.clipboard.set_text(self.query):
+            self.say('Cut %s' % self.query)
+            self.query = ''
+        else:
+            self.say('Could not cut.')
 
     def search(self):
         if not self.query:
