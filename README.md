@@ -17,9 +17,10 @@ experience of Codename Cygnus is best with the use of a high quality headset."
 
 ## Status
 
-**The port is in its first stage, and there is nothing to play yet.** So far the
-original app has been studied, the story data has been recovered and checked, and the
-repository has been laid out. The game itself is still to be written.
+**The port is being built.** The original app has been studied and its story data
+recovered and checked. Speech, the keys, the settings and the sound are built, and an
+episode can be played from start to end with `--episode`. The menus, saving, achievements
+and speech recognition are still to come.
 
 What has been found so far:
 
@@ -73,12 +74,20 @@ From the repository's folder:
     python CodenameCygnus.py
 
 For now it opens on a stand-in main menu, Settings and Quit, which speaks through your
-screen reader; the story itself does not play yet. F1 opens the key bindings from anywhere.
+screen reader. An episode is started from the command line until the real menus come,
+such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue. F1 opens the key
+bindings from anywhere.
+
+During an episode, Up and Down move through the choices once they are read, Enter or 1 to
+9 choose, C says them again, Space pauses, R replays the recording, Left and Right skip 5
+seconds, H says the scene heading, and Escape opens the pause menu.
 
 - `--debug`: debug mode for this run. Running from source, the Settings screen's Debug mode
   row turns it on for good.
-- `--episode ID` and `--state NAME`: start an episode, or in debug mode any story state.
-  They wait for the story engine.
+- `--episode ID`: start an episode straight away, from `1.1.1`, the Prologue, to `1.8.1`,
+  Holiday Party. Return to menu goes to the main menu.
+- `--state NAME`: start at any story state, in debug mode. It waits for debug mode in the
+  story engine.
 - `-v`: a more detailed log.
 - `--exit-after SECONDS`: quit by itself.
 

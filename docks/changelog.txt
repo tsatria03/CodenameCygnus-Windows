@@ -1,1 +1,2 @@
 unrelease:
+Episodes can now be played from start to end: the choices are read after each question, and you choose with the arrows and Enter or the number keys, pause with Space, replay with R, skip 5 seconds with Left and Right, and hear where you are with H.
