@@ -64,6 +64,18 @@ def test_quit_on_the_main_menu_ends_the_game():
     assert not app.running
 
 
+def test_debug_mode_shows_in_the_window_title_at_once():
+    options = types.SimpleNamespace(debug=False, episode=None, state=None, verbose=False, exit_after=None)
+    app = App(options, speech=Ear(), settings=Settings(paths.user_path('c', 'settings.json')),
+              keymap=KeyMap(paths.user_path('c', 'keys.json')), loop=RunLoop())
+    titles = []
+    app.pygame = types.SimpleNamespace(display=types.SimpleNamespace(set_caption=titles.append))
+    assert app.window_title() == 'Codename Cygnus'
+    app.set_debug(True)
+    app.set_debug(False)
+    assert titles == ['Codename Cygnus (debug)', 'Codename Cygnus']
+
+
 def test_each_run_keeps_the_run_before_as_log_old():
     e = entry()
     folder = paths.logs_dir()

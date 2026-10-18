@@ -74,6 +74,7 @@ class App:
         self.stack = ScreenStack()
         self.running = True
         self.held = None            # [key, mods, when it next repeats] for a key that repeats
+        self.pygame = None          # pygame, once run() has opened the window
         self.debug = False
         # Debug mode is for source runs only: --debug turns it on for one run, and the
         # Settings row turns it on or off for good.
@@ -85,9 +86,21 @@ class App:
         on = bool(on) and not paths.FROZEN
         self.debug = on
         self.keymap.debug = on
+        self.retitle()
         if remember and self.settings.get('debug') != on:
             self.settings.set('debug', on)
         log.info('debug mode %s', 'on' if on else 'off')
+
+    def window_title(self):
+        """ "Codename Cygnus", or "Codename Cygnus (debug)" in debug mode (the dev,
+        2026-10-18: "When you enable debug from the source, make it so the window title
+        changes")."""
+        return '%s (debug)' % TITLE if self.debug else TITLE
+
+    def retitle(self):
+        """Give the window its title, at once, once there is a window."""
+        if self.pygame is not None:
+            self.pygame.display.set_caption(self.window_title())
 
     @property
     def listener(self):
@@ -158,7 +171,8 @@ class App:
         pygame.display.init()
         pygame.font.init()
         screen = pygame.display.set_mode(WINDOW_SIZE)
-        pygame.display.set_caption(TITLE)
+        self.pygame = pygame
+        self.retitle()
         font = pygame.font.SysFont('consolas', 18) or pygame.font.Font(None, 22)
         clock = pygame.time.Clock()
         if not self.audio.ok:
