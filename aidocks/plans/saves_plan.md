@@ -10,7 +10,13 @@ metadata:
 
 ## Built in sections
 
-1. **Progress, Continue and the episodes' states.** `saves/progress.json`; the story carried from episode to episode; the place to continue from, saved at every new state; Continue in the main menu; each episode's state and lock in the episode list; each episode's own buttons by its state; and Restart and Replay with the original's whole warning, erasing what came after. Status: building.
+1. **Progress, Continue and the episodes' states.** `saves/progress.json`; the story carried from episode to episode; the place to continue from, saved at every new state; Continue in the main menu; each episode's state and lock in the episode list; each episode's own buttons by its state; and Restart and Replay with the original's whole warning, erasing what came after. Status: built 2026-10-18, waiting for the dev to try it by ear.
+   - `codenamecygnus/game/progress.py` holds `Progress`: `state_of`, `locked`, `start_variables`, `began_with`, `place` and `continue_episode` to read, and `begin`, `save_place`, `complete` and `restart` to write, each writing the file at once. An entry the file gets wrong is left out, and an unknown episode or `last` is ignored.
+   - `Playthrough.enter` keeps `entered_with`, the variables before the state, which is what the place saves.
+   - The episode screen begins a fresh start in the file, saves the place at every state played and where S lands, completes the episode at its end, and restarts through `Progress.restart`. Continue and debug jumps start at a state, so they do not begin the episode again.
+   - The main menu's first row is "Continue Art Show" while there is a place to go back to. The episode list adds ", in progress", ", completed" or ", locked" to each episode; Enter on a locked one says its description and "Locked. You need to complete the previous episode before starting this one." Each episode's own screen offers its buttons by its state, as above, and Restart episode and Replay episode both ask the original's question, "Restart episode? If you restart this episode, all saved progress beyond this episode will be erased.", then say "Restarting Prologue." The pause menu's Restart asks the same.
+   - `--episode` starts with what the episode before it ended with, as Start does.
+   - `tests/case/progress.py` has 10 tests and `tests/case/menus.py` 8 more; each test gets a fresh progress file.
 2. **The agent profile** ([[menus_plan]]): the dominant trait, furthest episode, episodes completed, game progress, the four trait scales and the achievements. Status: waiting.
 
 ## How section 1 works

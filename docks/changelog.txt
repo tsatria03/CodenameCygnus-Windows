@@ -1,4 +1,8 @@
 unrelease:
+Your progress is saved as you play, at every new part of the story, and Continue in the main menu takes you back to where you left off.
+Each episode carries on the choices and traits of the one before it, as the original did, so Signum Cygni remembers what you did in every earlier episode.
+Episodes now says whether each episode is in progress, completed or locked, and opens the next one only once you finish the one before.
+An episode in progress offers Continue and Restart, and a finished one Replay and a preview of the next, each restart asking first with the original's warning.
 When an episode ends, a menu offers the next episode, a preview of it, and the episode's own credits, as the original's end of episode did.
 Each episode in Episodes can play the preview of the episode after it.
 Episodes has a Back row at the top.

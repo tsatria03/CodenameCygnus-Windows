@@ -74,9 +74,12 @@ From the repository's folder:
     python CodenameCygnus.py
 
 It opens with a loading message, the first time with the original's headphones notice,
-then the main menu: Episodes, Settings, Credits and Quit, all spoken through your screen
-reader. Episodes lists the eight episodes, every one open until saving is built, and Enter
-on one says its description and offers Start and a preview of the next episode. At the
+then the main menu: Continue while an episode is in progress, Episodes, Settings, Credits
+and Quit, all spoken through your screen reader. Episodes lists the eight episodes with
+whether each is in progress, completed or locked; the Prologue and Holiday Party are open
+from the start, and each other episode opens when the one before it is finished. Enter on
+one says its description and offers Start, Continue and Restart, or Replay and a preview of
+the next episode. Your progress is saved in `saves\progress.json` at every new state. At the
 end of an episode, a menu offers the next episode, its preview and the episode's credits.
 Settings has the three volumes, a switch for
 speech recognition and the key bindings. An episode can also be started from the
