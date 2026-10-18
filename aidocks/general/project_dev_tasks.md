@@ -10,10 +10,11 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
-- Adapt the build script and the release script for Windows only, without the GitHub Actions workflow and its CI steps ([[project_windows_only]]). Planned in [[build_release_plan]]; `compiler.py`, `releaser.py`, the mission pack and its download are built (2026-10-18); the pack and its download are confirmed working, and the builds and a game release are still to be tried.
+None.
 
 ## Finished
 
+- `compiler.py` and `releaser.py` build and release the game for Windows only, with no GitHub Actions workflow, and Mission 1's recordings ship as the encrypted `m1.dat`, built by `tools/build_pack.py` and downloaded by the game, finishing [[build_release_plan]] (2026-10-18).
 - Speech recognition for choices is built, behind its setting, with `tests/interact/SPEECH_check.py` to try it by ear, finishing [[speech_recognition_plan]] (2026-10-18).
 - The agent profile, the last part of the menus, is built, finishing the menus and saves plans (2026-10-18).
 - Progress is saved in `saves/progress.json` at every new state, with Continue, the episodes' states and locks, the story carried from episode to episode, and Restart and Replay erasing what came after (2026-10-18).

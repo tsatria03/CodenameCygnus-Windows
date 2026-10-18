@@ -1,16 +1,16 @@
 ---
 name: build_release_plan
-description: "Plan 8 of 8: compiler.py builds CodenameCygnus.exe with PyInstaller and releaser.py versions, zips and publishes a release from the dev's own machine; Windows only, no GitHub Actions workflow; the recordings ship separately as an encrypted m1.dat the game downloads; folder build, single exe or one-file chosen each time. Status: planned, ready to build."
+description: "Plan 8 of 8: compiler.py builds CodenameCygnus.exe with PyInstaller and releaser.py versions, zips and publishes a release from the dev's own machine; Windows only, no GitHub Actions workflow; the recordings ship separately as an encrypted m1.dat the game downloads; folder build, single exe or one-file chosen each time. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: building,** started 2026-10-18 (the dev: "Now you can make the 2 python scripts.").
+**Status: finished,** both sections confirmed by the dev on 2026-10-18, the last with the full release ("The release works perfectly!"). Started the same day (the dev: "Now you can make the 2 python scripts.").
 
 ## Built in sections
 
-1. **The two scripts,** `compiler.py` and `releaser.py` at the repository's root, with `tests/case/release.py` for what they work out without building. Status: built 2026-10-18; the releaser's mission pack upload, choice 9, worked for the dev the same day, and the builds and the game release are still to be tried.
+1. **The two scripts,** `compiler.py` and `releaser.py` at the repository's root, with `tests/case/release.py` for what they work out without building. Status: done, confirmed by the dev on 2026-10-18: the mission pack upload, choice 9, and then a full release, building, zipping, committing, tagging and uploading ("The release works perfectly!").
    - **What a build carries:** the game's code; the NVDA client in `vendor\nvda`; Prism with its compiled half; PocketSphinx with only the model it uses, the English acoustic model and the dictionary, leaving out its two language models (28 MB) since the grammar replaces them; sounddevice with only PortAudio's 64-bit DLL; and of the game's data only what it reads: `game\data\text`'s three exported files (not the original's three descriptors) and the eight menu sounds in `game\data\audio\others\menu`. Nothing else of the original's bundle, and never the mission recordings or `m1.dat`.
    - **Beside the exe:** `docks\` (the readme, changelog and todo list, the changelog without an empty `unrelease:`), `VERSION` and the license as `license.txt`. **Inside it,** as `licenses\`: the NVDA client's, Prism's, pygame's LGPL, PocketSphinx's, sounddevice's and cffi's, each package's taken from its installed copy.
    - **`--test`** sets `CYGNUS_SILENT`, the dummy SDL drivers and a throwaway `CYGNUS_USER_DIR`, starts the build with `--exit-after 6`, and needs the log's "game data:" line, which `CodenameCygnus.py` now writes at every start, its "Codename Cygnus closed", no `crash.txt`, and exit code 0.
@@ -49,7 +49,7 @@ The dev's idea (2026-10-17): "I was thinking of creating a file called m1.dat in
   - It downloads to `m1.dat.part` and renames it only once complete, so a cut connection never leaves a broken pack.
   - It checks the finished file against its SHA-256 fingerprint, built into the game, and fetches it again if damaged.
   - Game updates never touch it, since it is in the save folder, not the game folder.
-- **The pack is encrypted with AES, through the `cryptography` package,** with a key built into the game. Each recording is encrypted on its own, so the game decrypts only the one it needs, in memory, and hands it to pygame, never unpacking anything to disk. This keeps out casual copying, not a determined person, since the key ships with the game. `cryptography` joins `requirements.txt` when this is built.
+- **The pack is encrypted with AES, through the `cryptography` package,** with a key built into the game. Each recording is encrypted on its own, so the game decrypts only the one it needs, in memory, and hands it to pygame, never unpacking anything to disk. This keeps out casual copying, not a determined person, since the key ships with the game. `cryptography` is in `requirements.txt`.
 - **The pack holds an index** of every recording's name, place and size, so a recording is found by its story name as before ([[audio_plan]]).
 - **A tool in `tools/` builds `m1.dat`** from `game/data/audio/missions/m1/` on the dev's machine and prints its SHA-256 for the game. The dev uploads it to the `mission-1` release.
 
@@ -81,4 +81,4 @@ The dev's idea (2026-10-17): "I was thinking of creating a file called m1.dat in
 
 ## Open questions
 
-None. Ready to build once the dev says so.
+None.
