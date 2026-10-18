@@ -32,7 +32,7 @@ def test_the_quiet_settings_are_in_force():
 def test_the_game_data_is_found_from_source():
     assert os.path.isdir(paths.text())
     assert os.path.isfile(os.path.join(paths.text(), 'states.json'))
-    assert os.path.isdir(os.path.join(paths.audio(), 'others', 'menu'))
+    assert os.path.isdir(os.path.join(paths.audio(), 'others', 'interface'))
 
 
 def test_the_nvda_client_is_where_speech_looks_for_it():

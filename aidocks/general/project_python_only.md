@@ -26,7 +26,7 @@ Don't propose moving parts to another language or engine. Choices are made from 
   - `missions/m1/episodes/e1/` to `e8/`: the 756 voice recordings, in `p1` to `p5` folders that match the original's resource collections exactly.
   - `missions/m1/sources/`: the 52 backgrounds and decision sounds, 45 `back_*` and 7 `decision_*`.
   - `missions/m1/teasers/`: the six voiced episode previews, renamed `m1e2.mp3` to `m1e7.mp3`. The story's `m1eN_teaser.m4a` is `teasers/m1eN.mp3`, the name without `_teaser`, so the lookup needs that one mapping.
-  - `others/menu/`: the eight interface sounds ([[menus_plan]]).
+  - `others/interface/`: the eight interface sounds ([[menus_plan]]).
 - **Everything under `missions/` is gitignored and stays on the dev's machine,** the ambiences included, since some of them carry voices when listened to closely (the dev, 2026-10-17: "I found out that I can here voice recordings in some of them upon closer listening"). Only `others/` is in git (the dev: "Do not exclude the others folder").
 - The game finds a recording by its file name anywhere under `game/data/audio/`, so a file can move between folders without code changes. Each name appears once.
 - Don't move, rename or convert recordings unless the dev asks.

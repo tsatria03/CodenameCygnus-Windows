@@ -111,7 +111,7 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   3. **Settings** opens the same Settings screen as the main menu's, so a volume or speech recognition can be changed without leaving the episode.
   4. **Return to menu** saves the player's place and goes to the main menu, where Continue comes back to it. Since nothing is lost, it does not ask "Are you sure you want to stop this episode?" as the original did.
 
-- **The menus play the original's interface sounds at the original's moments** (the dev, 2026-10-17: "I agree"). They are in `game/data/audio/others/menu/`. The original played them from `CCStyleManager`'s class methods (0x100008e48 to 0x100008f20), found by searching the code for their names:
+- **The menus play the original's interface sounds at the original's moments** (the dev, 2026-10-17: "I agree"). They are in `game/data/audio/others/interface/`. The original played them from `CCStyleManager`'s class methods (0x100008e48 to 0x100008f20), found by searching the code for their names:
   - `1930Radio A`: `playPlaySound`, `playBackButton` and `playMissionsVCSound`. In the port: starting or continuing an episode, going back with Escape, and opening Episodes.
   - `1930Radio B`: `playProfileVCSound`. In the port: opening the Agent profile.
   - `1930Radio C`: `playRestartSound` and `playInfoVCSound`. In the port: restarting an episode, and opening Credits, which stands in for the Info screen.

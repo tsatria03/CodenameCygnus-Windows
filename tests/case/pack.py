@@ -91,7 +91,7 @@ def test_the_info_holds_the_size_and_fingerprint():
 def audio_folder(loose_missions):
     """A game/data/audio with the menu sounds, and the missions too if asked."""
     root = folder()
-    menu = os.path.join(root, 'others', 'menu')
+    menu = os.path.join(root, 'others', 'interface')
     os.makedirs(menu)
     with open(os.path.join(menu, 'Sound A.mp3'), 'wb') as f:
         f.write(b'menu')

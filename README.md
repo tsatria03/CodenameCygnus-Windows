@@ -245,7 +245,7 @@ included. The port never writes to it.
     episode and part.
   - `sources/`: the 52 background ambiences and decision sounds.
   - `teasers/`: the six episode previews, `m1e2.mp3` to `m1e7.mp3`.
-- `game/data/audio/others/menu/` holds the eight interface sounds the menus play.
+- `game/data/audio/others/interface/` holds the eight interface sounds the menus play.
 - **Everything under `missions/` is left out of the repository**, being the original's
   voice acting, over 400 MB of it; even some of the ambiences carry voices. It belongs in
   those folders on your own machine. Only the interface sounds are in the repository.

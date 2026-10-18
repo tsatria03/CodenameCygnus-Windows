@@ -81,7 +81,7 @@ def test_the_single_exe_carries_the_game_inside_and_the_console_build_a_console(
 def test_the_build_carries_only_the_game_data_it_reads():
     src = compiler.game_source()
     names = compiler.game_files(src)
-    text = sorted(n for n in names if n.endswith('.json'))
+    text = sorted(n for n in names if n.endswith('.json') and n != compiler.PACK_INFO)
     assert text == [os.path.join('data', 'text', n)
                     for n in ('missions.json', 'resources.json', 'states.json')]
     info = compiler.PACK_INFO in names                  # once tools/build_pack.py has run

@@ -39,8 +39,8 @@ WINDOW_SIZE = (800, 500)
 FPS = 60
 #: The window's text, in lines from the top; the rest is cut.
 MAX_LINES = 22
-#: The interface sounds in game/data/audio/others/menu/, by when they play, as the original
-#: played them from CCStyleManager (aidocks/plans/menus_plan.md).
+#: The interface sounds in game/data/audio/others/interface/, by when they play, as the
+#: original played them from CCStyleManager (aidocks/plans/menus_plan.md).
 SOUNDS = {
     'play': '1930Radio A',      # starting or continuing an episode (playPlaySound)
     'back': '1930Radio A',      # going back with Escape (playBackButton)

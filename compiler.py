@@ -28,7 +28,7 @@ What a build carries:
   licenses\\;
 * the game's data, beside the exe in game\\, or inside it with --embed: only what the game
   reads, the three exported story files and m1_pack.json in game\\data\\text and the eight
-  menu sounds in game\\data\\audio\\others\\menu. Nothing else of the original's app
+  menu sounds in game\\data\\audio\\others\\interface. Nothing else of the original's app
   bundle, and never the mission recordings, which the game downloads as m1.dat;
 * beside the exe, always: docks\\ (the readme, the changelog and the todo list), VERSION,
   and the license as license.txt.
@@ -66,7 +66,7 @@ PLAY_PACKAGES = (('pygame', 'pygame'), ('prism', 'prismatoid'),
 BINARIES = (('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda'),)
 #: The game's data a build carries, inside game\: the files and folders the game reads.
 GAME_DATA = (('data/text', ('missions.json', 'resources.json', 'states.json')),
-             ('data/audio/others/menu', None))          # None: every file in the folder
+             ('data/audio/others/interface', None))          # None: every file in the folder
 #: The mission pack's size, fingerprint and address, written by tools/build_pack.py; a
 #: build without it cannot download its recordings, so it is warned about, not required.
 PACK_INFO = os.path.join('data', 'text', 'm1_pack.json')

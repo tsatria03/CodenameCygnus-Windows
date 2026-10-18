@@ -118,5 +118,5 @@ class Recordings:
         return None
 
     def menu_sound(self, name):
-        """One of the interface sounds in ``others/menu``, such as ``1930Radio A``."""
+        """One of the interface sounds in ``others/interface``, such as ``1930Radio A``."""
         return self.find(name + '.mp3')

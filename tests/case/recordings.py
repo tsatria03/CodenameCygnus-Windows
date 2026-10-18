@@ -26,7 +26,7 @@ def test_a_story_name_is_found_as_its_mp3_in_any_folder():
 
 
 def test_letter_case_does_not_matter():
-    r = Recordings(tree(['others/menu/1930Radio A.mp3']))
+    r = Recordings(tree(['others/interface/1930Radio A.mp3']))
     assert r.menu_sound('1930radio a') is not None
     assert r.find('1930RADIO A.m4a') is not None
 
@@ -38,7 +38,7 @@ def test_a_preview_is_found_without_teaser():
 
 
 def test_a_missing_recording_is_none():
-    assert Recordings(tree(['others/menu/Buy.mp3'])).find('nowhere.m4a') is None
+    assert Recordings(tree(['others/interface/Buy.mp3'])).find('nowhere.m4a') is None
 
 
 def test_a_name_found_twice_takes_the_first_and_says_so():
