@@ -4,7 +4,7 @@ Each episode carries on the choices and traits of the one before it, as the orig
 Episodes now says whether each episode is in progress, completed or locked, and opens the next one only once you finish the one before.
 An episode in progress offers Continue and Restart, and a finished one Replay and a preview of the next, each restart asking first with the original's warning.
 When an episode ends, a menu offers the next episode, a preview of it, and the episode's own credits, as the original's end of episode did.
-Each episode in Episodes can play the preview of the episode after it.
+Each episode in Episodes can play the preview of the episode after it, and Escape pauses a preview with Resume, Restart and Return to menu.
 Episodes has a Back row at the top.
 Settings has the master, background ambience and decision loop volumes, each with its levels from 100 percent down to 0 to choose from, a switch for speech recognition, and the key bindings.
 The game opens as the original did, with a loading message and, the first time, its headphones notice, then a main menu of Episodes, Settings, Credits and Quit, with the original's interface sounds.

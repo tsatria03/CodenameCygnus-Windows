@@ -18,7 +18,7 @@ from codenamecygnus.game.episode_screen import (RESTART_WARNING, EpisodeScreen, 
                                                 choices_text, heading_text, script_line)
 from codenamecygnus.game.achievements import ACHIEVEMENTS, Achievements, short_id
 from codenamecygnus.game.debug import JumpScreen, MatchMenu
-from codenamecygnus.game.episode_end import EndMenu, PreviewScreen
+from codenamecygnus.game.episode_end import EndMenu, PreviewPauseMenu, PreviewScreen
 from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.menus import MainMenu
 from codenamecygnus.game.progress import Progress
@@ -462,14 +462,52 @@ def test_a_preview_plays_the_next_episodes_teaser_and_comes_back_when_it_ends():
     assert isinstance(app.stack.top, EndMenu)
 
 
-def test_enter_stops_a_preview_and_space_pauses_it():
+def open_preview():
     app, screen = finish_prologue()
     key(app, 'down')
     key(app, 'down')
-    key(app, 'return')
-    key(app, 'space')
-    assert app.audio.paused and app.speech.said[-1] == 'Paused.'
-    key(app, 'return')
+    key(app, 'return')                              # Preview next episode
+    return app, app.stack.top
+
+
+def test_space_and_enter_do_nothing_in_a_preview():
+    app, preview = open_preview()
+    for name in ('space', 'return'):
+        key(app, name)
+        assert app.stack.top is preview and not app.audio.paused, name
+
+
+def test_escape_pauses_a_preview_with_its_own_pause_menu():
+    app, preview = open_preview()
+    key(app, 'escape')
+    menu = app.stack.top
+    assert isinstance(menu, PreviewPauseMenu) and app.audio.paused
+    assert [r.text for r in menu.rows()] == ['Resume', 'Restart', 'Return to menu']
+    assert app.speech.said[-2:] == ['Paused.', 'Resume']
+    key(app, 'return')                              # Resume
+    assert app.stack.top is preview and not app.audio.paused
+    assert app.audio.voice == 'm1e2_teaser.m4a'
+    key(app, 'escape')
+    key(app, 'escape')                              # Escape there resumes too
+    assert app.stack.top is preview and not app.audio.paused
+
+
+def test_restart_plays_the_preview_again_from_its_beginning():
+    app, preview = open_preview()
+    plays = len(app.audio.voices)
+    key(app, 'escape')
+    key(app, 'down')
+    key(app, 'return')                              # Restart
+    assert app.stack.top is preview and not app.audio.paused
+    assert len(app.audio.voices) == plays + 1 and app.audio.voice == 'm1e2_teaser.m4a'
+    assert app.speech.said[-1] == 'Restarting the preview of Art Show.'
+
+
+def test_return_to_menu_stops_the_preview():
+    app, preview = open_preview()
+    key(app, 'escape')
+    key(app, 'end')
+    key(app, 'return')                              # Return to menu
     assert isinstance(app.stack.top, EndMenu)
     assert app.audio.voice is None and not app.audio.paused
 

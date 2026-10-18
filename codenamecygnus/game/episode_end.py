@@ -14,7 +14,7 @@ episode, and so no preview. Back takes the plan's "Return to menu" row's place, 
 is first in every menu and the two would do the same (aidocks/general/feedback_back_first.md).
 
 A preview (``PreviewScreen``) plays the teaser's recording alone and comes back when it
-ends; Enter or Escape stops it, and Space pauses it.
+ends; Escape pauses it, with a pause menu of Resume, Restart and Return to menu.
 """
 from __future__ import annotations
 
@@ -54,7 +54,11 @@ class CreditList(Menu):
 
 
 class PreviewScreen(Screen):
-    """The next episode's teaser, heard alone."""
+    """The next episode's teaser, heard alone. Escape pauses it and opens its pause menu,
+    Resume, Restart and Return to menu, as the story's pause menu does (the dev, 2026-10-18:
+    "Escape should open a pause menu for it that contains resume/restart/ return to menu,
+    just like the other pause screen has"). No other key does anything; Space no longer
+    pauses it."""
 
     name = 'preview'
 
@@ -68,17 +72,46 @@ class PreviewScreen(Screen):
         self.started = False
         self.paused = False
 
+    @property
+    def title(self):
+        return self.next.title if self.next else 'the next episode'
+
     def opened(self):
         if self.started:
+            if self.paused == 'cover':          # F1 closed: carry on
+                self.resume()
             return
         self.started = True
-        self.say('Preview of %s.' % (self.next.title if self.next else 'the next episode'))
+        self.say('Preview of %s.' % self.title)
         audio = self.app.audio
         audio.resume()                  # the episode under it may have been paused
         audio.stop_decision()
         audio.set_background(None)
+        self.play()
+
+    def play(self):
+        """The teaser from its beginning."""
         voice = self.state.voice if self.state is not None else None
-        audio.play_voice(self.recordings.find(voice) if voice else None, on_end=self.ended)
+        self.app.audio.play_voice(self.recordings.find(voice) if voice else None, on_end=self.ended)
+
+    def covered(self):
+        # The pause menu pauses it before it opens; anything else, such as F1, pauses it here.
+        if not self.paused:
+            self.pause('cover')
+
+    def pause(self, why):
+        self.paused = why
+        self.app.audio.pause()
+
+    def resume(self):
+        if self.paused:
+            self.paused = False
+            self.app.audio.resume()
+
+    def restart(self):
+        self.resume()
+        self.play()
+        self.say('Restarting the preview of %s.' % self.title)
 
     def ended(self):
         if self.stack.top is self:
@@ -86,26 +119,47 @@ class PreviewScreen(Screen):
 
     def closed(self):
         self.app.audio.stop_voice()
-        if self.paused:
-            self.app.audio.resume()
+        self.resume()
 
     def handle_key(self, key, mods):
-        if key in ('escape', 'return', 'enter') and not mods:
-            self.app.play_sound('back')
-            self.stack.pop()
-        elif key == 'space' and not mods:
-            self.paused = not self.paused
-            if self.paused:
-                self.app.audio.pause()
-                self.say('Paused.')
-            else:
-                self.app.audio.resume()
-                self.say('Resumed.')
+        if key == 'escape' and not mods:
+            self.pause('player')
+            self.app.play_sound('open')
+            self.stack.push(PreviewPauseMenu(self.app, self))
         return True
 
     def lines(self):
-        return ['Preview of %s' % (self.next.title if self.next else 'the next episode'),
-                '', '(paused)' if self.paused else '']
+        return ['Preview of %s' % self.title, '', '(paused)' if self.paused else '']
+
+
+class PreviewPauseMenu(Menu):
+    """Escape during a preview: Resume, Restart, Return to menu. Escape here is Resume."""
+
+    name = 'preview pause menu'
+    title = 'Paused.'
+
+    def __init__(self, app, preview):
+        super().__init__(app)
+        self.preview = preview
+
+    def rows(self):
+        return [Row('Resume', self.back), Row('Restart', self.restart),
+                Row('Return to menu', self.return_to_menu)]
+
+    def back(self):
+        self.app.play_sound('back')
+        self.stack.pop()
+        self.preview.resume()
+
+    def restart(self):
+        self.app.play_sound('restart')
+        self.stack.pop()
+        self.preview.restart()
+
+    def return_to_menu(self):
+        self.app.play_sound('back')
+        self.stack.pop()
+        self.stack.pop()                # the preview, which stops its recording as it closes
 
 
 class EndMenu(Menu):
