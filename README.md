@@ -74,9 +74,10 @@ From the repository's folder:
     python CodenameCygnus.py
 
 For now it opens on a stand-in main menu, Settings and Quit, which speaks through your
-screen reader. An episode is started from the command line until the real menus come,
-such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue. F1 opens the key
-bindings from anywhere.
+screen reader. Until the real menus come, an episode is started from the command line,
+such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue, or chosen from a
+list with `tests\interact\episode_check.py` (see Tests). F1 opens the key bindings from
+anywhere.
 
 During an episode, Up and Down move through the choices once they are read, Enter or 1 to
 9 choose, C says them again, Space pauses, R replays the recording, Left and Right skip 5
@@ -105,7 +106,9 @@ speak, never play a sound, never open a window, and never touch your save.
 `tests\interact` holds tools to hear the game by ear instead. `python
 tests\interact\audio_check.py` plays a story state the way the game will, background,
 voice and decision loop, from the Prologue's first scene or any state named after it; N
-moves on to the next state. It keeps its own save, so it never changes your volumes.
+moves on to the next state. `python tests\interact\episode_check.py` lists the eight
+episodes, every one open, and Enter plays one with the game's own keys; leaving it comes
+back to the list. Each keeps its own save, so neither changes your volumes or keys.
 
 ## Layout
 

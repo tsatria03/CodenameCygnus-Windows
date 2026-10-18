@@ -36,6 +36,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Questions are checks](feedback_questions_are_checks.md): a question from the dev gets an answer in chat, not edits.
 - [No question pickers](feedback_no_question_pickers.md): ask questions as plain text, never through the picker tool.
 - [One question at a time](feedback_one_question_at_a_time.md): one question per reply, with a recommendation.
+- [Test tools in tests/interact](feedback_test_tools_in_interact.md): a tool for trying something by ear, such as the episode chooser, is its own script in tests/interact/ with its own save, never part of the game's menus.
 
 ## User
 - [Screen reader](user_screen_reader.md): the dev uses NVDA; lists and short lines, no wide tables, and never make noise from tools.
