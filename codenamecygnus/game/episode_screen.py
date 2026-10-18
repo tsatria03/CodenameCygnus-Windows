@@ -425,6 +425,8 @@ class EpisodeScreen(Screen):
         if self.paused:
             self.resume()
         log.info('debug: skipped %s', self.run.current.name)
+        # The skip sound, as S plays (the dev, 2026-10-18: "f2 should play the skip sound").
+        self.audio.play_menu(self.recordings.menu_sound('PushButton D'))
         self.voice_playing = None
         self.audio.stop_voice()
         self.voice_ended()

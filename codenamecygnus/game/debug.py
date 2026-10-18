@@ -56,6 +56,7 @@ class JumpScreen(Screen):
     def handle_key(self, key, mods):
         if key == 'escape' and not mods:
             self.stack.pop()
+            self.say('Canceled.')       # the dev, 2026-10-18: "pressing escape ... should say canceled"
         elif key in ('return', 'enter') and not mods:
             self.search()
         elif key == 'backspace' and not mods:

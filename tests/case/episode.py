@@ -642,6 +642,7 @@ def test_f2_skips_a_recording_never_heard_without_noting_it():
     key(app, 'f2')
     assert screen.offered and screen.run.current.name == '001introOpen'
     assert '001introOpen.m4a' not in heard
+    assert app.audio.menu_sounds == ['PushButton D']
     key(app, 'f2')
     assert app.speech.said[-1] == 'Already at the choices.'
 
@@ -700,6 +701,7 @@ def test_f3_says_when_nothing_or_too_much_matches():
     assert app.speech.said[-1].endswith('states match. Type more of the name.')
     key(app, 'escape')
     assert app.stack.top is screen and not app.audio.paused
+    assert app.speech.said[-1] == 'Canceled.'
 
 
 def test_f3_to_a_state_in_another_episode_plays_that_episode():

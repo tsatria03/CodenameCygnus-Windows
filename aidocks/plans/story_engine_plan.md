@@ -1,6 +1,6 @@
 ---
 name: story_engine_plan
-description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: being built in five sections; 1 to 3 done, 4 built."
+description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: being built in five sections; 1 to 4 done, 5 (achievements) next."
 metadata:
   node_type: memory
   type: project
@@ -28,7 +28,7 @@ The dev asked on 2026-10-17 for it to be done in sections ("This next part shoul
    - Restart keeps the same heard list, which belongs to the player.
    - `tests/interact/episode_check.py` keeps its own `heard.json` in its own save, so S there knows only what was heard through the tool.
    - `tests/case/episode.py` has 6 tests for it, among them skipping a Prologue played before and ending with the same variables as playing it.
-4. **Debug mode:** F2, F3, F4 and `--state`. Status: built 2026-10-18, waiting for the dev to try it by ear.
+4. **Debug mode:** F2, F3, F4 and `--state`. Status: done, confirmed by the dev by ear on 2026-10-18 ("It works."), with two changes made then: Escape in F3's prompt says "Canceled." ("pressing escape after f3 should say canceled"), and F2 plays the skip sound, `PushButton D`, as S does ("f2 should play the skip sound").
    - `codenamecygnus/game/debug.py` holds F3's `JumpScreen` and `MatchMenu` and F4's `state_report`; the episode screen's `do_debug_skip`, `do_debug_jump`, `do_debug_state` and `jump` use them. The keys work only in debug mode, through the key map's `debug` flag.
    - **F2** goes on as if the recording had ended, heard or not, without noting it heard; at a choice it says "Already at the choices."
    - **F3** opens "Jump to a state." Letters and digits are typed and echoed, Shift with a letter types a capital and Shift with Minus an underscore, Backspace takes the last off and says it, and Escape goes back to the story. Enter jumps at once when one name holds what was typed, or one matches exactly; lists the matches when there are up to 40, Enter on one jumping there; and asks for more of the name when there are more. Matching ignores letter case.
