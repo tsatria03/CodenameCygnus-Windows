@@ -89,8 +89,12 @@ pause menu, where the episode can be restarted. Holding a skip or a volume key r
   row turns it on for good.
 - `--episode ID`: start an episode straight away, from `1.1.1`, the Prologue, to `1.8.1`,
   Holiday Party. Return to menu goes to the main menu.
-- `--state NAME`: start at any story state, in debug mode. It waits for debug mode in the
-  story engine.
+- `--state NAME`: start at any story state, in debug mode, in the episode it belongs to.
+  The names are the ones in `analysis\script`.
+
+In debug mode, during an episode, F2 skips the recording without noting it as heard, F3
+jumps to any state by typing part of its name, and F4 says the state, the trait scores
+and the story flags.
 - `-v`: a more detailed log.
 - `--exit-after SECONDS`: quit by itself.
 

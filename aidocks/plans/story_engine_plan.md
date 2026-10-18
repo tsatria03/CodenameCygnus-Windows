@@ -1,6 +1,6 @@
 ---
 name: story_engine_plan
-description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: being built in five sections; 1 and 2 done, 3 built."
+description: "Plan 4 of 8: playing the story graph: states, choices, automatic, conditional and timed transitions, variables and traits, and the keys a player uses during an episode, S and what counts as heard, the debug keys, scene headings on H, the van escape fix, and 16 local achievements. Status: being built in five sections; 1 to 3 done, 4 built."
 metadata:
   node_type: memory
   type: project
@@ -21,14 +21,23 @@ The dev asked on 2026-10-17 for it to be done in sections ("This next part shoul
    - `--episode 1.3.1` opens the episode with the stand-in main menu waiting silently underneath (`ScreenStack.put_under`), so Return to menu has somewhere to go. An episode that does not exist logs a warning and opens the menu.
    - V and the debug keys wait for section 4 and the speech recognition plan; V says "Speech recognition is not ready yet."
    - `tests/case/episode.py` drives it with a stand-in audio that notes what it was asked to play.
-3. **Heard recordings and S:** `saves/heard.json` and S skipping across heard recordings to the next choice. Status: built 2026-10-17 (the dev: "Now all we need is S for skipping."), waiting for the dev to try it by ear.
+3. **Heard recordings and S:** `saves/heard.json` and S skipping across heard recordings to the next choice. Status: done, confirmed by the dev by ear on 2026-10-18 ("S also works perfectly."). Built 2026-10-17 (the dev: "Now all we need is S for skipping.").
    - `codenamecygnus/game/heard.py` keeps every recording heard to its end by its story key, such as `016f_contactmark`, writing the file when a new one is heard. The episode screen notes a voice when it ends, by playing through or by Right past its end, and only when it was found on disk.
    - S follows the rules below: "Not heard yet" on a new recording, "Already at the choices" while a choice waits, and otherwise on through `Playthrough.after_voice` across every heard recording, each state entered as play would. At a choice or the end it acts as if that voice had just finished: the decision loop, the choices and any clock. At a recording not heard yet it plays it from its start. The background is the one of the state it stops at.
    - S plays the original's skip sound, `PushButton D`, as [[menus_plan]] says.
    - Restart keeps the same heard list, which belongs to the player.
    - `tests/interact/episode_check.py` keeps its own `heard.json` in its own save, so S there knows only what was heard through the tool.
    - `tests/case/episode.py` has 6 tests for it, among them skipping a Prologue played before and ending with the same variables as playing it.
-4. **Debug mode:** F2, F3, F4 and `--state`. Status: waiting.
+4. **Debug mode:** F2, F3, F4 and `--state`. Status: built 2026-10-18, waiting for the dev to try it by ear.
+   - `codenamecygnus/game/debug.py` holds F3's `JumpScreen` and `MatchMenu` and F4's `state_report`; the episode screen's `do_debug_skip`, `do_debug_jump`, `do_debug_state` and `jump` use them. The keys work only in debug mode, through the key map's `debug` flag.
+   - **F2** goes on as if the recording had ended, heard or not, without noting it heard; at a choice it says "Already at the choices."
+   - **F3** opens "Jump to a state." Letters and digits are typed and echoed, Shift with a letter types a capital and Shift with Minus an underscore, Backspace takes the last off and says it, and Escape goes back to the story. Enter jumps at once when one name holds what was typed, or one matches exactly; lists the matches when there are up to 40, Enter on one jumping there; and asks for more of the name when there are more. Matching ignores letter case.
+   - **A jump to a state in another episode** starts that episode there, carrying the variables over, so its end and Return to menu work. `Story.episode_of` finds each state's episode from the episodes' starts; no state is in two episodes. The six previews and the two cut states belong to none, and a jump to one stays in the episode playing. "Jumped to 012introRejectPrompt, in Prologue." is said after.
+   - **F4** says "State 001introOpen. Openness 0, Predictability 0, Diplomacy 0, Activeness 0. Flags: ...", every variable that is not a trait, by name, with its value.
+   - **`--state NAME`** in debug mode starts the episode that state is in, at that state; out of debug mode, or for a state that does not exist, the log says it is ignored.
+   - `Playthrough.enter` decides afresh at every state whether the episode has reached its end, so a jump away from the end state goes on playing.
+   - `tests/interact/episode_check.py` turns debug mode on, so the three keys work there.
+   - `tests/case/episode.py` has 10 tests for it, and `tests/case/story.py` one for `episode_of`.
 5. **Achievements:** the 16, announced at a quiet moment and saved in `saves/achievements.json`. Status: waiting.
 
 Plan 4 of 8 ([[story_export_plan]] lists the order).
