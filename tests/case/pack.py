@@ -6,7 +6,7 @@ import io
 import os
 import tempfile
 
-from episode import STORY, key, make_app
+from episode import READY, STORY, key, make_app
 
 from codenamecygnus.game import download as downloads
 from codenamecygnus.game import pack as packs
@@ -192,11 +192,11 @@ def test_an_episode_offers_the_download_until_mission_1_is_there():
         app = make_app()
         screen = EpisodeMenu(app, STORY, STORY.episodes['1.1.1'], Progress.shared(STORY))
         rows = [r.text for r in screen.rows()]
-        assert rows[0] == 'Back' and rows[-1].startswith('Download Mission 1, about ')
+        assert rows[0] == 'Back' and rows[-1] == 'Download Mission 1'
         locked = EpisodeMenu(app, STORY, STORY.episodes['1.2.1'], Progress.shared(STORY))
         assert [r.text for r in locked.rows()][-1] == 'Start'
     finally:
-        Recordings._shared = None
+        Recordings._shared = READY
 
 
 def test_the_download_screen_says_how_it_goes_and_loads_the_pack():
@@ -218,7 +218,7 @@ def test_the_download_screen_says_how_it_goes_and_loads_the_pack():
         assert Recordings.shared().has_missions
         assert [r.text for r in menu.rows()][-1] == 'Start'
     finally:
-        Recordings._shared = None
+        Recordings._shared = READY
 
 
 def test_escape_cancels_the_download():
@@ -233,7 +233,7 @@ def test_escape_cancels_the_download():
         key(app, 'escape')
         assert app.speech.said[-1] == 'Download canceled.' and screen.download.cancelled
     finally:
-        Recordings._shared = None
+        Recordings._shared = READY
 
 
 def test_without_its_info_the_game_cannot_download():
@@ -243,7 +243,7 @@ def test_without_its_info_the_game_cannot_download():
         app.stack.push(DownloadScreen(app, info=None, dest=os.path.join(folder(), 'm1.dat')))
         assert app.speech.said[-1].startswith('Mission 1 cannot be downloaded')
     finally:
-        Recordings._shared = None
+        Recordings._shared = READY
 
 
 if __name__ == '__main__':

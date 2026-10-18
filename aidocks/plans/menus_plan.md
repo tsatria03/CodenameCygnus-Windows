@@ -125,7 +125,7 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   - Each row is the episode's number, title and state only: "Episode 2, Art Show, in progress." The states are new, in progress, completed and locked.
   - Enter on an episode opens its own screen, which says its description first and then offers its buttons: Start, or Continue while in progress; Restart once it has been started before; and Preview next episode once it is finished and there is a next one.
   - Enter on a locked episode says its description and then "Locked. You need to complete the previous episode before starting this one."
-  - While Mission 1's recordings are not downloaded yet, an open episode's screen offers "Download Mission 1, about 470 megabytes" in place of Start ([[build_release_plan]]).
+  - While Mission 1's recordings are not downloaded yet, an open episode's screen offers "Download Mission 1" in place of Start ([[build_release_plan]]).
 
 ## Open questions
 

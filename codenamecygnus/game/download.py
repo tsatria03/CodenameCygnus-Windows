@@ -1,7 +1,7 @@
 """Downloading Mission 1's recordings: section 2 of aidocks/plans/build_release_plan.md.
 
 While no recordings are there, loose or in a pack (game/recordings.py), an episode's screen
-offers "Download Mission 1, about 469 megabytes" in place of its buttons, as the original's
+offers "Download Mission 1" in place of its buttons, as the original's
 DOWNLOAD button did, and Continue in the main menu downloads first.
 
 The download runs on a thread of its own, with Python's own urllib, into m1.dat.part in
@@ -45,10 +45,9 @@ def megabytes(info):
     return int(round(size / (1 << 20)))
 
 
-def offer_text(info='unread'):
-    """ "Download Mission 1, about 469 megabytes" """
-    info = packs.read_info() if info == 'unread' else info
-    return 'Download Mission 1, about %d megabytes' % megabytes(info)
+#: The row an episode's screen offers, without the size (the dev, 2026-10-18: "Please
+#: remove the size lable").
+OFFER = 'Download Mission 1'
 
 
 def open_url(url):

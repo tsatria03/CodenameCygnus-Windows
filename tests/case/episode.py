@@ -22,6 +22,7 @@ from codenamecygnus.game.episode_end import EndMenu, PreviewPauseMenu, PreviewSc
 from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.menus import MainMenu
 from codenamecygnus.game.progress import Progress
+from codenamecygnus.game.recordings import Recordings
 from codenamecygnus.game.story import Story
 from codenamecygnus.platform import runloop
 from codenamecygnus.platform.keymap import KeyMap
@@ -29,6 +30,11 @@ from codenamecygnus.platform.runloop import RunLoop
 from codenamecygnus.platform.settings import Settings
 
 STORY = Story()
+# The menus offer the download while this machine has no mission recordings, loose or
+# packed (game/download.py); the tests play as though Mission 1 were here, whatever this
+# machine has. tests/case/pack.py takes them away where it needs to, and puts this back.
+READY = Recordings.shared()
+READY.loose_missions = READY.loose_missions or 1
 
 
 class Ear:
