@@ -220,6 +220,14 @@ class Story:
     def playable_episodes(self):
         return [e for e in self.episodes.values() if e.playable]
 
+    def next_episode(self, episode):
+        """The episode finishing this one opens, such as Art Show after the Prologue, or
+        None: Signum Cygni ends Mission 1, and Holiday Party stands alone."""
+        for e in self.playable_episodes():
+            if e.locked_by == episode.id:
+                return e
+        return None
+
     # ---- where a state goes ---------------------------------------------
     def next_state(self, name, variables):
         """Where ``name`` goes by itself once its voice has ended, or None when it waits for

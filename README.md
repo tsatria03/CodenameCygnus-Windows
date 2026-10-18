@@ -76,7 +76,9 @@ From the repository's folder:
 It opens with a loading message, the first time with the original's headphones notice,
 then the main menu: Episodes, Settings, Credits and Quit, all spoken through your screen
 reader. Episodes lists the eight episodes, every one open until saving is built, and Enter
-on one says its description and offers Start. Settings has the three volumes, a switch for
+on one says its description and offers Start and a preview of the next episode. At the
+end of an episode, a menu offers the next episode, its preview and the episode's credits.
+Settings has the three volumes, a switch for
 speech recognition and the key bindings. An episode can also be started from the
 command line, such as `python CodenameCygnus.py --episode 1.1.1` for the Prologue. F1
 opens the key bindings from anywhere.

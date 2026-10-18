@@ -8,8 +8,8 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
 2. **Its voice ends:** if the state waits for a choice, the decision loop starts and the
    first choice is the one you are on, said by its word alone; a timed one starts its
    clock. Otherwise the story goes on by itself to the next state.
-3. **The episode's end state's voice ends:** "Episode complete!" and the completion text,
-   then Enter or Escape goes back to the menu.
+3. **The episode's end state's voice ends:** "Episode complete!", the completion text and
+   any achievements, then the end menu (game/episode_end.py).
 
     Up and Down     move through the choices from the first, wrapping round
     Left and Right  the same, while a choice waits
@@ -139,7 +139,9 @@ class EpisodeScreen(Screen):
             self.resume()
 
     def covered(self):
-        self.pause(BY_COVER)
+        # Once the episode is complete, the end menu covers it, and its background plays on.
+        if not self.complete:
+            self.pause(BY_COVER)
 
     def closed(self):
         self.cancel_timer()
@@ -253,11 +255,22 @@ class EpisodeScreen(Screen):
         text = 'Episode complete! ' + self.episode.completion_text.strip()
         self.say(text.strip(), interrupt=False)
         self.announce()
-        self.say('Press Enter to return to the menu.', interrupt=False)
+        from .episode_end import EndMenu       # it starts episodes, so it imports this module
+        self.stack.push(EndMenu(self.app, self))
 
     def leave(self):
         """Back to the menu below."""
         self.stack.pop()
+
+    def start_next(self, episode):
+        """The end menu's Next episode: that episode in this one's place, the story so far
+        carried on, as aidocks/plans/saves_plan.md has an episode start with the variables
+        the one before it ended with."""
+        log.info('episode %s goes on to %s', self.episode.id, episode.id)
+        self.stack.replace(EpisodeScreen(self.app, episode, story=self.story,
+                                         recordings=self.recordings,
+                                         variables=self.run.variables, heard=self.heard,
+                                         achievements=self.achievements))
 
     def restart(self):
         """The episode again from its start, with the variables it began with."""

@@ -101,8 +101,15 @@ def test_an_episode_says_its_description_then_offers_start():
     assert isinstance(screen, EpisodeMenu)
     assert app.speech.said[-2:] == ['Episode 2, Art Show. %s' % STORY.episodes['1.2.1'].description,
                                     'Back']
-    assert [r.text for r in screen.rows()] == ['Back', 'Start']
+    assert [r.text for r in screen.rows()] == ['Back', 'Start', 'Preview next episode']
     assert sounds(app)[-1] == 'sound a'
+
+
+def test_the_last_episodes_screens_have_no_preview():
+    app = make_app()
+    for episode_id in ('1.7.1', '1.8.1'):
+        menu = EpisodeMenu(app, STORY, STORY.episodes[episode_id])
+        assert [r.text for r in menu.rows()] == ['Back', 'Start'], episode_id
 
 
 def test_start_plays_the_episode_and_leaving_it_comes_back_to_the_list():

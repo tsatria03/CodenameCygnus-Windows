@@ -4,7 +4,8 @@
                      the first time only, the headphones notice
     the main menu    Episodes, Settings, Credits, Quit; Escape quits too
     Episodes         Mission 1's episodes, each by its number and title; Enter opens its
-                     own screen, which says its description and offers Start
+                     own screen, which says its description and offers Start and, where
+                     there is one, Preview next episode
     Credits          Reactive Studios' company credits, and a line for the port
 
 Every one is a spoken menu (ui/menu.py), and each plays the original's interface sound at
@@ -20,6 +21,7 @@ import random
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 from ..ui.settings_screen import SettingsScreen
+from .episode_end import PreviewScreen, credit_lines
 from .episode_screen import EpisodeScreen
 from .story import Story
 
@@ -148,7 +150,13 @@ class EpisodeMenu(Menu):
         self.title = '%s. %s' % (episode_name(episode), episode.description.strip())
 
     def rows(self):
-        return [Row('Back', self.back), Row('Start', self.start)]
+        rows = [Row('Back', self.back), Row('Start', self.start)]
+        # The original offered PREVIEW NEXT once the episode was finished; until
+        # aidocks/plans/saves_plan.md knows that, it is offered whenever there is one.
+        if self.episode.preview and self.episode.preview in self.story.states:
+            rows.append(Row('Preview next episode', lambda: self.open(
+                PreviewScreen(self.app, self.story, self.episode))))
+        return rows
 
     def start(self):
         """The episode in this screen's place, so leaving it comes back to the list."""
@@ -156,22 +164,9 @@ class EpisodeMenu(Menu):
         self.stack.replace(EpisodeScreen(self.app, self.episode, story=self.story))
 
 
-def credit_lines(credits):
-    """Credits as rows: "CEO: Jonathon Myers", or a heading alone, such as "Voice actors"."""
-    out = []
-    for c in credits:
-        title, credit = c.get('title', '').strip(), c.get('credit', '').strip()
-        if title and credit:
-            out.append('%s: %s' % (title, credit))
-        elif credit or title:
-            text = credit or title
-            out.append(text.capitalize() if text.isupper() else text)
-    return out
-
-
 class CreditsScreen(Menu):
     """Reactive Studios' company credits, as the original's Info screen had them, and the
-    port's line. Each episode's own credits come at its end (section 3)."""
+    port's line. Each episode's own credits come at its end (game/episode_end.py)."""
 
     name = 'credits'
     title = 'Credits. Codename Cygnus is a game by Reactive Studios.'

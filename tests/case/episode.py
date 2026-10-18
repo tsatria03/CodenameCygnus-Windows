@@ -18,6 +18,7 @@ from codenamecygnus.game.episode_screen import (EpisodeScreen, PauseMenu, choice
                                                 heading_text, script_line)
 from codenamecygnus.game.achievements import ACHIEVEMENTS, Achievements, short_id
 from codenamecygnus.game.debug import JumpScreen, MatchMenu
+from codenamecygnus.game.episode_end import EndMenu, PreviewScreen
 from codenamecygnus.game.heard import Heard
 from codenamecygnus.game.menus import MainMenu
 from codenamecygnus.game.story import Story
@@ -401,19 +402,82 @@ def test_losing_the_window_pauses_and_coming_back_carries_on():
     assert not app.audio.paused
 
 
-def test_the_end_says_episode_complete_and_enter_returns_to_the_menu():
+def finish_prologue():
     app, screen = start()
-    episode = STORY.episodes['1.1.1']
-    jump(app, screen, episode.end)
+    jump(app, screen, STORY.episodes['1.1.1'].end)
     if app.audio.voice is not None:                 # the Prologue's end has none
         end_voice(app)
-    assert screen.complete
+    return app, screen
+
+
+def test_the_end_says_episode_complete_then_opens_the_end_menu_on_back():
+    app, screen = finish_prologue()
+    episode = STORY.episodes['1.1.1']
+    assert screen.complete and isinstance(app.stack.top, EndMenu)
     said = app.speech.said
     assert said[-2].startswith('Episode complete!') and episode.completion_text.strip() in said[-2]
-    key(app, 'down')
-    assert screen.run.current.name == episode.end
-    key(app, 'return')
+    assert app.speech.heard[-1] == ('Back', False), 'the end menu cut off the completion text'
+    assert [r.text for r in app.stack.top.rows()] == ['Back', 'Next episode, Art Show',
+                                                      'Preview next episode', 'Credits']
+    key(app, 'return')                              # Back
     assert isinstance(app.stack.top, MainMenu)
+    assert app.audio.background is None and app.audio.voice is None
+
+
+def test_next_episode_starts_it_with_the_story_so_far():
+    app, screen = finish_prologue()
+    screen.run.variables['Diplomacy'] = 2           # as the Prologue's choices left it
+    key(app, 'down')
+    key(app, 'return')                              # Next episode, Art Show
+    playing = app.stack.top
+    assert isinstance(playing, EpisodeScreen) and playing.episode.title == 'Art Show'
+    assert playing.run.variables['Diplomacy'] == 2 and playing.heard is screen.heard
+    assert app.stack.screens[0].__class__ is MainMenu and len(app.stack.screens) == 2
+
+
+def test_the_end_credits_list_the_episodes_cast_back_first():
+    app, screen = finish_prologue()
+    key(app, 'end')
+    key(app, 'return')                              # Credits
+    credits = app.stack.top
+    rows = [r.text for r in credits.rows()]
+    assert rows[:3] == ['Back', 'Voice actors', 'Miss Honeybourne: Sarah Elmaleh']
+    assert app.speech.said[-2:] == ['Credits. Prologue.', 'Back']
+    key(app, 'escape')
+    assert isinstance(app.stack.top, EndMenu)
+    assert app.speech.said[-2:] == ['Episode complete.', 'Credits']     # back on the row left
+
+
+def test_a_preview_plays_the_next_episodes_teaser_and_comes_back_when_it_ends():
+    app, screen = finish_prologue()
+    key(app, 'down')
+    key(app, 'down')
+    key(app, 'return')                              # Preview next episode
+    preview = app.stack.top
+    assert isinstance(preview, PreviewScreen) and app.speech.said[-1] == 'Preview of Art Show.'
+    assert app.audio.voice == 'm1e2_teaser.m4a' and app.audio.background is None
+    end_voice(app)
+    assert isinstance(app.stack.top, EndMenu)
+
+
+def test_enter_stops_a_preview_and_space_pauses_it():
+    app, screen = finish_prologue()
+    key(app, 'down')
+    key(app, 'down')
+    key(app, 'return')
+    key(app, 'space')
+    assert app.audio.paused and app.speech.said[-1] == 'Paused.'
+    key(app, 'return')
+    assert isinstance(app.stack.top, EndMenu)
+    assert app.audio.voice is None and not app.audio.paused
+
+
+def test_the_last_episodes_have_no_next_episode_or_preview():
+    for episode_id in ('1.7.1', '1.8.1'):
+        app, screen = start(episode_id)
+        jump(app, screen, STORY.episodes[episode_id].end)
+        until_choices(app, screen)
+        assert [r.text for r in app.stack.top.rows()] == ['Back', 'Credits'], episode_id
 
 
 def test_the_prologue_plays_through_by_its_keys():
@@ -838,7 +902,7 @@ def test_an_achievement_at_the_end_is_said_after_episode_complete():
     assert screen.complete
     said = app.speech.said
     assert said[-3].startswith('Episode complete!')
-    assert said[-2:] == ['Achievement earned: Mission Complete.', 'Press Enter to return to the menu.']
+    assert said[-2:] == ['Achievement earned: Mission Complete.', 'Back']
 
 
 def test_an_achievement_passed_with_s_still_counts():
