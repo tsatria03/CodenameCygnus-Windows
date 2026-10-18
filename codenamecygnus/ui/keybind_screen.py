@@ -1,5 +1,6 @@
 """The key bindings screen, opened with F1 from anywhere and read aloud.
 
+    Back            the first row, which the screen opens on; Enter on it goes back
     Up and Down     move through the actions, each read with its keys, wrapping round
     Left and Right  the same as Up and Down
     Home and End    the first action and the last
@@ -41,12 +42,24 @@ class KeyBindScreen(Screen):
         self.confirm_reset = False
 
     @property
+    def count(self):
+        """Back, then every action."""
+        return 1 + len(self.keymap.actions)
+
+    @property
     def action(self):
-        return self.keymap.actions[self.index]
+        """The action the screen is on, or None on Back."""
+        return self.keymap.actions[self.index - 1] if self.index > 0 else None
 
     def current_text(self):
         a = self.action
+        if a is None:
+            return 'Back'
         return '%s: %s' % (self.keymap.label(a), self.keymap.keys_text(a))
+
+    def close(self):
+        self.app.play_sound('back')
+        self.stack.pop()
 
     def opened(self):
         self.capturing = self.confirm_reset = False
@@ -54,7 +67,7 @@ class KeyBindScreen(Screen):
         self.say(self.current_text(), interrupt=False)
 
     def move_to(self, i):
-        self.index = i % len(self.keymap.actions)
+        self.index = i % self.count
         self.say(self.current_text())
 
     def capture(self, add):
@@ -92,7 +105,7 @@ class KeyBindScreen(Screen):
             self.say(self.current_text())
             return True
         if key in ('escape', 'f1'):
-            self.stack.pop()
+            self.close()
         elif key in ('up', 'left'):
             self.move_to(self.index - 1)
         elif key in ('down', 'right'):
@@ -100,7 +113,11 @@ class KeyBindScreen(Screen):
         elif key == 'home':
             self.move_to(0)
         elif key == 'end':
-            self.move_to(len(self.keymap.actions) - 1)
+            self.move_to(self.count - 1)
+        elif key in ('return', 'enter') and self.action is None:
+            self.close()                    # Back
+        elif self.action is None and key in ('a', 'delete', 'backspace'):
+            self.say(self.current_text())   # nothing to rebind on Back
         elif key in ('return', 'enter'):
             self.capture(add=False)
         elif key == 'a':
@@ -116,8 +133,8 @@ class KeyBindScreen(Screen):
         return True
 
     def lines(self):
-        out = ['Key bindings', '']
-        for i, a in enumerate(self.keymap.actions):
+        out = ['Key bindings', '', '%s Back' % ('>' if self.index == 0 else ' ')]
+        for i, a in enumerate(self.keymap.actions, start=1):
             out.append('%s %-44s %s' % ('>' if i == self.index else ' ',
                                         self.keymap.label(a), self.keymap.keys_text(a)))
         out.append('')

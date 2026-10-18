@@ -93,10 +93,19 @@ def test_the_f1_screen_moves_with_left_and_right_and_wraps():
     app = make_app()
     app.key_down('f1', [])
     screen = app.stack.top
-    screen.handle_key('left', [])
-    assert screen.index == len(app.keymap.actions) - 1
+    screen.handle_key('left', [])                   # from Back, the last action
+    assert screen.index == len(app.keymap.actions) and screen.action is not None
     screen.handle_key('right', [])
-    assert screen.index == 0
+    assert screen.index == 0 and screen.action is None
+
+
+def test_the_f1_screen_opens_on_back_and_enter_there_goes_back():
+    app = make_app()
+    app.stack.push(TwoRows(app))
+    app.key_down('f1', [])
+    assert app.speech.said[-1] == 'Back' and isinstance(app.stack.top, KeyBindScreen)
+    app.key_down('return', [])
+    assert isinstance(app.stack.top, TwoRows) and not app.loop.held
 
 
 def test_enter_chooses_and_escape_goes_back():
@@ -147,6 +156,7 @@ def test_escape_f1_and_the_number_keys_cannot_be_rebound():
     app = make_app()
     app.key_down('f1', [])
     screen = app.stack.top
+    screen.handle_key('down', [])                   # past Back, to an action
     for key in ('escape', 'f1', '3'):
         screen.handle_key('return', [])
         screen.handle_key(key, [])
