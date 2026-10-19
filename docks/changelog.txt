@@ -1,4 +1,6 @@
 unrelease:
+
+26.10.19-1:
 The volume keys work during a preview too, as they do in the story.
 Settings has four new rows: Volume step, how far each press of a volume key turns a volume, 5, 10, 20 or 25 percent; Volume speed, how often a held volume key repeats, from every 50 to every 500 milliseconds; Seek step, how far Left and Right skip, 5, 10, 15, 20, 30 or 60 seconds; and Seek speed, how often a held Left or Right repeats.
 Left and Right now skip 10 seconds at first instead of 5; choose another seek step in Settings.
