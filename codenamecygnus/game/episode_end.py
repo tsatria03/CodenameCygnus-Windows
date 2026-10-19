@@ -7,8 +7,8 @@ any achievements earned, then opens ``EndMenu``:
     Back                    to the menu the episode was started from
     Well done, agent! ...   the episode's completion text, a row of its own, as on the
                             screen of a finished episode
-    Next episode, Art Show  the episode this one opens, the story so far carried on
     Preview next episode    the next episode's teaser, as the original's PREVIEW NEXT
+    Play next episode, Art Show   the episode this one opens, the story so far carried on
     Credits                 this episode's credits, one row each
 
 A row with nothing behind it is left out: Signum Cygni and Holiday Party have no next
@@ -16,12 +16,15 @@ episode, and so no preview. Back takes the plan's "Return to menu" row's place, 
 is first in every menu and the two would do the same (aidocks/general/feedback_back_first.md).
 
 A preview (``PreviewScreen``) plays the teaser's recording alone and comes back when it
-ends; Escape pauses it, with a pause menu of Resume, Restart and Return to menu.
+ends; Escape pauses it, with a pause menu of Resume, Restart and Return to menu. Left and
+Right skip 5 seconds back or forward, held to keep going, as in the story, and S skips the
+whole preview, with the skip sound.
 """
 from __future__ import annotations
 
 import logging
 
+from ..platform.audio import SKIP_SECONDS
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 
@@ -59,8 +62,9 @@ class PreviewScreen(Screen):
     """The next episode's teaser, heard alone. Escape pauses it and opens its pause menu,
     Resume, Restart and Return to menu, as the story's pause menu does (the dev, 2026-10-18:
     "Escape should open a pause menu for it that contains resume/restart/ return to menu,
-    just like the other pause screen has"); P does the same, as in the story. No other key
-    does anything; Space no longer pauses it."""
+    just like the other pause screen has"); P does the same, as in the story. Left and Right
+    skip 5 seconds, and S skips the whole preview. No other key does anything; Space no
+    longer pauses it."""
 
     name = 'preview'
 
@@ -124,11 +128,29 @@ class PreviewScreen(Screen):
         self.resume()
 
     def handle_key(self, key, mods):
-        if (key == 'escape' and not mods) or self.app.keymap.action_for(key, mods) == 'pause_menu':
+        action = self.app.keymap.action_for(key, mods)
+        if (key == 'escape' and not mods) or action == 'pause_menu':
             self.pause('player')
             self.app.play_sound('open')
             self.stack.push(PreviewPauseMenu(self.app, self))
+        elif self.paused:
+            pass
+        elif action in ('back', 'forward'):
+            # 5 seconds back or forward, as in the story (the dev, 2026-10-18: "You should be
+            # able to rewind/fast forward teasurs"); past the end, the preview ends.
+            self.app.audio.seek(-SKIP_SECONDS if action == 'back' else SKIP_SECONDS)
+        elif action == 'skip':
+            # The whole preview ("Pressing s on one should skip it entirely"), heard or not,
+            # with the skip sound, as S plays in the story.
+            log.info('preview of %s skipped', self.title)
+            self.app.audio.play_menu(self.recordings.menu_sound('PushButton D'))
+            self.app.audio.stop_voice()
+            self.ended()
         return True
+
+    def repeats(self, key, mods):
+        """Holding Left or Right keeps skipping, as in the story."""
+        return not self.paused and self.app.keymap.action_for(key, mods) in ('back', 'forward')
 
     def lines(self):
         return ['Preview of %s' % self.title, '', '(paused)' if self.paused else '']
@@ -192,12 +214,16 @@ class EndMenu(Menu):
         completion = self.episode.completion_text.strip()
         if completion:
             rows.append(Row(completion, lambda: self.say(self.row_text())))
-        if self.next is not None:
-            rows.append(Row('Next episode, %s' % self.next.title, self.next_episode))
+        # The preview first, then the episode itself, named for what it does (the dev,
+        # 2026-10-18: "the Preview next episode button should be located before the next
+        # episode button", and "The next episode buttn should be renamed to play next
+        # episode").
         if self.episode.preview and self.episode.preview in self.story.states:
             rows.append(Row('Preview next episode', lambda: self.open(
                 PreviewScreen(self.app, self.story, self.episode,
                               recordings=self.episode_screen.recordings))))
+        if self.next is not None:
+            rows.append(Row('Play next episode, %s' % self.next.title, self.next_episode))
         if self.episode.credits:
             rows.append(Row('Credits', lambda: self.open(
                 CreditList(self.app, 'Credits. %s.' % self.episode.title, self.episode.credits),

@@ -1,4 +1,6 @@
 unrelease:
+During a preview, Left and Right skip 5 seconds back or forward, and holding them keeps skipping; S skips the whole preview.
+At the end of an episode, Preview next episode now comes before the next episode, which is now called Play next episode.
 Making a choice plays the original's skip sound, and Enter and the number keys no longer say the choice again; a spoken choice is still said back, so you know which word was heard.
 
 26.10.18-2:

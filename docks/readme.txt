@@ -93,7 +93,8 @@ Escape or P pauses the story and opens the pause menu: Resume, Restart episode, 
 Switching away from the game's window pauses it too, and it carries on when you come back.
 
 When an episode ends, you hear "Episode complete!" and any achievements you earned.
-Then a menu has what the episode says at its end, the next episode, a preview of it, and the episode's credits.
+Then a menu has what the episode says at its end, a preview of the next episode, Play next episode, and the episode's credits.
+During a preview, Left and Right skip 5 seconds back or forward, and holding them keeps skipping; S skips the whole preview.
 Escape or P during a preview pauses it, with Resume, Restart and Return to menu.
 
 Speaking your choices

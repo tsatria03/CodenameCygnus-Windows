@@ -447,8 +447,8 @@ def test_the_end_says_episode_complete_then_opens_the_end_menu_on_back():
     assert app.speech.heard[-2:] == [('Episode complete!', False), ('Back', False)]
     assert episode.completion_text.strip() not in ' '.join(app.speech.said)
     assert [r.text for r in app.stack.top.rows()] == ['Back', episode.completion_text.strip(),
-                                                      'Next episode, Art Show',
-                                                      'Preview next episode', 'Credits']
+                                                      'Preview next episode',
+                                                      'Play next episode, Art Show', 'Credits']
     key(app, 'down')
     assert app.speech.said[-1].startswith('Well done, agent!')
     key(app, 'up')
@@ -460,9 +460,9 @@ def test_the_end_says_episode_complete_then_opens_the_end_menu_on_back():
 def test_next_episode_starts_it_with_the_story_so_far():
     app, screen = finish_prologue()
     screen.run.variables['Diplomacy'] = 2           # as the Prologue's choices left it
-    key(app, 'down')
-    key(app, 'down')
-    key(app, 'return')                              # Next episode, Art Show
+    for _ in range(3):
+        key(app, 'down')
+    key(app, 'return')                              # Play next episode, Art Show
     playing = app.stack.top
     assert isinstance(playing, EpisodeScreen) and playing.episode.title == 'Art Show'
     assert playing.run.variables['Diplomacy'] == 2 and playing.heard is screen.heard
@@ -484,7 +484,7 @@ def test_the_end_credits_list_the_episodes_cast_back_first():
 
 def test_a_preview_plays_the_next_episodes_teaser_and_comes_back_when_it_ends():
     app, screen = finish_prologue()
-    for _ in range(3):
+    for _ in range(2):
         key(app, 'down')
     key(app, 'return')                              # Preview next episode
     preview = app.stack.top
@@ -496,10 +496,33 @@ def test_a_preview_plays_the_next_episodes_teaser_and_comes_back_when_it_ends():
 
 def open_preview():
     app, screen = finish_prologue()
-    for _ in range(3):
+    for _ in range(2):
         key(app, 'down')
     key(app, 'return')                              # Preview next episode
     return app, app.stack.top
+
+
+def test_left_and_right_skip_5_seconds_in_a_preview_and_repeat_when_held():
+    app, preview = open_preview()
+    key(app, 'left')
+    key(app, 'right')
+    assert app.audio.seeks == [-5.0, 5.0] and app.stack.top is preview
+    assert preview.repeats('right', []) and not preview.repeats('s', [])
+
+
+def test_s_skips_the_whole_preview_with_the_skip_sound():
+    app, preview = open_preview()
+    key(app, 's')
+    assert isinstance(app.stack.top, EndMenu) and app.audio.voice is None
+    assert app.audio.menu_sounds[-1] == 'PushButton D'
+
+
+def test_a_paused_preview_does_not_skip():
+    app, preview = open_preview()
+    preview.pause('player')
+    key(app, 's')
+    key(app, 'right')
+    assert app.stack.top is preview and app.audio.seeks == []
 
 
 def test_space_and_enter_do_nothing_in_a_preview():
