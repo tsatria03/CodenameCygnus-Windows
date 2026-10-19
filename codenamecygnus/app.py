@@ -58,9 +58,11 @@ SOUNDS = {
     'progress': '00000Push',
     'open': 'Sound A',          # opening any other screen (playViewControllerSound)
 }
-#: Seconds a key is held before it starts repeating, and between repeats.
+#: Seconds a key is held before it starts repeating, and between repeats. The repeat was
+#: 0.15 at first; the dev chose 0.1 by ear with tests/interact/seek_check.py (2026-10-18: "I
+#: want the new repeat rate to be 100ms").
 REPEAT_DELAY = 0.4
-REPEAT_EVERY = 0.15
+REPEAT_EVERY = 0.1
 
 
 class App:

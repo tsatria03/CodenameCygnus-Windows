@@ -1,4 +1,5 @@
 unrelease:
+Holding a skip or volume key repeats faster, every 100 milliseconds instead of 150.
 An episode's Start button is now called Start episode, as Restart episode and Replay episode are.
 During a preview, Left and Right skip 5 seconds back or forward, and holding them keeps skipping; S skips the whole preview.
 At the end of an episode, Preview next episode now comes before the next episode, which is now called Play next episode.
