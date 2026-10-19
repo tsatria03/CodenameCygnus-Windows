@@ -31,6 +31,7 @@ metadata:
 
 - **One place to continue from per episode in progress,** each its own state and the variables as they were before that state was entered, so Continue entering it again applies its variables once, not twice. The main menu's Continue goes to the one played most recently. (The plan below says "the place to continue from" as one; keeping one per episode lets an episode's own Continue work even after another episode was played since.)
 - **What an episode starts with:** the variables the episode that opens it ended with, so Art Show starts with the Prologue's; the Prologue and Holiday Party start from nothing.
+- **Start is named "Start episode"** on every episode's screen, locked or not, as Restart episode and Replay episode are (the dev, 2026-10-18: "The start button should be renamed to start episode"); the list below says Start for short.
 - **Each episode's own screen, by its state,** following the original's two buttons (`-[CCEpisodeTableCell setupLeftButton]` and `setupRightButton`, read 2026-10-18), each list Back first ([[feedback_back_first]]) and the description after it:
   - not started: Start
   - in progress: Continue, then Restart episode

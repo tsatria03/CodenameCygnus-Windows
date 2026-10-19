@@ -195,7 +195,7 @@ def test_an_episode_offers_the_download_until_mission_1_is_there():
         rows = [r.text for r in screen.rows()]
         assert rows[0] == 'Back' and rows[-1] == 'Download Mission 1'
         locked = EpisodeMenu(app, STORY, STORY.episodes['1.2.1'], Progress.shared(STORY))
-        assert [r.text for r in locked.rows()][-1] == 'Start'
+        assert [r.text for r in locked.rows()][-1] == 'Start episode'
     finally:
         Recordings._shared = READY
 
@@ -231,7 +231,7 @@ def test_the_download_screen_says_how_it_goes_and_loads_the_pack():
         assert 'Downloading Mission 1. Escape cancels.' in app.speech.said
         assert 'Mission 1 is downloaded.' in app.speech.said
         assert Recordings.shared().has_missions
-        assert [r.text for r in menu.rows()][-1] == 'Start'
+        assert [r.text for r in menu.rows()][-1] == 'Start episode'
     finally:
         Recordings._shared = READY
 

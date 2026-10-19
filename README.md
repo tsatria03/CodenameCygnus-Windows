@@ -112,7 +112,7 @@ then the main menu, all spoken through your screen reader:
 - **Episodes** lists the eight episodes and whether each is in progress, completed or
   locked. The Prologue and Holiday Party are open from the start, and each other episode
   opens when the one before it is finished. Enter on one opens its own screen: its
-  description, then Start; Continue and Restart episode while in progress; or, once
+  description, then Start episode; Continue and Restart episode while in progress; or, once
   finished, what was said at its end, Replay episode and a preview of the next episode.
 - **Profile** says your dominant trait, the furthest episode reached, the episodes
   completed, your four trait scales, each with which way it leans, and the achievements.

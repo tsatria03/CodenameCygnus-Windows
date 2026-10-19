@@ -109,7 +109,7 @@ def test_an_episode_says_its_description_then_offers_start():
     assert isinstance(screen, EpisodeMenu)
     description = STORY.episodes['1.2.1'].description
     assert app.speech.said[-2:] == ['Episode 2, Art Show.', 'Back']
-    assert [r.text for r in screen.rows()] == ['Back', description, 'Start']
+    assert [r.text for r in screen.rows()] == ['Back', description, 'Start episode']
     key(app, 'down')
     assert app.speech.said[-1] == description
     key(app, 'return')                              # Enter on it says it again
@@ -123,7 +123,7 @@ def test_the_last_episodes_screens_have_no_preview():
     for episode_id in ('1.7.1', '1.8.1'):
         episode = STORY.episodes[episode_id]
         menu = EpisodeMenu(app, STORY, episode)
-        assert [r.text for r in menu.rows()] == ['Back', episode.description, 'Start'], episode_id
+        assert [r.text for r in menu.rows()] == ['Back', episode.description, 'Start episode'], episode_id
 
 
 def test_start_plays_the_episode_and_leaving_it_comes_back_to_the_list():
@@ -171,7 +171,8 @@ def test_a_locked_episode_opens_on_back_its_description_and_locked():
     screen = app.stack.top
     assert isinstance(screen, EpisodeMenu)
     assert app.speech.said[-2:] == ['Episode 2, Art Show.', 'Back']
-    assert [r.text for r in screen.rows()] == ['Back', STORY.episodes['1.2.1'].description, 'Start']
+    assert [r.text for r in screen.rows()] == ['Back', STORY.episodes['1.2.1'].description,
+                                               'Start episode']
     key(app, 'end')
     key(app, 'return')                              # Start: why not, as the original said it
     assert app.speech.said[-1] == LOCKED == ('You need to complete the previous episode '

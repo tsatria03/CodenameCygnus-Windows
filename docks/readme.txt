@@ -54,10 +54,10 @@ Holiday Party has timed choices: if you do not choose within seven seconds, the 
 
 Episodes says whether each episode is in progress, completed or locked.
 Enter on an episode opens its own screen.
-An episode you have not started has its description and Start.
+An episode you have not started has its description and Start episode.
 One in progress has its description, Continue, and Restart episode.
 One you have finished has what was said at its end, Replay episode, and Preview next episode, which plays a short teaser of the episode after it.
-A locked one has its description and Start, which tells you why it cannot be played yet.
+A locked one has its description and Start episode, which tells you why it cannot be played yet.
 Restarting or replaying an episode asks first, with the original's warning: everything saved after that episode is erased, and the episodes after it are locked again.
 
 Downloading Mission 1

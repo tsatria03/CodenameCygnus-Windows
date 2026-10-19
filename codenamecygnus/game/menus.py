@@ -159,7 +159,10 @@ def episode_name(episode):
     return 'Episode %d, %s' % (episode.number, episode.title)
 
 
-#: What a locked episode's Start row says when chosen, as the original's "Episode Locked" alert did.
+#: An episode's first button, named as Restart episode and Replay episode are (the dev,
+#: 2026-10-18: "The start button should be renamed to start episode").
+START = 'Start episode'
+#: What a locked episode's Start episode row says when chosen, as the original's "Episode Locked" alert did.
 LOCKED = 'You need to complete the previous episode before starting this one.'
 
 
@@ -197,11 +200,11 @@ class EpisodeMenu(Menu):
     be done with it by its state, as the original's two buttons were
     (aidocks/plans/saves_plan.md):
 
-        not started   Start
+        not started   Start episode
         in progress   Continue, Restart episode
         completed     Replay episode, Preview next episode; and the completion text
                       straight after Back, in the description's place
-        locked        Start, which says why it cannot start yet (the dev, 2026-10-18: "For
+        locked        Start episode, which says why it cannot start yet (the dev, 2026-10-18: "For
                       locked episodes, a similar menu should open with the back button,
                       description, then the locked status after it"; the row was Locked
                       at first)
@@ -236,18 +239,18 @@ class EpisodeMenu(Menu):
             # Start, as on a new episode, but it only says why it cannot start yet (the
             # dev, 2026-10-18: "please rename locked to say start in a locked episode's
             # menu").
-            rows.append(Row('Start', lambda: self.say(LOCKED)))
+            rows.append(Row(START, lambda: self.say(LOCKED)))
         elif not missions_ready():
             # No recordings yet: the download, in place of the buttons, as the original's
             # DOWNLOAD button was (aidocks/plans/build_release_plan.md).
             rows.append(Row(OFFER, lambda: self.open(DownloadScreen(self.app), 'download')))
         elif state == NEW:
-            rows.append(Row('Start', self.start))
+            rows.append(Row(START, self.start))
         elif state == IN_PROGRESS:
             if self.progress.place(self.episode) is not None:
                 rows.append(Row('Continue', self.go_on))
             else:
-                rows.append(Row('Start', self.start))
+                rows.append(Row(START, self.start))
             rows.append(Row('Restart episode', lambda: self.ask_restart(RESTARTING)))
         else:
             rows.append(Row('Replay episode', lambda: self.ask_restart(REPLAYING)))
