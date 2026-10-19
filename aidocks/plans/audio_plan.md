@@ -28,6 +28,8 @@ How they combine:
 - **The background carries on from state to state.** In 1002 of the transitions, the next state lists the same background file. It must keep playing without restarting.
 - A few states list two or three background files at once. In the original each one replaced the last, so the last listed is the one heard.
 
+**Choosing the skip length:** `tests/interact/seek_check.py` (the dev, 2026-10-18: "Pressing a/d will increase the seak speeds, and pressing left/right will seak based on the speed you set. I want to see what speed I like the best") plays the 20 longest recordings, with A and D setting the skip at 1, 2, 3, 5, 10, 15, 20, 30 or 60 seconds, held keys repeating at the game's rate. The game's `SKIP_SECONDS` stays 5 until the dev picks another.
+
 The 10 files no state names are the eight interface sounds of under a second in `others/interface/` (`00000Push`, `1930Radio A` to `D`, `Buy`, `PushButton D`, `Sound A`), which [[menus_plan]] uses, and two unused m1e6 backgrounds in `missions/m1/sources/`.
 
 ## Decided
