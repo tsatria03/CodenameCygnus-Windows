@@ -13,6 +13,7 @@ metadata:
 - A blank line, then `##Finished.`, a blank line, and its items below.
 - **Every heading is followed by one blank line, and a new item goes after that blank line**, at the top of the items. Never put an item straight under the heading.
 - Each item is a plain sentence or two. **A bug is stated as what happens**, with no "Fix a bug where" in front.
+- **Every sentence ends with a period**, the last one in an item included (the dev, 2026-10-19: "Please make sure change logs and todo list entries contain periods at the end of each centince").
 - An enhancement or task starts with what to do: "Add ...", "Make ...", "Remove ...".
 - A finished item says what is now true, newest first. A reworded line goes back to the top.
 - No numbering, no bullets, no markdown, no file:line references. Avoid contractions.

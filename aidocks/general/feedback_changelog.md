@@ -19,6 +19,7 @@ metadata:
 - **New lines go at the top of the `unrelease:` block**, so the block reads newest first. A reworded line goes back to the top too. If there is no `unrelease:` heading, add it at the very top.
 - **Only what a player notices:** fixes, enhancements, removed features. Leave out notes, docs, tests, refactors and build internals, and anything only developers see.
 - **Wording:** write for a player, say what is now true, and avoid contractions.
+- **Every sentence ends with a period** (the dev, 2026-10-19: "Please make sure change logs and todo list entries contain periods at the end of each centince"), the last one in an entry included; a period inside a closing quote, as in `"Continuing Art Show."`, counts. Check the whole `unrelease:` block for it before a release.
 - **No credit lines.** Entries say what changed, not who changed it.
 - **Released entries stay as they are.** Never edit an entry that already has a version heading.
 - **Release size:** a release aims for 50 to 100 entries. It never holds more than 100, and fewer than 5 does not make a release unless the dev overrides it. A heading is never counted as an entry; count the lines from the file each time. Say so when the block nears 100.
