@@ -3,11 +3,14 @@
     python tests/interact/seek_check.py
 
 It plays one of the story's longest recordings, and Left and Right skip back or forward by
-the length set with A and D. Holding Left or Right repeats, at the game's own rate (app.py's
-REPEAT_DELAY and REPEAT_EVERY), so a length sounds here as it would in the game.
+the length set with A and D. Holding Left or Right repeats, after the game's own 0.4-second
+wait (app.py's REPEAT_DELAY), at the rate set with Q and E (REPEAT_EVERY, changed here for
+this tool alone), so a length and a rate sound here as they would in the game.
 
     A and D         a shorter or longer skip, said as it changes: 1, 2, 3, 5, 10, 15, 20,
                     30 or 60 seconds; the game uses 5
+    Q and E         a slower or faster repeat while Left or Right is held: every 500, 400,
+                    300, 250, 200, 150, 100, 80 or 50 milliseconds; the game uses 150
     Left and Right  skip back or forward by that length; hold to keep going
     T               where you are, and how long the recording is
     Space           pause and resume
@@ -34,6 +37,7 @@ os.environ.setdefault('PYGAME_HIDE_SUPPORT_PROMPT', '1')
 
 import pygame  # noqa: E402
 
+from codenamecygnus import app as app_module  # noqa: E402
 from codenamecygnus import paths  # noqa: E402
 from codenamecygnus.app import App  # noqa: E402
 from codenamecygnus.game.recordings import Recordings, story_key  # noqa: E402
@@ -43,6 +47,10 @@ from codenamecygnus.ui.screens import Screen  # noqa: E402
 
 #: The skip lengths A and D move through, in seconds.
 STEPS = (1, 2, 3, 5, 10, 15, 20, 30, 60)
+#: The repeat rates Q and E move through, slowest first: milliseconds between repeats.
+RATES = (500, 400, 300, 250, 200, 150, 100, 80, 50)
+#: The game's own, from app.py, which this tool changes for itself alone.
+GAME_RATE = int(round(app_module.REPEAT_EVERY * 1000))
 #: How many of the longest recordings N goes through.
 LONGEST = 20
 
@@ -84,6 +92,8 @@ class SeekScreen(Screen):
         self.recordings = recordings
         self.which = 0
         self.step = STEPS.index(int(SKIP_SECONDS)) if int(SKIP_SECONDS) in STEPS else 3
+        self.rate = RATES.index(GAME_RATE) if GAME_RATE in RATES else 5
+        self.set_rate()
         self.paused = False
         self.started = False
 
@@ -95,6 +105,19 @@ class SeekScreen(Screen):
     def seconds(self):
         return STEPS[self.step]
 
+    @property
+    def milliseconds(self):
+        return RATES[self.rate]
+
+    def set_rate(self):
+        """The repeat rate the main loop uses while a key is held, for this tool only."""
+        app_module.REPEAT_EVERY = self.milliseconds / 1000.0
+
+    def rate_text(self):
+        """ "every 150 milliseconds, about 7 a second" """
+        return 'every %d milliseconds, about %d a second' % (
+            self.milliseconds, round(1000.0 / self.milliseconds))
+
     def opened(self):
         if self.started:
             return
@@ -102,8 +125,8 @@ class SeekScreen(Screen):
         if not self.voices:
             return self.say('There are no recordings to play: Mission 1 is not here, loose '
                             'or downloaded. Press Escape to quit.')
-        self.say('Seek check. A and D change the skip, now %s. Left and Right skip.'
-                 % seconds_text(self.seconds))
+        self.say('Seek check. A and D change the skip, now %s. Q and E change the repeat, '
+                 'now %s. Left and Right skip.' % (seconds_text(self.seconds), self.rate_text()))
         self.play()
 
     def play(self):
@@ -132,6 +155,10 @@ class SeekScreen(Screen):
         elif key in ('a', 'd'):
             self.step = max(0, min(len(STEPS) - 1, self.step + (1 if key == 'd' else -1)))
             self.say(seconds_text(self.seconds))
+        elif key in ('q', 'e'):
+            self.rate = max(0, min(len(RATES) - 1, self.rate + (1 if key == 'e' else -1)))
+            self.set_rate()
+            self.say('Repeats %s.' % self.rate_text())
         elif key in ('left', 'right'):
             if self.audio.voice is None:
                 return self.say('At the end. R plays it again.')
@@ -150,7 +177,7 @@ class SeekScreen(Screen):
             self.play()
             self.say('Recording %d of %d.' % (self.which + 1, len(self.voices)))
         else:
-            self.say('Skipping %s.' % seconds_text(self.seconds))
+            self.say('Skipping %s, repeating %s.' % (seconds_text(self.seconds), self.rate_text()))
         return True
 
     def repeats(self, key, mods):
@@ -163,10 +190,12 @@ class SeekScreen(Screen):
         return ['Seek check', '',
                 'Skip: %s (the game uses %s)' % (seconds_text(self.seconds),
                                                  seconds_text(SKIP_SECONDS)),
+                'Repeat: %s (the game uses %d milliseconds)' % (self.rate_text(), GAME_RATE),
                 'Position: %s' % self.where(),
                 'Recording %d of %d: %s' % (self.which + 1, len(self.voices),
                                             self.voices[self.which]),
-                '', 'A and D: skip length. Left and Right: skip. T: where you are.',
+                '', 'A and D: skip length. Q and E: repeat rate. Left and Right: skip.',
+                'T: where you are.',
                 'Space: pause. R: again. N: next. Escape: quit.']
 
 
