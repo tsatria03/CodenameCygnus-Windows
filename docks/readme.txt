@@ -74,7 +74,7 @@ Playing an episode
 Each part of the story plays by itself, and when a question is asked, the choices come.
 The first choice is read, and Up and Down, or Left and Right, move through the others.
 Home and End go to the first and last choice.
-Enter chooses the one you are on, and the number keys 1 to 9 choose by number.
+Enter chooses the one you are on, and the number keys 1 to 9 choose by number; a choice plays the skip sound, without saying it again.
 C says every choice again.
 
 While the story plays:

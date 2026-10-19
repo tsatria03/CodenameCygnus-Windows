@@ -230,13 +230,15 @@ def test_up_and_down_say_each_choice_without_its_place_and_wrap():
     assert app.speech.said[-4:] == ['Hostile', 'Charismatic', 'Hostile', 'Charismatic']
 
 
-def test_enter_chooses_the_one_moved_to_and_says_it():
+def test_enter_chooses_the_one_moved_to_with_the_skip_sound_and_no_speech():
     app, screen = start()
     jump(app, screen, '012introRejectPrompt')
     end_voice(app)
     key(app, 'up')                                  # from the first, Up wraps to the last
+    said = len(app.speech.said)
     key(app, 'return')
-    assert app.speech.said[-1] == 'Hostile'
+    assert len(app.speech.said) == said, 'Enter said the choice'
+    assert app.audio.menu_sounds[-1] == 'PushButton D'
     hostile = next(c for c in STORY.choices('012introRejectPrompt') if c.text == 'HOSTILE')
     assert screen.run.current.name == hostile.destination
     assert app.audio.decision is None and screen.offered == []
@@ -246,9 +248,11 @@ def test_enter_before_moving_chooses_the_first():
     app, screen = start()
     jump(app, screen, '012introRejectPrompt')
     end_voice(app)
+    said = len(app.speech.said)
     key(app, 'return')
     first = STORY.choices('012introRejectPrompt')[0]
-    assert app.speech.said[-1] == 'Charismatic' and screen.run.current.name == first.destination
+    assert len(app.speech.said) == said and screen.run.current.name == first.destination
+    assert app.audio.menu_sounds[-1] == 'PushButton D'
 
 
 def test_the_number_keys_choose_directly():
@@ -257,8 +261,10 @@ def test_the_number_keys_choose_directly():
     end_voice(app)
     key(app, '3')
     assert app.speech.said[-1] == 'There are only 2.'
+    said = len(app.speech.said)
     key(app, '2')
     assert screen.run.current.name == STORY.choices('012introRejectPrompt')[1].destination
+    assert len(app.speech.said) == said and app.audio.menu_sounds[-1] == 'PushButton D'
 
 
 def test_c_says_the_choices_again_and_choice_keys_wait_for_a_question():

@@ -115,7 +115,7 @@ Plan 5 of 8 ([[story_export_plan]] lists the order). Every screen is a spoken me
   - `1930Radio A`: `playPlaySound`, `playBackButton` and `playMissionsVCSound`. In the port: starting or continuing an episode, going back with Escape, and opening Episodes.
   - `1930Radio B`: `playProfileVCSound`. In the port: opening the Agent profile.
   - `1930Radio C`: `playRestartSound` and `playInfoVCSound`. In the port: restarting an episode, and opening Credits, which stands in for the Info screen.
-  - `PushButton D`: `playSkipButton`. In the port: skipping with S.
+  - `PushButton D`: `playSkipButton`. In the port: skipping with S and F2, and making a choice, by key or by voice (the dev, 2026-10-18: "Use that same sound for choices as well"). The original played no sound for a choice.
   - `Sound A`: `playViewControllerSound`. In the port: opening any other screen, such as Settings or the pause menu.
   - `1930Radio D`: `playStoreVCSound`, opening the Store. In the port: choosing Download Mission 1, on an episode's screen or through Continue (the dev, 2026-10-18: "This should play if you click on the download button").
   - `00000Push`: nothing in the original's code plays it. In the port: every 10 percent of the Mission 1 download, with the percentage (the dev, 2026-10-18: "The push sound should play when it downloades the mission, every 10 percent").

@@ -76,6 +76,7 @@ def test_a_word_heard_makes_its_choice_and_says_it():
     hostile = next(c for c in STORY.choices('012introRejectPrompt') if c.text == 'HOSTILE')
     assert screen.run.current.name == hostile.destination
     assert app.speech.said[-1] == 'Hostile' and not app._listener.listening
+    assert app.audio.menu_sounds[-1] == 'PushButton D', 'a spoken choice plays the sound too'
 
 
 def test_speech_that_is_no_choice_is_not_caught_and_listening_goes_on():

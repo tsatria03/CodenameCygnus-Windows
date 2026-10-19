@@ -276,12 +276,18 @@ class EpisodeScreen(Screen):
         self.listen_done = False
         self.start_listening()
 
-    def choose(self, choice):
+    def choose(self, choice, heard=False):
+        """Make a choice, with the skip sound, PushButton D (the dev, 2026-10-18: "Use that
+        same sound for choices as well"). A key chooses in silence, since the choice was
+        just said as it was moved to ("I also do not want it to speak if you press enter on
+        a choice"); a spoken one is said back, so the player knows which word was heard."""
         if self.paused:
             self.listen_done = True         # no listening on the way out of the choice
             self.resume()
         log.info('chose %s at %s', choice.text, self.run.current.name)
-        self.say(choice.spoken)
+        self.audio.play_menu(self.recordings.menu_sound('PushButton D'))
+        if heard:
+            self.say(choice.spoken)
         self.play(self.run.choose(choice))
 
     def timed_out(self):
@@ -407,7 +413,7 @@ class EpisodeScreen(Screen):
             choice = next((c for c in self.run.all_choices() if c.text == phrase), None)
             if choice is not None:
                 log.info('heard %r', words)
-                return self.choose(choice)
+                return self.choose(choice, heard=True)
             log.info('heard %r, no choice', words)
             self.say(NOT_CAUGHT)
 
