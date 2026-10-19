@@ -29,7 +29,7 @@ Then comes the main menu.
 Continue, while an episode is in progress, takes you back to where you left off.
 Episodes lists the eight episodes.
 Profile says your dominant trait, how far you have come, your four trait scales and your achievements.
-Settings has the volumes, speech recognition and the key bindings.
+Settings has the volumes, how far and how fast the volume keys and skipping go, speech recognition and the key bindings.
 Credits lists the team who made Codename Cygnus.
 Quit, or Escape, closes the game.
 
@@ -79,7 +79,7 @@ C says every choice again.
 
 While the story plays:
 R plays the current part again from its start.
-Left and Right skip 5 seconds back or forward, and holding them keeps skipping.
+Left and Right skip 10 seconds back or forward, or the seek step you choose in Settings, and holding them keeps skipping.
 S skips straight on to the next choice, but only across parts you have heard to the end before; on a part you have not, it says "Not heard yet".
 H says where you are, the scene heading.
 
@@ -88,13 +88,13 @@ V turns speech recognition on or off, except while it is listening, as in the or
 Shift with Home and Shift with End turn the master volume up and down.
 Page Up and Page Down turn the background ambience up and down.
 Shift with Page Up and Shift with Page Down turn the decision loop up and down, the sound that plays while a choice waits.
-Holding a volume key keeps turning it.
+Each press turns a volume by 10 percent, or the volume step you choose in Settings, and holding a volume key keeps turning it.
 Escape or P pauses the story and opens the pause menu: Resume, Restart episode, Settings and Return to menu.
 Switching away from the game's window pauses it too, and it carries on when you come back.
 
 When an episode ends, you hear "Episode complete!" and any achievements you earned.
 Then a menu has what the episode says at its end, a preview of the next episode, Play next episode, and the episode's credits.
-During a preview, Left and Right skip 5 seconds back or forward, and holding them keeps skipping; S skips the whole preview.
+During a preview, Left and Right skip back or forward, and holding them keeps skipping; S skips the whole preview; and the volume keys work as they do in the story.
 Escape or P during a preview pauses it, with Resume, Restart and Return to menu.
 
 Speaking your choices
@@ -135,6 +135,12 @@ The profile also says the furthest episode you have reached, how many you have c
 Settings
 
 Each volume has its levels from 100 percent down to 0 to choose from: master, background ambience, and decision loop.
+The levels go down by the volume step, so a step of 5 percent gives 21 levels.
+Volume step is how far each press of a volume key turns a volume: 5, 10, 20 or 25 percent, 10 at first.
+Volume speed is how often a held volume key turns it again, from every 50 milliseconds, the fastest, to every 500, the slowest, 100 at first.
+Seek step is how far Left and Right skip: 5, 10, 15, 20, 30 or 60 seconds, 10 at first.
+Seek speed is how often a held Left or Right skips again, from 50 to 500 milliseconds like the volume speed, 100 at first.
+A held key always waits a moment before it starts repeating.
 Speech recognition turns spoken choices on or off.
 Key bindings opens the key bindings screen.
 

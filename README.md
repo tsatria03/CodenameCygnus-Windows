@@ -116,8 +116,10 @@ then the main menu, all spoken through your screen reader:
   finished, what was said at its end, Replay episode and a preview of the next episode.
 - **Profile** says your dominant trait, the furthest episode reached, the episodes
   completed, your four trait scales, each with which way it leans, and the achievements.
-- **Settings** has the three volumes, a switch for speech recognition, the key bindings,
-  and from source, Debug mode.
+- **Settings** has the three volumes; the volume step and speed, how far a volume key
+  turns a volume and how often a held one repeats; the seek step and speed, the same for
+  Left and Right; a switch for speech recognition; the key bindings; and from source,
+  Debug mode.
 - **Credits** lists Reactive Studios' team.
 - **Quit**, or Escape, closes the game.
 
@@ -127,7 +129,8 @@ During an episode:
 
 - the arrows, Home and End move through the choices once they are read, and Enter or 1
   to 9 choose; C says them all again;
-- R replays the recording, and Left and Right skip 5 seconds while the story plays;
+- R replays the recording, and Left and Right skip by the seek step, 10 seconds at first,
+  while the story plays;
 - S skips on to the next choice across what you have heard before;
 - H says the scene heading;
 - V turns speech recognition on or off: with it on, "Listening." follows the first choice,
@@ -139,8 +142,9 @@ During an episode:
 - Escape or P pauses, with the pause menu: Resume, Restart episode, Settings and Return to
   menu.
 
-Holding a skip or a volume key repeats it. At the end of an episode, a menu offers the next
-episode, its preview and the episode's credits. Achievements are announced the first time
+Holding a skip or a volume key repeats it, at the seek speed or the volume speed. At the
+end of an episode, a menu offers the next episode, its preview and the episode's credits;
+the skips and the volume keys work in a preview too. Achievements are announced the first time
 each is earned, at the next choice or at the end of the episode.
 
 Everything the game keeps is in `%APPDATA%\CodenameCygnus`:
