@@ -285,13 +285,21 @@ def test_space_does_nothing_during_the_story():
     assert not app.audio.paused and len(app.speech.said) == before and app.stack.top is screen
 
 
-def test_r_replays_and_left_and_right_skip_5_seconds():
+def test_r_replays_and_left_and_right_skip_10_seconds():
     app, screen = start()
     key(app, 'r')
     key(app, 'left')
     key(app, 'right')
     assert app.audio.voices == [STORY.state('001introOpen').voice] * 2
-    assert app.audio.seeks == [-5.0, 5.0]
+    assert app.audio.seeks == [-10, 10]
+
+
+def test_left_and_right_skip_by_the_seek_step():
+    app, screen = start()
+    app.settings.set('seek_step', 30)
+    key(app, 'right')
+    key(app, 'left')
+    assert app.audio.seeks == [30, -30]
 
 
 def test_r_at_a_choice_asks_the_question_again_then_offers_the_choices():
@@ -502,12 +510,34 @@ def open_preview():
     return app, app.stack.top
 
 
-def test_left_and_right_skip_5_seconds_in_a_preview_and_repeat_when_held():
+def test_left_and_right_skip_the_seek_step_in_a_preview_and_repeat_when_held():
     app, preview = open_preview()
     key(app, 'left')
     key(app, 'right')
-    assert app.audio.seeks == [-5.0, 5.0] and app.stack.top is preview
+    app.settings.set('seek_step', 5)
+    key(app, 'right')
+    assert app.audio.seeks == [-10, 10, 5] and app.stack.top is preview
     assert preview.repeats('right', []) and not preview.repeats('s', [])
+
+
+def test_the_volume_keys_work_in_a_preview_and_repeat_when_held():
+    app, preview = open_preview()
+    key(app, 'page down')
+    key(app, 'home', ['shift'])
+    key(app, 'page up', ['shift'])
+    assert app.speech.said[-3:] == ['ambience_volume -1', 'master_volume +1', 'decision_volume +1']
+    assert app.stack.top is preview
+    assert preview.repeats('page down', []) and preview.repeats('end', ['shift'])
+    preview.pause('player')
+    assert not preview.repeats('page down', [])
+
+
+def test_a_preview_repeats_at_the_seek_and_volume_speeds():
+    app, preview = open_preview()
+    app.settings.set('seek_speed', 500)
+    app.settings.set('volume_speed', 50)
+    assert preview.repeat_every('right', []) == 0.5
+    assert preview.repeat_every('page up', []) == 0.05
 
 
 def test_s_skips_the_whole_preview_with_the_skip_sound():
@@ -614,7 +644,7 @@ def test_left_and_right_still_skip_while_the_story_plays():
     before = len(app.speech.said)
     key(app, 'right')
     key(app, 'home')                                # nothing to move through yet
-    assert app.audio.seeks == [5.0] and len(app.speech.said) == before
+    assert app.audio.seeks == [10] and len(app.speech.said) == before
 
 
 def test_the_pause_menu_has_restart_after_resume():
@@ -671,10 +701,29 @@ def test_holding_a_skip_key_repeats_it_until_it_is_let_go():
     app.repeat_keys(now=t + 0.45)
     app.repeat_keys(now=t + 0.5)                    # too soon after the last
     app.repeat_keys(now=t + 0.65)
-    assert app.audio.seeks == [5.0, 5.0, 5.0]
+    assert app.audio.seeks == [10, 10, 10]
     app.key_up('right')
     app.repeat_keys(now=t + 2)
-    assert app.audio.seeks == [5.0, 5.0, 5.0]
+    assert app.audio.seeks == [10, 10, 10]
+
+
+def test_held_skips_and_volume_keys_repeat_at_their_own_speeds():
+    app, screen = start()
+    app.settings.set('seek_speed', 300)
+    app.settings.set('volume_speed', 50)
+    t = runloop.clock()
+    app.key_down('right', [], now=t)
+    app.repeat_keys(now=t + 0.4)                    # the same 0.4-second wait for both
+    app.repeat_keys(now=t + 0.6)                    # too soon at 300 milliseconds
+    app.repeat_keys(now=t + 0.71)
+    assert app.audio.seeks == [10, 10, 10]
+    app.key_up('right')
+    before = len(app.speech.said)
+    app.key_down('page down', [], now=t)
+    app.repeat_keys(now=t + 0.4)
+    app.repeat_keys(now=t + 0.43)                   # too soon at 50 milliseconds
+    app.repeat_keys(now=t + 0.46)
+    assert app.speech.said[before:] == ['ambience_volume -1'] * 3
 
 
 def test_holding_a_volume_key_repeats_it_with_its_modifier():
@@ -709,7 +758,7 @@ def test_a_held_skip_stops_repeating_when_a_choice_comes():
     app.key_down('right', [], now=t)
     until_choices(app, screen)
     app.repeat_keys(now=t + 1)
-    assert app.audio.seeks == [5.0] and app.held is None
+    assert app.audio.seeks == [10] and app.held is None
 
 
 def test_a_recording_heard_to_its_end_is_remembered_for_good():

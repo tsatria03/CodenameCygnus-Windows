@@ -11,11 +11,13 @@ F1 opens the key bindings screen from anywhere, and the timers are held while it
 so a timed choice keeps the seconds it had (aidocks/plans/foundation_plan.md).
 
 Holding a key down presses it again and again, but only where the top screen says that
-key repeats (``Screen.repeats``), such as the 5-second skips and the volume keys during an
-episode (the dev, 2026-10-17: "make it so you can hold left/right/page up/down/shift
-home/end in the main story for seaking and volume changes"). Every other key fires once
-however long it is held. The repeat is the game's own, not pygame's, which would repeat
-every key.
+key repeats (``Screen.repeats``), such as the skips and the volume keys during an episode
+(the dev, 2026-10-17: "make it so you can hold left/right/page up/down/shift home/end in
+the main story for seaking and volume changes"). Every other key fires once however long
+it is held. The repeat is the game's own, not pygame's, which would repeat every key. The
+screen also says how often (``Screen.repeat_every``): the story and the previews repeat
+the skips at the Seek speed and the volume keys at the Volume speed
+(aidocks/plans/seek_settings_plan.md).
 """
 from __future__ import annotations
 
@@ -58,9 +60,10 @@ SOUNDS = {
     'progress': '00000Push',
     'open': 'Sound A',          # opening any other screen (playViewControllerSound)
 }
-#: Seconds a key is held before it starts repeating, and between repeats. The repeat was
-#: 0.15 at first; the dev chose 0.1 by ear with tests/interact/seek_check.py (2026-10-18: "I
-#: want the new repeat rate to be 100ms").
+#: Seconds a key is held before it starts repeating, for every key, and between repeats
+#: where the screen does not say. The repeat was 0.15 at first; the dev chose 0.1 by ear
+#: with tests/interact/seek_check.py (2026-10-18: "I want the new repeat rate to be
+#: 100ms"), and it is the Seek speed's and Volume speed's default.
 REPEAT_DELAY = 0.4
 REPEAT_EVERY = 0.1
 
@@ -168,7 +171,8 @@ class App:
         if top is None or not top.repeats(key, mods):
             self.held = None                # the story moved on, say to a choice
             return
-        self.held[2] = now + REPEAT_EVERY
+        every = top.repeat_every(key, mods)
+        self.held[2] = now + (REPEAT_EVERY if every is None else every)
         top.handle_key(key, mods)
 
     def run(self, first_screen, pygame, on_top=None):

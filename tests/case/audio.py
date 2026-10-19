@@ -124,6 +124,18 @@ def test_volumes_step_by_ten_say_their_level_and_stop_at_the_ends():
     assert audio.step_volume('master_volume', 1) == 'Master volume 100 percent'
 
 
+def test_volumes_step_by_the_volume_step():
+    audio = make()
+    audio.settings.set('volume_step', 5)
+    assert audio.step_volume('ambience_volume', -1) == 'Background ambience volume 95 percent'
+    audio.settings.set('volume_step', 25)
+    assert audio.step_volume('ambience_volume', -1) == 'Background ambience volume 70 percent'
+    audio.settings.set('volume_step', 10)
+    assert audio.step_volume('ambience_volume', 1) == 'Background ambience volume 80 percent'
+    audio.settings.set('ambience_volume', 95)
+    assert audio.step_volume('ambience_volume', 1) == 'Background ambience volume 100 percent'
+
+
 def test_master_moves_everything_and_the_others_only_their_own():
     audio = make()
     audio.settings.set('master_volume', 50)

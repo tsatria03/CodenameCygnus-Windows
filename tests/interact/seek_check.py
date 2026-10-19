@@ -5,12 +5,14 @@
 It plays one of the story's longest recordings, and Left and Right skip back or forward by
 the length set with A and D. Holding Left or Right repeats, after the game's own 0.4-second
 wait (app.py's REPEAT_DELAY), at the rate set with Q and E (REPEAT_EVERY, changed here for
-this tool alone), so a length and a rate sound here as they would in the game.
+this tool alone), so a length and a rate sound here as they would in the game. The lengths
+and rates are the Seek step's and Seek speed's levels in the game's Settings, and it starts
+on their defaults (aidocks/plans/seek_settings_plan.md).
 
     A and D         a shorter or longer skip, said as it changes: 5, 10, 15, 20, 30 or 60
-                    seconds, the Seek step's levels; the game uses 5
+                    seconds; the game's default is 10
     Q and E         a slower or faster repeat while Left or Right is held: every 500 down
-                    to 50 milliseconds, in steps of 50; the game uses 100
+                    to 50 milliseconds, in steps of 50; the game's default is 100
     Left and Right  skip back or forward by that length; hold to keep going
     T               where you are, and how long the recording is
     Space           pause and resume
@@ -42,17 +44,18 @@ from codenamecygnus import paths  # noqa: E402
 from codenamecygnus.app import App  # noqa: E402
 from codenamecygnus.game.recordings import Recordings, story_key  # noqa: E402
 from codenamecygnus.game.story import Story  # noqa: E402
-from codenamecygnus.platform.audio import SKIP_SECONDS  # noqa: E402
+from codenamecygnus.platform.settings import DEFAULTS, LEVELS  # noqa: E402
 from codenamecygnus.ui.screens import Screen  # noqa: E402
 
-#: The skip lengths A and D move through, in seconds: the Seek step's levels
-#: (aidocks/plans/seek_settings_plan.md), so nothing shorter than 5 or longer than 60.
-STEPS = (5, 10, 15, 20, 30, 60)
+#: The skip lengths A and D move through, in seconds: the Seek step's levels, so nothing
+#: shorter than 5 or longer than 60.
+STEPS = LEVELS['seek_step']
 #: The repeat rates Q and E move through, slowest first: milliseconds between repeats, the
-#: Seek speed's and Volume speed's levels.
-RATES = (500, 450, 400, 350, 300, 250, 200, 150, 100, 50)
-#: The game's own, from app.py, which this tool changes for itself alone.
-GAME_RATE = int(round(app_module.REPEAT_EVERY * 1000))
+#: Seek speed's levels the other way round.
+RATES = tuple(reversed(LEVELS['seek_speed']))
+#: The game's defaults, which this tool starts on.
+GAME_STEP = DEFAULTS['seek_step']
+GAME_RATE = DEFAULTS['seek_speed']
 #: How many of the longest recordings N goes through.
 LONGEST = 20
 
@@ -93,8 +96,8 @@ class SeekScreen(Screen):
         self.voices = voices
         self.recordings = recordings
         self.which = 0
-        self.step = STEPS.index(int(SKIP_SECONDS)) if int(SKIP_SECONDS) in STEPS else STEPS.index(10)
-        self.rate = RATES.index(GAME_RATE) if GAME_RATE in RATES else RATES.index(150)
+        self.step = STEPS.index(GAME_STEP)
+        self.rate = RATES.index(GAME_RATE)
         self.set_rate()
         self.paused = False
         self.started = False
@@ -190,9 +193,10 @@ class SeekScreen(Screen):
         if not self.voices:
             return ['Seek check', '', 'No recordings.']
         return ['Seek check', '',
-                'Skip: %s (the game uses %s)' % (seconds_text(self.seconds),
-                                                 seconds_text(SKIP_SECONDS)),
-                'Repeat: %s (the game uses %d milliseconds)' % (self.rate_text(), GAME_RATE),
+                'Skip: %s (the game\'s default is %s)' % (seconds_text(self.seconds),
+                                                          seconds_text(GAME_STEP)),
+                'Repeat: %s (the game\'s default is %d milliseconds)' % (self.rate_text(),
+                                                                         GAME_RATE),
                 'Position: %s' % self.where(),
                 'Recording %d of %d: %s' % (self.which + 1, len(self.voices),
                                             self.voices[self.which]),

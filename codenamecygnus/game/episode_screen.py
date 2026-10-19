@@ -18,7 +18,7 @@ The screen walks a ``Playthrough`` (game/story.py) state by state through the au
     1 to 9          choose by number
     C               say every choice, such as "Charismatic or Hostile."
     R               the recording again from its start, then the choices again
-    Left and Right  5 seconds back or forward, while the story plays
+    Left and Right  the Seek step back or forward, while the story plays
     S               straight on to the next choice, across recordings heard before
     H               the scene heading
     V               speech recognition on or off
@@ -30,7 +30,7 @@ Every key but Escape, Home, End and the numbers comes from the key map, so F1 ca
 it. While a choice waits, its recording has ended and there is nothing to skip through,
 so Left and Right move through the choices as they do in a menu (the dev, 2026-10-17:
 "left/right/home/end navigation in the choices list"). Holding a skip or a volume key
-repeats it (app.py); a choice key never repeats.
+repeats it (app.py), at the Seek speed or the Volume speed; a choice key never repeats.
 
 A recording reaching its end, played through or skipped to the end with Right, is noted
 as heard for good (game/heard.py), and S skips only across those, saying "Not heard yet"
@@ -59,7 +59,7 @@ from __future__ import annotations
 
 import logging
 
-from ..platform.audio import SKIP_SECONDS
+from ..platform.audio import VOLUME_KEYS, repeat_every
 from ..platform.listener import BLOCKED, MicrophoneError
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
@@ -72,13 +72,6 @@ from .recordings import Recordings
 from .story import TICKS, Playthrough, Story
 
 log = logging.getLogger('episode')
-
-#: Volume actions: (the setting, which way).
-VOLUME_KEYS = {
-    'master_up': ('master_volume', 1), 'master_down': ('master_volume', -1),
-    'ambience_up': ('ambience_volume', 1), 'ambience_down': ('ambience_volume', -1),
-    'decision_up': ('decision_volume', 1), 'decision_down': ('decision_volume', -1),
-}
 
 #: Why the story is paused: the player pressed Escape, or it paused by itself.
 BY_PLAYER, BY_COVER, BY_FOCUS = 'player', 'cover', 'focus'
@@ -492,6 +485,9 @@ class EpisodeScreen(Screen):
             return True
         return action in ('back', 'forward') and not self.offered
 
+    def repeat_every(self, key, mods):
+        return repeat_every(self.app.settings, self.app.keymap.action_for(key, mods))
+
     def no_choices_yet(self):
         self.say('No choices yet.')
 
@@ -648,13 +644,13 @@ class EpisodeScreen(Screen):
         if self.offered:
             self.move(-1)
         else:
-            self.audio.seek(-SKIP_SECONDS)
+            self.audio.seek(-self.app.settings.get('seek_step'))
 
     def do_forward(self):
         if self.offered:
             self.move(1)
         else:
-            self.audio.seek(SKIP_SECONDS)
+            self.audio.seek(self.app.settings.get('seek_step'))
 
     def do_heading(self):
         self.say(heading_text(self.heading) if self.heading else 'No scene heading yet.')

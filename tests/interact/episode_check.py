@@ -11,7 +11,7 @@ the end of the episode, comes back to the list.
     Enter, 1 to 9   choose
     C               the choices again
     R               the recording again
-    Left and Right  5 seconds back or forward while the story plays; hold to keep going
+    Left and Right  the Seek step back or forward while the story plays; hold to keep going
     S               on to the next choice, across recordings heard to their end before
     H               the scene heading
     the volumes     Shift+Home and End, Page Up and Down, Shift+Page Up and Down; hold them

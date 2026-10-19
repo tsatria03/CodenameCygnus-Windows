@@ -11,8 +11,8 @@ one cuts over. Everything is spoken through the screen reader.
     N                           the next state
     Space                       pause and resume
     R                           the voice again from its start
-    Left and Right              5 seconds back or forward
-    Shift+Home and Shift+End    master volume
+    Left and Right              the Seek step back or forward, 10 seconds at first
+    Shift+Home and Shift+End    master volume, by the Volume step
     Page Up and Page Down       ambience
     Shift+Page Up and Down      decision sound
     I                           say the state's name and what it plays
@@ -36,7 +36,7 @@ import pygame  # noqa: E402
 
 from codenamecygnus import paths  # noqa: E402
 from codenamecygnus.game.recordings import Recordings  # noqa: E402
-from codenamecygnus.platform.audio import SKIP_SECONDS, Audio  # noqa: E402
+from codenamecygnus.platform.audio import Audio  # noqa: E402
 from codenamecygnus.platform.keymap import mods_from_pygame  # noqa: E402
 from codenamecygnus.platform.settings import Settings  # noqa: E402
 from codenamecygnus.platform.speech import Speech  # noqa: E402
@@ -135,9 +135,9 @@ def main():
                 elif key == 'r' and not mods:
                     audio.replay()
                 elif key == 'left' and not mods:
-                    audio.seek(-SKIP_SECONDS)
+                    audio.seek(-audio.settings.get('seek_step'))
                 elif key == 'right' and not mods:
-                    audio.seek(SKIP_SECONDS)
+                    audio.seek(audio.settings.get('seek_step'))
                 elif key == 'home' and shift:
                     speech.speak(audio.step_volume('master_volume', 1))
                 elif key == 'end' and shift:

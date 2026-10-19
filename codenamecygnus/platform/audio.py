@@ -4,8 +4,8 @@ Three layers play a story state, as the original's sound manager did, plus the m
 interface sounds:
 
 * **The voice** streams through ``pygame.mixer.music``, the only pygame player that can
-  start partway through a file, which replaying, skipping 5 seconds back or forward and S
-  need. When it reaches its end, the story is told (``on_end``).
+  start partway through a file, which replaying, skipping back or forward by the Seek step
+  and S need. When it reaches its end, the story is told (``on_end``).
 * **The background** loops on channel 0. A state with the same background lets it carry
   on untouched; a different one stops the old at once and starts the new; a state with
   none stops it. That is the original's own hard cut, read from its code.
@@ -16,9 +16,10 @@ interface sounds:
 Escape's pause menu pauses all of them together. pygame says a paused voice is not playing, so
 this keeps its own note of pausing, and a pause is never taken for the voice ending.
 
-Three volumes, each 0 to 100 in tens, are kept in the settings: master moves everything,
-ambience the background and decision the decision loop. A percentage becomes a gain
-squared, so each step sounds about as big as the last.
+Three volumes, each 0 to 100 in fives, are kept in the settings: master moves everything,
+ambience the background and decision the decision loop. A volume key moves one by the
+Volume step, 10 percent at first (aidocks/plans/seek_settings_plan.md). A percentage
+becomes a gain squared, so each step sounds about as big as the last.
 
 If no sound device can be opened, everything here does nothing and the game carries on,
 silent, with the log saying why.
@@ -33,8 +34,6 @@ import time
 log = logging.getLogger('audio')
 
 BACKGROUND, DECISION, MENU = 0, 1, 2
-#: Seconds the voice skips with Left and Right.
-SKIP_SECONDS = 5.0
 #: Seconds after the voice starts before pygame's "not playing" is believed, since the
 #: stream can take a moment to begin.
 START_GRACE = 0.25
@@ -43,6 +42,18 @@ START_GRACE = 0.25
 VOLUME_LABELS = {'master_volume': 'Master volume',
                  'ambience_volume': 'Background ambience volume',
                  'decision_volume': 'Decision loop volume'}
+#: The volume keys' actions, in the story and the previews: (the setting, which way).
+VOLUME_KEYS = {
+    'master_up': ('master_volume', 1), 'master_down': ('master_volume', -1),
+    'ambience_up': ('ambience_volume', 1), 'ambience_down': ('ambience_volume', -1),
+    'decision_up': ('decision_volume', 1), 'decision_down': ('decision_volume', -1),
+}
+
+
+def repeat_every(settings, action):
+    """Seconds between repeats of a held key in the story or a preview: the Volume speed
+    for a volume key, the Seek speed for Left and Right (aidocks/plans/seek_settings_plan.md)."""
+    return settings.every('volume_speed' if action in VOLUME_KEYS else 'seek_speed')
 
 _BITRATES = {1: (0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320),
              2: (0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160)}
@@ -166,10 +177,11 @@ class Audio:
             self.pg.mixer.Channel(layer).set_volume(self.gain(layer))
 
     def step_volume(self, key, step):
-        """Move a volume one step of ten up (1) or down (-1); what to say, such as
+        """Move a volume one Volume step up (1) or down (-1); what to say, such as
         "Background ambience volume 60 percent". At either end it stays, and says so."""
         now = self.percent(key)
-        new = max(0, min(100, now + 10 * step))
+        size = self.settings.get('volume_step') if self.settings is not None else 10
+        new = max(0, min(100, now + size * step))
         if new != now:
             self.settings.set(key, new)
             self.apply_volumes()

@@ -17,14 +17,15 @@ is first in every menu and the two would do the same (aidocks/general/feedback_b
 
 A preview (``PreviewScreen``) plays the teaser's recording alone and comes back when it
 ends; Escape pauses it, with a pause menu of Resume, Restart and Return to menu. Left and
-Right skip 5 seconds back or forward, held to keep going, as in the story, and S skips the
-whole preview, with the skip sound.
+Right skip the Seek step back or forward, held to keep going, as in the story, and S skips
+the whole preview, with the skip sound. The volume keys work as in the story too
+(aidocks/plans/seek_settings_plan.md).
 """
 from __future__ import annotations
 
 import logging
 
-from ..platform.audio import SKIP_SECONDS
+from ..platform.audio import VOLUME_KEYS, repeat_every
 from ..ui.menu import Menu, Row
 from ..ui.screens import Screen
 
@@ -63,8 +64,8 @@ class PreviewScreen(Screen):
     Resume, Restart and Return to menu, as the story's pause menu does (the dev, 2026-10-18:
     "Escape should open a pause menu for it that contains resume/restart/ return to menu,
     just like the other pause screen has"); P does the same, as in the story. Left and Right
-    skip 5 seconds, and S skips the whole preview. No other key does anything; Space no
-    longer pauses it."""
+    skip the Seek step, S skips the whole preview, and the volume keys change the volumes.
+    No other key does anything; Space no longer pauses it."""
 
     name = 'preview'
 
@@ -136,9 +137,15 @@ class PreviewScreen(Screen):
         elif self.paused:
             pass
         elif action in ('back', 'forward'):
-            # 5 seconds back or forward, as in the story (the dev, 2026-10-18: "You should be
-            # able to rewind/fast forward teasurs"); past the end, the preview ends.
-            self.app.audio.seek(-SKIP_SECONDS if action == 'back' else SKIP_SECONDS)
+            # The Seek step back or forward, as in the story (the dev, 2026-10-18: "You
+            # should be able to rewind/fast forward teasurs"); past the end, the preview ends.
+            step = self.app.settings.get('seek_step')
+            self.app.audio.seek(-step if action == 'back' else step)
+        elif action in VOLUME_KEYS:
+            # As in the story (the dev, 2026-10-18: "You should also be able to change the
+            # volumes when previewing an episode as well").
+            setting, way = VOLUME_KEYS[action]
+            self.say(self.app.audio.step_volume(setting, way))
         elif action == 'skip':
             # The whole preview ("Pressing s on one should skip it entirely"), heard or not,
             # with the skip sound, as S plays in the story.
@@ -149,8 +156,12 @@ class PreviewScreen(Screen):
         return True
 
     def repeats(self, key, mods):
-        """Holding Left or Right keeps skipping, as in the story."""
-        return not self.paused and self.app.keymap.action_for(key, mods) in ('back', 'forward')
+        """Holding Left, Right or a volume key keeps going, as in the story."""
+        action = self.app.keymap.action_for(key, mods)
+        return not self.paused and (action in ('back', 'forward') or action in VOLUME_KEYS)
+
+    def repeat_every(self, key, mods):
+        return repeat_every(self.app.settings, self.app.keymap.action_for(key, mods))
 
     def lines(self):
         return ['Preview of %s' % self.title, '', '(paused)' if self.paused else '']

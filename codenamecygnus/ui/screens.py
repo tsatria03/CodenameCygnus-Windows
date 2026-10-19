@@ -45,10 +45,15 @@ class Screen:
         return False
 
     def repeats(self, key, mods):
-        """Whether holding this key down presses it again and again, such as a 5-second skip
-        or a volume step. Only keys that are safe to press twice say yes, never Enter or
+        """Whether holding this key down presses it again and again, such as a skip or a
+        volume step. Only keys that are safe to press twice say yes, never Enter or
         a choice key."""
         return False
+
+    def repeat_every(self, key, mods):
+        """Seconds between repeats of a key that repeats, or None for the main loop's own
+        (app.py's REPEAT_EVERY)."""
+        return None
 
     def update(self):
         """Called once a frame while on top."""
