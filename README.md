@@ -187,9 +187,10 @@ episodes, every one open, and Enter plays one with the game's own keys; leaving 
 back to the list. `python tests\interact\SPEECH_check.py` listens for any question's
 choices, or every choice word at once, and says what it heard, so speech recognition can
 be judged before playing. `python tests\interact\seek_check.py` plays the longest
-recordings, with A and D changing how far Left and Right skip, from 1 to 60 seconds, and Q
-and E how fast a held one repeats, so both can be chosen by ear. Each keeps its own save, so none changes your volumes or
-keys.
+recordings, with A and D changing how far Left and Right skip, through the Seek step's
+levels, 5 to 60 seconds, and Q and E how fast a held one repeats, through the Seek speed's,
+500 to 50 milliseconds, so both can be tried by ear. Each keeps its own save, so none
+changes your volumes or keys.
 
 ## Building and releasing
 

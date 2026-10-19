@@ -57,6 +57,7 @@ The 10 files no state names are the eight interface sounds of under a second in 
   - **Shift with Page Up and Page Down:** the decision loop, the `decision_*` sounds.
   - Each press says the new level, such as "Background ambience volume 60 percent", and the game remembers all three ([[saves_plan]]). The ambience and decision volumes were first called "Ambience" and "Decision sound", renamed by the dev on 2026-10-18 ([[menus_plan]]).
   - Plain Home and End stay free, so in menus they jump to the first and last row.
+  - Since 2026-10-18 a press moves a volume by the Volume step, 10 percent at first, and a volume is any multiple of 5 ([[seek_settings_plan]]).
 
 ## Open questions
 

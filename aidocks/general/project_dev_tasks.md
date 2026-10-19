@@ -14,6 +14,7 @@ None.
 
 ## Finished
 
+- The volume and seek steps and speeds are settings, each screen telling the main loop how often a held key repeats, and `tests/interact/seek_check.py` keeps to their levels, finishing [[seek_settings_plan]] (2026-10-18).
 - `compiler.py` and `releaser.py` build and release the game for Windows only, with no GitHub Actions workflow, and Mission 1's recordings ship as the encrypted `m1.dat`, built by `tools/build_pack.py` and downloaded by the game, finishing [[build_release_plan]] (2026-10-18).
 - Speech recognition for choices is built, behind its setting, with `tests/interact/SPEECH_check.py` to try it by ear, finishing [[speech_recognition_plan]] (2026-10-18).
 - The agent profile, the last part of the menus, is built, finishing the menus and saves plans (2026-10-18).

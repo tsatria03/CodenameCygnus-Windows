@@ -2,6 +2,8 @@
 
 ##Finished.
 
+Settings lets you choose how far and how fast the volume keys and Left and Right go, with Volume step, Volume speed, Seek step and Seek speed.
+The volume keys work during a preview, as they do in the story.
 Mission 1's recordings come as a download of their own, from Download Mission 1 on an episode's screen, so the game's own download stays small.
 Speech recognition lets you speak your choices as in the original, with a setting to turn it on or off.
 The profile shows your dominant trait, how far you have come, your four trait scales and your achievements.
