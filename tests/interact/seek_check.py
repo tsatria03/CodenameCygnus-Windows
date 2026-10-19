@@ -10,7 +10,7 @@ this tool alone), so a length and a rate sound here as they would in the game.
     A and D         a shorter or longer skip, said as it changes: 1, 2, 3, 5, 10, 15, 20,
                     30 or 60 seconds; the game uses 5
     Q and E         a slower or faster repeat while Left or Right is held: every 500 down
-                    to 50 milliseconds, in steps of 50; the game uses 150
+                    to 50 milliseconds, in steps of 50; the game uses 100
     Left and Right  skip back or forward by that length; hold to keep going
     T               where you are, and how long the recording is
     Space           pause and resume
@@ -114,7 +114,7 @@ class SeekScreen(Screen):
         app_module.REPEAT_EVERY = self.milliseconds / 1000.0
 
     def rate_text(self):
-        """ "every 150 milliseconds, about 7 a second" """
+        """ "every 100 milliseconds, about 10 a second" """
         return 'every %d milliseconds, about %d a second' % (
             self.milliseconds, round(1000.0 / self.milliseconds))
 
