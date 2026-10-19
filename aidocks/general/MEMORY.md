@@ -12,7 +12,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Story data source](project_story_data_source.md): the v53 story graph in the sqlite DB is authoritative, not the bundled v1 JSON; the port starts from scratch with no save import.
 
 ## Plans (aidocks/plans/, planned or being built)
-- [Seek settings plan](../plans/seek_settings_plan.md): four Settings rows with levels, Volume step, Volume speed, Seek step and Seek speed; volume keys and seeking repeat independently; volumes become any whole percent; planned, one question open. The eight original plans are all finished.
+- [Seek settings plan](../plans/seek_settings_plan.md): four Settings rows with levels, Volume step, Volume speed, Seek step and Seek speed; volume keys and seeking repeat independently; volumes become multiples of 5, their levels following the step; the volume keys work in previews; planned, no questions open. The eight original plans are all finished.
 
 ## Completed projects (aidocks/plans/, marked finished)
 - [Build and release plan](../plans/build_release_plan.md): FINISHED 2026-10-18, both sections confirmed by the dev. compiler.py builds CodenameCygnus.exe with PyInstaller (nine-choice menu, silent --test); releaser.py checks, versions, files the changelog, builds, zips, commits, tags and uploads from the dev's machine, and puts m1.dat on the fixed mission-1 release; Windows only, no workflow. The mission pack: game/pack.py (AES-256-GCM per recording, encrypted index), tools/build_pack.py (writes dist\m1.dat and game/data/text/m1_pack.json), game/download.py (Download Mission 1, checked by SHA-256); a source run without the loose missions uses the pack.
