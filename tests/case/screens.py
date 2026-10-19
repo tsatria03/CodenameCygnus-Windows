@@ -12,7 +12,7 @@ from codenamecygnus.platform.runloop import RunLoop
 from codenamecygnus.platform.settings import Settings
 from codenamecygnus.ui.keybind_screen import KeyBindScreen
 from codenamecygnus.ui.menu import Menu, Row
-from codenamecygnus.ui.settings_screen import SettingsScreen, VolumeLevels
+from codenamecygnus.ui.settings_screen import Levels, SettingsScreen, VolumeLevels
 
 
 class Ear:
@@ -194,7 +194,8 @@ def test_the_settings_rows_say_what_each_is_set_to():
     assert [r.text for r in SettingsScreen(app).rows()] == [
         'Back', 'Debug mode, currently off', 'Master volume, 100 percent',
         'Background ambience volume, 60 percent', 'Decision loop volume, 100 percent',
-        'Speech recognition, currently off', 'Key bindings']
+        'Volume step, 10 percent', 'Volume speed, 100 milliseconds', 'Seek step, 10 seconds',
+        'Seek speed, 100 milliseconds', 'Speech recognition, currently off', 'Key bindings']
 
 
 def test_a_volume_opens_its_levels_on_back_and_enter_sets_one():
@@ -235,11 +236,66 @@ def test_escape_on_the_levels_keeps_the_volume():
     assert app.stack.top is settings and app.settings.get('master_volume') == 100
 
 
+def test_a_volumes_levels_follow_the_volume_step():
+    app = make_app()
+    for step, count in ((5, 21), (10, 11), (20, 6), (25, 5)):
+        app.settings.set('volume_step', step)
+        texts = [r.text for r in VolumeLevels(app, 'master_volume').rows()]
+        assert len(texts) == count + 1 and texts[0] == 'Back', step
+        assert texts[1] == '100 percent' and texts[-1] == '0 percent', step
+    app.settings.set('volume_step', 25)
+    assert [r.text for r in VolumeLevels(app, 'master_volume').rows()][1:] == [
+        '%d percent' % n for n in (100, 75, 50, 25, 0)]
+
+
+def open_row(app, text):
+    """Settings, then Enter on the row that says ``text``."""
+    settings = SettingsScreen(app)
+    app.stack.push(settings)
+    while settings.row_text() != text:
+        settings.handle_key('down', [])
+    settings.handle_key('return', [])
+    return settings, app.stack.top
+
+
+def test_each_step_and_speed_opens_its_levels_on_back():
+    app = make_app()
+    for row, title, levels in (
+            ('Volume step, 10 percent', 'Volume step.', ['5 percent', '10 percent', '20 percent', '25 percent']),
+            ('Seek step, 10 seconds', 'Seek step.', ['5 seconds', '10 seconds', '15 seconds',
+                                                     '20 seconds', '30 seconds', '60 seconds'])):
+        settings, menu = open_row(app, row)
+        assert isinstance(menu, Levels) and app.speech.said[-2:] == [title, 'Back'], row
+        assert [r.text for r in menu.rows()] == ['Back'] + levels
+        menu.handle_key('escape', [])
+        app.stack.clear()
+
+
+def test_a_speeds_ends_say_fastest_and_slowest():
+    app = make_app()
+    for row in ('Volume speed, 100 milliseconds', 'Seek speed, 100 milliseconds'):
+        _settings, menu = open_row(app, row)
+        texts = [r.text for r in menu.rows()]
+        assert texts[1] == '50 milliseconds, fastest' and texts[-1] == '500 milliseconds, slowest'
+        assert texts[2:-1] == ['%d milliseconds' % n for n in range(100, 451, 50)]
+        app.stack.clear()
+
+
+def test_enter_sets_a_seek_step_and_says_it():
+    app = make_app()
+    settings, menu = open_row(app, 'Seek step, 10 seconds')
+    menu.handle_key('end', [])
+    menu.handle_key('return', [])
+    assert app.stack.top is settings and app.settings.get('seek_step') == 60
+    assert app.speech.said[-1] == 'Seek step 60 seconds'
+    assert settings.row_text() == 'Seek step, 60 seconds'
+
+
 def test_speech_recognition_turns_on_and_off_and_is_remembered():
     app = make_app()
     settings = SettingsScreen(app)
     app.stack.push(settings)
-    for _ in range(5):
+    for _ in range(9):
         settings.handle_key('down', [])
     settings.handle_key('return', [])
     assert app.settings.get('speech_recognition') is True
