@@ -1,12 +1,12 @@
 ---
 name: seek_settings_plan
-description: "Four Settings rows, each with its own levels as a volume has: Volume step (percent), Volume speed (milliseconds), Seek step (seconds), Seek speed (milliseconds); volume keys and seeking repeat independently; volumes become multiples of 5, their levels following the step; the volume keys work in previews. Status: built, waiting for the dev's by-ear check."
+description: "Four Settings rows, each with its own levels as a volume has: Volume step (percent), Volume speed (milliseconds), Seek step (seconds), Seek speed (milliseconds); volume keys and seeking repeat independently; volumes become multiples of 5, their levels following the step; the volume keys work in previews. Status: finished."
 metadata:
   node_type: memory
   type: project
 ---
 
-**Status: built 2026-10-18, waiting for the dev to try it by ear.** The settings and their levels are in `platform/settings.py` (`LEVELS`, `SPEEDS`), the rows and lists in `ui/settings_screen.py` (`Levels`, `VolumeLevels`), the volume keys and `repeat_every` in `platform/audio.py`, and `Screen.repeat_every` tells the main loop how often a held key repeats. Asked for on 2026-10-18 (the dev: "I think this would be the last feature I'd want, but it needs planning first"), after choosing the game's own repeat by ear with `tests/interact/seek_check.py` ([[audio_plan]]). Widened the same day to four settings (the dev: "Please make the variables independent. One for volume speed, and one for seek speed. Speaking of volume, I also want volume step as well. So it goes like this. Volume step, volume speed, seek step, seek speed. The volume step measures in percentages, like 1, 5, 10, etc."). The levels, the volume list and the volume keys in previews were settled the same day.
+**Status: FINISHED 2026-10-18,** confirmed by the dev by ear ("All of the hering tests past"). The settings and their levels are in `platform/settings.py` (`LEVELS`, `SPEEDS`), the rows and lists in `ui/settings_screen.py` (`Levels`, `VolumeLevels`), the volume keys and `repeat_every` in `platform/audio.py`, and `Screen.repeat_every` tells the main loop how often a held key repeats. Asked for on 2026-10-18 (the dev: "I think this would be the last feature I'd want, but it needs planning first"), after choosing the game's own repeat by ear with `tests/interact/seek_check.py` ([[audio_plan]]). Widened the same day to four settings (the dev: "Please make the variables independent. One for volume speed, and one for seek speed. Speaking of volume, I also want volume step as well. So it goes like this. Volume step, volume speed, seek step, seek speed. The volume step measures in percentages, like 1, 5, 10, etc."). The levels, the volume list and the volume keys in previews were settled the same day.
 
 ## Why independent
 
