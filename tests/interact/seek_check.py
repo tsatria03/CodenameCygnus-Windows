@@ -9,8 +9,8 @@ this tool alone), so a length and a rate sound here as they would in the game.
 
     A and D         a shorter or longer skip, said as it changes: 1, 2, 3, 5, 10, 15, 20,
                     30 or 60 seconds; the game uses 5
-    Q and E         a slower or faster repeat while Left or Right is held: every 500, 400,
-                    300, 250, 200, 150, 100, 80 or 50 milliseconds; the game uses 150
+    Q and E         a slower or faster repeat while Left or Right is held: every 500 down
+                    to 50 milliseconds, in steps of 50; the game uses 150
     Left and Right  skip back or forward by that length; hold to keep going
     T               where you are, and how long the recording is
     Space           pause and resume
@@ -48,7 +48,7 @@ from codenamecygnus.ui.screens import Screen  # noqa: E402
 #: The skip lengths A and D move through, in seconds.
 STEPS = (1, 2, 3, 5, 10, 15, 20, 30, 60)
 #: The repeat rates Q and E move through, slowest first: milliseconds between repeats.
-RATES = (500, 400, 300, 250, 200, 150, 100, 80, 50)
+RATES = (500, 450, 400, 350, 300, 250, 200, 150, 100, 50)
 #: The game's own, from app.py, which this tool changes for itself alone.
 GAME_RATE = int(round(app_module.REPEAT_EVERY * 1000))
 #: How many of the longest recordings N goes through.
@@ -92,7 +92,7 @@ class SeekScreen(Screen):
         self.recordings = recordings
         self.which = 0
         self.step = STEPS.index(int(SKIP_SECONDS)) if int(SKIP_SECONDS) in STEPS else 3
-        self.rate = RATES.index(GAME_RATE) if GAME_RATE in RATES else 5
+        self.rate = RATES.index(GAME_RATE) if GAME_RATE in RATES else RATES.index(150)
         self.set_rate()
         self.paused = False
         self.started = False
