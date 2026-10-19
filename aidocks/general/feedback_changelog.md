@@ -23,3 +23,4 @@ metadata:
 - **No credit lines.** Entries say what changed, not who changed it.
 - **Released entries stay as they are.** Never edit an entry that already has a version heading.
 - **Release size:** a release aims for 50 to 100 entries. It never holds more than 100, and fewer than 5 does not make a release unless the dev overrides it. A heading is never counted as an entry; count the lines from the file each time. Say so when the block nears 100.
+- **Never give an entry count without counting it from the file first** (the dev, 2026-10-19: "Please record that rule in your memmory", after a count of 11 that the releaser showed was 9). Read the block, or count its lines with a command, just before saying the number, leaving out the heading and blank lines; never count from memory of what was added or from line numbers. The releaser's count is the one that matters, so the two must agree.
