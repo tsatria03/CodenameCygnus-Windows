@@ -1,5 +1,7 @@
 ##Unfinished.
 
+Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
+
 ##Finished.
 
 Settings lets you choose how far and how fast the volume keys and Left and Right go, with Volume step, Volume speed, Seek step and Seek speed.

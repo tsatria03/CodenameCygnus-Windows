@@ -11,6 +11,7 @@ metadata:
 **Its format:**
 - `##Unfinished.` on the first line, a blank line, then one item per line.
 - A blank line, then `##Finished.`, a blank line, and its items below.
+- **An empty `##Unfinished.` still has a line** (the dev, 2026-10-19), so a player hears something between the headings: "Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up." It goes as soon as a real item is added, and comes back when the last one is finished.
 - **Every heading is followed by one blank line, and a new item goes after that blank line**, at the top of the items. Never put an item straight under the heading.
 - Each item is a plain sentence or two. **A bug is stated as what happens**, with no "Fix a bug where" in front.
 - **Every sentence ends with a period**, the last one in an item included (the dev, 2026-10-19: "Please make sure change logs and todo list entries contain periods at the end of each centince").
